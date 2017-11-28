@@ -1,5 +1,25 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { connectRoutes } from 'redux-first-router';
+import createHistory from 'history/createBrowserHistory';
 
-const store = createStore();
+import routes from './routes';
+
+// Setup Redux Devtools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const history = createHistory();
+
+const {
+    reducer: locationReducer,
+    middleware: locationMiddleware,
+    enhancer: locationEnhancer
+} = connectRoutes(history, routes);
+
+const middleware = applyMiddleware(locationMiddleware);
+
+const store = createStore(
+    combineReducers({ location: locationReducer }),
+    composeEnhancers(locationEnhancer, middleware)
+);
 
 export default store;
