@@ -3,6 +3,7 @@ import { connectRoutes } from 'redux-first-router';
 import createHistory from 'history/createBrowserHistory';
 
 import routes from './routes';
+import reducers from './reducers/index';
 
 // Setup Redux Devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -18,7 +19,7 @@ const {
 const middleware = applyMiddleware(locationMiddleware);
 
 const store = createStore(
-    combineReducers({ location: locationReducer }),
+    combineReducers({ location: locationReducer, ...reducers }),
     composeEnhancers(locationEnhancer, middleware)
 );
 
