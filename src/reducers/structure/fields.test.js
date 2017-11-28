@@ -1,6 +1,6 @@
-import reducer from './page';
+import reducer from './fields';
 
-describe('reducers/page', () => {
+describe('reducers/fields', () => {
     it('should return the initial state', () => {
         const expectedState = {};
         const state = reducer();

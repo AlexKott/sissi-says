@@ -1,22 +1,16 @@
 // Mock data: makes test fail
-const initialState = [
-    {
-        key: 'title',
-        label: 'Seitentitel',
-        type: 'string',
+const initialState = {
+    standard: {
+        label: 'Standard',
+        fields: ['title', 'backgroundImage', 'slug'],
+        isProtected: false,
     },
-    {
-        key: 'backgroundImage',
-        label: 'Hintergrundbild',
-        type: 'image',
+    contact: {
+        label: 'Kontakt',
+        fields: ['title', 'backgroundImage', 'slug'],
+        isProtected: true,
     },
-    {
-        key: 'slug',
-        label: 'Route',
-        placeholder: '/coaching',
-        type: 'string',
-    },
-];
+};
 
 export default (state = initialState, action = {}) => {
     return state;

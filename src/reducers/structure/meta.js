@@ -1,16 +1,7 @@
 // Mock data: makes test fail
-const initialState = [
-    {
-        key: 'title',
-        label: 'Name der Website',
-        type: 'string',
-    },
-    {
-        key: 'description',
-        label: 'Kurze Beschreibung der Website',
-        type: 'text',
-    },
-];
+const initialState = {
+    fields: ['metaTitle', 'metaDescription'],
+};
 
 export default (state = initialState, action = {}) => {
     return state;
