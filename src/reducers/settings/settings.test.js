@@ -6,5 +6,5 @@ describe('reducers/settings', () => {
         const state = reducer();
 
         expect(state).toEqual(expectedState);
-    })
-})
+    });
+});
