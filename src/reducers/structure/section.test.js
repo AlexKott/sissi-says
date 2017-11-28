@@ -9,6 +9,7 @@ describe('reducers/section', () => {
             expect(state).toEqual(expectedState);
         });
     });
+    
     describe('elements', () => {
         it('should return the initial state', () => {
             const expectedState = [];

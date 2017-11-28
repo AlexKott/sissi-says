@@ -13,56 +13,56 @@ const initialStateTypes = [
         label: 'Kontaktformular',
         elements: ['title'],
         isProtected: true,
-    }
+    },
 ];
 
-function types(state = initialStateSections, action = {}) {
+const types = (state = initialStateTypes, action = {}) => {
     return state;
 }
 
 // Mock data: makes test fail
 const initialStateElements = [
     {
-      key: 'title',
-      label: 'Titel',
-      type: 'string',
+        key: 'title',
+        label: 'Titel',
+        type: 'string',
     },
     {
-      key: 'content',
-      label: 'Inhalte',
-      type: 'markdown'
+        key: 'content',
+        label: 'Inhalte',
+        type: 'markdown',
     },
     {
-      key: 'horizontalPosition',
-      label: 'Position (horizontal)',
-      type: 'choice',
-      choices: [
-        { key: 'left', label: 'Links' },
-        { key: 'right', label: 'Rechts' }
-      ]
+        key: 'horizontalPosition',
+        label: 'Position (horizontal)',
+        type: 'choice',
+        choices: [
+            { key: 'left', label: 'Links' },
+            { key: 'right', label: 'Rechts' },
+        ],
     },
     {
-      key: 'verticalPosition',
-      label: 'Scrollposition (vertikal)',
-      type: 'choice',
-      choices: [
-        { key: 'standard', label: 'Standard' },
-        { key: 'high', label: 'Hoch' },
-        { key: 'centered', label: 'Auf Seite zentriert' }
-      ]
+        key: 'verticalPosition',
+        label: 'Scrollposition (vertikal)',
+        type: 'choice',
+        choices: [
+            { key: 'standard', label: 'Standard' },
+            { key: 'high', label: 'Hoch' },
+            { key: 'centered', label: 'Auf Seite zentriert' },
+        ],
     },
     {
-      key: 'width',
-      label: 'Breite',
-      type: 'choice',
-      choices: [
-        { key: 'standard', label: 'Standard' },
-        { key: 'wide', label: 'Breit' }
-      ]
-    }
+        key: 'width',
+        label: 'Breite',
+        type: 'choice',
+        choices: [
+            { key: 'standard', label: 'Standard' },
+            { key: 'wide', label: 'Breit' },
+        ],
+    },
 ];
 
-function elements(state = initialStateElements, action = {}) {
+const elements = (state = initialStateElements, action = {}) => {
     return state;
 }
 

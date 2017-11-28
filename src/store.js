@@ -13,7 +13,7 @@ const history = createHistory();
 const {
     reducer: locationReducer,
     middleware: locationMiddleware,
-    enhancer: locationEnhancer
+    enhancer: locationEnhancer,
 } = connectRoutes(history, routes);
 
 const middleware = applyMiddleware(locationMiddleware);
