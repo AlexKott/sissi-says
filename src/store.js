@@ -4,10 +4,13 @@ import createHistory from 'history/createBrowserHistory';
 
 import routes from './router/routes';
 import routerOptions from './router/options';
-import * as reducers from './reducers/index';
+import * as reducers from './reducers';
+import * as middlewares from './middleware';
 
 // Setup Redux Devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const customMiddleware = Object.values(middlewares);
 
 const history = createHistory();
 
@@ -17,7 +20,7 @@ const {
     enhancer: locationEnhancer,
 } = connectRoutes(history, routes, routerOptions);
 
-const middleware = applyMiddleware(locationMiddleware);
+const middleware = applyMiddleware(locationMiddleware, ...customMiddleware);
 
 const store = createStore(
     combineReducers({ location: locationReducer, ...reducers }),
