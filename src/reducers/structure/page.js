@@ -15,3 +15,9 @@ const initialState = {
 export default (state = initialState, action = {}) => {
     return state;
 }
+
+export function getProtectedPages(state) {
+    return Object.entries(state.structure.page)
+            .filter(entry => entry[1].isProtected)
+            .map(entry => entry[0]);
+}

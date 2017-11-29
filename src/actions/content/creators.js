@@ -5,3 +5,10 @@ export function setInitialContent() {
         type: t.SET_INITIAL_CONTENT,
     };
 }
+
+export function addPage(type) {
+    return {
+        type: t.ADD_PAGE,
+        payload: { type },
+    };
+}

@@ -11,3 +11,11 @@ const initialState = {
 export default (state = initialState, action = {}) => {
     return state;
 };
+
+export function getMinPages(state) {
+    return state.settings.minPages;
+}
+
+export function getMinSectionsPerPage(state) {
+    return state.settings.minSectionsPerPage;
+}

@@ -9,3 +9,7 @@ export default combineReducers({
     pages,
     sections,
 });
+
+export * from './meta';
+export * from './pages';
+export * from './sections';
