@@ -4,7 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import routes from './router/routes';
 import routerOptions from './router/options';
-import reducers from './reducers/index';
+import * as reducers from './reducers/index';
 
 // Setup Redux Devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
