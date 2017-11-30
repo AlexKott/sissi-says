@@ -2,29 +2,29 @@ import * as t from '../actions/types';
 import * as selectors from '../reducers/selectors';
 import * as actions from '../actions/creators';
 
-export default (store) => next => action => {
-    const state = store.getState();
+export default ({ dispatch, getState }) => next => action => {
     const { type, payload } = action;
 
     if (type === t.ADD_PAGE) {
         const pageType = payload.type ? payload.type : 'standard';
-        const fields = selectors.getPageFields(state, pageType);
-        const protectedSections = selectors.getProtectedSectionsForPage(state, pageType);
-        const minSectionsPerPage = selectors.getMinSectionsPerPage(state);
+        const fields = selectors.getPageFields(getState(), pageType);
+        const protectedSections = selectors.getProtectedSectionsForPage(getState(), pageType);
+        const minSectionsPerPage = selectors.getMinSectionsPerPage(getState());
 
+        const pageId = `page_${Math.random()}`;
         const newPage = {};
-        newPage.id = 'page_01';
         newPage.sections = [];
         fields.forEach(field => newPage[field] = '');
 
+        payload.pageId = pageId;
         payload.page = newPage;
         next(action);
 
-        protectedSections.forEach(section => store.dispatch(actions.addSection(newPage.id, section)));
+        protectedSections.forEach(section => dispatch(actions.addSection(newPage.id, section)));
 
-        // while (minSectionsPerPage > selectors.getNumberOfSections(state, newPage.id)) {
+        // while (minSectionsPerPage > selectors.getNumberOfSections(getState(), newPage.id)) {
         while (false) {
-            store.dispatch(actions.addSection(newPage.id));
+            dispatch(actions.addSection(newPage.id));
         }
 
     } else {
