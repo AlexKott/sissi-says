@@ -22,11 +22,11 @@ export default ({ dispatch, getState }) => next => action => {
         next(action);
 
         // add required sections
-        protectedSections.forEach(section => dispatch(actions.addSection(newPage.id, section)));
+        protectedSections.forEach(section => dispatch(actions.addSection(pageId, section)));
 
         // while (minSectionsPerPage > selectors.getNumberOfSections(getState(), newPage.id)) {
         while (false) {
-            dispatch(actions.addSection(newPage.id));
+            dispatch(actions.addSection(pageId));
         }
 
     } else {

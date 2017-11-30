@@ -13,9 +13,9 @@ export function addPage(type) {
     };
 }
 
-export function addSection(page, type) {
+export function addSection(pageId, type) {
     return {
         type: t.ADD_SECTION,
-        payload: { page, type },
+        payload: { pageId, type },
     };
 }

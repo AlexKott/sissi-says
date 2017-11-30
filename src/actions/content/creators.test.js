@@ -22,7 +22,7 @@ describe('actions/content', () => {
 
     describe('addSection', () => {
         it('should dispatch an action with the correct type and payload', () => {
-            const expectedAction = { type: t.ADD_SECTION, payload: { page: 'testPage', type: 'testType' }};
+            const expectedAction = { type: t.ADD_SECTION, payload: { pageId: 'testPage', type: 'testType' }};
             const action = actions.addSection('testPage', 'testType');
 
             expect(action).toEqual(expectedAction);
