@@ -12,3 +12,10 @@ export function addPage(type) {
         payload: { type },
     };
 }
+
+export function addSection(page, type) {
+    return {
+        type: t.ADD_SECTION,
+        payload: { page, type },
+    };
+}

@@ -16,7 +16,6 @@ export default (store) => next => action => {
         while (false) {
             store.dispatch(actions.addPage());
         }
-
     } else {
         return next(action);
     }

@@ -1,12 +1,12 @@
 // Mock data: makes test fail
 const initialState = {
     standard: {
-        label: 'Standard',
+        label: 'Standardseite',
         fields: ['title', 'backgroundImage', 'slug'],
         isProtected: false,
     },
     contact: {
-        label: 'Kontakt',
+        label: 'Kontaktseite',
         fields: ['title', 'backgroundImage', 'slug'],
         isProtected: true,
     },
@@ -20,4 +20,8 @@ export function getProtectedPages(state) {
     return Object.entries(state.structure.page)
             .filter(entry => entry[1].isProtected)
             .map(entry => entry[0]);
+}
+
+export function getPageFields(state, page) {
+    return state.structure.page[page].fields;
 }

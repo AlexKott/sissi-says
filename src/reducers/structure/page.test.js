@@ -19,9 +19,25 @@ describe('reducers/page', () => {
                     },
                 },
             };
-
             const value = selectors.getProtectedPages(mockState);
+
             expect(value).toEqual(['testPageOne', 'testPageThree']);
+        });
+    });
+
+    describe('getPageFields', () => {
+        it('should return the fields of the specified page', () => {
+            const mockState = {
+                structure: {
+                    page: {
+                        testPageOne: { fields: ['a', 'b', 'c']},
+                        testPageTwo: { fields: [1, 2, 3]},
+                    },
+                },
+            };
+            const value = selectors.getPageFields(mockState, 'testPageOne');
+
+            expect(value).toEqual(['a', 'b', 'c']);
         });
     });
 });
