@@ -15,6 +15,6 @@ export default ({ dispatch, getState }) => next => action => {
             dispatch(actions.addPage());
         }
     } else {
-        return next(action);
+        next(action);
     }
 }

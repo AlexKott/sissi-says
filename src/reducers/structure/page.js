@@ -8,6 +8,7 @@ const initialState = {
     contact: {
         label: 'Kontaktseite',
         fields: ['title', 'backgroundImage', 'slug'],
+        requiredSections: ['contactForm'],
         isProtected: true,
     },
 };
@@ -23,5 +24,9 @@ export function getProtectedPages(state) {
 }
 
 export function getPageFields(state, page) {
-    return state.structure.page[page].fields;
+    return state.structure.page[page].fields || [];
+}
+
+export function getRequiredSections(state, page) {
+    return state.structure.page[page].requiredSections || [];
 }

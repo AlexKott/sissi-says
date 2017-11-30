@@ -6,11 +6,12 @@ export default ({ dispatch, getState }) => next => action => {
     const { type, payload } = action;
 
     if (type === t.ADD_PAGE) {
-        const pageType = payload.type ? payload.type : 'standard';
+        const pageType = payload.type || 'standard';
         const fields = selectors.getPageFields(getState(), pageType);
         const protectedSections = selectors.getProtectedSectionsForPage(getState(), pageType);
         const minSectionsPerPage = selectors.getMinSectionsPerPage(getState());
 
+        // create the new page
         const pageId = `page_${Math.random()}`;
         const newPage = {};
         newPage.sections = [];
@@ -20,6 +21,7 @@ export default ({ dispatch, getState }) => next => action => {
         payload.page = newPage;
         next(action);
 
+        // add required sections
         protectedSections.forEach(section => dispatch(actions.addSection(newPage.id, section)));
 
         // while (minSectionsPerPage > selectors.getNumberOfSections(getState(), newPage.id)) {
@@ -28,6 +30,6 @@ export default ({ dispatch, getState }) => next => action => {
         }
 
     } else {
-        return next(action);
+        next(action);
     }
 }
