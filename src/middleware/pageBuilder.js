@@ -14,10 +14,10 @@ export default ({ dispatch, getState }) => next => action => {
     // create the new page
     const pageId = `page_${Math.random()}`;
     const newPage = {};
+    newPage.id = pageId;
     newPage.sections = [];
     fields.forEach(field => newPage[field] = '');
 
-    payload.pageId = pageId;
     payload.page = newPage;
     next(action);
 
