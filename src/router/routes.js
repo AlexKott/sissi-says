@@ -3,13 +3,13 @@ const ROUTE_PAGE = 'routes/PAGE';
 const ROUTE_SECTION = 'routes/SECTION';
 
 export default {
-    [ROUTE_INDEX]: {
-        path: '/',
-    },
-    [ROUTE_PAGE]: {
-        path: '/page/:id',
-    },
-    [ROUTE_SECTION]: {
-        path: '/section/:id',
-    },
+  [ROUTE_INDEX]: {
+    path: '/',
+  },
+  [ROUTE_PAGE]: {
+    path: '/page/:pageId',
+  },
+  [ROUTE_SECTION]: {
+    path: '/page/:pageId/section/:sectionId',
+  },
 };
