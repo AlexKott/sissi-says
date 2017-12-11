@@ -1,21 +1,21 @@
 // Mock data: makes test fail
 const initialState = {
-    projectName: 'beratungundbegleitung.at',
-    language: 'EN',
-    maxPages: 5,
-    minPages: 3,
-    maxSectionsPerPage: 6,
-    minSectionsPerPage: 1,
+  projectName: 'beratungundbegleitung.at',
+  language: 'EN',
+  maxPages: 5,
+  minPages: 3,
+  maxSectionsPerPage: 6,
+  minSectionsPerPage: 1,
 };
 
 export default (state = initialState, action = {}) => {
-    return state;
+  return state;
 };
 
 export function getMinPages(state) {
-    return state.settings.minPages;
+  return state.settings.minPages;
 }
 
 export function getMinSectionsPerPage(state) {
-    return state.settings.minSectionsPerPage;
+  return state.settings.minSectionsPerPage;
 }
