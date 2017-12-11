@@ -5,9 +5,9 @@ import pages from './pages';
 import sections from './sections';
 
 export default combineReducers({
-    meta,
-    pages,
-    sections,
+  meta,
+  pages,
+  sections,
 });
 
 export * from './meta';

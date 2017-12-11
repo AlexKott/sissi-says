@@ -4,7 +4,7 @@ export default (state = [], action = {}) => {
   const { type, payload } = action;
 
   if (type === t.SET_INITIAL_CONTENT) {
-    return Object.assign({}, state, payload.meta);
+    return payload.meta;
   }
 
   return state;
