@@ -24,7 +24,7 @@ describe('selectors/content/sections', () => {
       const mockState = { content: { sections: { section1: 'testSection1', section2: 'testSection2' }}};
       const value = selectors.getSectionById(mockState, 'section1');
 
-      expect(value).toBe('testSection2');
+      expect(value).toBe('testSection1');
     });
   });
 });

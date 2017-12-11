@@ -2,17 +2,17 @@ import { combineReducers } from 'redux';
 
 import fields from './fields';
 import meta from './meta';
-import page from './page';
-import section from './section';
+import pages from './pages';
+import sections from './sections';
 
 export default combineReducers({
-    fields,
-    meta,
-    page,
-    section,
+  fields,
+  meta,
+  pages,
+  sections,
 });
 
 export * from './fields';
 export * from './meta';
-export * from './page';
-export * from './section';
+export * from './pages';
+export * from './sections';

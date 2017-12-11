@@ -1,4 +1,4 @@
-import * as selectors from '../selectors';
+import { getRequiredSections } from './pages';
 
 // Mock data: makes test fail
 const initialState = {
@@ -19,17 +19,17 @@ export default (state = initialState, action = {}) => {
 }
 
 export function getProtectedSections(state) {
-  return Object.entries(state.structure.section)
+  return Object.entries(state.structure.sections)
   .filter(entry => entry[1].isProtected)
   .map(entry => entry[0]);
 }
 
-export function getProtectedSectionsForPage(state, pageType, getters = selectors) {
-  const requiredSections = getters.getRequiredSections(state, pageType);
+export function getProtectedSectionsForPage(state, pageType, selectRequiredSections = getRequiredSections) {
+  const requiredSections = selectRequiredSections(state, pageType);
   const protectedSections = getProtectedSections(state);
   return requiredSections.filter(entry => protectedSections.indexOf(entry) !== -1);
 }
 
 export function getSectionFields(state, section) {
-  return state.structure.section[section].fields;
+  return state.structure.sections[section].fields;
 }
