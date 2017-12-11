@@ -30,7 +30,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       (elementId) => dispatch(redirect({ type: routes.ROUTE_PAGE, payload: { pageId: elementId }}));
   } else if (ownProps.type === 'section') {
     onSelectElement =
-      (elementId) => dispatch(redirect({ type: routes.ROUTE_SECTION, payload: { sectionId: elementId }}));
+      (elementId) => dispatch(redirect({
+        type: routes.ROUTE_SECTION,
+        payload: { pageId: ownProps.selectedPage, sectionId: elementId },
+      }));
   }
 
   return {
