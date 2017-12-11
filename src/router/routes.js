@@ -1,6 +1,6 @@
-const ROUTE_INDEX = 'routes/INDEX';
-const ROUTE_PAGE = 'routes/PAGE';
-const ROUTE_SECTION = 'routes/SECTION';
+export const ROUTE_INDEX = 'routes/INDEX';
+export const ROUTE_PAGE = 'routes/PAGE';
+export const ROUTE_SECTION = 'routes/SECTION';
 
 export default {
   [ROUTE_INDEX]: {
