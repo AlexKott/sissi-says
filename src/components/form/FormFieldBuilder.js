@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 
+import Select from './Select';
+
 const mapStateToProps = (state, ownProps) => {
   let component;
   let type;
@@ -19,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
       break;
 
     case 'choice':
-      component = 'select';
+      component = Select;
       options = ownProps.fieldStructure.choices;
       break;
 
