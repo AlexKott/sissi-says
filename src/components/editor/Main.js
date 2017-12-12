@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { reduxForm } from 'redux-form';
 
 import * as selectors from '../../reducers/selectors';
 
@@ -25,4 +27,7 @@ const Main = ({
   </section>
 );
 
-export default connect(mapStateToProps)(Main);
+export default compose(
+  connect(mapStateToProps),
+  reduxForm({ form: 'meta' })
+)(Main);

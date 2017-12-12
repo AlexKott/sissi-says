@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { connectRoutes } from 'redux-first-router';
 import createHistory from 'history/createBrowserHistory';
+import { reducer as formReducer } from 'redux-form';
 
 import routes from './router/routes';
 import routerOptions from './router/options';
@@ -23,7 +24,7 @@ const {
 const middleware = applyMiddleware(locationMiddleware, ...customMiddleware);
 
 const store = createStore(
-    combineReducers({ location: locationReducer, ...reducers }),
+    combineReducers({ location: locationReducer, form: formReducer, ...reducers }),
     composeEnhancers(locationEnhancer, middleware)
 );
 
