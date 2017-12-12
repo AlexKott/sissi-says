@@ -1,3 +1,5 @@
+import { getFieldByName } from './fields';
+
 // Mock data: makes test fail
 const initialState = {
   fields: ['metaTitle', 'metaDescription'],
@@ -7,6 +9,13 @@ export default (state = initialState, action = {}) => {
   return state;
 }
 
-export function getMetaFields(state) {
+export function getMetaFieldNames(state) {
   return state.structure.meta.fields;
+}
+
+export function getMetaFields(state, selectFieldByName = getFieldByName) {
+  const fieldArray = [];
+  const fieldNames = getMetaFieldNames(state);
+  fieldNames.forEach(fieldName => fieldArray.push(selectFieldByName(state, fieldName)));
+  return fieldArray;
 }

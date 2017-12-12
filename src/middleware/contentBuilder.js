@@ -6,7 +6,7 @@ export default ({ dispatch, getState }) => next => action => {
   const { type } = action;
 
   if (type === t.SET_INITIAL_CONTENT) {
-    const metaFields = selectors.getMetaFields(getState());
+    const metaFields = selectors.getMetaFieldNames(getState());
     const minPages = selectors.getMinPages(getState());
     const protectedPages = selectors.getProtectedPages(getState());
 

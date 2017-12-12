@@ -54,3 +54,8 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   return state;
 }
+
+export function getFieldByName(state, fieldName) {
+  const field = state.structure.fields[fieldName];
+  return Object.assign({}, { [fieldName]: field });
+}
