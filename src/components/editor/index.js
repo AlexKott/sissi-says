@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
@@ -42,6 +43,12 @@ const Editor = ({
     })}
   </form>
 );
+
+Editor.propTypes = {
+  fields: PropTypes.array,
+  title: PropTypes.string,
+  type: PropTypes.string,
+};
 
 export default compose(
   connect(mapStateToProps),

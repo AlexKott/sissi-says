@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import NavBar from './navigation/NavBar';
@@ -31,5 +32,13 @@ const App = ({
     {displaySection && <Editor type="section" sectionId={sectionId} />}
   </div>
 );
+
+App.propTypes = {
+  displayMain: PropTypes.bool,
+  displayPage: PropTypes.bool,
+  displaySection: PropTypes.bool,
+  pageId: PropTypes.string,
+  sectionId: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(App);

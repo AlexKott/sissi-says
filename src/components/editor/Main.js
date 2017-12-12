@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
@@ -27,6 +28,10 @@ const Main = ({
     <p>If you get stuck – sissi's always here to help!</p>
   </section>
 );
+
+Main.propTypes = {
+  fields: PropTypes.array,
+};
 
 export default compose(
   connect(mapStateToProps),

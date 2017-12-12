@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { redirect } from 'redux-first-router';
 
@@ -57,5 +58,12 @@ const NavBar = ({
     ))}
   </nav>
 );
+
+NavBar.propTypes = {
+  type: PropTypes.string,
+  selectedElement: PropTypes.string,
+  elements: PropTypes.array,
+  onSelectElement: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

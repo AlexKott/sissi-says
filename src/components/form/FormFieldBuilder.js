@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 
@@ -21,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
       component = 'select';
       options = ownProps.fieldStructure.choices;
       break;
-      
+
     default:
       component = 'input';
       type = 'text';
@@ -45,5 +46,11 @@ const FormFieldBuilder = ({
     />
   </label>
 );
+
+FormFieldBuilder.propTypes = {
+  fieldName: PropTypes.string,
+  fieldStructure: PropTypes.object,
+  fieldProps: PropTypes.object,
+};
 
 export default connect(mapStateToProps)(FormFieldBuilder);
