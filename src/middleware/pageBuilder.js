@@ -12,7 +12,7 @@ export default ({ dispatch, getState }) => next => action => {
     const minSectionsPerPage = selectors.getMinSectionsPerPage(getState());
 
     // create the new page
-    const pageId = `page_${Math.random()}`;
+    const pageId = Math.random().toString(36).substring(2, 9);
     const newPage = {};
     newPage.id = pageId;
     newPage.pageType = pageType;
