@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 const Select = ({
   options,
+  input,
 }) => (
-  <select>
+  <select {...input}>
     {options.map(option => (
       <option key={Math.random().toString(36).substring(2, 9)} value={option.key}>{option.label}</option>
     ))}

@@ -25,6 +25,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     fields,
     title,
+    form: `editor-${ownProps.type}`,
   };
 };
 
@@ -52,5 +53,5 @@ Editor.propTypes = {
 
 export default compose(
   connect(mapStateToProps),
-  reduxForm({ form: 'editor' })
+  reduxForm({}, mapStateToProps)
 )(Editor);
