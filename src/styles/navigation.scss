@@ -1,0 +1,43 @@
+.nav {
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav--page {
+  background-color: $color-main-dark;
+}
+
+.nav--section {
+  background-color: $color-main-medium;
+}
+
+.nav__element {
+  margin: 0 20px 20px 20px;
+  padding: 20px;
+  border: none;
+  border-radius: 0;
+
+  font-size: 14px;
+}
+
+.nav__element:first-child {
+  margin-top: 20px;
+}
+
+.nav__element:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.nav__element--page {
+  background-color: $color-main-medium;
+}
+
+.nav__element--section {
+  background-color: $color-main-light;
+}
+
+.nav__element--selected {
+  margin-right: 0;
+}

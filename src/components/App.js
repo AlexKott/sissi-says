@@ -23,7 +23,7 @@ const App = ({
   pageId,
   sectionId,
 }) => (
-  <div>
+  <div className="app">
     <NavBar type="page" selectedPage={pageId} />
     {!displayMain && <NavBar type="section" selectedPage={pageId} selectedSection={sectionId} />}
     {displayMain && <Main />}

@@ -30,8 +30,9 @@ const mapStateToProps = (state, ownProps) => {
 const Editor = ({
   fields,
   title,
+  type,
 }) => (
-  <form>
+  <form className={`editor editor--${type}`}>
     <h1>{title}</h1>
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];

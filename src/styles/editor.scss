@@ -1,0 +1,15 @@
+.editor {
+  flex-basis: 80%;
+  padding: 20px;
+  background-color: $color-main-dark;
+}
+
+.editor--page {
+  flex-basis: 60%;
+  background-color: $color-main-medium;
+}
+
+.editor--section {
+  flex-basis: 60%;
+  background-color: $color-main-light;
+}

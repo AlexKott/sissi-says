@@ -47,10 +47,11 @@ const NavBar = ({
   elements,
   onSelectElement,
 }) => (
-  <nav>
+  <nav className={`nav nav--${type}`}>
     {elements.map(element => (
       <button
         key={element.id}
+        className={`nav__element nav__element--${type} ${element.id === selectedElement ? 'nav__element--selected' : ''}`}
         onClick={() => onSelectElement(element.id)}
       >{element.title || `new ${type}`}</button>
     ))}
