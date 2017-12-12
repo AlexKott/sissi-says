@@ -35,9 +35,10 @@ const Editor = ({
   <form className={`editor editor--${type}`}>
     <h1>{title}</h1>
     {fields.map(field => {
+      const fieldId = Math.random().toString(36).substring(2, 9);
       const fieldName = Object.keys(field)[0];
       const fieldStructure = field[fieldName];
-      return (<FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />)
+      return (<FormFieldBuilder key={fieldId} fieldName={fieldName} fieldStructure={fieldStructure} />)
     })}
   </form>
 );
