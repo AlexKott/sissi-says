@@ -27,7 +27,7 @@ describe('selectors/structure/pages', () => {
     });
   });
 
-  describe('getPageFields', () => {
+  describe('getPageFieldNames', () => {
     it('should return the fields of the specified page', () => {
       const mockState = {
         structure: {
@@ -37,9 +37,33 @@ describe('selectors/structure/pages', () => {
           },
         },
       };
-      const value = selectors.getPageFields(mockState, 'testPageOne');
+      const value = selectors.getPageFieldNames(mockState, 'testPageOne');
 
       expect(value).toEqual(['a', 'b', 'c']);
+    });
+  });
+
+  describe('getPageFields', () => {
+    const mockState = { structure: { pages: { testPage: { fields: ['field1', 'field2'] }}}};
+    const mockGetFieldByName = jest.fn((x, name) => {
+      if (name === 'field1') {
+        return { field1: { label1: 'testLabel' }};
+      } else if (name === 'field2') {
+        return { field2: { label2: 'testLabel2' }};
+      }
+    });
+    it('should collect values from the right spot', () => {
+      selectors.getPageFields(mockState, 'testPage', mockGetFieldByName);
+
+      expect(mockGetFieldByName.mock.calls).toHaveLength(2);
+      expect(mockGetFieldByName.mock.calls[0][1]).toBe('field1');
+      expect(mockGetFieldByName.mock.calls[1][1]).toBe('field2');
+    });
+
+    it('should return an array with fields', () => {
+      const value = selectors.getPageFields(mockState, 'testPage', mockGetFieldByName);
+
+      expect(value).toEqual([{ field1: { label1: 'testLabel' }}, { field2: { label2: 'testLabel2' }}]);
     });
   });
 

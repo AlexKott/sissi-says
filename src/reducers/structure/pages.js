@@ -1,3 +1,5 @@
+import { getFieldByName } from './fields';
+
 // Mock data: makes test fail
 const initialState = {
   standard: {
@@ -23,8 +25,15 @@ export function getProtectedPages(state) {
     .map(entry => entry[0]);
 }
 
-export function getPageFields(state, page) {
+export function getPageFieldNames(state, page) {
   return state.structure.pages[page].fields || [];
+}
+
+export function getPageFields(state, page, selectFieldByName = getFieldByName) {
+  const fieldArray = [];
+  const fieldNames = getPageFieldNames(state, page);
+  fieldNames.forEach(fieldName => fieldArray.push(selectFieldByName(state, fieldName)));
+  return fieldArray;
 }
 
 export function getRequiredSections(state, page) {

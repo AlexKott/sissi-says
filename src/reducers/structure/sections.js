@@ -1,4 +1,5 @@
 import { getRequiredSections } from './pages';
+import { getFieldByName } from './fields';
 
 // Mock data: makes test fail
 const initialState = {
@@ -30,6 +31,13 @@ export function getProtectedSectionsForPage(state, pageType, selectRequiredSecti
   return requiredSections.filter(entry => protectedSections.indexOf(entry) !== -1);
 }
 
-export function getSectionFields(state, section) {
+export function getSectionFieldNames(state, section) {
   return state.structure.sections[section].fields;
+}
+
+export function getSectionFields(state, section, selectFieldByName = getFieldByName) {
+  const fieldArray = [];
+  const fieldNames = getSectionFieldNames(state, section);
+  fieldNames.forEach(fieldName => fieldArray.push(selectFieldByName(state, fieldName)));
+  return fieldArray;
 }
