@@ -15,6 +15,7 @@ export default ({ dispatch, getState }) => next => action => {
     const pageId = `page_${Math.random()}`;
     const newPage = {};
     newPage.id = pageId;
+    newPage.pageType = pageType;
     newPage.sections = [];
     fields.forEach(field => newPage[field] = '');
 

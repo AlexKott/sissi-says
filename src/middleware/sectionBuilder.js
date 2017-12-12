@@ -10,6 +10,7 @@ export default ({ dispatch, getState }) => next => action => {
 
     const sectionId = `section_${Math.random()}`;
     const newSection = {};
+    newSection.sectionType = sectionType;
     fields.forEach(field => newSection[field] = '');
 
     payload.sectionId = sectionId;
