@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { reduxForm } from 'redux-form';
 
 import * as selectors from '../../reducers/selectors';
 
 import Form from '@/components/form/Form';
-import FormFieldBuilder from '../form/FormFieldBuilder';
 
 const mapStateToProps = (state, ownProps) => {
   let fields = [];

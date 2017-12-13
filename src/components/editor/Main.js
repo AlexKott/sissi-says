@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as selectors from '../../reducers/selectors';
 
 import Form from '@/components/form/Form';
-import FormFieldBuilder from '../form/FormFieldBuilder';
 
 const mapStateToProps = (state) => ({
   fields: selectors.getMetaFields(state),
