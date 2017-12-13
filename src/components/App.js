@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as selectors from '@/reducers/selectors';
+
 import NavBar from './navigation/NavBar';
 import Main from './editor/Main';
 import Editor from './editor/Editor';
 
 const mapStateToProps = (state) => {
-  const { pageId, sectionId } = state.location.payload;
+  const pageId = selectors.getSelectedPageId(state);
+  const sectionId = selectors.getSelectedSectionId(state);
   return {
     displayMain: !pageId,
     displayPage: pageId && !sectionId,
