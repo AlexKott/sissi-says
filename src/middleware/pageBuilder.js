@@ -1,6 +1,7 @@
 import * as t from '@/actions/types';
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import getRandomString from '@/helpers/getRandomString';
 
 export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
@@ -12,7 +13,7 @@ export default ({ dispatch, getState }) => next => action => {
     const minSectionsPerPage = selectors.getMinSectionsPerPage(getState());
 
     // create the new page
-    const pageId = Math.random().toString(36).substring(2, 9);
+    const pageId = getRandomString();
     const newPage = {};
     newPage.id = pageId;
     newPage.pageType = pageType;

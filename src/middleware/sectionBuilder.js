@@ -1,5 +1,6 @@
 import * as t from '@/actions/types';
 import * as selectors from '@/reducers/selectors';
+import getRandomString from '@/helpers/getRandomString';
 
 export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
@@ -8,7 +9,7 @@ export default ({ dispatch, getState }) => next => action => {
     const sectionType = payload.type || 'standard';
     const fields = selectors.getSectionFieldNames(getState(), sectionType);
 
-    const sectionId = Math.random().toString(36).substring(2, 9);
+    const sectionId = getRandomString();
     const newSection = {};
     newSection.sectionType = sectionType;
     fields.forEach(field => newSection[field] = '');
