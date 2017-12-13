@@ -6,26 +6,30 @@ import { reduxForm } from 'redux-form';
 
 import * as selectors from '../../reducers/selectors';
 
+import Form from '@/components/form/Form';
 import FormFieldBuilder from '../form/FormFieldBuilder';
 
 const mapStateToProps = (state, ownProps) => {
   let fields = [];
   let title = 'Editor';
+  let id = '';
 
   if (ownProps.type === 'page') {
-    const page = selectors.getPageById(state, ownProps.pageId);
+    id = ownProps.pageId;
+    const page = selectors.getPageById(state, id);
     fields = selectors.getPageFields(state, page.pageType);
-    title = 'Get working on your page!';
+    title = 'Page Editor';
   } else if (ownProps.type === 'section') {
-    const section = selectors.getSectionById(state, ownProps.sectionId);
+    id = ownProps.sectionId;
+    const section = selectors.getSectionById(state, id);
     fields = selectors.getSectionFields(state, section.sectionType);
-    title = 'Now working on a section!';
+    title = 'Section Editor';
   }
 
   return {
     fields,
     title,
-    form: `editor-${ownProps.type}`,
+    formName: `editor-${ownProps.type}-${id}`,
   };
 };
 
@@ -33,25 +37,18 @@ const Editor = ({
   fields,
   title,
   type,
+  formName,
 }) => (
-  <form className={`editor editor--${type}`}>
+  <Form key={formName} className={`editor editor--${type}`} form={formName} fields={fields}>
     <h1>{title}</h1>
-    {fields.map(field => {
-      const fieldId = Math.random().toString(36).substring(2, 9);
-      const fieldName = Object.keys(field)[0];
-      const fieldStructure = field[fieldName];
-      return (<FormFieldBuilder key={fieldId} fieldName={fieldName} fieldStructure={fieldStructure} />)
-    })}
-  </form>
+  </Form>
 );
 
 Editor.propTypes = {
   fields: PropTypes.array,
   title: PropTypes.string,
   type: PropTypes.string,
+  formName: PropTypes.string,
 };
 
-export default compose(
-  connect(mapStateToProps),
-  reduxForm({}, mapStateToProps)
-)(Editor);
+export default connect(mapStateToProps)(Editor);
