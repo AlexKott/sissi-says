@@ -10,7 +10,10 @@ describe('reducers/content/pages', () => {
   });
 
   it('should add a page', () => {
-    const action = { type: t.ADD_PAGE, payload: { page: 'testPage' }};
+    const action = {
+      type: t.ADD_PAGE,
+      payload: { page: 'testPage' },
+    };
     const state = reducer(undefined, action);
 
     expect(state).toEqual(['testPage']);
@@ -18,7 +21,10 @@ describe('reducers/content/pages', () => {
 
   it('should add a section to a page', () => {
     const mockState = [{ id: 'testPage', sections: ['section1', 'section2'] }];
-    const action = { type: t.ADD_SECTION, payload: { pageId: 'testPage', sectionId: 'testSection' }};
+    const action = {
+      type: t.ADD_SECTION,
+      payload: { pageId: 'testPage', sectionId: 'testSection' },
+    };
     const state = reducer(mockState, action);
 
     expect(state).toEqual([{ id: 'testPage', sections: ['section1', 'section2', 'testSection'] }]);

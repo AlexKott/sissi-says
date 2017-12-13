@@ -10,7 +10,10 @@ describe('reducers/content/meta', () => {
   });
 
   it('should set the given initial content', () => {
-    const action = { type: t.SET_INITIAL_CONTENT, payload: { meta: ['testContent1', 'testContent2'] }};
+    const action = {
+      type: t.SET_INITIAL_CONTENT,
+      payload: { meta: ['testContent1', 'testContent2'] },
+    };
     const expectedState = ['testContent1', 'testContent2'];
     const state = reducer(null, action);
 

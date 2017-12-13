@@ -10,7 +10,10 @@ describe('reducers/content/sections', () => {
   });
 
   it('should add a section', () => {
-    const action = { type: t.ADD_SECTION, payload: { sectionId: 'section1', section: 'testContent' }};
+    const action = {
+      type: t.ADD_SECTION,
+      payload: { sectionId: 'section1', section: 'testContent' },
+    };
     const expectedState = { 'section1': 'testContent' };
     const state = reducer(null, action);
 
