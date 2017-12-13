@@ -18,7 +18,10 @@
   border: none;
   border-radius: 0;
 
+  color: $color-black;
   font-size: 14px;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
 }
 
 .nav__element:first-child {

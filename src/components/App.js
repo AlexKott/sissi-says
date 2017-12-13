@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
 
-import NavBar from './navigation/NavBar';
+import Navigation from './navigation/Navigation';
 import Main from './editor/Main';
 import Editor from './editor/Editor';
 
@@ -33,9 +33,8 @@ const App = ({
   sectionId = '',
 }) => (
   <div className='app'>
-    <NavBar type='page' selectedPage={pageId} />
+    <Navigation selectedPage={pageId} selectedSection={sectionId} />
     {displayMain && <Main />}
-    {!displayMain && <NavBar type='section' selectedPage={pageId} selectedSection={sectionId} />}
     {!displayMain && <Editor type={displayType} pageId={pageId} sectionId={sectionId} />}
   </div>
 );
