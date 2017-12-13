@@ -11,10 +11,16 @@ import Editor from './editor/Editor';
 const mapStateToProps = (state) => {
   const pageId = selectors.getSelectedPageId(state);
   const sectionId = selectors.getSelectedSectionId(state);
+  let displayType = '';
+
+  if (pageId && sectionId === undefined) {
+    displayType = 'page';
+  } else if (pageId && sectionId) {
+    displayType = 'section';
+  }
   return {
-    displayMain: !pageId,
-    displayPage: pageId && !sectionId,
-    displaySection: pageId && sectionId,
+    displayMain: displayType === '',
+    displayType,
     pageId,
     sectionId,
   };
@@ -22,24 +28,21 @@ const mapStateToProps = (state) => {
 
 const App = ({
   displayMain = true,
-  displayPage = false,
-  displaySection = false,
+  displayType = '',
   pageId = '',
   sectionId = '',
 }) => (
   <div className='app'>
     <NavBar type='page' selectedPage={pageId} />
-    {!displayMain && <NavBar type='section' selectedPage={pageId} selectedSection={sectionId} />}
     {displayMain && <Main />}
-    {displayPage && <Editor type='page' pageId={pageId} />}
-    {displaySection && <Editor type='section' sectionId={sectionId} />}
+    {!displayMain && <NavBar type='section' selectedPage={pageId} selectedSection={sectionId} />}
+    {!displayMain && <Editor type={displayType} pageId={pageId} sectionId={sectionId} />}
   </div>
 );
 
 App.propTypes = {
   displayMain: PropTypes.bool,
-  displayPage: PropTypes.bool,
-  displaySection: PropTypes.bool,
+  displayType: PropTypes.string,
   pageId: PropTypes.string,
   sectionId: PropTypes.string,
 };
