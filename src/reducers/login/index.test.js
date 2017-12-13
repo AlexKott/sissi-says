@@ -1,5 +1,5 @@
 import reducer, * as selectors from './index';
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 
 describe('reducers/login', () => {
   it('should return the initial state', () => {

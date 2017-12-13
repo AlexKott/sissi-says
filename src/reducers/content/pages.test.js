@@ -1,5 +1,5 @@
 import reducer, * as selectors from './pages';
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 
 describe('reducers/content/pages', () => {
   it('should return the initial state', () => {

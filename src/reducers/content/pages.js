@@ -1,4 +1,4 @@
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 import { getSectionById } from './sections';
 
 export default (state = [], action = {}) => {

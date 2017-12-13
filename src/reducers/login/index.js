@@ -1,4 +1,4 @@
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 
 const initialState = {
   isContentLoaded: false,

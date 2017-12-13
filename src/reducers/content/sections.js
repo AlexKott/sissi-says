@@ -1,4 +1,4 @@
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 
 export default (state = {}, action = {}) => {
   const { type, payload } = action;

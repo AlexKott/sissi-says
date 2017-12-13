@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { redirect } from 'redux-first-router';
 
-import * as selectors from '../../reducers/selectors';
-import * as routes from '../../router/routes';
+import * as selectors from '@/reducers/selectors';
+import * as routes from '@/router/routes';
 
 const mapStateToProps = (state, ownProps) => {
   let elements = [];

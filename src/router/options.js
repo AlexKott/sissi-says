@@ -1,5 +1,5 @@
-import * as actions from '../actions/creators';
-import * as selectors from '../reducers/selectors';
+import * as actions from '@/actions/creators';
+import * as selectors from '@/reducers/selectors';
 
 export default {
   onBeforeChange(dispatch, getState) {

@@ -1,5 +1,5 @@
 import reducer from './meta';
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 
 describe('reducers/content/meta', () => {
   it('should return the initial state', () => {

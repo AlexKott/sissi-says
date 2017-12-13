@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 
-import FormFieldBuilder from '../form/FormFieldBuilder';
+import FormFieldBuilder from './FormFieldBuilder';
 
 const Form = ({
   children,

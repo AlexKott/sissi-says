@@ -1,5 +1,5 @@
 import reducer, * as selectors from './sections';
-import * as t from '../../actions/types';
+import * as t from '@/actions/types';
 
 describe('reducers/content/sections', () => {
   it('should return the initial state', () => {

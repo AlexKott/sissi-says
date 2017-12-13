@@ -1,5 +1,5 @@
-import * as t from '../actions/types';
-import * as selectors from '../reducers/selectors';
+import * as t from '@/actions/types';
+import * as selectors from '@/reducers/selectors';
 
 export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
