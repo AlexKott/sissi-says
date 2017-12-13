@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 });
 
 const Main = ({
-  fields,
+  fields = [],
 }) => (
   <section className="editor">
     <h1>Welcome to your Website Manager!</h1>

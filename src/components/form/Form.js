@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 
 import FormFieldBuilder from '../form/FormFieldBuilder';
 
-const Form = ({ className, children, fields }) => (
+const Form = ({
+  children,
+  className = '',
+  fields = [],
+}) => (
   <form className={className}>
     {children}
     {fields.map(field => {
@@ -13,6 +18,12 @@ const Form = ({ className, children, fields }) => (
     })}
   </form>
 );
+
+Form.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  fields: PropTypes.array,
+}
 
 export default reduxForm({
   destroyOnUnmount: false,

@@ -31,10 +31,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const Editor = ({
-  fields,
-  title,
-  type,
-  formName,
+  fields = [],
+  title = '',
+  type = '',
+  formName = '',
 }) => (
   <Form key={formName} className={`editor editor--${type}`} form={formName} fields={fields}>
     <h1>{title}</h1>

@@ -43,9 +43,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const NavBar = ({
-  type,
-  selectedElement,
-  elements,
+  type = '',
+  selectedElement = '',
+  elements = [],
   onSelectElement,
 }) => (
   <nav className={`nav nav--${type}`}>

@@ -5,12 +5,12 @@ import { Field } from 'redux-form';
 
 import Select from './Select';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, { fieldStructure = {} }) => {
   let component;
-  let type;
-  let options;
+  let type = '';
+  let options = [];
 
-  switch(ownProps.fieldStructure.type) {
+  switch(fieldStructure.type) {
     case 'string':
       component = 'input';
       type = 'text';
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 
     case 'choice':
       component = Select;
-      options = ownProps.fieldStructure.choices;
+      options = fieldStructure.choices;
       break;
 
     default:
@@ -36,9 +36,9 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const FormFieldBuilder = ({
-  fieldName,
-  fieldStructure,
-  fieldProps,
+  fieldName = '',
+  fieldStructure = {},
+  fieldProps = {},
 }) => (
   <label>
     {fieldStructure.label}:

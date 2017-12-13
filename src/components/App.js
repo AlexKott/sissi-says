@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import NavBar from './navigation/NavBar';
 import Main from './editor/Main';
-import Editor from './editor';
+import Editor from './editor/Editor';
 
 const mapStateToProps = (state) => {
   const { pageId, sectionId } = state.location.payload;
@@ -18,11 +18,11 @@ const mapStateToProps = (state) => {
 };
 
 const App = ({
-  displayMain,
-  displayPage,
-  displaySection,
-  pageId,
-  sectionId,
+  displayMain = true,
+  displayPage = false,
+  displaySection = false,
+  pageId = '',
+  sectionId = '',
 }) => (
   <div className="app">
     <NavBar type="page" selectedPage={pageId} />

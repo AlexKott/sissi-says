@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Select = ({
-  options,
-  input,
+  options = [],
+  input = {},
 }) => (
   <select {...input}>
     {options.map(option => (
@@ -14,6 +14,7 @@ const Select = ({
 
 Select.propTypes = {
  options: PropTypes.array,
+ input: PropTypes.object,
 };
 
 export default Select;
