@@ -14,7 +14,7 @@ const Form = ({
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];
       const fieldStructure = field[fieldName];
-      return (<FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />)
+      return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
   </form>
 );

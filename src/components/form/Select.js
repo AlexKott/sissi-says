@@ -7,7 +7,7 @@ const Select = ({
 }) => (
   <select {...input}>
     {options.map(option => (
-      <option key={Math.random().toString(36).substring(2, 9)} value={option.key}>{option.label}</option>
+      <option key={option.key} value={option.key}>{option.label}</option>
     ))}
   </select>
 );
