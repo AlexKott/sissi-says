@@ -24,12 +24,12 @@ const App = ({
   pageId = '',
   sectionId = '',
 }) => (
-  <div className="app">
-    <NavBar type="page" selectedPage={pageId} />
-    {!displayMain && <NavBar type="section" selectedPage={pageId} selectedSection={sectionId} />}
+  <div className='app'>
+    <NavBar type='page' selectedPage={pageId} />
+    {!displayMain && <NavBar type='section' selectedPage={pageId} selectedSection={sectionId} />}
     {displayMain && <Main />}
-    {displayPage && <Editor type="page" pageId={pageId} />}
-    {displaySection && <Editor type="section" sectionId={sectionId} />}
+    {displayPage && <Editor type='page' pageId={pageId} />}
+    {displaySection && <Editor type='section' sectionId={sectionId} />}
   </div>
 );
 
