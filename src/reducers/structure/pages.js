@@ -30,12 +30,11 @@ export function getPageFieldNames(state, page) {
 }
 
 export function getPageFields(state, page, selectFieldByName = getFieldByName) {
-  const fieldArray = [];
   const fieldNames = getPageFieldNames(state, page);
-  fieldNames.forEach(fieldName => fieldArray.push(selectFieldByName(state, fieldName)));
-  return fieldArray;
+  return fieldNames.map(fieldName => selectFieldByName(state, fieldName));
 }
 
-export function getRequiredSections(state, page) {
-  return state.structure.pages[page].requiredSections || [];
+export function getRequiredSections(state, pageId) {
+  const page = state.structure.pages[pageId] || {};
+  return page.requiredSections || [];
 }

@@ -30,13 +30,14 @@ describe('middleware/sectionBuilder', () => {
   it('should forward the action with new section data if the type is ADD_SECTION', () => {
     middleware(mockStore, mockSelectors)(mockNext)(mockAction);
 
+    const testedAction = mockNext.mock.calls[0][0];
     expect(mockNext.mock.calls).toHaveLength(1);
-    expect(mockNext.mock.calls[0][0]).toHaveProperty('type', t.ADD_SECTION);
-    expect(mockNext.mock.calls[0][0]).toHaveProperty('payload');
-    expect(mockNext.mock.calls[0][0].payload).toHaveProperty('sectionId');
-    expect(mockNext.mock.calls[0][0].payload).toHaveProperty('section');
-    expect(mockNext.mock.calls[0][0].payload.section).toHaveProperty('sectionType', 'testType');
-    expect(mockNext.mock.calls[0][0].payload.section).toHaveProperty('field1', '');
-    expect(mockNext.mock.calls[0][0].payload.section).toHaveProperty('field2', '');
+    expect(testedAction).toHaveProperty('type', t.ADD_SECTION);
+    expect(testedAction).toHaveProperty('payload');
+    expect(testedAction.payload).toHaveProperty('sectionId');
+    expect(testedAction.payload).toHaveProperty('section');
+    expect(testedAction.payload.section).toHaveProperty('sectionType', 'testType');
+    expect(testedAction.payload.section).toHaveProperty('field1', '');
+    expect(testedAction.payload.section).toHaveProperty('field2', '');
   });
 });

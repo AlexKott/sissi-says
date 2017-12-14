@@ -1,6 +1,6 @@
 // Mock data: makes test fail
 const initialState = {
-  projectName: 'beratungundbegleitung.at',
+  projectName: 'your amazing technicolor website',
   language: 'EN',
   maxPages: 5,
   minPages: 3,

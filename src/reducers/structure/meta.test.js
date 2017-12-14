@@ -39,7 +39,10 @@ describe('selectors/structure/meta', () => {
     it('should return an array with fields', () => {
       const value = selectors.getMetaFields(mockState, mockGetFieldByName);
 
-      expect(value).toEqual([{ field1: { label1: 'testLabel' }}, { field2: { label2: 'testLabel2' }}]);
+      expect(value).toEqual([
+        { field1: { label1: 'testLabel' }},
+        { field2: { label2: 'testLabel2' }},
+      ]);
     });
   });
 });

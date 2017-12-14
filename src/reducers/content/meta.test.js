@@ -15,7 +15,7 @@ describe('reducers/content/meta', () => {
       payload: { meta: ['testContent1', 'testContent2'] },
     };
     const expectedState = ['testContent1', 'testContent2'];
-    const state = reducer(null, action);
+    const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
   });

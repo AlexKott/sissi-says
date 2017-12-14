@@ -12,7 +12,7 @@ describe('reducers/login', () => {
   it('should set isContentLoaded to true when the initial content is set', () => {
     const action = { type: t.SET_INITIAL_CONTENT };
     const expectedState = { isContentLoaded: true };
-    const state = reducer(null, action);
+    const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
   });

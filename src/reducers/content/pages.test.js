@@ -27,7 +27,10 @@ describe('reducers/content/pages', () => {
     };
     const state = reducer(mockState, action);
 
-    expect(state).toEqual([{ id: 'testPage', sections: ['section1', 'section2', 'testSection'] }]);
+    expect(state).toEqual([{
+      id: 'testPage',
+      sections: ['section1', 'section2', 'testSection'],
+    }]);
   });
 });
 
@@ -49,7 +52,10 @@ describe('selectors/content/pages', () => {
     it('should return a page given its pageId', () => {
       const mockState = {
         content: {
-          pages: [{ id: 'page1', sections: [1, 2] }, { id: 'page2', sections: [3, 4] }],
+          pages: [
+            { id: 'page1', sections: [1, 2] },
+            { id: 'page2', sections: [3, 4] },
+          ],
         },
       };
       const value = selectors.getPageById(mockState, 'page1');
@@ -113,7 +119,10 @@ describe('selectors/content/pages', () => {
 
     it('should return an array with sections for a given pageId', () => {
       const value = selectors.getSectionsForPage(mockState, 'page1', mockGetSectionById);
-      expect(value).toEqual([{ id: 'section1', content: 'test' }, { id: 'section2', content: 'test2' }])
+      expect(value).toEqual([
+        { id: 'section1', content: 'test' },
+        { id: 'section2', content: 'test2' },
+      ]);
     });
   });
 });

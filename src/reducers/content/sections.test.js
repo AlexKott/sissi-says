@@ -15,7 +15,7 @@ describe('reducers/content/sections', () => {
       payload: { sectionId: 'section1', section: 'testContent' },
     };
     const expectedState = { 'section1': 'testContent' };
-    const state = reducer(null, action);
+    const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
   });
@@ -24,7 +24,14 @@ describe('reducers/content/sections', () => {
 describe('selectors/content/sections', () => {
   describe('getSectionById', () => {
     it('should return the section with the given id', () => {
-      const mockState = { content: { sections: { section1: 'testSection1', section2: 'testSection2' }}};
+      const mockState = {
+        content: {
+          sections: {
+            section1: 'testSection1',
+            section2: 'testSection2',
+          }
+        }
+      };
       const value = selectors.getSectionById(mockState, 'section1');
 
       expect(value).toBe('testSection1');

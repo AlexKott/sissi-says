@@ -67,7 +67,15 @@ describe('selectors/structure/sections', () => {
   });
 
   describe('getSectionFields', () => {
-    const mockState = { structure: { sections: { testSection: { fields: ['field1', 'field2'] }}}};
+    const mockState = {
+      structure: {
+        sections: {
+          testSection: {
+            fields: ['field1', 'field2'],
+          },
+        },
+      },
+    };
     const mockGetFieldByName = jest.fn((x, name) => {
       if (name === 'field1') {
         return { field1: { label1: 'testLabel' }};
@@ -86,7 +94,10 @@ describe('selectors/structure/sections', () => {
     it('should return an array with fields', () => {
       const value = selectors.getSectionFields(mockState, 'testSection', mockGetFieldByName);
 
-      expect(value).toEqual([{ field1: { label1: 'testLabel' }}, { field2: { label2: 'testLabel2' }}]);
+      expect(value).toEqual([
+        { field1: { label1: 'testLabel' }},
+        { field2: { label2: 'testLabel2' }},
+      ]);
     });
   });
 });

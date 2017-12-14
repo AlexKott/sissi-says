@@ -33,12 +33,13 @@ describe('middleware/contentBuilder', () => {
   it('should forward the action with the initial meta data if the type is SET_INITIAL_CONTENT', () => {
     middleware(mockStore, mockSelectors)(mockNext)(mockAction);
 
+    const testedAction = mockNext.mock.calls[0][0];
     expect(mockNext.mock.calls).toHaveLength(1);
-    expect(mockNext.mock.calls[0][0]).toHaveProperty('type', t.SET_INITIAL_CONTENT);
-    expect(mockNext.mock.calls[0][0]).toHaveProperty('payload');
-    expect(mockNext.mock.calls[0][0].payload).toHaveProperty('meta');
-    expect(mockNext.mock.calls[0][0].payload.meta).toHaveProperty('mockField1', '');
-    expect(mockNext.mock.calls[0][0].payload.meta).toHaveProperty('mockField2', '');
+    expect(testedAction).toHaveProperty('type', t.SET_INITIAL_CONTENT);
+    expect(testedAction).toHaveProperty('payload');
+    expect(testedAction.payload).toHaveProperty('meta');
+    expect(testedAction.payload.meta).toHaveProperty('mockField1', '');
+    expect(testedAction.payload.meta).toHaveProperty('mockField2', '');
   });
 
   it('should dispatch addPage with the right type for each protected page', () => {

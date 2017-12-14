@@ -31,13 +31,12 @@ export function getProtectedSectionsForPage(state, pageType, selectRequiredSecti
   return requiredSections.filter(entry => protectedSections.indexOf(entry) !== -1);
 }
 
-export function getSectionFieldNames(state, section) {
-  return state.structure.sections[section].fields;
+export function getSectionFieldNames(state, sectionId) {
+  const section = state.structure.sections[sectionId] || {};
+  return section.fields || [];
 }
 
 export function getSectionFields(state, section, selectFieldByName = getFieldByName) {
-  const fieldArray = [];
   const fieldNames = getSectionFieldNames(state, section);
-  fieldNames.forEach(fieldName => fieldArray.push(selectFieldByName(state, fieldName)));
-  return fieldArray;
+  return fieldNames.map(fieldName => selectFieldByName(state, fieldName));
 }

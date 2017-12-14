@@ -34,8 +34,10 @@ const App = ({
 }) => (
   <div className='app'>
     <Navigation selectedPage={pageId} selectedSection={sectionId} />
-    {displayMain && <Main />}
-    {!displayMain && <Editor type={displayType} pageId={pageId} sectionId={sectionId} />}
+    {displayMain
+      ? <Main />
+      : <Editor type={displayType} pageId={pageId} sectionId={sectionId} />
+    }
   </div>
 );
 

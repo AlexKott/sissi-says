@@ -12,7 +12,6 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     const protectedSections = getters.getProtectedSectionsForPage(getState(), pageType);
     const minSectionsPerPage = getters.getMinSectionsPerPage(getState());
 
-    // create the new page
     const pageId = getRandomString();
     const newPage = {};
     newPage.id = pageId;
@@ -23,7 +22,6 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     payload.page = newPage;
     next(action);
 
-    // add required sections
     protectedSections.forEach(section => dispatch(actions.addSection(pageId, section)));
 
     while (minSectionsPerPage > getters.getNumberOfSectionsForPage(getState(), pageId)) {

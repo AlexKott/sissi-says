@@ -37,10 +37,9 @@ export function getNumberOfSectionsForPage(state, pageId) {
 
 export function getSectionsForPage(state, pageId, selectSectionById = getSectionById) {
   const sectionIds = getPageById(state, pageId).sections;
-  const sectionArray = [];
-  sectionIds.forEach(id => {
+
+  return sectionIds.map(id => {
     const section = selectSectionById(state, id);
-    sectionArray.push(Object.assign({}, section, { id }));
+    return { ...section, id };
   });
-  return sectionArray;
 }

@@ -14,8 +14,6 @@ export function getMetaFieldNames(state) {
 }
 
 export function getMetaFields(state, selectFieldByName = getFieldByName) {
-  const fieldArray = [];
   const fieldNames = getMetaFieldNames(state);
-  fieldNames.forEach(fieldName => fieldArray.push(selectFieldByName(state, fieldName)));
-  return fieldArray;
+  return fieldNames.map(fieldName => selectFieldByName(state, fieldName));
 }
