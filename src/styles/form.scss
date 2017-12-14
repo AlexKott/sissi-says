@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+}
+
+.form__element {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form__label {
+  line-height: 20px;
+}
+
+.form__field {
+  flex-basis: 50%;
+  height: 20px;
+}
+
+.form__field--textarea {
+  flex-basis: 50%;
+  height: 48px;
+}

@@ -1,0 +1,18 @@
+.editor {
+  flex-basis: 80%;
+  padding: 20px;
+  background-color: $color-background-light;
+  border: 20px solid $color-main-dark;
+  border-left: none;
+}
+
+.editor--page {
+  flex-basis: 60%;
+  border-color: $color-main-medium;
+}
+
+.editor--section {
+  flex-basis: 60%;
+  border-color: $color-main-light;
+  border-left: 20px solid $color-main-light;
+}
