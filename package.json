@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "autoprefixer": "7.1.6",
+    "babel-cli": "^6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react-app": "^3.1.0",
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
@@ -27,6 +29,7 @@
     "history": "^4.7.2",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "koa": "^2.4.1",
     "node-sass": "^4.7.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
@@ -51,6 +54,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "build:api": "babel --out-dir api-build api --presets=env --no-babelrc",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
