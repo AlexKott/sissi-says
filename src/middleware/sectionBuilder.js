@@ -2,12 +2,12 @@ import * as t from '@/actions/types';
 import * as selectors from '@/reducers/selectors';
 import getRandomString from '@/helpers/getRandomString';
 
-export default ({ dispatch, getState }) => next => action => {
+export default ({ dispatch, getState }, getters = selectors) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_SECTION) {
     const sectionType = payload.type || 'standard';
-    const fields = selectors.getSectionFieldNames(getState(), sectionType);
+    const fields = getters.getSectionFieldNames(getState(), sectionType);
 
     const sectionId = getRandomString();
     const newSection = {};
