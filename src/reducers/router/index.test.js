@@ -1,7 +1,14 @@
 import * as selectors from './index';
 
 describe('selectors/router', () => {
-  const mockState = { location: { payload: { pageId: 'testPageId', sectionId: 'testSectionId' }}};
+  const mockState = {
+    location: {
+      payload: {
+        pageId: 'testPageId',
+        sectionId: 'testSectionId',
+      }
+    }
+  };
 
   describe('getSelectedPageId', () => {
     it('should return the page id from the location state', () => {
