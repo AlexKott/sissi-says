@@ -15,9 +15,8 @@ const Main = ({
 }) => (
   <section className='editor'>
     <h1>Welcome to your Website Manager!</h1>
-    <Form form='meta' fields={fields}>
-      <p>Enter some basic data here:</p>
-    </Form>
+    <p>Enter some basic data here:</p>
+    <Form form='meta' fields={fields} />
     <p>Or get working on your pages by selecting one! (You can always get back here by deselecting the current page.)</p>
     <p>If you get stuck – sissi's always here to help!</p>
   </section>

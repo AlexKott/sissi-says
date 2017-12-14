@@ -36,9 +36,10 @@ const Editor = ({
   type = '',
   formName = '',
 }) => (
-  <Form key={formName} className={`editor editor--${type}`} form={formName} fields={fields}>
+  <section className={`editor editor--${type}`}>
     <h1>{title}</h1>
-  </Form>
+    <Form key={formName} form={formName} fields={fields} />
+  </section>
 );
 
 Editor.propTypes = {

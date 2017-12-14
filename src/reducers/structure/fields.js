@@ -34,6 +34,7 @@ const initialState = {
     ],
   },
   verticalPosition: {
+    label: 'Position (vertikal)',
     type: 'choice',
     choices: [
       { key: 'standard', label: 'Standard' },

@@ -9,6 +9,7 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
   let component;
   let type = '';
   let options = [];
+  let fieldClassName = '';
 
   switch(fieldStructure.type) {
     case 'string':
@@ -18,6 +19,7 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
 
     case 'text':
       component = 'textarea';
+      fieldClassName = 'form__field--textarea';
       break;
 
     case 'choice':
@@ -32,18 +34,21 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
 
   return {
     fieldProps: { component, type, options },
+    fieldClassName,
   };
 };
 
 const FormFieldBuilder = ({
   fieldName = '',
+  fieldClassName = '',
   fieldStructure = {},
   fieldProps = {},
 }) => (
-  <label>
-    {fieldStructure.label}:
+  <label className='form__element'>
+    <span className='form__label'>{fieldStructure.label}:</span>
     <Field
       name={fieldName}
+      className={`form__field ${fieldClassName}`}
       {...fieldProps}
     />
   </label>
@@ -51,6 +56,7 @@ const FormFieldBuilder = ({
 
 FormFieldBuilder.propTypes = {
   fieldName: PropTypes.string,
+  fieldClassName: PropTypes.string,
   fieldStructure: PropTypes.object,
   fieldProps: PropTypes.object,
 };

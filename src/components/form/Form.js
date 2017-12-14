@@ -9,7 +9,7 @@ const Form = ({
   className = '',
   fields = [],
 }) => (
-  <form className={className}>
+  <form className='form'>
     {children}
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];
