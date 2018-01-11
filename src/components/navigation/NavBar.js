@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'redux-first-router-link';
 
+function getNavLink(selectedElement, elementId, routeArray) {
+  if (selectedElement === elementId) {
+    const shortArray = routeArray.slice(0, -1);
+    return [...shortArray];
+  } else {
+    return [...routeArray, elementId];
+  }
+}
+
 const NavBar = ({
   selectedElement = '',
   type = '',
@@ -12,7 +21,7 @@ const NavBar = ({
     {elements.map(element => (
       <NavLink
         key={element.id}
-        to={[...routeArray, element.id]}
+        to={getNavLink(selectedElement, element.id, routeArray)}
         className={`nav__element nav__element--${type}`}
         activeClassName='nav__element--selected'
       >{`New ${type}`}</NavLink>
