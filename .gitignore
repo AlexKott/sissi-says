@@ -6,6 +6,7 @@
 
 # sissi files
 structure.json
+content.json
 
 # misc
 .DS_Store
