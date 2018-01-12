@@ -6,15 +6,19 @@ import Koa from 'koa';
 import Router from 'koa-router';
 
 const readFileAsync = promisify(fs.readFile);
+const existsAsync = promisify(fs.exists);
 
 const app = new Koa();
 const router = new Router();
 
 router.get('/structure', async (ctx, next) => {
-  if (fs.existsSync(path.join(process.cwd(), 'structure.json'))) {
+  const doesStructureExist = await existsAsync(path.join(process.cwd(), 'structure.json'));
+
+  if (doesStructureExist) {
     const structureJson = await readFileAsync(path.join(process.cwd(), 'structure.json'));
     ctx.response.body = structureJson;
   } else {
+    ctx.response.status = 404;
     ctx.response.body = {
       errors: 'No structure file found!',
     };
