@@ -1,5 +1,5 @@
 .editor {
-  flex-basis: 80%;
+  width: 80%;
   padding: 20px;
   background-color: $color-background-light;
   border: 20px solid $color-main-dark;
@@ -7,12 +7,16 @@
 }
 
 .editor--page {
-  flex-basis: 60%;
+  width: 60%;
   border-color: $color-main-medium;
 }
 
 .editor--section {
-  flex-basis: 60%;
+  width: 60%;
   border-color: $color-main-light;
   border-left: 20px solid $color-main-light;
+}
+
+.editor--section::after {
+  @include wipe-animation($color-main-light, 60);
 }

@@ -1,7 +1,9 @@
-@import '_variables';
+@import '_animations';
+@import '_mixins';
 @import '_normalize';
+@import '_variables';
 
 @import 'app';
-@import 'navigation';
 @import 'editor';
 @import 'form';
+@import 'navigation';
