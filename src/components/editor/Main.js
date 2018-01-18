@@ -14,11 +14,11 @@ const Main = ({
   fields = [],
 }) => (
   <section className='editor'>
-    <h1>Welcome to your Website Manager!</h1>
-    <p>Enter some basic data here:</p>
+    <h1 className='editor__title'>Welcome to your Website Manager!</h1>
+    <p className='editor__hint'>Enter some basic data here:</p>
     <Form form='meta' fields={fields} />
-    <p>Or get working on your pages by selecting one! (You can always get back here by deselecting the current page.)</p>
-    <p>If you get stuck – sissi's always here to help!</p>
+    <p className='editor__hint'>Or get working on your pages by selecting one! (You can always get back here by deselecting the current page.)</p>
+    <p className='editor__hint'>If you get stuck – sissi's always here to help!</p>
   </section>
 );
 

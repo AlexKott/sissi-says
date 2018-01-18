@@ -1,0 +1,16 @@
+@mixin box-shadow {
+  box-shadow: 2px 2px 10px -4px $color-black;
+}
+
+@mixin wipe-animation($color, $width) {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 0;
+  background-color: $color;
+  animation-duration: .4s;
+  animation-name: wipe#{$width};
+}

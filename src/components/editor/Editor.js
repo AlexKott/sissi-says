@@ -37,7 +37,7 @@ const Editor = ({
   formName = '',
 }) => (
   <section className={`editor editor--${type}`}>
-    <h1>{title}</h1>
+    <h1 className='editor__title'>{title}</h1>
     <Form key={formName} form={formName} fields={fields} />
   </section>
 );

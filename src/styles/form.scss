@@ -12,15 +12,20 @@
 }
 
 .form__label {
+  flex-basis: 50%;
   line-height: 20px;
 }
 
 .form__field {
   flex-basis: 50%;
-  height: 20px;
+  height: 24px;
+  border: 1px solid $color-field-border;
+  padding: 0 6px;
+  background-color: white;
 }
 
 .form__field--textarea {
   flex-basis: 50%;
-  height: 48px;
+  height: 72px;
+  padding: 4px 6px;
 }
