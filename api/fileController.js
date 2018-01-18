@@ -8,7 +8,8 @@ const writeFileAsync = promisify(fs.writeFile);
 export function readJson(fileName) {
   return async ctx => {
     try {
-      ctx.response.body = await readFileAsync(path.join(process.cwd(), `${fileName}.json`));
+      const file = await readFileAsync(path.join(process.cwd(), `${fileName}.json`));
+      ctx.response.body = JSON.parse(file);
     } catch(error) {
       ctx.response.body = {};
     }
