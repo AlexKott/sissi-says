@@ -12,6 +12,8 @@ export default (store, client = ajax) => next => async action => {
       successDispatch = [],
     } = payload;
 
+    console.log(API_URL);
+    console.log(dataType);
     const endpoint = `${API_URL}/${dataType}`;
 
     try {
