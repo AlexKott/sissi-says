@@ -1,5 +1,6 @@
 import ajax from '@/adapters/ajax';
 import * as t from '@/actions/types';
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default (store, client = ajax) => next => async action => {
   const { type, payload } = action;
@@ -7,9 +8,11 @@ export default (store, client = ajax) => next => async action => {
   if (type === t.SEND_REQUEST) {
     const {
       method,
-      dataType: endpoint, // TODO: match dataTypes with endpoints in helper
+      dataType,
       successDispatch = [],
     } = payload;
+
+    const endpoint = `${API_URL}/${dataType}`;
 
     try {
       const request = client(endpoint)[method];
