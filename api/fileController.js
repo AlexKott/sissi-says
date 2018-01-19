@@ -6,25 +6,25 @@ const readFileAsync = promisify(fs.readFile);
 const writeFileAsync = promisify(fs.writeFile);
 
 export function readJson(fileName) {
-  return async ctx => {
+  return async (req, res) => {
     try {
       const file = await readFileAsync(path.join(process.cwd(), `${fileName}.json`));
-      ctx.response.body = JSON.parse(file);
+      const json = JSON.parse(file);
+      res.send(json);
     } catch(error) {
-      ctx.response.body = {};
+      res.send({});
     }
   }
 }
 
 export function writeJson(fileName) {
-  return async ctx => {
-    const jsonData = ctx.request.body;
+  return async (req, res) => {
+    const jsonData = req.body;
     try {
       await writeFileAsync(path.join(process.cwd(), `${fileName}.json`), JSON.stringify(jsonData));
-      ctx.response.status = 200;
+      res.sendStatus(200);
     } catch(error) {
-      ctx.response.status = 500;
-      ctx.response.body = {};
+      res.sendStatus(500);
     }
   }
 }

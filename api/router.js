@@ -1,10 +1,13 @@
-import Router from 'koa-router';
+import express from 'express';
 import { readJson, writeJson } from './fileController';
-const router = new Router();
 
-router.get('/structure', readJson('structure'));
-router.get('/content', readJson('content'));
+const router = express.Router();
 
-router.post('/content', writeJson('content'));
+router.route('/structure')
+  .get(readJson('structure'));
+
+router.route('/content')
+  .get(readJson('content'))
+  .post(writeJson('content'));
 
 export default router;
