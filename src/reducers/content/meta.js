@@ -3,8 +3,8 @@ import * as t from '@/actions/types';
 export default (state = [], action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.SET_INITIAL_CONTENT) {
-    return payload.meta;
+  if (type === t.FETCH_DATA_SUCCESS && payload.type === 'content') {
+    return payload.data.meta;
   }
 
   return state;

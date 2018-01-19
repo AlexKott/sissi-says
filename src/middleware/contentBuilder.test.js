@@ -19,10 +19,10 @@ describe('middleware/contentBuilder', () => {
       getProtectedPages: jest.fn(() => []),
       getNumberOfPages: jest.fn(() => 1),
     };
-    mockAction = { type: t.SET_INITIAL_CONTENT };
+    mockAction = { type: t.FETCH_DATA_SUCCESS, payload: { type: 'content', data: {}}};
   });
 
-  it('should forward the action if the type is not SET_INITIAL_CONTENT', () => {
+  it('should forward the action if the type is not FETCH_DATA_SUCCESS', () => {
     mockAction = { type: 'TEST_ACTION' };
 
     middleware({})(mockNext)(mockAction);
@@ -30,16 +30,17 @@ describe('middleware/contentBuilder', () => {
     expect(mockNext).toBeCalledWith(mockAction);
   });
 
-  it('should forward the action with the initial meta data if the type is SET_INITIAL_CONTENT', () => {
+  it('should forward the action with the initial meta data if the type is FETCH_DATA_SUCCESS', () => {
     middleware(mockStore, mockSelectors)(mockNext)(mockAction);
 
     const testedAction = mockNext.mock.calls[0][0];
     expect(mockNext.mock.calls).toHaveLength(1);
-    expect(testedAction).toHaveProperty('type', t.SET_INITIAL_CONTENT);
+    expect(testedAction).toHaveProperty('type', t.FETCH_DATA_SUCCESS);
     expect(testedAction).toHaveProperty('payload');
-    expect(testedAction.payload).toHaveProperty('meta');
-    expect(testedAction.payload.meta).toHaveProperty('mockField1', '');
-    expect(testedAction.payload.meta).toHaveProperty('mockField2', '');
+    expect(testedAction.payload).toHaveProperty('data');
+    expect(testedAction.payload.data).toHaveProperty('meta');
+    expect(testedAction.payload.data.meta).toHaveProperty('mockField1', '');
+    expect(testedAction.payload.data.meta).toHaveProperty('mockField2', '');
   });
 
   it('should dispatch addPage with the right type for each protected page', () => {

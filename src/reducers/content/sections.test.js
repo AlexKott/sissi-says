@@ -9,6 +9,17 @@ describe('reducers/content/sections', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should return the fetched sections', () => {
+    const action = {
+      type: t.FETCH_DATA_SUCCESS,
+      payload: { type: 'content', data: { sections: ['section1', 'section2']}},
+    }
+    const expectedState = ['section1', 'section2'];
+    const state = reducer(undefined, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should add a section', () => {
     const action = {
       type: t.ADD_SECTION,

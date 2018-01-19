@@ -3,23 +3,26 @@ import * as actions from '@/actions/creators';
 import * as selectors from '@/reducers/selectors';
 
 export default ({ dispatch, getState }, getters = selectors) => next => action => {
-  const { type } = action;
+  const { type, payload } = action;
 
-  if (type === t.SET_INITIAL_CONTENT) {
-    const metaFields = getters.getMetaFieldNames(getState());
-    const minPages = getters.getMinPages(getState());
-    const protectedPages = getters.getProtectedPages(getState());
+  if (type === t.FETCH_DATA_SUCCESS) {
+    const { type, data } = payload;
 
-    const initialMetaData = {};
-    metaFields.forEach(field => initialMetaData[field] = '');
-    action.payload = {};
-    action.payload.meta = initialMetaData;
-    next(action);
+    if (type === 'content' && Object.keys(data).length === 0) {
+      const metaFields = getters.getMetaFieldNames(getState());
+      const minPages = getters.getMinPages(getState());
+      const protectedPages = getters.getProtectedPages(getState());
 
-    protectedPages.forEach(page => dispatch(actions.addPage(page)));
+      const initialMetaData = {};
+      metaFields.forEach(field => initialMetaData[field] = '');
+      data.meta = initialMetaData;
+      next(action);
 
-    while (minPages > getters.getNumberOfPages(getState())) {
-      dispatch(actions.addPage());
+      protectedPages.forEach(page => dispatch(actions.addPage(page)));
+
+      while (minPages > getters.getNumberOfPages(getState())) {
+        dispatch(actions.addPage());
+      }
     }
   } else {
     next(action);
