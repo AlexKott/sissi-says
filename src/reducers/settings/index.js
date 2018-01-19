@@ -1,16 +1,6 @@
 import * as t from '@/actions/types';
 
-// Mock data: makes test fail
-const initialState = {
-  projectName: 'your amazing technicolor website',
-  language: 'EN',
-  maxPages: 5,
-  minPages: 3,
-  maxSectionsPerPage: 6,
-  minSectionsPerPage: 1,
-};
-
-export default (state = initialState, action = {}) => {
+export default (state = {}, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.type === 'structure') {

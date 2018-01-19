@@ -1,12 +1,7 @@
 import * as t from '@/actions/types';
 import { getFieldByName } from './fields';
 
-// Mock data: makes test fail
-const initialState = {
-  fields: ['metaTitle', 'metaDescription'],
-};
-
-export default (state = initialState, action = {}) => {
+export default (state = {}, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.type === 'structure') {
@@ -17,7 +12,7 @@ export default (state = initialState, action = {}) => {
 }
 
 export function getMetaFieldNames(state) {
-  return state.structure.meta.fields;
+  return state.structure.meta.fields || [];
 }
 
 export function getMetaFields(state, selectFieldByName = getFieldByName) {

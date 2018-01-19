@@ -23,6 +23,8 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
       while (minPages > getters.getNumberOfPages(getState())) {
         dispatch(actions.addPage());
       }
+    } else {
+      next(action);
     }
   } else {
     next(action);
