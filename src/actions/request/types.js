@@ -1,3 +1,2 @@
-export const FETCH_CONTENT_SUCCESS = 'request/FETCH_CONTENT_SUCCESS';
-export const FETCH_STRUCTURE_SUCCESS = 'request/FETCH_STRUCTURE_SUCCESS';
+export const FETCH_DATA_SUCCESS = 'request/FETCH_DATA_SUCCESS';
 export const SEND_REQUEST = 'request/SEND_REQUEST';

@@ -11,7 +11,6 @@ export default {
     }
 
     if (!isContentLoaded) {
-      dispatch(actions.fetchData('content'));
       dispatch(actions.setInitialContent()); // TODO: handle after request
     }
   }

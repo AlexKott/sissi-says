@@ -6,29 +6,20 @@ export function fetchData(dataType) {
     payload: {
       method: 'get',
       dataType,
-      successDispatch: [],
+      successDispatch: [fetchDataSuccess.bind({}, dataType)],
     }
   };
 
   if (dataType === 'structure') {
-    action.payload.successDispatch.push(fetchStructureSuccess);
-  } else if (dataType === 'content') {
-    action.payload.successDispatch.push(fetchContentSuccess);
+    action.payload.successDispatch.push(fetchData.bind({}, 'content'));
   }
 
   return action;
 }
 
-export function fetchStructureSuccess(response) {
+export function fetchDataSuccess(type, data) {
   return {
-    type: t.FETCH_STRUCTURE_SUCCESS,
-    payload: { structure: response.structure },
-  };
-}
-
-export function fetchContentSuccess(response) {
-  return {
-    type: t.FETCH_CONTENT_SUCCESS,
-    payload: { content: response.content },
+    type: t.FETCH_DATA_SUCCESS,
+    payload: { type, data },
   };
 }
