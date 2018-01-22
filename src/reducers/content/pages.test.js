@@ -18,7 +18,7 @@ describe('reducers/content/pages', () => {
     const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
-  })
+  });
 
   it('should add a page', () => {
     const action = {

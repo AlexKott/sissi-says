@@ -13,7 +13,7 @@ describe('reducers/content/sections', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
       payload: { type: 'content', data: { sections: ['section1', 'section2']}},
-    }
+    };
     const expectedState = ['section1', 'section2'];
     const state = reducer(undefined, action);
 
