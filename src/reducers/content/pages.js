@@ -4,7 +4,7 @@ import { getSectionById } from './sections';
 export default (state = [], action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.FETCH_DATA_SUCCESS && payload.type === 'content') {
+  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
     return payload.data.pages || [];
   }
 

@@ -14,7 +14,7 @@ describe('reducers/settings', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
       payload: {
-        type: 'structure',
+        dataType: 'structure',
         data: {
           settings: expectedState,
         },

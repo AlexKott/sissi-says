@@ -14,7 +14,7 @@ describe('reducers/structure/sections', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
       payload: {
-        type: 'structure',
+        dataType: 'structure',
         data: {
           sections: expectedState,
         },

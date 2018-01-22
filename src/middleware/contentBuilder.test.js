@@ -19,7 +19,7 @@ describe('middleware/contentBuilder', () => {
       getProtectedPages: jest.fn(() => []),
       getNumberOfPages: jest.fn(() => 1),
     };
-    mockAction = { type: t.FETCH_DATA_SUCCESS, payload: { type: 'content', data: {}}};
+    mockAction = { type: t.FETCH_DATA_SUCCESS, payload: { dataType: 'content', data: {}}};
   });
 
   it('should forward the action if the type is not FETCH_DATA_SUCCESS', () => {

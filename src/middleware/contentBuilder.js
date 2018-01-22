@@ -6,9 +6,9 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS) {
-    const { type, data } = payload;
+    const { dataType, data } = payload;
 
-    if (type === 'content' && Object.keys(data).length === 0) {
+    if (dataType === 'content' && Object.keys(data).length === 0) {
       const metaFields = getters.getMetaFieldNames(getState());
       const minPages = getters.getMinPages(getState());
       const protectedPages = getters.getProtectedPages(getState());

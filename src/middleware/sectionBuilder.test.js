@@ -16,7 +16,7 @@ describe('middleware/sectionBuilder', () => {
     mockSelectors = {
       getSectionFieldNames: jest.fn(() => ['field1', 'field2']),
     };
-    mockAction = { type: t.ADD_SECTION, payload: { pageId: 'mockPage', type: 'testType' }};
+    mockAction = { type: t.ADD_SECTION, payload: { pageId: 'mockPage', sectionType: 'testType' }};
   });
 
   it('should forward the action if the type is not ADD_SECTION', () => {

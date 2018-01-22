@@ -17,7 +17,7 @@ describe('actions/request', () => {
       const successAction = action.payload.successDispatch[0]();
 
       expect(action.payload.successDispatch).toHaveLength(1);
-      expect(successAction.payload).toHaveProperty('type', 'test');
+      expect(successAction.payload).toHaveProperty('dataType', 'test');
     });
   });
 
@@ -26,7 +26,7 @@ describe('actions/request', () => {
       const action = actions.fetchDataSuccess('testType', 'testData');
 
       expect(action).toHaveProperty('type', t.FETCH_DATA_SUCCESS);
-      expect(action.payload).toHaveProperty('type', 'testType');
+      expect(action.payload).toHaveProperty('dataType', 'testType');
       expect(action.payload).toHaveProperty('data', 'testData');
     });
   });

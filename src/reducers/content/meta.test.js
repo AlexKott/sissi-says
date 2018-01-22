@@ -12,7 +12,7 @@ describe('reducers/content/meta', () => {
   it('should set the given content', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
-      payload: { type: 'content', data: { meta: ['testContent1', 'testContent2'] }},
+      payload: { dataType: 'content', data: { meta: ['testContent1', 'testContent2'] }},
     };
     const expectedState = ['testContent1', 'testContent2'];
     const state = reducer(undefined, action);
