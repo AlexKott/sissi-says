@@ -9,6 +9,17 @@ describe('reducers/content/pages', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should return the fetched pages', () => {
+    const action = {
+      type: t.FETCH_DATA_SUCCESS,
+      payload: { dataType: 'content', data: { pages: ['page1', 'page2']}},
+    }
+    const expectedState = ['page1', 'page2'];
+    const state = reducer(undefined, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should add a page', () => {
     const action = {
       type: t.ADD_PAGE,

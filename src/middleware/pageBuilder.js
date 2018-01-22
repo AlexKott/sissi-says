@@ -7,7 +7,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
   const { type, payload } = action;
 
   if (type === t.ADD_PAGE) {
-    const pageType = payload.type || 'standard';
+    const pageType = payload.pageType || 'standard';
     const fields = getters.getPageFieldNames(getState(), pageType);
     const protectedSections = getters.getProtectedSectionsForPage(getState(), pageType);
     const minSectionsPerPage = getters.getMinSectionsPerPage(getState());

@@ -6,7 +6,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
   const { type, payload } = action;
 
   if (type === t.ADD_SECTION) {
-    const sectionType = payload.type || 'standard';
+    const sectionType = payload.sectionType || 'standard';
     const fields = getters.getSectionFieldNames(getState(), sectionType);
 
     const sectionId = getRandomString();

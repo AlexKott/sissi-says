@@ -20,7 +20,7 @@ describe('middleware/pageBuilder', () => {
       getMinSectionsPerPage: jest.fn(() => 0),
       getNumberOfSectionsForPage: jest.fn(() => 1),
     };
-    mockAction = { type: t.ADD_PAGE, payload: { type: null }};
+    mockAction = { type: t.ADD_PAGE, payload: { pageType: null }};
   });
 
   it('should forward the action if the type is not ADD_PAGE', () => {
@@ -54,9 +54,9 @@ describe('middleware/pageBuilder', () => {
     const testedAction = mockDispatch.mock.calls;
     expect(testedAction).toHaveLength(2);
     expect(testedAction[0][0].payload).toHaveProperty('pageId');
-    expect(testedAction[0][0].payload).toHaveProperty('type', 'section1');
+    expect(testedAction[0][0].payload).toHaveProperty('sectionType', 'section1');
     expect(testedAction[1][0].payload).toHaveProperty('pageId');
-    expect(testedAction[1][0].payload).toHaveProperty('type', 'section2');
+    expect(testedAction[1][0].payload).toHaveProperty('sectionType', 'section2');
   });
 
   it('should dispatch addSection until the minimum of sections is created', () => {
@@ -71,8 +71,8 @@ describe('middleware/pageBuilder', () => {
     const testedAction = mockDispatch.mock.calls;
     expect(testedAction).toHaveLength(2);
     expect(testedAction[0][0].payload).toHaveProperty('pageId');
-    expect(testedAction[0][0].payload).toHaveProperty('type', undefined);
+    expect(testedAction[0][0].payload).toHaveProperty('sectionType', undefined);
     expect(testedAction[1][0].payload).toHaveProperty('pageId');
-    expect(testedAction[1][0].payload).toHaveProperty('type', undefined);
+    expect(testedAction[1][0].payload).toHaveProperty('sectionType', undefined);
   });
 });

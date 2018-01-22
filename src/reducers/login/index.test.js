@@ -3,15 +3,15 @@ import * as t from '@/actions/types';
 
 describe('reducers/login', () => {
   it('should return the initial state', () => {
-    const expectedState = { isContentLoaded: false, isStructureLoaded: false };
+    const expectedState = { isInitialDataFetched: false };
     const state = reducer();
 
     expect(state).toEqual(expectedState);
   });
 
-  it('should set isContentLoaded and isStructureLoaded to true when the initial content is set', () => {
-    const action = { type: t.SET_INITIAL_CONTENT };
-    const expectedState = { isContentLoaded: true, isStructureLoaded: true };
+  it('should set isInitialDataFetched to true when the initial data is fetched', () => {
+    const action = { type: t.FETCH_DATA_SUCCESS };
+    const expectedState = { isInitialDataFetched: true };
     const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
@@ -19,19 +19,10 @@ describe('reducers/login', () => {
 });
 
 describe('selectors/login', () => {
-  describe('getIsContentLoaded', () => {
+  describe('getIsInitialDataFetched', () => {
     it('should return the correct value from the reducer', () => {
-      const mockState = { login: { isContentLoaded: true }};
-      const value = selectors.getIsContentLoaded(mockState);
-
-      expect(value).toBe(true);
-    });
-  });
-
-  describe('getIsStructureLoaded', () => {
-    it('should return the correct value from the reducer', () => {
-      const mockState = { login: { isStructureLoaded: true }};
-      const value = selectors.getIsStructureLoaded(mockState);
+      const mockState = { login: { isInitialDataFetched: true }};
+      const value = selectors.getIsInitialDataFetched(mockState);
 
       expect(value).toBe(true);
     });

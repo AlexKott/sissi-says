@@ -1,9 +1,26 @@
 import reducer, * as selectors from './pages';
+import * as t from '@/actions/types';
 
 describe('reducers/structure/pages', () => {
   it('should return the initial state', () => {
     const expectedState = {};
     const state = reducer();
+
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should return the fetched state', () => {
+    const expectedState = { test1: 'test1', test2: 'test2' };
+    const action = {
+      type: t.FETCH_DATA_SUCCESS,
+      payload: {
+        dataType: 'structure',
+        data: {
+          pages: expectedState,
+        },
+      },
+    };
+    const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
   });

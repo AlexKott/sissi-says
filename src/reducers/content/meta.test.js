@@ -9,10 +9,10 @@ describe('reducers/content/meta', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should set the given initial content', () => {
+  it('should set the given content', () => {
     const action = {
-      type: t.SET_INITIAL_CONTENT,
-      payload: { meta: ['testContent1', 'testContent2'] },
+      type: t.FETCH_DATA_SUCCESS,
+      payload: { dataType: 'content', data: { meta: ['testContent1', 'testContent2'] }},
     };
     const expectedState = ['testContent1', 'testContent2'];
     const state = reducer(undefined, action);

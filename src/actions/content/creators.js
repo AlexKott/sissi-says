@@ -6,16 +6,16 @@ export function setInitialContent() {
   };
 }
 
-export function addPage(type) {
+export function addPage(pageType) {
   return {
     type: t.ADD_PAGE,
-    payload: { type },
+    payload: { pageType },
   };
 }
 
-export function addSection(pageId, type) {
+export function addSection(pageId, sectionType) {
   return {
     type: t.ADD_SECTION,
-    payload: { pageId, type },
+    payload: { pageId, sectionType },
   };
 }

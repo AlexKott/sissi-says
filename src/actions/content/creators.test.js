@@ -15,7 +15,7 @@ describe('actions/content', () => {
       const action = actions.addPage('testType');
 
       expect(action).toHaveProperty('type', t.ADD_PAGE);
-      expect(action.payload).toHaveProperty('type', 'testType');
+      expect(action.payload).toHaveProperty('pageType', 'testType');
     });
   });
 
@@ -25,7 +25,7 @@ describe('actions/content', () => {
 
       expect(action).toHaveProperty('type', t.ADD_SECTION);
       expect(action.payload).toHaveProperty('pageId', 'testPage');
-      expect(action.payload).toHaveProperty('type', 'testType');
+      expect(action.payload).toHaveProperty('sectionType', 'testType');
     });
   });
 });
