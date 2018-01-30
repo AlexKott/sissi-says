@@ -1,8 +1,10 @@
 import express from 'express';
+import path from 'path';
 import { readJson, writeJson } from './jsonController';
 import { saveImage } from './imageController';
 
 const router = express.Router();
+const imageDirectory = path.join(process.cwd(), 'images');
 
 router.route('/structure')
   .get(readJson('structure'));
@@ -14,6 +16,6 @@ router.route('/content')
 router.route('/images')
   .post(saveImage);
 
-/* serve static images with express -> on build move images to public/images */
+router.use('/images', express.static(imageDirectory));
 
 export default router;

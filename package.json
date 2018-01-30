@@ -61,11 +61,12 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "build:frontend": "node scripts/build.js",
     "build:api": "babel --out-dir api-build api --presets=env --no-babelrc",
-    "start:api": "nodemon api-build/index.js",
+    "build": "yarn build:frontend && yarn build:api",
+    "start:api": "node api-build/index.js",
     "start:frontend": "node scripts/start.js",
-    "start": "concurrently \"yarn start:frontend\" \"yarn build:api --watch\" \"yarn start:api\"",
-    "build": "node scripts/build.js",
+    "start": "concurrently \"yarn start:frontend\" \"yarn build:api --watch\" \"nodemon api-build/index.js\"",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
