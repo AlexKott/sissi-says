@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import hash from 'shorthash';
 
 const imageDirectory = path.join(process.cwd(), 'images');
 try {
@@ -8,19 +9,36 @@ try {
   fs.mkdirSync(imageDirectory);
 }
 
-export function saveImage(req, res) {
+export async function saveImage(req, res) {
   if (!req.files) {
     return res.sendStatus(400);
   }
+  const savedFiles = await saveFiles(req.files);
 
-  const files = Object.keys(req.files);
-  files.forEach(file => {
-    const fileName = req.files[file].name;
-    req.files[file].mv(`${imageDirectory}/${fileName}`, (err) => {
-      if (err) {
-        return res.sendStatus(500);
-      }
-      res.sendStatus(201);
+  res.send(savedFiles);
+}
+
+async function saveFiles(files) {
+  const fileNames = {};
+  const errors = {};
+
+  const promises = Object.keys(files).map(file => {
+    return new Promise(resolve => {
+      const now = (new Date).getTime();
+      const nameParts = files[file].name.split('.');
+      const hashedName = hash.unique(`${nameParts[0]}${now}`);
+      const fileName = `${hashedName}.${nameParts[1]}`;
+
+      files[file].mv(`${imageDirectory}/${fileName}`, (err) => {
+        if (!err) {
+          fileNames[file] = fileName;
+        } else {
+          errors[file] = err;
+        }
+        resolve();
+      });
     });
   });
+  await Promise.all(promises);
+  return { fileNames, errors };
 }
