@@ -16,6 +16,7 @@ const Form = ({
       const fieldStructure = field[fieldName];
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
+    <button className='button'>Save</button>
   </form>
 );
 
