@@ -42,13 +42,4 @@ describe('actions/request', () => {
       expect(action.payload).toHaveProperty('successDispatch');
     });
   });
-
-  describe('postContentSuccess', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.postContentSuccess('testContent');
-
-      expect(action).toHaveProperty('type', t.POST_CONTENT_SUCCESS);
-      expect(action.payload).toHaveProperty('content', 'testContent');
-    });
-  });
 });

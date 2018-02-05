@@ -31,14 +31,7 @@ export function postContent(formName) {
       method: 'post',
       dataType: 'content',
       formName,
-      successDispatch: [postContentSuccess]
+      successDispatch: [fetchDataSuccess.bind({}, 'content')],
     }
-  };
-}
-
-export function postContentSuccess(content) {
-  return {
-    type: t.POST_CONTENT_SUCCESS,
-    payload: { content },
   };
 }
