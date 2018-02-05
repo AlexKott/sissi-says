@@ -33,6 +33,22 @@ describe('reducers/content/sections', () => {
 });
 
 describe('selectors/content/sections', () => {
+  describe('getAllSections', () => {
+    it('should return all sections', () => {
+      const mockState = {
+        content: {
+          sections: {
+            section1: 'testSection1',
+            section2: 'testSection2',
+          }
+        }
+      };
+      const value = selectors.getAllSections(mockState);
+
+      expect(value).toEqual({ section1: 'testSection1', section2: 'testSection2' });
+    });
+  });
+
   describe('getSectionById', () => {
     it('should return the section with the given id', () => {
       const mockState = {
