@@ -19,5 +19,5 @@ export function getAllSections(state) {
 }
 
 export function getSectionById(state, sectionId) {
-  return state.content.sections[sectionId];
+  return state.content.sections[sectionId] || {};
 }

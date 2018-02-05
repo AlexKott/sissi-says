@@ -11,6 +11,6 @@ export default (state = {}, action = {}) => {
 }
 
 export function getFieldByName(state, fieldName) {
-  const field = state.structure.fields[fieldName];
+  const field = state.structure.fields[fieldName] || {};
   return { [fieldName]: field };
 }

@@ -29,7 +29,7 @@ export function getAllPages(state) {
 }
 
 export function getPageById(state, pageId) {
-  return state.content.pages.find(page => page.id === pageId);
+  return state.content.pages.find(page => page.id === pageId) || {};
 }
 
 export function getNumberOfPages(state) {
@@ -38,11 +38,11 @@ export function getNumberOfPages(state) {
 
 export function getNumberOfSectionsForPage(state, pageId) {
   const page = state.content.pages.find(page => page.id === pageId);
-  return page.sections.length;
+  return page ? page.sections.length : 0;
 }
 
 export function getSectionsForPage(state, pageId, selectSectionById = getSectionById) {
-  const sectionIds = getPageById(state, pageId).sections;
+  const sectionIds = getPageById(state, pageId).sections || [];
 
   return sectionIds.map(id => {
     const section = selectSectionById(state, id);
