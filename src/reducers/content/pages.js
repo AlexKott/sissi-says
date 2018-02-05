@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 import * as t from '@/actions/types';
 import { getSectionById } from './sections';
 
@@ -23,7 +25,7 @@ export default (state = [], action = {}) => {
 };
 
 export function getAllPages(state) {
-  return state.content.pages;
+  return cloneDeep(state.content.pages);
 }
 
 export function getPageById(state, pageId) {
