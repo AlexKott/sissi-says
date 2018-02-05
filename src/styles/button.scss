@@ -1,0 +1,9 @@
+.button {
+  align-self: flex-end;
+  height: 40px;
+  width: 120px;
+  text-transform: uppercase;
+  color: $color-background-light;
+  background-color: $color-main-dark;
+  @include box-shadow;
+}

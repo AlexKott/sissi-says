@@ -17,8 +17,9 @@ export function getProtectedPages(state) {
     .map(entry => entry[0]);
 }
 
-export function getPageFieldNames(state, page) {
-  return state.structure.pages[page].fields || [];
+export function getPageFieldNames(state, pageId) {
+  const page = state.structure.pages[pageId] || {};
+  return page.fields || [];
 }
 
 export function getPageFields(state, page, selectFieldByName = getFieldByName) {

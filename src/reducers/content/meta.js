@@ -9,3 +9,7 @@ export default (state = [], action = {}) => {
 
   return state;
 }
+
+export function getMetaData(state) {
+  return state.content.meta;
+}

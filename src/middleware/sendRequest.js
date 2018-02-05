@@ -9,14 +9,14 @@ export default (store, client = ajax) => next => async action => {
     const {
       method,
       dataType,
+      requestData,
       successDispatch = [],
     } = payload;
 
     const endpoint = `${API_URL}/${dataType}`;
 
     try {
-      const request = client(endpoint)[method];
-      const response = await request();
+      const response = await client(endpoint)[method](requestData);
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
       console.log('Request error: ' + error);

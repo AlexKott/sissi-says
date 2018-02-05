@@ -22,7 +22,7 @@ export function writeJson(fileName) {
     const jsonData = req.body;
     try {
       await writeFileAsync(path.join(process.cwd(), `${fileName}.json`), JSON.stringify(jsonData));
-      res.sendStatus(200);
+      res.send(jsonData);
     } catch(error) {
       res.sendStatus(500);
     }

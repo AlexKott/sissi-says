@@ -14,6 +14,10 @@ export default (state = {}, action = {}) => {
   return state;
 };
 
+export function getAllSections(state) {
+  return state.content.sections;
+}
+
 export function getSectionById(state, sectionId) {
-  return state.content.sections[sectionId];
+  return state.content.sections[sectionId] || {};
 }

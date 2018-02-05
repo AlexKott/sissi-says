@@ -23,3 +23,15 @@ export function fetchDataSuccess(dataType, data) {
     payload: { dataType, data },
   };
 }
+
+export function postContent(formName) {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType: 'content',
+      formName,
+      successDispatch: [fetchDataSuccess.bind({}, 'content')],
+    }
+  };
+}

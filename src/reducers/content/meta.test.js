@@ -1,4 +1,4 @@
-import reducer from './meta';
+import reducer, * as selectors from './meta';
 import * as t from '@/actions/types';
 
 describe('reducers/content/meta', () => {
@@ -18,5 +18,20 @@ describe('reducers/content/meta', () => {
     const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
+  });
+});
+
+describe('selectors/content&/meta', () => {
+  describe('getMetaData', () => {
+    it('should return the stored meta data', () => {
+      const mockState = {
+        content: {
+          meta: { metaTitle: 'test', metaDescription: 'alsoTest' },
+        },
+      };
+      const value = selectors.getMetaData(mockState);
+
+      expect(value).toEqual({ metaTitle: 'test', metaDescription: 'alsoTest' });
+    });
   });
 });
