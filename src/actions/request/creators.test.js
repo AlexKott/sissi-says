@@ -30,4 +30,25 @@ describe('actions/request', () => {
       expect(action.payload).toHaveProperty('data', 'testData');
     });
   });
+
+  describe('postData', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.postData('test');
+
+      expect(action).toHaveProperty('type', t.SEND_REQUEST);
+      expect(action.payload).toHaveProperty('method', 'post');
+      expect(action.payload).toHaveProperty('dataType', 'test');
+      expect(action.payload).toHaveProperty('successDispatch');
+    });
+  });
+
+  describe('postDataSuccess', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.postDataSuccess('testType', 'testData');
+
+      expect(action).toHaveProperty('type', t.POST_DATA_SUCCESS);
+      expect(action.payload).toHaveProperty('dataType', 'testType');
+      expect(action.payload).toHaveProperty('data', 'testData');
+    });
+  });
 });

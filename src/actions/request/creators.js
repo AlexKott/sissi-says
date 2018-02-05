@@ -23,3 +23,21 @@ export function fetchDataSuccess(dataType, data) {
     payload: { dataType, data },
   };
 }
+
+export function postData(dataType) {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType,
+      successDispatch: [postDataSuccess.bind({}, dataType)]
+    }
+  };
+}
+
+export function postDataSuccess(dataType, data) {
+  return {
+    type: t.POST_DATA_SUCCESS,
+    payload: { dataType, data },
+  };
+}

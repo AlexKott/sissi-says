@@ -8,6 +8,7 @@ const Form = ({
   children,
   className = '',
   fields = [],
+  onSave,
 }) => (
   <form className='form'>
     {children}
@@ -16,7 +17,7 @@ const Form = ({
       const fieldStructure = field[fieldName];
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
-    <button className='button'>Save</button>
+    <button onClick={onSave} className='button'>Save</button>
   </form>
 );
 
@@ -24,6 +25,7 @@ Form.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   fields: PropTypes.array,
+  onSave: PropTypes.func,
 }
 
 export default reduxForm({
