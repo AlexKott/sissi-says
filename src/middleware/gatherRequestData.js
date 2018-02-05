@@ -9,10 +9,11 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
   // currently not testing for dataType === 'content' because only content can be posted
   if (type === t.SEND_REQUEST && payload.method === 'post') {
     const { formName } = payload;
-    const metaData = getters.getMetaData(getState());
-    const pageData = getters.getAllPages(getState());
-    const sectionData = getters.getAllSections(getState());
-    const formInput = collector(formName)(getState());
+    const state = getState();
+    const metaData = getters.getMetaData(state);
+    const pageData = getters.getAllPages(state);
+    const sectionData = getters.getAllSections(state);
+    const formInput = collector(formName)(state);
 
     let meta = metaData;
     let pages = pageData;
