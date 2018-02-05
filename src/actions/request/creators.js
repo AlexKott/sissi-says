@@ -24,20 +24,21 @@ export function fetchDataSuccess(dataType, data) {
   };
 }
 
-export function postData(dataType) {
+export function postContent(formName) {
   return {
     type: t.SEND_REQUEST,
     payload: {
       method: 'post',
-      dataType,
-      successDispatch: [postDataSuccess.bind({}, dataType)]
+      dataType: 'content',
+      formName,
+      successDispatch: [postContentSuccess]
     }
   };
 }
 
-export function postDataSuccess(dataType, data) {
+export function postContentSuccess(content) {
   return {
-    type: t.POST_DATA_SUCCESS,
-    payload: { dataType, data },
+    type: t.POST_CONTENT_SUCCESS,
+    payload: { content },
   };
 }

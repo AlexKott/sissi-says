@@ -31,24 +31,24 @@ describe('actions/request', () => {
     });
   });
 
-  describe('postData', () => {
+  describe('postContent', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.postData('test');
+      const action = actions.postContent('test');
 
       expect(action).toHaveProperty('type', t.SEND_REQUEST);
       expect(action.payload).toHaveProperty('method', 'post');
-      expect(action.payload).toHaveProperty('dataType', 'test');
+      expect(action.payload).toHaveProperty('dataType', 'content');
+      expect(action.payload).toHaveProperty('formName', 'test');
       expect(action.payload).toHaveProperty('successDispatch');
     });
   });
 
-  describe('postDataSuccess', () => {
+  describe('postContentSuccess', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.postDataSuccess('testType', 'testData');
+      const action = actions.postContentSuccess('testContent');
 
-      expect(action).toHaveProperty('type', t.POST_DATA_SUCCESS);
-      expect(action.payload).toHaveProperty('dataType', 'testType');
-      expect(action.payload).toHaveProperty('data', 'testData');
+      expect(action).toHaveProperty('type', t.POST_CONTENT_SUCCESS);
+      expect(action.payload).toHaveProperty('content', 'testContent');
     });
   });
 });

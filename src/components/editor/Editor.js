@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
-import * as actions from '@/actions/creators';
 
 import Form from '@/components/form/Form';
 
@@ -31,23 +30,15 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onSaveContent: (e) => {
-    e.preventDefault();
-    dispatch(actions.postData('content'));
-  },
-});
-
 const Editor = ({
   fields = [],
   title = '',
   type = '',
   formName = '',
-  onSaveContent,
 }) => (
   <section className={`editor editor--${type}`}>
     <h1 className='editor__title'>{title}</h1>
-    <Form key={formName} form={formName} fields={fields} onSave={onSaveContent} />
+    <Form key={formName} form={formName} fields={fields} />
   </section>
 );
 
@@ -56,7 +47,6 @@ Editor.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   formName: PropTypes.string,
-  onSaveContent: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Editor);
+export default connect(mapStateToProps)(Editor);
