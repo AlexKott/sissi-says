@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onSave: (e) => {
     e.preventDefault();
     dispatch(actions.postContent(ownProps.form));
-  }
+  },
 });
 
 const Form = ({
@@ -21,14 +21,14 @@ const Form = ({
   fields = [],
   onSave,
 }) => (
-  <form className='form'>
+  <form className='form' onSubmit={onSave}>
     {children}
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];
       const fieldStructure = field[fieldName];
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
-    <button onClick={onSave} className='button'>Save</button>
+    <button type='submit' className='button'>Save</button>
   </form>
 );
 
