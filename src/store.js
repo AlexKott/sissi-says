@@ -7,6 +7,8 @@ import routes from './router/routes';
 import routerOptions from './router/options';
 import * as reducers from './reducers';
 import * as middlewares from './middleware';
+// not exported with other middlewares to make sure gatherRequestData middleware is executed first
+import gatherRequestDataMiddleware from '@/middleware/gatherRequestData';
 
 // Setup Redux Devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -21,7 +23,7 @@ const {
     enhancer: locationEnhancer,
 } = connectRoutes(history, routes, routerOptions);
 
-const middleware = applyMiddleware(locationMiddleware, ...customMiddleware);
+const middleware = applyMiddleware(locationMiddleware, gatherRequestDataMiddleware, ...customMiddleware);
 
 const store = createStore(
     combineReducers({ location: locationReducer, form: formReducer, ...reducers }),
