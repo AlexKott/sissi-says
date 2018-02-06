@@ -30,6 +30,21 @@ describe('reducers/content/pages', () => {
     expect(state).toEqual(['testPage']);
   });
 
+  it('should delete a page', () => {
+    const mockState = [
+      { id: 'testPage1', sections: ['section1', 'section2'] },
+      { id: 'testPage2', sections: ['section1', 'section2'] },
+    ];
+    const action = {
+      type: t.DELETE_PAGE,
+      payload: { pageId: 'testPage2' },
+    };
+    const expectedState = [{ id: 'testPage1', sections: ['section1', 'section2'] }];
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should add a section to a page', () => {
     const mockState = [{ id: 'testPage', sections: ['section1', 'section2'] }];
     const action = {

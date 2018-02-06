@@ -20,8 +20,15 @@ export default (state = [], action = {}) => {
     return [...state, payload.page];
   }
 
+  else if (type === t.DELETE_PAGE) {
+    const newState = cloneDeep(state);
+    const deleteIndex = newState.findIndex(page => page.id === payload.pageId);
+    newState.splice(deleteIndex, 1);
+    return newState;
+  }
+
   else if (type === t.ADD_SECTION) {
-    const newState = JSON.parse(JSON.stringify(state));
+    const newState = cloneDeep(state);
     const page = newState.find(page => page.id === payload.pageId);
     page.sections.push(payload.sectionId);
     return newState;
