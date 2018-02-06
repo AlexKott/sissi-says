@@ -7,3 +7,24 @@
   background-color: $color-main-dark;
   @include box-shadow;
 }
+
+.nav__element.button__nav {
+  flex-basis: 36px;
+  padding: 10px;
+  text-transform: uppercase;
+
+  &:hover {
+    color: $color-main-dark;
+    background-color: $color-background-light;
+  }
+}
+
+.nav__element.button__nav--page {
+  color: $color-background-light;
+  background-color: $color-main-medium;
+}
+
+.nav__element.button__nav--section {
+  color: $color-main-dark;
+  background-color: $color-main-light;;
+}

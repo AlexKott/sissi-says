@@ -26,6 +26,7 @@ const NavBar = ({
         activeClassName='nav__element--selected'
       >{`New ${type}`}</NavLink>
     ))}
+    <button className={`nav__element button__nav button__nav--${type}`}>Add</button>
   </nav>
 );
 
