@@ -70,6 +70,7 @@ const NavBar = ({
 );
 
 NavBar.propTypes = {
+  canAdd: PropTypes.bool,
   selectedElement: PropTypes.string,
   type: PropTypes.string,
   elements: PropTypes.array,

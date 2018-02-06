@@ -166,6 +166,38 @@ describe('selectors/content/pages', () => {
     });
   });
 
+  describe('getCanDeletePage', () => {
+    let mockGetMinPages = jest.fn();
+    const mockState = {
+      content: {
+        pages: [
+          { id: 'page1', sections: ['section1', 'section2'] },
+          { id: 'page2', sections: ['section1', 'section2'] },
+        ],
+      },
+    };
+
+    it('should get the minimum pages from the settings reducer', () => {
+      selectors.getCanDeletePage(mockState, mockGetMinPages);
+
+      expect(mockGetMinPages).toBeCalled();
+    });
+
+    it('should return true if the minimum has not been reached', () => {
+      mockGetMinPages = jest.fn(() => 1);
+      const value = selectors.getCanDeletePage(mockState, mockGetMinPages);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if the minimum been reached', () => {
+      mockGetMinPages = jest.fn(() => 2);
+      const value = selectors.getCanDeletePage(mockState, mockGetMinPages);
+
+      expect(value).toBe(false);
+    });
+  });
+
   describe('getCanAddSection', () => {
     let mockGetMaxSections = jest.fn();
     const mockState = {
@@ -190,6 +222,35 @@ describe('selectors/content/pages', () => {
     it('should return false if the maximum been reached', () => {
       mockGetMaxSections = jest.fn(() => 2);
       const value = selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
+
+      expect(value).toBe(false);
+    });
+  });
+
+  describe('getCanDeleteSection', () => {
+    let mockGetMinSections = jest.fn();
+    const mockState = {
+      content: {
+        pages: [{ id: 'testPage', sections: ['section1', 'section2'] }],
+      },
+    };
+
+    it('should get the minimum sections from the settings reducer', () => {
+      selectors.getCanDeleteSection(mockState, 'testPage', mockGetMinSections);
+
+      expect(mockGetMinSections).toBeCalled();
+    });
+
+    it('should return true if the minimum has not been reached', () => {
+      mockGetMinSections = jest.fn(() => 1);
+      const value = selectors.getCanDeleteSection(mockState, 'testPage', mockGetMinSections);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if the minimum been reached', () => {
+      mockGetMinSections = jest.fn(() => 2);
+      const value = selectors.getCanDeleteSection(mockState, 'testPage', mockGetMinSections);
 
       expect(value).toBe(false);
     });

@@ -22,13 +22,13 @@ const Form = ({
   onSave,
 }) => (
   <form className='form' onSubmit={onSave}>
-    {children}
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];
       const fieldStructure = field[fieldName];
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
     <button type='submit' className='button'>Save</button>
+    {children}
   </form>
 );
 

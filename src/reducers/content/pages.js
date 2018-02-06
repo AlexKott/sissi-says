@@ -2,7 +2,12 @@ import cloneDeep from 'lodash.clonedeep';
 
 import * as t from '@/actions/types';
 import { getSectionById } from './sections';
-import { getMaxPages, getMaxSectionsPerPage } from '@/reducers/settings';
+import {
+  getMaxPages,
+  getMinPages,
+  getMaxSectionsPerPage,
+  getMinSectionsPerPage,
+} from '@/reducers/settings';
 
 export default (state = [], action = {}) => {
   const { type, payload } = action;
@@ -55,6 +60,14 @@ export function getCanAddPage(state, selectMaxPages = getMaxPages) {
   return getNumberOfPages(state) < selectMaxPages(state);
 }
 
+export function getCanDeletePage(state, selectMinPages = getMinPages) {
+  return getNumberOfPages(state) > selectMinPages(state);
+}
+
 export function getCanAddSection(state, pageId, selectMaxSections = getMaxSectionsPerPage) {
   return getNumberOfSectionsForPage(state, pageId) < selectMaxSections(state);
+}
+
+export function getCanDeleteSection(state, pageId, selectMinSections = getMinSectionsPerPage) {
+  return getNumberOfSectionsForPage(state, pageId) > selectMinSections(state);
 }
