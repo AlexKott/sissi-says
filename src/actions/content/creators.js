@@ -27,9 +27,9 @@ export function deletePage(pageId) {
   };
 }
 
-export function deleteSection(sectionId) {
+export function deleteSection(pageId, sectionId) {
   return {
     type: t.DELETE_SECTION,
-    payload: { sectionId },
+    payload: { pageId, sectionId },
   };
 }

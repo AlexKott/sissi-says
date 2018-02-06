@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   if (ownProps.type === 'page') {
     onDelete = () => dispatch(actions.deletePage(ownProps.pageId));
   } else if (ownProps.type === 'section') {
-    onDelete = () => dispatch(actions.deleteSection(ownProps.sectionId));
+    onDelete = () => dispatch(actions.deleteSection(ownProps.pageId, ownProps.sectionId));
   }
 
   return {
@@ -75,4 +75,4 @@ Editor.propTypes = {
   onDelete: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(Editor);
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);

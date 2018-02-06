@@ -14,23 +14,27 @@ export default (state = [], action = {}) => {
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
     return payload.data.pages || [];
-  }
 
-  else if (type === t.ADD_PAGE) {
+  } else if (type === t.ADD_PAGE) {
     return [...state, payload.page];
-  }
 
-  else if (type === t.DELETE_PAGE) {
+  } else if (type === t.DELETE_PAGE) {
     const newState = cloneDeep(state);
     const deleteIndex = newState.findIndex(page => page.id === payload.pageId);
     newState.splice(deleteIndex, 1);
     return newState;
-  }
 
-  else if (type === t.ADD_SECTION) {
+  } else if (type === t.ADD_SECTION) {
     const newState = cloneDeep(state);
     const page = newState.find(page => page.id === payload.pageId);
     page.sections.push(payload.sectionId);
+    return newState;
+
+  } else if (type === t.DELETE_SECTION) {
+    const newState = cloneDeep(state);
+    const page = newState.find(page => page.id === payload.pageId);
+    const deleteIndex = page.sections.findIndex(section => section === payload.sectionId);
+    page.sections.splice(deleteIndex, 1);
     return newState;
   }
 

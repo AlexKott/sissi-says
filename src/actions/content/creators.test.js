@@ -40,9 +40,10 @@ describe('actions/content', () => {
 
   describe('deleteSection', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.deleteSection('testSection');
+      const action = actions.deleteSection('testPage', 'testSection');
 
       expect(action).toHaveProperty('type', t.DELETE_SECTION);
+      expect(action.payload).toHaveProperty('pageId', 'testPage');
       expect(action.payload).toHaveProperty('sectionId', 'testSection');
     });
   });

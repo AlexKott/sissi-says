@@ -58,6 +58,20 @@ describe('reducers/content/pages', () => {
       sections: ['section1', 'section2', 'testSection'],
     }]);
   });
+
+  it('should delete a section from a page', () => {
+    const mockState = [{ id: 'testPage', sections: ['section1', 'section2'] }];
+    const action = {
+      type: t.DELETE_SECTION,
+      payload: { pageId: 'testPage', sectionId: 'section1' },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual([{
+      id: 'testPage',
+      sections: ['section2'],
+    }]);
+  });
 });
 
 describe('selectors/content/pages', () => {
