@@ -44,4 +44,22 @@ describe('selectors/settings', () => {
       expect(value).toBe(9);
     });
   });
+
+  describe('getMaxPages', () => {
+    it('should return the correct value from the state', () => {
+      const mockState = { settings: { maxPages: 7 } };
+      const value = selectors.getMaxPages(mockState);
+
+      expect(value).toBe(7);
+    });
+  });
+
+  describe('getMaxSectionsPerPage', () => {
+    it('should return the correct value from the state', () => {
+      const mockState = { settings: { maxSectionsPerPage: 9 } };
+      const value = selectors.getMaxSectionsPerPage(mockState);
+
+      expect(value).toBe(9);
+    });
+  });
 });
