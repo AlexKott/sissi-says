@@ -28,4 +28,22 @@ describe('actions/content', () => {
       expect(action.payload).toHaveProperty('sectionType', 'testType');
     });
   });
+
+  describe('deletePage', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.deletePage('testPage');
+
+      expect(action).toHaveProperty('type', t.DELETE_PAGE);
+      expect(action.payload).toHaveProperty('pageId', 'testPage');
+    });
+  });
+
+  describe('deleteSection', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.deleteSection('testSection');
+
+      expect(action).toHaveProperty('type', t.DELETE_SECTION);
+      expect(action.payload).toHaveProperty('sectionId', 'testSection');
+    });
+  });
 });

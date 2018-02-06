@@ -19,3 +19,17 @@ export function addSection(pageId, sectionType) {
     payload: { pageId, sectionType },
   };
 }
+
+export function deletePage(pageId) {
+  return {
+    type: t.DELETE_PAGE,
+    payload: { pageId },
+  };
+}
+
+export function deleteSection(sectionId) {
+  return {
+    type: t.DELETE_SECTION,
+    payload: { sectionId },
+  };
+}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
+import * as actions from '@/actions/creators';
 
 import Form from '@/components/form/Form';
 
@@ -18,6 +19,7 @@ const mapStateToProps = (state, ownProps) => {
     fields = selectors.getPageFields(state, page.pageType);
     title = 'Page Editor';
     canDelete = selectors.getCanDeletePage(state);
+
   } else if (ownProps.type === 'section') {
     id = ownProps.sectionId;
     const section = selectors.getSectionById(state, id);
@@ -34,17 +36,32 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  let onDelete;
+
+  if (ownProps.type === 'page') {
+    onDelete = () => dispatch(actions.deletePage(ownProps.pageId));
+  } else if (ownProps.type === 'section') {
+    onDelete = () => dispatch(actions.deleteSection(ownProps.sectionId));
+  }
+
+  return {
+    onDelete,
+  };
+}
+
 const Editor = ({
   canDelete,
   fields = [],
   title = '',
   type = '',
   formName = '',
+  onDelete,
 }) => (
   <section className={`editor editor--${type}`}>
     <h1 className='editor__title'>{title}</h1>
     <Form key={formName} form={formName} fields={fields}>
-      {canDelete && <button type='button' className='button'>Delete</button>}
+      {canDelete && <button type='button' onClick={onDelete} className='button'>Delete</button>}
     </Form>
   </section>
 );
@@ -55,6 +72,7 @@ Editor.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   formName: PropTypes.string,
+  onDelete: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(Editor);
