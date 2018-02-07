@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { connectRoutes } from 'redux-first-router';
 import createHistory from 'history/createBrowserHistory';
 import { reducer as formReducer } from 'redux-form';
+import thunk from 'redux-thunk';
 
 import routes from './router/routes';
 import routerOptions from './router/options';
@@ -23,7 +24,12 @@ const {
     enhancer: locationEnhancer,
 } = connectRoutes(history, routes, routerOptions);
 
-const middleware = applyMiddleware(locationMiddleware, gatherRequestDataMiddleware, ...customMiddleware);
+const middleware = applyMiddleware(
+  locationMiddleware,
+  thunk,
+  gatherRequestDataMiddleware,
+  ...customMiddleware,
+);
 
 const store = createStore(
     combineReducers({ location: locationReducer, form: formReducer, ...reducers }),
