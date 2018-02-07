@@ -134,6 +134,19 @@ describe('selectors/content/pages', () => {
     });
   });
 
+  describe('getSectionIdsForPage', () => {
+    it('should return the section ids for a given pageId', () => {
+      const mockState = {
+        content: {
+          pages: [{ id: 'testPage', sections: ['ab', 'bc', 'cd'] }],
+        },
+      };
+      const value = selectors.getSectionIdsForPage(mockState, 'testPage');
+
+      expect(value).toEqual(['ab', 'bc', 'cd']);
+    });
+  });
+
   describe('getSectionsForPage', () => {
     const mockState = {
       content: {

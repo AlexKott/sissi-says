@@ -58,8 +58,12 @@ export function getNumberOfSectionsForPage(state, pageId) {
   return page ? page.sections.length : 0;
 }
 
+export function getSectionIdsForPage(state, pageId) {
+  return getPageById(state, pageId).sections || [];
+}
+
 export function getSectionsForPage(state, pageId, selectSectionById = getSectionById) {
-  const sectionIds = getPageById(state, pageId).sections || [];
+  const sectionIds = getSectionIdsForPage(state, pageId);
 
   return sectionIds.map(id => {
     const section = selectSectionById(state, id);

@@ -1,4 +1,5 @@
 import * as t from './types';
+import { getSectionIdsForPage } from '@/reducers/content/pages';
 
 export function setInitialContent() {
   return {
@@ -21,9 +22,13 @@ export function addSection(pageId, sectionType) {
 }
 
 export function deletePage(pageId) {
-  return {
-    type: t.DELETE_PAGE,
-    payload: { pageId },
+  return (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
+    const sectionIds = selectSectionIdsForPage(getState(), pageId);
+    sectionIds.forEach(sectionId => dispatch(deleteSection(pageId, sectionId)));
+    dispatch({
+      type: t.DELETE_PAGE,
+      payload: { pageId },
+    });
   };
 }
 

@@ -30,11 +30,28 @@ describe('actions/content', () => {
   });
 
   describe('deletePage', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.deletePage('testPage');
+    it('should return a thunk that dispatches the correct actions', () => {
+      const mockDispatch = jest.fn();
+      const mockGetState = jest.fn();
+      const mockGetSections = jest.fn(() => ['ab', 'bc']);
+      const thunk = actions.deletePage('testPage');
+      thunk(mockDispatch, mockGetState, mockGetSections);
 
-      expect(action).toHaveProperty('type', t.DELETE_PAGE);
-      expect(action.payload).toHaveProperty('pageId', 'testPage');
+      expect(mockDispatch.mock.calls).toHaveLength(3);
+
+      // dispatch action to delete first section
+      expect(mockDispatch.mock.calls[0][0]).toHaveProperty('type', t.DELETE_SECTION);
+      expect(mockDispatch.mock.calls[0][0].payload).toHaveProperty('pageId', 'testPage');
+      expect(mockDispatch.mock.calls[0][0].payload).toHaveProperty('sectionId', 'ab');
+
+      // dispatch action to delete second section
+      expect(mockDispatch.mock.calls[1][0]).toHaveProperty('type', t.DELETE_SECTION);
+      expect(mockDispatch.mock.calls[1][0].payload).toHaveProperty('pageId', 'testPage');
+      expect(mockDispatch.mock.calls[1][0].payload).toHaveProperty('sectionId', 'bc');
+
+      // dispatch action to delete page
+      expect(mockDispatch.mock.calls[2][0]).toHaveProperty('type', t.DELETE_PAGE);
+      expect(mockDispatch.mock.calls[2][0].payload).toHaveProperty('pageId', 'testPage');
     });
   });
 
