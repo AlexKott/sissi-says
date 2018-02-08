@@ -40,9 +40,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   let onDelete;
 
   if (ownProps.type === 'page') {
-    onDelete = () => dispatch(actions.deletePage(ownProps.pageId));
+    onDelete = () => {
+      dispatch(actions.deletePage(ownProps.pageId));
+      dispatch(actions.redirectToIndex());
+    };
   } else if (ownProps.type === 'section') {
-    onDelete = () => dispatch(actions.deleteSection(ownProps.pageId, ownProps.sectionId));
+    onDelete = () => {
+      dispatch(actions.deleteSection(ownProps.pageId, ownProps.sectionId));
+      dispatch(actions.redirectToPage(ownProps.pageId));
+    };
   }
 
   return {
