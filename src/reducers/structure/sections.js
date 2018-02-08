@@ -12,10 +12,18 @@ export default (state = {}, action = {}) => {
   return state;
 }
 
+export function getSectionByType(state, sectionType) {
+  return state.structure.sections[sectionType] || {};
+}
+
 export function getProtectedSections(state) {
   return Object.entries(state.structure.sections)
   .filter(entry => entry[1].isProtected)
   .map(entry => entry[0]);
+}
+
+export function getIsProtectedSection(state, sectionType) {
+  return getSectionByType(state, sectionType).isProtected;
 }
 
 export function getProtectedSectionsForPage(state, pageType, selectRequiredSections = getRequiredSections) {

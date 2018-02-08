@@ -27,6 +27,21 @@ describe('reducers/structure/pages', () => {
 });
 
 describe('selectors/structure/pages', () => {
+  describe('getPageByType', () => {
+    it('should return the page structure for the given type', () => {
+      const mockState = {
+        structure: {
+          pages: {
+            testPageOne: { test: 'test', isProtected: true },
+          },
+        },
+      };
+      const value = selectors.getPageByType(mockState, 'testPageOne');
+
+      expect(value).toEqual({ test: 'test', isProtected: true });
+    });
+  });
+
   describe('getProtectedPages', () => {
     it('should return all protected page types', () => {
       const mockState = {
@@ -41,6 +56,21 @@ describe('selectors/structure/pages', () => {
       const value = selectors.getProtectedPages(mockState);
 
       expect(value).toEqual(['testPageOne', 'testPageThree']);
+    });
+  });
+
+  describe('getIsProtectedPage', () => {
+    it('should return the correct value for the given page type', () => {
+      const mockState = {
+        structure: {
+          pages: {
+            testPageOne: { isProtected: true },
+          },
+        },
+      };
+      const value = selectors.getIsProtectedPage(mockState, 'testPageOne');
+
+      expect(value).toBe(true);
     });
   });
 

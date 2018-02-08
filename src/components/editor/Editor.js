@@ -16,16 +16,18 @@ const mapStateToProps = (state, ownProps) => {
   if (ownProps.type === 'page') {
     id = ownProps.pageId;
     const page = selectors.getPageById(state, id);
+    const isProtected = selectors.getIsProtectedPage(state, page.pageType);
     fields = selectors.getPageFields(state, page.pageType);
     title = 'Page Editor';
-    canDelete = selectors.getCanDeletePage(state);
+    canDelete = selectors.getCanDeletePage(state) && !isProtected;
 
   } else if (ownProps.type === 'section') {
     id = ownProps.sectionId;
     const section = selectors.getSectionById(state, id);
+    const isProtected = selectors.getIsProtectedSection(state, section.sectionType);
     fields = selectors.getSectionFields(state, section.sectionType);
     title = 'Section Editor';
-    canDelete = selectors.getCanDeleteSection(state, ownProps.pageId);
+    canDelete = selectors.getCanDeleteSection(state, ownProps.pageId) && !isProtected;
   }
 
   return {
