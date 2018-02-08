@@ -7,6 +7,7 @@ const Select = ({
   input = {},
 }) => (
   <select {...input} className={className}>
+    <option value=''></option>
     {options.map(option => (
       <option key={option.key} value={option.key}>{option.label}</option>
     ))}
