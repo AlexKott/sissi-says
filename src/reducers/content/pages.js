@@ -49,3 +49,11 @@ export function getSectionsForPage(state, pageId, selectSectionById = getSection
     return { ...section, id };
   });
 }
+
+export function getInitialPageValues(state, pageId) {
+  const pageCopy = cloneDeep(getPageById(state, pageId));
+  delete pageCopy.id;
+  delete pageCopy.pageType;
+  delete pageCopy.sections;
+  return pageCopy;
+}

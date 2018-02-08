@@ -32,7 +32,8 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
         pageData.splice(newPageIndex, 1, newPage);
         pages = pageData;
       } else if (formType === 'section') {
-        sections = Object.assign({}, sectionData, { [formId]: formInput });
+        const newSection = Object.assign({}, sectionData[formId], formInput);
+        sections = Object.assign({}, sectionData, { [formId]: newSection });
       }
     }
 

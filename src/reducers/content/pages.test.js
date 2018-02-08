@@ -136,4 +136,19 @@ describe('selectors/content/pages', () => {
       ]);
     });
   });
+
+  describe('getInitialPageValues', () => {
+    it('should return the filtered data for the specified page', () => {
+      const mockState = {
+        content: {
+          pages: [
+            { id: 'test1', pageType: 'test1', sections: [1, 2, 3], otherData: 'test' },
+          ],
+        },
+      };
+      const value = selectors.getInitialPageValues(mockState, 'test1');
+
+      expect(value).toEqual({ otherData: 'test' });
+    });
+  });
 });

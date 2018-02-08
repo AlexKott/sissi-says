@@ -43,5 +43,6 @@ export default compose(
   connect(null, mapDispatchToProps),
   reduxForm({
     destroyOnUnmount: false,
+    enableReinitialize: true,
   })
 )(Form);

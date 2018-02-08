@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 import * as t from '@/actions/types';
 
 export default (state = {}, action = {}) => {
@@ -20,4 +22,10 @@ export function getAllSections(state) {
 
 export function getSectionById(state, sectionId) {
   return state.content.sections[sectionId] || {};
+}
+
+export function getInitialSectionValues(state, sectionId) {
+  const sectionCopy = cloneDeep(getSectionById(state, sectionId));
+  delete sectionCopy.sectionType;
+  return sectionCopy;
 }
