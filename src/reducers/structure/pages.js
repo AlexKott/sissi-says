@@ -11,10 +11,18 @@ export default (state = {}, action = {}) => {
   return state;
 }
 
+export function getPageByType(state, pageType) {
+  return state.structure.pages[pageType] || {};
+}
+
 export function getProtectedPages(state) {
   return Object.entries(state.structure.pages)
     .filter(entry => entry[1].isProtected)
     .map(entry => entry[0]);
+}
+
+export function getIsProtectedPage(state, pageType) {
+  return getPageByType(state, pageType).isProtected;
 }
 
 export function getPageFieldNames(state, pageId) {

@@ -1,9 +1,35 @@
 .button {
   align-self: flex-end;
+  margin-top: 10px;
   height: 40px;
   width: 120px;
   text-transform: uppercase;
   color: $color-background-light;
   background-color: $color-main-dark;
   @include box-shadow;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.nav__element.button__nav {
+  flex-basis: 36px;
+  padding: 10px;
+  text-transform: uppercase;
+
+  &:hover {
+    color: $color-main-dark;
+    background-color: $color-background-light;
+  }
+}
+
+.nav__element.button__nav--page {
+  color: $color-background-light;
+  background-color: $color-main-medium;
+}
+
+.nav__element.button__nav--section {
+  color: $color-main-dark;
+  background-color: $color-main-light;;
 }

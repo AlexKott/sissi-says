@@ -27,6 +27,21 @@ describe('reducers/structure/sections', () => {
 });
 
 describe('selectors/structure/sections', () => {
+  describe('getSectionByType', () => {
+    it('should return the section structure for the given type', () => {
+      const mockState = {
+        structure: {
+          sections: {
+            testSectionOne: { test: 'test', isProtected: true },
+          },
+        },
+      };
+      const value = selectors.getSectionByType(mockState, 'testSectionOne');
+
+      expect(value).toEqual({ test: 'test', isProtected: true });
+    });
+  });
+
   describe('getProtectedSections', () => {
     it('should return an array with all protected sections', () => {
       const mockState = {
@@ -41,6 +56,21 @@ describe('selectors/structure/sections', () => {
       const value = selectors.getProtectedSections(mockState);
 
       expect(value).toEqual(['test1', 'test3']);
+    });
+  });
+
+  describe('getIsProtectedSection', () => {
+    it('should return the correct value for the given section type', () => {
+      const mockState = {
+        structure: {
+          sections: {
+            testSectionOne: { isProtected: false },
+          },
+        },
+      };
+      const value = selectors.getIsProtectedSection(mockState, 'testSectionOne');
+
+      expect(value).toBe(false);
     });
   });
 

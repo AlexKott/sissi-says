@@ -17,3 +17,11 @@ export function getMinPages(state) {
 export function getMinSectionsPerPage(state) {
   return state.settings.minSectionsPerPage;
 }
+
+export function getMaxPages(state) {
+  return state.settings.maxPages;
+}
+
+export function getMaxSectionsPerPage(state) {
+  return state.settings.maxSectionsPerPage;
+}
