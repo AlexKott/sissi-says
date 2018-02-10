@@ -17,7 +17,7 @@ describe('actions/request', () => {
       const successAction = action.payload.successDispatch[0]();
 
       expect(action.payload.successDispatch).toHaveLength(1);
-      expect(successAction.payload).toHaveProperty('type', 'test');
+      expect(successAction.payload).toHaveProperty('dataType', 'test');
     });
   });
 
@@ -26,8 +26,20 @@ describe('actions/request', () => {
       const action = actions.fetchDataSuccess('testType', 'testData');
 
       expect(action).toHaveProperty('type', t.FETCH_DATA_SUCCESS);
-      expect(action.payload).toHaveProperty('type', 'testType');
+      expect(action.payload).toHaveProperty('dataType', 'testType');
       expect(action.payload).toHaveProperty('data', 'testData');
+    });
+  });
+
+  describe('postContent', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.postContent('test');
+
+      expect(action).toHaveProperty('type', t.SEND_REQUEST);
+      expect(action.payload).toHaveProperty('method', 'post');
+      expect(action.payload).toHaveProperty('dataType', 'content');
+      expect(action.payload).toHaveProperty('formName', 'test');
+      expect(action.payload).toHaveProperty('successDispatch');
     });
   });
 });

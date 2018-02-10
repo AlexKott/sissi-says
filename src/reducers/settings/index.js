@@ -1,14 +1,12 @@
-// Mock data: makes test fail
-const initialState = {
-  projectName: 'your amazing technicolor website',
-  language: 'EN',
-  maxPages: 5,
-  minPages: 3,
-  maxSectionsPerPage: 6,
-  minSectionsPerPage: 1,
-};
+import * as t from '@/actions/types';
 
-export default (state = initialState, action = {}) => {
+export default (state = {}, action = {}) => {
+  const { type, payload } = action;
+
+  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
+    return payload.data.settings;
+  }
+
   return state;
 };
 
@@ -18,4 +16,12 @@ export function getMinPages(state) {
 
 export function getMinSectionsPerPage(state) {
   return state.settings.minSectionsPerPage;
+}
+
+export function getMaxPages(state) {
+  return state.settings.maxPages;
+}
+
+export function getMaxSectionsPerPage(state) {
+  return state.settings.maxSectionsPerPage;
 }

@@ -17,9 +17,21 @@ export function fetchData(dataType) {
   return action;
 }
 
-export function fetchDataSuccess(type, data) {
+export function fetchDataSuccess(dataType, data) {
   return {
     type: t.FETCH_DATA_SUCCESS,
-    payload: { type, data },
+    payload: { dataType, data },
+  };
+}
+
+export function postContent(formName) {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType: 'content',
+      formName,
+      successDispatch: [fetchDataSuccess.bind({}, 'content')],
+    }
   };
 }

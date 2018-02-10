@@ -1,4 +1,5 @@
 import reducer, * as selectors from './pages';
+import * as t from '@/actions/types';
 
 describe('reducers/structure/pages', () => {
   it('should return the initial state', () => {
@@ -7,9 +8,40 @@ describe('reducers/structure/pages', () => {
 
     expect(state).toEqual(expectedState);
   });
+
+  it('should return the fetched state', () => {
+    const expectedState = { test1: 'test1', test2: 'test2' };
+    const action = {
+      type: t.FETCH_DATA_SUCCESS,
+      payload: {
+        dataType: 'structure',
+        data: {
+          pages: expectedState,
+        },
+      },
+    };
+    const state = reducer(undefined, action);
+
+    expect(state).toEqual(expectedState);
+  });
 });
 
 describe('selectors/structure/pages', () => {
+  describe('getPageByType', () => {
+    it('should return the page structure for the given type', () => {
+      const mockState = {
+        structure: {
+          pages: {
+            testPageOne: { test: 'test', isProtected: true },
+          },
+        },
+      };
+      const value = selectors.getPageByType(mockState, 'testPageOne');
+
+      expect(value).toEqual({ test: 'test', isProtected: true });
+    });
+  });
+
   describe('getProtectedPages', () => {
     it('should return all protected page types', () => {
       const mockState = {
@@ -24,6 +56,21 @@ describe('selectors/structure/pages', () => {
       const value = selectors.getProtectedPages(mockState);
 
       expect(value).toEqual(['testPageOne', 'testPageThree']);
+    });
+  });
+
+  describe('getIsProtectedPage', () => {
+    it('should return the correct value for the given page type', () => {
+      const mockState = {
+        structure: {
+          pages: {
+            testPageOne: { isProtected: true },
+          },
+        },
+      };
+      const value = selectors.getIsProtectedPage(mockState, 'testPageOne');
+
+      expect(value).toBe(true);
     });
   });
 

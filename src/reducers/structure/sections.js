@@ -1,28 +1,29 @@
+import * as t from '@/actions/types';
 import { getRequiredSections } from './pages';
 import { getFieldByName } from './fields';
 
-// Mock data: makes test fail
-const initialState = {
-  standard: {
-    label: 'Standard',
-    fields: ['title', 'content', 'horizontalPosition', 'verticalPosition', 'width'],
-    isProtected: false,
-  },
-  contactForm: {
-    label: 'Kontaktformular',
-    fields: ['title'],
-    isProtected: true,
-  },
-};
+export default (state = {}, action = {}) => {
+  const { type, payload } = action;
 
-export default (state = initialState, action = {}) => {
+  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
+    return payload.data.sections;
+  }
+
   return state;
+}
+
+export function getSectionByType(state, sectionType) {
+  return state.structure.sections[sectionType] || {};
 }
 
 export function getProtectedSections(state) {
   return Object.entries(state.structure.sections)
   .filter(entry => entry[1].isProtected)
   .map(entry => entry[0]);
+}
+
+export function getIsProtectedSection(state, sectionType) {
+  return getSectionByType(state, sectionType).isProtected;
 }
 
 export function getProtectedSectionsForPage(state, pageType, selectRequiredSections = getRequiredSections) {

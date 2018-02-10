@@ -1,22 +1,18 @@
+import * as t from '@/actions/types';
 import { getFieldByName } from './fields';
 
-// Mock data: makes test fail
-const initialState = {
-  standard: {
-    label: 'Standardseite',
-    fields: ['title', 'backgroundImage', 'slug'],
-    isProtected: false,
-  },
-  contact: {
-    label: 'Kontaktseite',
-    fields: ['title', 'backgroundImage', 'slug'],
-    requiredSections: ['contactForm'],
-    isProtected: true,
-  },
-};
+export default (state = {}, action = {}) => {
+  const { type, payload } = action;
 
-export default (state = initialState, action = {}) => {
+  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
+    return payload.data.pages;
+  }
+
   return state;
+}
+
+export function getPageByType(state, pageType) {
+  return state.structure.pages[pageType] || {};
 }
 
 export function getProtectedPages(state) {
@@ -25,8 +21,13 @@ export function getProtectedPages(state) {
     .map(entry => entry[0]);
 }
 
-export function getPageFieldNames(state, page) {
-  return state.structure.pages[page].fields || [];
+export function getIsProtectedPage(state, pageType) {
+  return getPageByType(state, pageType).isProtected;
+}
+
+export function getPageFieldNames(state, pageId) {
+  const page = state.structure.pages[pageId] || {};
+  return page.fields || [];
 }
 
 export function getPageFields(state, page, selectFieldByName = getFieldByName) {

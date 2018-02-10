@@ -3,15 +3,10 @@ import * as selectors from '@/reducers/selectors';
 
 export default {
   onBeforeChange(dispatch, getState) {
-    const isStructureLoaded = selectors.getIsStructureLoaded(getState());
-    const isContentLoaded = selectors.getIsContentLoaded(getState());
+    const isInitialDataFetched = selectors.getIsInitialDataFetched(getState());
 
-    if (!isStructureLoaded) {
+    if (!isInitialDataFetched) {
       dispatch(actions.fetchData('structure'));
-    }
-
-    if (!isContentLoaded) {
-      dispatch(actions.setInitialContent()); // TODO: handle after request
     }
   }
 }

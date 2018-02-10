@@ -9,6 +9,17 @@ describe('reducers/content/pages', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should return the fetched pages', () => {
+    const action = {
+      type: t.FETCH_DATA_SUCCESS,
+      payload: { dataType: 'content', data: { pages: ['page1', 'page2']}},
+    }
+    const expectedState = ['page1', 'page2'];
+    const state = reducer(undefined, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should add a page', () => {
     const action = {
       type: t.ADD_PAGE,
@@ -17,6 +28,21 @@ describe('reducers/content/pages', () => {
     const state = reducer(undefined, action);
 
     expect(state).toEqual(['testPage']);
+  });
+
+  it('should delete a page', () => {
+    const mockState = [
+      { id: 'testPage1', sections: ['section1', 'section2'] },
+      { id: 'testPage2', sections: ['section1', 'section2'] },
+    ];
+    const action = {
+      type: t.DELETE_PAGE,
+      payload: { pageId: 'testPage2' },
+    };
+    const expectedState = [{ id: 'testPage1', sections: ['section1', 'section2'] }];
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual(expectedState);
   });
 
   it('should add a section to a page', () => {
@@ -30,6 +56,20 @@ describe('reducers/content/pages', () => {
     expect(state).toEqual([{
       id: 'testPage',
       sections: ['section1', 'section2', 'testSection'],
+    }]);
+  });
+
+  it('should delete a section from a page', () => {
+    const mockState = [{ id: 'testPage', sections: ['section1', 'section2'] }];
+    const action = {
+      type: t.DELETE_SECTION,
+      payload: { pageId: 'testPage', sectionId: 'section1' },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual([{
+      id: 'testPage',
+      sections: ['section2'],
     }]);
   });
 });
@@ -94,6 +134,19 @@ describe('selectors/content/pages', () => {
     });
   });
 
+  describe('getSectionIdsForPage', () => {
+    it('should return the section ids for a given pageId', () => {
+      const mockState = {
+        content: {
+          pages: [{ id: 'testPage', sections: ['ab', 'bc', 'cd'] }],
+        },
+      };
+      const value = selectors.getSectionIdsForPage(mockState, 'testPage');
+
+      expect(value).toEqual(['ab', 'bc', 'cd']);
+    });
+  });
+
   describe('getSectionsForPage', () => {
     const mockState = {
       content: {
@@ -123,6 +176,125 @@ describe('selectors/content/pages', () => {
         { id: 'section1', content: 'test' },
         { id: 'section2', content: 'test2' },
       ]);
+    });
+  });
+
+  describe('getCanAddPage', () => {
+    let mockGetMaxPages = jest.fn();
+    const mockState = {
+      content: {
+        pages: [{ id: 'page1', sections: ['section1', 'section2'] }],
+      },
+    };
+
+    it('should get the maximum pages from the settings reducer', () => {
+      selectors.getCanAddPage(mockState, mockGetMaxPages);
+
+      expect(mockGetMaxPages).toBeCalled();
+    });
+
+    it('should return true if the maximum has not been reached', () => {
+      mockGetMaxPages = jest.fn(() => 5);
+      const value = selectors.getCanAddPage(mockState, mockGetMaxPages);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if the maximum been reached', () => {
+      mockGetMaxPages = jest.fn(() => 1);
+      const value = selectors.getCanAddPage(mockState, mockGetMaxPages);
+
+      expect(value).toBe(false);
+    });
+  });
+
+  describe('getCanDeletePage', () => {
+    let mockGetMinPages = jest.fn();
+    const mockState = {
+      content: {
+        pages: [
+          { id: 'page1', sections: ['section1', 'section2'] },
+          { id: 'page2', sections: ['section1', 'section2'] },
+        ],
+      },
+    };
+
+    it('should get the minimum pages from the settings reducer', () => {
+      selectors.getCanDeletePage(mockState, mockGetMinPages);
+
+      expect(mockGetMinPages).toBeCalled();
+    });
+
+    it('should return true if the minimum has not been reached', () => {
+      mockGetMinPages = jest.fn(() => 1);
+      const value = selectors.getCanDeletePage(mockState, mockGetMinPages);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if the minimum been reached', () => {
+      mockGetMinPages = jest.fn(() => 2);
+      const value = selectors.getCanDeletePage(mockState, mockGetMinPages);
+
+      expect(value).toBe(false);
+    });
+  });
+
+  describe('getCanAddSection', () => {
+    let mockGetMaxSections = jest.fn();
+    const mockState = {
+      content: {
+        pages: [{ id: 'testPage', sections: ['section1', 'section2'] }],
+      },
+    };
+
+    it('should get the maximum sections from the settings reducer', () => {
+      selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
+
+      expect(mockGetMaxSections).toBeCalled();
+    });
+
+    it('should return true if the maximum has not been reached', () => {
+      mockGetMaxSections = jest.fn(() => 5);
+      const value = selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if the maximum been reached', () => {
+      mockGetMaxSections = jest.fn(() => 2);
+      const value = selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
+
+      expect(value).toBe(false);
+    });
+  });
+
+  describe('getCanDeleteSection', () => {
+    let mockGetMinSections = jest.fn();
+    const mockState = {
+      content: {
+        pages: [{ id: 'testPage', sections: ['section1', 'section2'] }],
+      },
+    };
+
+    it('should get the minimum sections from the settings reducer', () => {
+      selectors.getCanDeleteSection(mockState, 'testPage', mockGetMinSections);
+
+      expect(mockGetMinSections).toBeCalled();
+    });
+
+    it('should return true if the minimum has not been reached', () => {
+      mockGetMinSections = jest.fn(() => 1);
+      const value = selectors.getCanDeleteSection(mockState, 'testPage', mockGetMinSections);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if the minimum been reached', () => {
+      mockGetMinSections = jest.fn(() => 2);
+      const value = selectors.getCanDeleteSection(mockState, 'testPage', mockGetMinSections);
+
+      expect(value).toBe(false);
     });
   });
 });
