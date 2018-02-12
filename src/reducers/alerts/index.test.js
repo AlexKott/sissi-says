@@ -58,3 +58,55 @@ describe('reducers/alerts', () => {
     expect(state).toEqual(initialState);
   });
 });
+
+describe('selectors/alerts', () => {
+  let mockState;
+
+  beforeEach(() => {
+    mockState = {
+      alerts: {
+        loading: 3,
+        error: 'Test error',
+        message: 'Test alert',
+      },
+    };
+  });
+
+  describe('getShouldDisplayModal', () => {
+    it('should return false if there is nothing to display', () => {
+      mockState = {
+        alerts: {
+          loading: 0,
+          error: '',
+          message: '',
+        },
+      };
+
+      const value = selectors.getShouldDisplayModal(mockState);
+
+      expect(value).toBe(false);
+    });
+
+    it('should return false if there is something to display', () => {
+      const value = selectors.getShouldDisplayModal(mockState);
+
+      expect(value).toBe(true);
+    });
+  });
+
+  describe('getErrorMessage', () => {
+    it('should return the error message from state', () => {
+      const value = selectors.getErrorMessage(mockState);
+
+      expect(value).toBe('Test error');
+    });
+  });
+
+  describe('getAlertMessage', () => {
+    it('should return the alert message from state', () => {
+      const value = selectors.getAlertMessage(mockState);
+
+      expect(value).toBe('Test alert');
+    });
+  });
+});

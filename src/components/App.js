@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
 
+import Modal from './modal/Modal';
 import Navigation from './navigation/Navigation';
 import Main from './editor/Main';
 import Editor from './editor/Editor';
@@ -33,6 +34,7 @@ const App = ({
   sectionId = '',
 }) => (
   <div className='app'>
+    <Modal />
     <Navigation selectedPage={pageId} selectedSection={sectionId} />
     {displayMain
       ? <Main />

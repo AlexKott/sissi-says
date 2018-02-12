@@ -27,3 +27,18 @@ export default (state = initialState, action = {}) => {
 
   return state;
 };
+
+export function getShouldDisplayModal(state) {
+  const isLoading = state.alerts.loading > 0;
+  const hasError = state.alerts.error !== '';
+  const hasMessage = state.alerts.message !== '';
+  return isLoading || hasError || hasMessage;
+}
+
+export function getErrorMessage(state) {
+  return state.alerts.error;
+}
+
+export function getAlertMessage(state) {
+  return state.alerts.message;
+}
