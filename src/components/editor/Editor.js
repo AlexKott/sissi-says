@@ -73,7 +73,7 @@ const Editor = ({
 }) => (
   <section className={`editor editor--${type}`}>
     <h1 className='editor__title'>{title}</h1>
-    <Form key={formName} form={formName} initialValues={initialValues} fields={fields} />
+    <Form key={formName} form={formName} initialValues={initialValues} fields={fields}>
       {canDelete && <button type='button' onClick={onDelete} className='button'>Delete</button>}
     </Form>
   </section>
