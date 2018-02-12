@@ -3,7 +3,7 @@ import * as t from '@/actions/types';
 
 describe('reducers/content/meta', () => {
   it('should return the initial state', () => {
-    const expectedState = [];
+    const expectedState = {};
     const state = reducer();
 
     expect(state).toEqual(expectedState);
@@ -12,9 +12,14 @@ describe('reducers/content/meta', () => {
   it('should set the given content', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
-      payload: { dataType: 'content', data: { meta: ['testContent1', 'testContent2'] }},
+      payload: {
+        dataType: 'content',
+        data: {
+          meta: { metaTitle: 'test', metaDescription: 'alsoTest' },
+        },
+      },
     };
-    const expectedState = ['testContent1', 'testContent2'];
+    const expectedState = { metaTitle: 'test', metaDescription: 'alsoTest' };
     const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);

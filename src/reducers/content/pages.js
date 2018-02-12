@@ -71,6 +71,14 @@ export function getSectionsForPage(state, pageId, selectSectionById = getSection
   });
 }
 
+export function getInitialPageValues(state, pageId) {
+  const pageCopy = cloneDeep(getPageById(state, pageId));
+  delete pageCopy.id;
+  delete pageCopy.pageType;
+  delete pageCopy.sections;
+  return pageCopy;
+}
+
 export function getCanAddPage(state, selectMaxPages = getMaxPages) {
   return getNumberOfPages(state) < selectMaxPages(state);
 }

@@ -83,4 +83,19 @@ describe('selectors/content/sections', () => {
       expect(value).toBe('testSection1');
     });
   });
+
+  describe('getInitialSectionValues', () => {
+    it('should return the filtered data for the specified section', () => {
+      const mockState = {
+        content: {
+          sections: {
+            test1: { sectionType: 'test1', otherData: 'test' },
+          },
+        },
+      };
+      const value = selectors.getInitialSectionValues(mockState, 'test1');
+
+      expect(value).toEqual({ otherData: 'test' });
+    });
+  });
 });

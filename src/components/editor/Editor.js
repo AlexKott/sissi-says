@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   let fields = [];
   let title = 'Editor';
   let id = '';
+  let initialValues = {};
 
   if (ownProps.type === 'page') {
     id = ownProps.pageId;
@@ -19,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     const isProtected = selectors.getIsProtectedPage(state, page.pageType);
     fields = selectors.getPageFields(state, page.pageType);
     title = 'Page Editor';
+    initialValues = selectors.getInitialPageValues(state, id);
     canDelete = selectors.getCanDeletePage(state) && !isProtected;
 
   } else if (ownProps.type === 'section') {
@@ -27,6 +29,7 @@ const mapStateToProps = (state, ownProps) => {
     const isProtected = selectors.getIsProtectedSection(state, section.sectionType);
     fields = selectors.getSectionFields(state, section.sectionType);
     title = 'Section Editor';
+    initialValues = selectors.getInitialSectionValues(state, id);
     canDelete = selectors.getCanDeleteSection(state, ownProps.pageId) && !isProtected;
   }
 
@@ -34,6 +37,7 @@ const mapStateToProps = (state, ownProps) => {
     canDelete,
     fields,
     title,
+    initialValues,
     formName: `editor-${ownProps.type}-${id}`,
   };
 };
@@ -63,12 +67,13 @@ const Editor = ({
   fields = [],
   title = '',
   type = '',
+  initialValues,
   formName = '',
   onDelete,
 }) => (
   <section className={`editor editor--${type}`}>
     <h1 className='editor__title'>{title}</h1>
-    <Form key={formName} form={formName} fields={fields}>
+    <Form key={formName} form={formName} initialValues={initialValues} fields={fields}>
       {canDelete && <button type='button' onClick={onDelete} className='button'>Delete</button>}
     </Form>
   </section>
@@ -79,6 +84,7 @@ Editor.propTypes = {
   fields: PropTypes.array,
   title: PropTypes.string,
   type: PropTypes.string,
+  initialValues: PropTypes.object,
   formName: PropTypes.string,
   onDelete: PropTypes.func,
 };
