@@ -7,10 +7,14 @@ export default (state = {}, action = {}) => {
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
     return payload.data.sections || {};
-  }
 
-  else if (type === t.ADD_SECTION) {
+  } else if (type === t.ADD_SECTION) {
     return Object.assign({}, state, { [payload.sectionId]: payload.section });
+
+  } else if (type === t.DELETE_SECTION) {
+    const newState = cloneDeep(state);
+    delete newState[payload.sectionId];
+    return newState;
   }
 
   return state;

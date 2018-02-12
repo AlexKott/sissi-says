@@ -30,6 +30,25 @@ describe('reducers/content/sections', () => {
 
     expect(state).toEqual(expectedState);
   });
+
+  it('should delete a section', () => {
+    const mockState = {
+      section1: { test: 'test' },
+      section2: { test: 'test' },
+      section3: { test: 'test' },
+    };
+    const action = {
+      type: t.DELETE_SECTION,
+      payload: { sectionId: 'section2' },
+    };
+    const expectedState = {
+      section1: { test: 'test' },
+      section3: { test: 'test' },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual(expectedState);
+  });
 });
 
 describe('selectors/content/sections', () => {
