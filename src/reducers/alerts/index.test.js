@@ -31,4 +31,11 @@ describe('reducers/alerts', () => {
 
     expect(state).toHaveProperty('loading', -1);
   });
+
+  it('should set the error message when SET_ERROR is dispatched', () => {
+    const action = { type: t.SET_ERROR, payload: 'Test error message.' };
+    const state = reducer(initialState, action);
+
+    expect(state).toHaveProperty('error', 'Test error message.');
+  });
 });

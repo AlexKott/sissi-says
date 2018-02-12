@@ -14,6 +14,9 @@ export default (state = initialState, action = {}) => {
 
   } else if (type === t.END_LOADING) {
     return Object.assign({}, state, { loading: state.loading - 1 });
+
+  } else if (type === t.SET_ERROR) {
+    return Object.assign({}, state, { error: payload });
   }
 
   return state;

@@ -11,3 +11,10 @@ export function endLoading() {
     type: t.END_LOADING,
   };
 }
+
+export function setError(errorMessage) {
+  return {
+    type: t.SET_ERROR,
+    payload: errorMessage,
+  };
+}
