@@ -45,4 +45,16 @@ describe('reducers/alerts', () => {
 
     expect(state).toHaveProperty('message', 'Test alert message.');
   });
+
+  it('should return the initial state when CLEAR_ALERTS is dispatched', () => {
+    const mockState = {
+      loading: 3,
+      error: 'Test error',
+      message: '',
+    };
+    const action = { type: t.CLEAR_ALERTS };
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual(initialState);
+  });
 });

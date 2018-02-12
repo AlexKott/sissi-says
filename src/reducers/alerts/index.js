@@ -20,6 +20,9 @@ export default (state = initialState, action = {}) => {
 
   } else if (type === t.SET_ALERT) {
     return Object.assign({}, state, { message: payload });
+
+  } else if (type === t.CLEAR_ALERTS) {
+    return initialState;
   }
 
   return state;

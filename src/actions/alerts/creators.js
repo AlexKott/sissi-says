@@ -25,3 +25,9 @@ export function setAlert(message) {
     payload: message,
   };
 }
+
+export function clearAlerts() {
+  return {
+    type: t.CLEAR_ALERTS,
+  };
+}
