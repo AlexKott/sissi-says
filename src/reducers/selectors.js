@@ -1,3 +1,4 @@
+export * from './alerts';
 export * from './content';
 export * from './login';
 export * from './router';
