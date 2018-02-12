@@ -26,4 +26,13 @@ describe('actions/alerts', () => {
       expect(action).toHaveProperty('payload', 'Test error message.');
     });
   });
+
+  describe('setAlert', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.setAlert('Test alert message.');
+
+      expect(action).toHaveProperty('type', t.SET_ALERT);
+      expect(action).toHaveProperty('payload', 'Test alert message.');
+    });
+  });
 });

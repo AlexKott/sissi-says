@@ -12,9 +12,16 @@ export function endLoading() {
   };
 }
 
-export function setError(errorMessage) {
+export function setError(message) {
   return {
     type: t.SET_ERROR,
-    payload: errorMessage,
+    payload: message,
+  };
+}
+
+export function setAlert(message) {
+  return {
+    type: t.SET_ALERT,
+    payload: message,
   };
 }

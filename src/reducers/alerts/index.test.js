@@ -38,4 +38,11 @@ describe('reducers/alerts', () => {
 
     expect(state).toHaveProperty('error', 'Test error message.');
   });
+
+  it('should set the alert message when SET_ALERT is dispatched', () => {
+    const action = { type: t.SET_ALERT, payload: 'Test alert message.' };
+    const state = reducer(initialState, action);
+
+    expect(state).toHaveProperty('message', 'Test alert message.');
+  });
 });

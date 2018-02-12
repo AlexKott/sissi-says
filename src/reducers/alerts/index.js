@@ -17,6 +17,9 @@ export default (state = initialState, action = {}) => {
 
   } else if (type === t.SET_ERROR) {
     return Object.assign({}, state, { error: payload });
+
+  } else if (type === t.SET_ALERT) {
+    return Object.assign({}, state, { message: payload });
   }
 
   return state;
