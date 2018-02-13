@@ -4,7 +4,10 @@
   width: 100%;
   height: 100%;
   background-color: $color-background-transparent;
-  transition: opacity .3s;
+
+  &:not(.modal--hidden) {
+    transition: opacity .3s;
+  }
 }
 
 .modal--hidden {
