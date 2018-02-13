@@ -2,50 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as selectors from '@/reducers/selectors';
-
-import Navigation from './navigation/Navigation';
-import Main from './editor/Main';
-import Editor from './editor/Editor';
+import Navigation from '@/components/navigation/Navigation';
 
 const mapStateToProps = (state) => {
-  const pageId = selectors.getSelectedPageId(state);
-  const sectionId = selectors.getSelectedSectionId(state);
-  let displayType = '';
-
-  if (pageId && sectionId === undefined) {
-    displayType = 'page';
-  } else if (pageId && sectionId) {
-    displayType = 'section';
-  }
-  return {
-    displayMain: displayType === '',
-    displayType,
-    pageId,
-    sectionId,
-  };
+  const route = state.location.type;
+  const Component = state.location.routesMap[route].component;
+  return { Component };
 };
 
-const App = ({
-  displayMain = true,
-  displayType = '',
-  pageId = '',
-  sectionId = '',
-}) => (
+const App = ({ Component }) => (
   <div className='app'>
-    <Navigation selectedPage={pageId} selectedSection={sectionId} />
-    {displayMain
-      ? <Main />
-      : <Editor type={displayType} pageId={pageId} sectionId={sectionId} />
-    }
+    <Navigation />
+    <Component />
   </div>
 );
 
 App.propTypes = {
-  displayMain: PropTypes.bool,
-  displayType: PropTypes.string,
-  pageId: PropTypes.string,
-  sectionId: PropTypes.string,
+  Component: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(App);
