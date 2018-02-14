@@ -23,7 +23,7 @@ export default (store, client = ajax) => next => async action => {
       const response = await client(endpoint)[method](requestData);
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
-      if (error[0].status === 401) {
+      if (error[0] && error[0].status === 401) {
         store.dispatch(actions.setAlert(c.AUTH_ERROR, 'error'));
       } else {
         store.dispatch(actions.setAlert(c.SERVER_ERROR, 'error'));
