@@ -58,8 +58,8 @@ describe('middleware/sendRequest', () => {
     await middleware(mockStore, mockClient)(mockNext)(mockAction);
 
     expect(mockDispatch.mock.calls).toHaveLength(2);
-    expect(mockDispatch.mock.calls[0][0]).toEqual({ type: t.START_LOADING });
-    expect(mockDispatch.mock.calls[1][0]).toEqual({ type: t.END_LOADING });
+    expect(mockDispatch.mock.calls[0][0]).toEqual({ type: t.SET_LOADING, payload: true });
+    expect(mockDispatch.mock.calls[1][0]).toEqual({ type: t.SET_LOADING, payload: false });
   });
 
   it('should dispatch the specified actions on success', async () => {
@@ -77,7 +77,7 @@ describe('middleware/sendRequest', () => {
 
     await middleware(mockStore, mockClient)(mockNext)(mockAction);
 
-    // call 0 and 2 are startLoading and endLoading
+    // call 0 and 2 are start loading and end loading
     expect(mockDispatch.mock.calls).toHaveLength(3);
     expect(mockDispatch.mock.calls[1][0]).toEqual({ type: 'TEST_SUCCESS' });
   });
@@ -97,7 +97,7 @@ describe('middleware/sendRequest', () => {
 
     await middleware(mockStore, mockClient)(mockNext)(mockAction);
 
-    // call 0 and 2 are startLoading and endLoading
+    // call 0 and 2 are start loading and end loading
     expect(mockDispatch.mock.calls).toHaveLength(3);
     expect(mockDispatch.mock.calls[1][0]).toEqual({ type: t.SET_ERROR, payload: c.SERVER_ERROR });
   });

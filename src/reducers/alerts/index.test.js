@@ -18,15 +18,15 @@ describe('reducers/alerts', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('should increment loading when START_LOADING is dispatched', () => {
-    const action = { type: t.START_LOADING };
+  it('should increment loading when SET_LOADING is true', () => {
+    const action = { type: t.SET_LOADING, payload: true };
     const state = reducer(initialState, action);
 
     expect(state).toHaveProperty('loading', 1);
   });
 
-  it('should decrement loading when END_LOADING is dispatched', () => {
-    const action = { type: t.END_LOADING };
+  it('should decrement loading when SET_LOADING is false', () => {
+    const action = { type: t.SET_LOADING, payload: false };
     const state = reducer(initialState, action);
 
     expect(state).toHaveProperty('loading', -1);

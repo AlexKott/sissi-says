@@ -2,19 +2,12 @@ import * as t from './types';
 import * as actions from './creators';
 
 describe('actions/alerts', () => {
-  describe('startLoading', () => {
-    it('should dispatch an action with the correct type', () => {
-      const action = actions.startLoading();
+  describe('setLoading', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.setLoading(true);
 
-      expect(action).toHaveProperty('type', t.START_LOADING);
-    });
-  });
-
-  describe('endLoading', () => {
-    it('should dispatch an action with the correct type', () => {
-      const action = actions.endLoading();
-
-      expect(action).toHaveProperty('type', t.END_LOADING);
+      expect(action).toHaveProperty('type', t.SET_LOADING);
+      expect(action).toHaveProperty('payload', true);
     });
   });
 

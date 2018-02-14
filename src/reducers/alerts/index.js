@@ -9,11 +9,9 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.START_LOADING) {
-    return Object.assign({}, state, { loading: state.loading + 1 });
-
-  } else if (type === t.END_LOADING) {
-    return Object.assign({}, state, { loading: state.loading - 1 });
+  if (type === t.SET_LOADING) {
+    const loading = payload ? state.loading + 1 : state.loading - 1;
+    return Object.assign({}, state, { loading });
 
   } else if (type === t.SET_ERROR) {
     return Object.assign({}, state, { error: payload });

@@ -19,13 +19,13 @@ export default (store, client = ajax) => next => async action => {
     const endpoint = `${API_URL}/${dataType}`;
 
     try {
-      store.dispatch(actions.startLoading());
+      store.dispatch(actions.setLoading(true));
       const response = await client(endpoint)[method](requestData);
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
       store.dispatch(actions.setError(c.SERVER_ERROR));
     } finally {
-      store.dispatch(actions.endLoading());
+      store.dispatch(actions.setLoading(false));
     }
   } else {
     next(action);
