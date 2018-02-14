@@ -1,3 +1,4 @@
+import { getFormValues } from 'redux-form';
 import * as t from './types';
 import * as c from '@/constants';
 import { setAlert } from '@/actions/alerts/creators';
@@ -41,14 +42,21 @@ export function postContent(formName) {
   };
 }
 
-export function login(username, password) {
-  return {
-    type: t.SEND_REQUEST,
-    payload: {
-      method: 'post',
-      dataType: 'login',
-      requestData: { username, password },
-      successDispatch: [loginSuccess],
+export function login() {
+  return (dispatch, getState, selectFormValues = getFormValues) => {
+    const values = selectFormValues('login')(getState());
+    if (values) {
+      dispatch({
+        type: t.SEND_REQUEST,
+        payload: {
+          method: 'post',
+          dataType: 'login',
+          requestData: { username: values.username, password: values.password },
+          successDispatch: [loginSuccess],
+        },
+      });
+    } else {
+      dispatch(setAlert('Please enter a username and password!', 'error'));
     }
   };
 }

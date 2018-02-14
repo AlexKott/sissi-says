@@ -1,10 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import * as actions from '@/actions/creators';
 
 import Form from '@/components/form/Form';
 
 const loginFields = [
   {
-    userName: {
+    username: {
       label: 'Nutzername',
       type: 'string',
     },
@@ -17,7 +21,14 @@ const loginFields = [
   },
 ];
 
-const Login = () => (
+const mapDispatchToProps = (dispatch) => ({
+  onLogin: (e) => {
+    e.preventDefault();
+    dispatch(actions.login());
+  },
+});
+
+const Login = ({ onLogin }) => (
   <div className='login'>
     <h1>Welcome to your Website Manager!</h1>
     <p>Please login to edit your website.</p>
@@ -25,9 +36,13 @@ const Login = () => (
       form='login'
       fields={loginFields}
       submitText='Login'
-      onSubmit={() => console.log('submitting')}
+      onSubmit={onLogin}
     />
   </div>
 );
 
-export default Login;
+Login.propTypes = {
+  onLogin: PropTypes.func,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

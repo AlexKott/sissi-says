@@ -44,8 +44,16 @@ describe('actions/request', () => {
   });
 
   describe('login', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.login('testUser', 'pass_word');
+    it('should return a thunk that dispatches the correct action', () => {
+      const mockDispatch = jest.fn();
+      const mockGetState = jest.fn();
+      const mockGetFormValues = jest.fn(() => () => ({ username: 'testUser', password: 'pass_word' }));
+      const thunk = actions.login();
+      thunk(mockDispatch, mockGetState, mockGetFormValues);
+
+      expect(mockDispatch.mock.calls).toHaveLength(1);
+
+      const action = mockDispatch.mock.calls[0][0]
 
       expect(action).toHaveProperty('type', t.SEND_REQUEST);
       expect(action.payload).toHaveProperty('method', 'post');
