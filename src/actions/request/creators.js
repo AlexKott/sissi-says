@@ -1,4 +1,6 @@
 import * as t from './types';
+import * as c from '@/constants';
+import { setAlert } from '@/actions/alerts/creators';
 
 export function fetchData(dataType) {
   const action = {
@@ -31,7 +33,10 @@ export function postContent(formName) {
       method: 'post',
       dataType: 'content',
       formName,
-      successDispatch: [fetchDataSuccess.bind({}, 'content')],
+      successDispatch: [
+        fetchDataSuccess.bind({}, 'content'),
+        setAlert.bind({}, c.SAVE_SUCCESS, 'success'),
+      ],
     }
   };
 }

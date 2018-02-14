@@ -191,8 +191,8 @@ describe('selectors/content/pages', () => {
       const value = selectors.getInitialPageValues(mockState, 'test1');
 
       expect(value).toEqual({ otherData: 'test' });
-    )};
-  )};
+    });
+  });
 
   describe('getCanAddPage', () => {
     let mockGetMaxPages = jest.fn();
