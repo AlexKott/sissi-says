@@ -2,6 +2,7 @@ import { getFormValues } from 'redux-form';
 import * as t from './types';
 import * as c from '@/constants';
 import { setAlert } from '@/actions/alerts/creators';
+import { redirectToIndex } from '@/actions/redirect/creators';
 
 export function fetchData(dataType) {
   const action = {
@@ -52,7 +53,7 @@ export function login() {
           method: 'post',
           dataType: 'login',
           requestData: { username: values.username, password: values.password },
-          successDispatch: [loginSuccess],
+          successDispatch: [loginSuccess, redirectToIndex],
         },
       });
     } else {
