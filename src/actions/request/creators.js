@@ -35,7 +35,7 @@ export function postContent(formName) {
       formName,
       successDispatch: [
         fetchDataSuccess.bind({}, 'content'),
-        setAlert.bind({}, c.SAVE_SUCCESS),
+        setAlert.bind({}, c.SAVE_SUCCESS, 'success'),
       ],
     }
   };

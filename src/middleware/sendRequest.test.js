@@ -92,6 +92,7 @@ describe('middleware/sendRequest', () => {
         successDispatch: [successAction]
       },
     };
+    const expectedAction = { type: t.SET_ALERT, payload: { message: c.SERVER_ERROR, level: 'error' }};
 
     mockGet = jest.fn(() => new Promise((resolve, reject) => reject([{}, { ok: false }])));
 
@@ -99,6 +100,6 @@ describe('middleware/sendRequest', () => {
 
     // call 0 and 2 are start loading and end loading
     expect(mockDispatch.mock.calls).toHaveLength(3);
-    expect(mockDispatch.mock.calls[1][0]).toEqual({ type: t.SET_ERROR, payload: c.SERVER_ERROR });
+    expect(mockDispatch.mock.calls[1][0]).toEqual(expectedAction);
   });
 });

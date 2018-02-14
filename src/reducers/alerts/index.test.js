@@ -7,8 +7,10 @@ describe('reducers/alerts', () => {
   beforeEach(() => {
     initialState = {
       loading: 0,
-      error: '',
-      message: '',
+      message: {
+        text: '',
+        level: '',
+      },
     };
   });
 
@@ -32,18 +34,18 @@ describe('reducers/alerts', () => {
     expect(state).toHaveProperty('loading', -1);
   });
 
-  it('should set the error message when SET_ERROR is dispatched', () => {
-    const action = { type: t.SET_ERROR, payload: 'Test error message.' };
+  it('should set the message and level when SET_ALERT is dispatched', () => {
+    const action = {
+      type: t.SET_ALERT,
+      payload: {
+        message: 'Test error message.',
+        level: 'error',
+      }
+    };
     const state = reducer(initialState, action);
 
-    expect(state).toHaveProperty('error', 'Test error message.');
-  });
-
-  it('should set the alert message when SET_ALERT is dispatched', () => {
-    const action = { type: t.SET_ALERT, payload: 'Test alert message.' };
-    const state = reducer(initialState, action);
-
-    expect(state).toHaveProperty('message', 'Test alert message.');
+    expect(state.message).toHaveProperty('text', 'Test error message.');
+    expect(state.message).toHaveProperty('level', 'error');
   });
 
   it('should return the initial state when CLEAR_ALERTS is dispatched', () => {
@@ -66,8 +68,10 @@ describe('selectors/alerts', () => {
     mockState = {
       alerts: {
         loading: 3,
-        error: 'Test error',
-        message: 'Test alert',
+        message: {
+          text: 'Test alert',
+          level: 'success',
+        },
       },
     };
   });
@@ -77,8 +81,10 @@ describe('selectors/alerts', () => {
       mockState = {
         alerts: {
           loading: 0,
-          error: '',
-          message: '',
+          message: {
+            text: '',
+            level: '',
+          },
         },
       };
 
@@ -87,18 +93,10 @@ describe('selectors/alerts', () => {
       expect(value).toBe(false);
     });
 
-    it('should return false if there is something to display', () => {
+    it('should return true if there is something to display', () => {
       const value = selectors.getShouldDisplayModal(mockState);
 
       expect(value).toBe(true);
-    });
-  });
-
-  describe('getErrorMessage', () => {
-    it('should return the error message from state', () => {
-      const value = selectors.getErrorMessage(mockState);
-
-      expect(value).toBe('Test error');
     });
   });
 
@@ -106,7 +104,7 @@ describe('selectors/alerts', () => {
     it('should return the alert message from state', () => {
       const value = selectors.getAlertMessage(mockState);
 
-      expect(value).toBe('Test alert');
+      expect(value).toEqual({ text: 'Test alert', level: 'success' });
     });
   });
 });

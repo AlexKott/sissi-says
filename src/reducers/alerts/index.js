@@ -2,8 +2,10 @@ import * as t from '@/actions/types';
 
 const initialState = {
   loading: 0,
-  error: '',
-  message: '',
+  message: {
+    text: '',
+    level: '',
+  },
 };
 
 export default (state = initialState, action = {}) => {
@@ -13,11 +15,9 @@ export default (state = initialState, action = {}) => {
     const loading = payload ? state.loading + 1 : state.loading - 1;
     return Object.assign({}, state, { loading });
 
-  } else if (type === t.SET_ERROR) {
-    return Object.assign({}, state, { error: payload });
-
   } else if (type === t.SET_ALERT) {
-    return Object.assign({}, state, { message: payload });
+    const message = { text: payload.message, level: payload.level };
+    return Object.assign({}, state, { message });
 
   } else if (type === t.CLEAR_ALERTS) {
     return initialState;
@@ -28,13 +28,8 @@ export default (state = initialState, action = {}) => {
 
 export function getShouldDisplayModal(state) {
   const isLoading = state.alerts.loading > 0;
-  const hasError = state.alerts.error !== '';
-  const hasMessage = state.alerts.message !== '';
-  return isLoading || hasError || hasMessage;
-}
-
-export function getErrorMessage(state) {
-  return state.alerts.error;
+  const hasMessage = state.alerts.message.text !== '';
+  return isLoading || hasMessage;
 }
 
 export function getAlertMessage(state) {

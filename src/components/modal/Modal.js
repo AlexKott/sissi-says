@@ -6,25 +6,15 @@ import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 
 const mapStateToProps = (state) => {
-  let message = 'Magic is happening...';
-  let type = 'loading';
   const shouldDisplayModal = selectors.getShouldDisplayModal(state);
-  const errorMessage = selectors.getErrorMessage(state);
   const alertMessage = selectors.getAlertMessage(state);
-
-  if (errorMessage) {
-    message = errorMessage;
-    type = 'error';
-  } else if (alertMessage) {
-    message = alertMessage;
-    type = 'success';
-  }
+  const type = alertMessage.level || 'loading';
 
   return {
     boxClassName: `modal__box modal__box--${type}`,
     buttonClassName: `modal__button modal__button--${type}`,
     modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
-    message,
+    message: alertMessage.text || 'Magic is happening...',
     type,
   };
 };

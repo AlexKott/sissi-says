@@ -23,7 +23,7 @@ export default (store, client = ajax) => next => async action => {
       const response = await client(endpoint)[method](requestData);
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
-      store.dispatch(actions.setError(c.SERVER_ERROR));
+      store.dispatch(actions.setAlert(c.SERVER_ERROR, 'error'));
     } finally {
       store.dispatch(actions.setLoading(false));
     }

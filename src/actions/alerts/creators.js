@@ -7,17 +7,10 @@ export function setLoading(isLoading) {
   };
 }
 
-export function setError(message) {
-  return {
-    type: t.SET_ERROR,
-    payload: message,
-  };
-}
-
-export function setAlert(message) {
+export function setAlert(message, level) {
   return {
     type: t.SET_ALERT,
-    payload: message,
+    payload: { message, level },
   };
 }
 
