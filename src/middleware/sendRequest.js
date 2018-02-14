@@ -1,5 +1,8 @@
 import ajax from '@/adapters/ajax';
 import * as t from '@/actions/types';
+import * as actions from '@/actions/creators';
+import * as c from '@/constants';
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default (store, client = ajax) => next => async action => {
@@ -16,10 +19,13 @@ export default (store, client = ajax) => next => async action => {
     const endpoint = `${API_URL}/${dataType}`;
 
     try {
+      store.dispatch(actions.setLoading(true));
       const response = await client(endpoint)[method](requestData);
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
-      console.log('Request error: ' + error);
+      store.dispatch(actions.setAlert(c.SERVER_ERROR, 'error'));
+    } finally {
+      store.dispatch(actions.setLoading(false));
     }
   } else {
     next(action);

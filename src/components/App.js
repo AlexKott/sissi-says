@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
 
 const mapStateToProps = (state) => {
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
 
 const App = ({ Component }) => (
   <div className='app'>
+    <Modal />
     <Navigation />
     <Component />
   </div>

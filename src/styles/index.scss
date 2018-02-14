@@ -1,11 +1,12 @@
-@import '_animations';
-@import '_mixins';
-@import '_normalize';
 @import '_variables';
+@import '_normalize';
+@import '_mixins';
+@import '_animations';
 
 @import 'app';
 @import 'button';
 @import 'editor';
 @import 'form';
 @import 'login';
+@import 'modal';
 @import 'navigation';
