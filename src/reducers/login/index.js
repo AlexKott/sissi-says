@@ -2,7 +2,7 @@ import * as t from '@/actions/types';
 
 const initialState = {
   isInitialDataFetched: false,
-  token: '',
+  token: window.localStorage.getItem('token') || null,
 };
 
 export default (state = initialState, action = {}) => {
