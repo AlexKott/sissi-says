@@ -4,29 +4,33 @@ import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
 
-import Form from '@/components/form/Form';
+import Editor from '@/components/editor/Editor';
 
 const mapStateToProps = (state) => ({
   fields: selectors.getMetaFields(state),
   initialValues: selectors.getMetaData(state),
 });
 
-const Main = ({
+const MainEditor = ({
   fields = [],
   initialValues = {},
 }) => (
-  <section className='editor'>
-    <h1 className='editor__title'>Welcome to your Website Manager!</h1>
-    <p className='editor__hint'>Enter some basic data here:</p>
-    <Form form='meta' fields={fields} initialValues={initialValues} />
+  <Editor
+    canDelete={false}
+    fields={fields}
+    title='Welcome to your Website Manager!'
+    type='main'
+    initialValues={initialValues}
+    formName='meta'
+  >
     <p className='editor__hint'>Or get working on your pages by selecting one! (You can always get back here by deselecting the current page.)</p>
     <p className='editor__hint'>If you get stuck – sissi's always here to help!</p>
-  </section>
+  </Editor>
 );
 
-Main.propTypes = {
+MainEditor.propTypes = {
   fields: PropTypes.array,
   initialValues: PropTypes.object,
 };
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps)(MainEditor);

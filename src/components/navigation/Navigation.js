@@ -6,13 +6,17 @@ import * as selectors from '@/reducers/selectors';
 
 import NavBar from './NavBar';
 
-const mapStateToProps = (state, { selectedPage, selectedSection }) => {
+const mapStateToProps = (state) => {
+  const selectedPage = selectors.getSelectedPageId(state);
+  const selectedSection = selectors.getSelectedSectionId(state);
   const pages = selectors.getAllPages(state);
-  const sections = selectedPage !== '' ? selectors.getSectionsForPage(state, selectedPage) : null;
+  const sections = selectedPage ? selectors.getSectionsForPage(state, selectedPage) : null;
   return {
     displaySections: sections !== null,
     pages,
     sections,
+    selectedPage,
+    selectedSection,
   };
 };
 
