@@ -42,4 +42,27 @@ describe('actions/request', () => {
       expect(action.payload).toHaveProperty('successDispatch');
     });
   });
+
+  describe('login', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.login('testUser', 'pass_word');
+
+      expect(action).toHaveProperty('type', t.SEND_REQUEST);
+      expect(action.payload).toHaveProperty('method', 'post');
+      expect(action.payload).toHaveProperty('dataType', 'login');
+      expect(action.payload).toHaveProperty('successDispatch');
+      expect(action.payload).toHaveProperty('requestData');
+      expect(action.payload.requestData).toHaveProperty('username', 'testUser');
+      expect(action.payload.requestData).toHaveProperty('password', 'pass_word');
+    });
+  });
+
+  describe('loginSuccess', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.loginSuccess({ token: '42xyz42' });
+
+      expect(action).toHaveProperty('type', t.LOGIN_SUCCESS);
+      expect(action).toHaveProperty('payload', '42xyz42');
+    });
+  });
 });

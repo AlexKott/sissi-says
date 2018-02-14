@@ -20,7 +20,7 @@ export function fetchData(dataType) {
 export function fetchDataSuccess(dataType, data) {
   return {
     type: t.FETCH_DATA_SUCCESS,
-    payload: { dataType, data },
+    payload: { dataType, data }
   };
 }
 
@@ -33,5 +33,24 @@ export function postContent(formName) {
       formName,
       successDispatch: [fetchDataSuccess.bind({}, 'content')],
     }
+  };
+}
+
+export function login(username, password) {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType: 'login',
+      requestData: { username, password },
+      successDispatch: [loginSuccess],
+    }
+  };
+}
+
+export function loginSuccess(data) {
+  return {
+    type: t.LOGIN_SUCCESS,
+    payload: data.token,
   };
 }
