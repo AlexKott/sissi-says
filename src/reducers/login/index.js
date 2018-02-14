@@ -21,3 +21,7 @@ export default (state = initialState, action = {}) => {
 export function getIsInitialDataFetched(state) {
   return state.login.isInitialDataFetched;
 }
+
+export function getAuthToken(state) {
+  return state.login.token;
+}

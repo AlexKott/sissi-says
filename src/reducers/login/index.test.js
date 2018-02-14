@@ -35,4 +35,13 @@ describe('selectors/login', () => {
       expect(value).toBe(true);
     });
   });
+
+  describe('getAuthToken', () => {
+    it('should return the correct value from the reducer', () => {
+      const mockState = { login: { token: 'abc123' }};
+      const value = selectors.getAuthToken(mockState);
+
+      expect(value).toBe('abc123');
+    });
+  });
 });
