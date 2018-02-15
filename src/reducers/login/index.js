@@ -15,7 +15,7 @@ export default (state = initialState, action = {}) => {
     return Object.assign({}, state, { token: payload });
 
   } else if (type === t.RESET_SESSION) {
-    return initialState;
+    return Object.assign({}, initialState, { token: null });
   }
 
   return state;

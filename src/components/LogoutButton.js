@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { destroy } from 'redux-form';
 
 import * as actions from '@/actions/creators';
 
@@ -8,6 +9,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLogout: () => {
     dispatch(actions.resetSession());
     dispatch(actions.redirectToLogin());
+    dispatch(destroy('login'));
   },
 });
 
