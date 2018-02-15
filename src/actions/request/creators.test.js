@@ -73,4 +73,12 @@ describe('actions/request', () => {
       expect(action).toHaveProperty('payload', '42xyz42');
     });
   });
+
+  describe('resetSession', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.resetSession();
+
+      expect(action).toHaveProperty('type', t.RESET_SESSION);
+    });
+  });
 });

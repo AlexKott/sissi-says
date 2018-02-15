@@ -68,3 +68,9 @@ export function loginSuccess(data) {
     payload: data.token,
   };
 }
+
+export function resetSession() {
+  return {
+    type: t.RESET_SESSION,
+  };
+}
