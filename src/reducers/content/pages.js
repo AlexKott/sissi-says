@@ -36,6 +36,9 @@ export default (state = [], action = {}) => {
     const deleteIndex = page.sections.findIndex(section => section === payload.sectionId);
     page.sections.splice(deleteIndex, 1);
     return newState;
+
+  } else if (type === t.RESET_SESSION) {
+    return [];
   }
 
   return state;

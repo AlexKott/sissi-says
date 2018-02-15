@@ -6,6 +6,9 @@ export default (state = {}, action = {}) => {
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
     return payload.data.meta;
+
+  } else if (type === t.RESET_SESSION) {
+    return {};
   }
 
   return state;

@@ -72,6 +72,15 @@ describe('reducers/content/pages', () => {
       sections: ['section2'],
     }]);
   });
+
+  it('should reset the state', () => {
+    const action = {
+      type: t.RESET_SESSION,
+    };
+    const state = reducer([1, 2, 3], action);
+
+    expect(state).toEqual([]);
+  });
 });
 
 describe('selectors/content/pages', () => {

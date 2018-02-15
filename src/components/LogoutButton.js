@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 import * as actions from '@/actions/creators';
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: () => dispatch(actions.resetSession()),
+  onLogout: () => {
+    dispatch(actions.resetSession());
+    dispatch(actions.redirectToLogin());
+  },
 });
 
-const LogoutButton = ({ Component }) => (
-  <button className='button button--logout'>Logout</button>
+const LogoutButton = ({ onLogout }) => (
+  <button className='button button--logout' onClick={onLogout}>Logout</button>
 );
 
 LogoutButton.propTypes = {

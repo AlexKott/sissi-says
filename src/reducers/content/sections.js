@@ -15,6 +15,9 @@ export default (state = {}, action = {}) => {
     const newState = cloneDeep(state);
     delete newState[payload.sectionId];
     return newState;
+
+  } else if (type === t.RESET_SESSION) {
+    return {};
   }
 
   return state;

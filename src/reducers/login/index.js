@@ -13,6 +13,9 @@ export default (state = initialState, action = {}) => {
 
   } else if (type === t.LOGIN_SUCCESS) {
     return Object.assign({}, state, { token: payload });
+
+  } else if (type === t.RESET_SESSION) {
+    return initialState;
   }
 
   return state;

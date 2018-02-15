@@ -24,6 +24,14 @@ describe('reducers/login', () => {
 
     expect(state).toEqual(expectedState);
   });
+
+  it('should reset the state', () => {
+    const action = { type: t.RESET_SESSION };
+    const expectedState = { isInitialDataFetched: false, token: null };
+    const state = reducer({ testData: 'test' }, action);
+
+    expect(state).toEqual(expectedState);
+  });
 });
 
 describe('selectors/login', () => {
