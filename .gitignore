@@ -3,6 +3,7 @@
 
 # production
 /api-build
+/build
 
 # sissi files
 structure.json

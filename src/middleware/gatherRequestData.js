@@ -7,7 +7,7 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
   const { type, payload } = action;
 
   // currently not testing for dataType === 'content' because only content can be posted
-  if (type === t.SEND_REQUEST && payload.method === 'post') {
+  if (type === t.SEND_REQUEST && payload.method === 'post' && payload.dataType === 'content') {
     const { formName } = payload;
     const state = getState();
     const metaData = getters.getMetaData(state);

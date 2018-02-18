@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -11,6 +12,8 @@ app.use(bodyParser.json());
 app.use(cors({
   origin: 'http://localhost:3000',
 }));
+
+app.use('/', express.static(path.join(__dirname, '..', 'build')));
 
 app.use('/', router);
 

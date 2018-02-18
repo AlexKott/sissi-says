@@ -3,7 +3,7 @@ import * as t from '@/actions/types';
 import * as actions from '@/actions/creators';
 import * as c from '@/constants';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || window.location.origin;
 
 export default (store, client = ajax) => next => async action => {
   const { type, payload } = action;
@@ -12,7 +12,7 @@ export default (store, client = ajax) => next => async action => {
     const {
       method,
       dataType,
-      requestData,
+      requestData = {},
       successDispatch = [],
     } = payload;
 

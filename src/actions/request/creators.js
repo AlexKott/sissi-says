@@ -40,3 +40,14 @@ export function postContent(formName) {
     }
   };
 }
+
+export function buildPage() {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType: 'build',
+      successDispatch: [],
+    },
+  };
+}
