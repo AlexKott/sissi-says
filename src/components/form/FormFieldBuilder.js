@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 
+import ImageUploader from './ImageUploader';
 import Select from './Select';
 
 const mapStateToProps = (state, { fieldStructure = {} }) => {
@@ -25,6 +26,11 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
     case 'choice':
       component = Select;
       options = fieldStructure.choices;
+      break;
+
+    case 'image':
+      component = ImageUploader;
+      type = 'file';
       break;
 
     default:
