@@ -5,7 +5,7 @@ export default function ajax(url, token) {
   options.headers.append('Content-Type', 'application/json');
 
   if (token) {
-    options.headers.append('authorization', token);
+    options.headers.append('authorization', `Bearer ${token}`);
   }
 
   return {
