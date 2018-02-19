@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 
+import QuillEditor from './QuillEditor';
 import Select from './Select';
 
 const mapStateToProps = (state, { fieldStructure = {} }) => {
@@ -20,6 +21,10 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
     case 'text':
       component = 'textarea';
       fieldClassName = 'form__field--textarea';
+      break;
+
+    case 'markdown':
+      component = QuillEditor;
       break;
 
     case 'choice':
@@ -44,14 +49,14 @@ const FormFieldBuilder = ({
   fieldStructure = {},
   fieldProps = {},
 }) => (
-  <label className='form__element'>
+  <div className='form__element'>
     <span className='form__label'>{fieldStructure.label}:</span>
     <Field
       name={fieldName}
       className={`form__field ${fieldClassName}`}
       {...fieldProps}
     />
-  </label>
+  </div>
 );
 
 FormFieldBuilder.propTypes = {
