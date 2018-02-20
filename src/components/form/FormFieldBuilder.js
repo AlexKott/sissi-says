@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 
+import MarkdownEditor from './MarkdownEditor';
 import Select from './Select';
 
 const mapStateToProps = (state, { fieldStructure = {} }) => {
@@ -20,6 +21,10 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
     case 'text':
       component = 'textarea';
       fieldClassName = 'form__field--textarea';
+      break;
+
+    case 'markdown':
+      component = MarkdownEditor;
       break;
 
     case 'choice':
