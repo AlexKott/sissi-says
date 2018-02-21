@@ -10,6 +10,7 @@ describe('middleware/gatherRequestData', () => {
       payload: {
         method: 'post',
         formName: 'test',
+        dataType: 'content',
       }};
     mockCollector = jest.fn(() => () => ({}));
     mockDispatch = jest.fn();
@@ -69,6 +70,7 @@ describe('middleware/gatherRequestData', () => {
         payload: {
           method: 'post',
           formName: 'meta',
+          dataType: 'content',
         }};
       mockCollector = jest.fn(() => () => ({ metaInfo: 'test' }));
       mockSelectors.getMetaData = jest.fn(() => ({ metaInfo: '', metaName: 'blubb' }));
@@ -87,6 +89,7 @@ describe('middleware/gatherRequestData', () => {
         payload: {
           method: 'post',
           formName: 'test-page-abc123',
+          dataType: 'content',
         }};
       mockCollector = jest.fn(() => () => ({ title: 'new' }));
       mockSelectors.getAllPages = jest.fn(() => ([
@@ -108,6 +111,7 @@ describe('middleware/gatherRequestData', () => {
         payload: {
           method: 'post',
           formName: 'test-section-abc123',
+          dataType: 'content',
         }};
       mockCollector = jest.fn(() => () => ({ title: 'new' }));
       mockSelectors.getAllSections = jest.fn(() => ({

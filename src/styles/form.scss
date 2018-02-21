@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 80%;
-  margin: auto;
-  margin-bottom: 20px;
+  max-width: 400px;
+  margin: 20px auto;
 }
 
 .form__element {
@@ -17,12 +17,12 @@
 }
 
 .form__label {
-  flex-basis: 50%;
+  flex-basis: 40%;
   line-height: 20px;
 }
 
 .form__field {
-  flex-basis: 50%;
+  flex-basis: 60%;
   height: 24px;
   border: 1px solid $color-field-border;
   padding: 0 6px;
@@ -30,7 +30,6 @@
 }
 
 .form__field--textarea {
-  flex-basis: 50%;
   height: 72px;
   padding: 4px 6px;
 }

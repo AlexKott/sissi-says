@@ -20,6 +20,10 @@
   border-left: 20px solid $color-main-light;
 }
 
+.editor--main .form {
+  max-width: 680px;
+}
+
 .editor--section::after {
   @include wipe-animation($color-main-light, 60);
 }

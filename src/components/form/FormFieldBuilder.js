@@ -19,6 +19,11 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
       type = 'text';
       break;
 
+    case 'password':
+      component = 'input';
+      type = 'password';
+      break;
+
     case 'text':
       component = 'textarea';
       fieldClassName = 'form__field--textarea';
