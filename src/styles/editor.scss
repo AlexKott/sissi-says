@@ -1,6 +1,5 @@
 .editor {
-  flex-basis: 80%;
-  flex-shrink: 1;
+  flex-basis: auto;
   flex-grow: 1;
   padding: 20px;
   background-color: $color-background-light;
@@ -9,12 +8,10 @@
 }
 
 .editor--page {
-  flex-basis: 60%;
   border-color: $color-main-medium;
 }
 
 .editor--section {
-  flex-basis: 60%;
   border-color: $color-main-light;
   border-left: 20px solid $color-main-light;
 }

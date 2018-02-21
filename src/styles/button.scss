@@ -3,7 +3,9 @@
   margin-top: 10px;
   height: 40px;
   width: 120px;
+  font-size: 14px;
   text-transform: uppercase;
+  letter-spacing: 2px;
   color: $color-background-light;
   background-color: $color-main-dark;
   @include box-shadow;
@@ -22,7 +24,10 @@
 .nav__element.button__nav {
   flex-basis: 36px;
   padding: 10px;
+  font-size: 14px;
+  line-height: 1;
   text-transform: uppercase;
+  letter-spacing: 2px;
 
   &:hover {
     color: $color-main-dark;
