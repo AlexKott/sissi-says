@@ -42,7 +42,7 @@ Form.propTypes = {
 export default compose(
   connect(null, mapDispatchToProps),
   reduxForm({
-    destroyOnUnmount: false,
+    destroyOnUnmount: true,
     enableReinitialize: true,
   })
 )(Form);

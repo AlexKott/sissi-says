@@ -9,7 +9,6 @@ const mapDispatchToProps = (dispatch) => ({
   onLogout: () => {
     dispatch(actions.resetSession());
     dispatch(actions.redirectToLogin());
-    dispatch(destroy('login'));
   },
 });
 
