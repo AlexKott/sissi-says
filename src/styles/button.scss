@@ -6,8 +6,8 @@
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: $color-background-light;
-  background-color: $color-main-dark;
+  background-color: $color-background-light;
+  color: $color-main-dark;
   @include box-shadow;
 
   &:first-of-type {
@@ -19,6 +19,11 @@
     background-color: $color-main-light;
     cursor: pointer;
   }
+}
+
+.button--cta {
+  color: $color-background-light;
+  background-color: $color-main-dark;
 }
 
 .nav__element.button__nav {
@@ -43,10 +48,4 @@
 .nav__element.button__nav--section {
   color: $color-main-dark;
   background-color: $color-main-light;;
-}
-
-.button--logout {
-  position: fixed;
-  top: 32px;
-  right: 10px;
 }

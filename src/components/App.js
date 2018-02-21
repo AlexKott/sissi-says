@@ -4,25 +4,29 @@ import { connect } from 'react-redux';
 
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
-import LogoutButton from './LogoutButton';
+import ActionBar from './actionBar/ActionBar';
 
 const mapStateToProps = (state) => {
   const route = state.location.type;
   const Component = state.location.routesMap[route].component;
-  return { Component };
+  return {
+    Component,
+    route
+  };
 };
 
-const App = ({ Component }) => (
+const App = ({ Component, route }) => (
   <div className='app'>
     <Modal />
     <Navigation />
-    <LogoutButton />
+    <ActionBar route={route} />
     <Component />
   </div>
 );
 
 App.propTypes = {
   Component: PropTypes.func,
+  route: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(App);

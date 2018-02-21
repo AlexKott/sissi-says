@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const LogoutButton = ({ onLogout }) => (
-  <button className='button button--logout' onClick={onLogout}>Logout</button>
+  <button className='button' onClick={onLogout}>Logout</button>
 );
 
 LogoutButton.propTypes = {
