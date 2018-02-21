@@ -5,6 +5,7 @@ class MarkdownEditor extends React.Component {
   componentDidMount() {
     const mde = new InscrybMDE({
       element: document.querySelector('.markdown-editor'),
+      minHeight: '220px',
       spellChecker: false,
       status: false,
       toolbar: [
@@ -20,7 +21,7 @@ class MarkdownEditor extends React.Component {
   }
 
   render() {
-    const { input, meta } = this.props;
+    const { input } = this.props;
     return (
       <div className='markdown-editor__wrapper'>
         <textarea className='markdown-editor' {...input} />
