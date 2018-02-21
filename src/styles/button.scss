@@ -11,6 +11,12 @@
   &:first-of-type {
     margin-top: 0;
   }
+
+  &:hover {
+    color: $color-main-dark;
+    background-color: $color-main-light;
+    cursor: pointer;
+  }
 }
 
 .nav__element.button__nav {
@@ -32,4 +38,10 @@
 .nav__element.button__nav--section {
   color: $color-main-dark;
   background-color: $color-main-light;;
+}
+
+.button--logout {
+  position: fixed;
+  top: 32px;
+  right: 10px;
 }
