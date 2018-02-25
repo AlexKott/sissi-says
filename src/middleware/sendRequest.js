@@ -26,9 +26,9 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
       if (error[0] && error[0].status === 401) {
-        store.dispatch(actions.setAlert(c.AUTH_ERROR, 'error'));
+        store.dispatch(actions.setAlert(c.AUTH_ERROR, 'auth_error'));
       } else {
-        store.dispatch(actions.setAlert(c.SERVER_ERROR, 'error'));
+        store.dispatch(actions.setAlert(c.SERVER_ERROR, 'server_error'));
       }
     } finally {
       store.dispatch(actions.setLoading(false));
