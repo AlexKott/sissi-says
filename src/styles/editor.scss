@@ -6,6 +6,7 @@
   background-color: $color-background-light;
   border: 20px solid $color-main-dark;
   border-left: none;
+  overflow-y: scroll;
 }
 
 .editor--page {

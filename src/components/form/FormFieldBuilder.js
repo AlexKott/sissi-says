@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 
+import MarkdownEditor from './MarkdownEditor';
 import Select from './Select';
 
 const mapStateToProps = (state, { fieldStructure = {} }) => {
@@ -10,6 +11,7 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
   let type = '';
   let options = [];
   let fieldClassName = '';
+  let elementClassName = '';
 
   switch(fieldStructure.type) {
     case 'string':
@@ -27,6 +29,11 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
       fieldClassName = 'form__field--textarea';
       break;
 
+    case 'markdown':
+      component = MarkdownEditor;
+      elementClassName = 'form__element--markdown';
+      break;
+
     case 'choice':
       component = Select;
       options = fieldStructure.choices;
@@ -40,16 +47,18 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
   return {
     fieldProps: { component, type, options },
     fieldClassName,
+    elementClassName,
   };
 };
 
 const FormFieldBuilder = ({
+  elementClassName = '',
   fieldName = '',
   fieldClassName = '',
   fieldStructure = {},
   fieldProps = {},
 }) => (
-  <label className='form__element'>
+  <label className={`form__element ${elementClassName}`}>
     <span className='form__label'>{fieldStructure.label}:</span>
     <Field
       name={fieldName}
@@ -60,6 +69,7 @@ const FormFieldBuilder = ({
 );
 
 FormFieldBuilder.propTypes = {
+  elementClassName: PropTypes.string,
   fieldName: PropTypes.string,
   fieldClassName: PropTypes.string,
   fieldStructure: PropTypes.object,
