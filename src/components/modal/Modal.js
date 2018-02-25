@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
   const type = alertMessage.level || 'loading';
   let name = type;
 
-  if (type === 'auth_error' || type === 'server_error') {
+  if (type.indexOf('error') !== -1) {
     name = 'error';
   }
 
