@@ -4,11 +4,20 @@
 }
 
 .editor-toolbar {
+  padding: 4px;
   border-radius: 0;
+  border: none;
+  background-color: $color-light-grey;
+
+  &::before,
+  &::after {
+    display: none;
+  }
 }
 
 .CodeMirror {
   border-radius: 0;
+  border: 1px solid $color-light-grey;
 }
 
 .CodeMirror .CodeMirror-code {
