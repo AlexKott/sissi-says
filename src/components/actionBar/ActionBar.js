@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'redux-first-router-link';
 
 import { ROUTE_INDEX } from '@/router/routes';
@@ -7,7 +6,7 @@ import { ROUTE_INDEX } from '@/router/routes';
 import LogoutButton from './LogoutButton';
 import PublishButton from './PublishButton';
 
-const ActionBar = ({ route }) => (
+const ActionBar = () => (
   <div className='action-bar'>
     <PublishButton />
     <LogoutButton />
@@ -19,9 +18,5 @@ const ActionBar = ({ route }) => (
     >Index</NavLink>
   </div>
 );
-
-ActionBar.propTypes = {
-  route: PropTypes.string,
-};
 
 export default ActionBar;

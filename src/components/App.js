@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
   const Component = state.location.routesMap[route].component;
   return {
     Component,
-    route
   };
 };
 
@@ -19,14 +18,13 @@ const App = ({ Component, route }) => (
   <div className='app'>
     <Modal />
     <Navigation />
-    <ActionBar route={route} />
+    <ActionBar />
     <Component />
   </div>
 );
 
 App.propTypes = {
   Component: PropTypes.func,
-  route: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(App);
