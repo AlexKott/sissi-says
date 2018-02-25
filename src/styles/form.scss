@@ -1,9 +1,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 400px;
-  margin: 20px auto;
+  min-width: 360px;
+  max-width: 600px;
+  margin: 20px 20px 20px 0;
 }
 
 .form__element {
@@ -18,15 +18,16 @@
 
 .form__label {
   flex-basis: 40%;
-  line-height: 20px;
+  line-height: 32px;
 }
 
 .form__field {
   flex-basis: 60%;
-  height: 24px;
+  height: 32px;
   border: 1px solid $color-field-border;
   padding: 0 6px;
   background-color: white;
+  font-size: 16px;
 }
 
 .form__field--textarea {

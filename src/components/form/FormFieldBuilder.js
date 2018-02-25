@@ -63,6 +63,7 @@ const FormFieldBuilder = ({
     <Field
       name={fieldName}
       className={`form__field ${fieldClassName}`}
+      placeholder={fieldStructure.placeholder}
       {...fieldProps}
     />
   </label>

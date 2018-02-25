@@ -27,7 +27,7 @@ const Form = ({
       const fieldStructure = field[fieldName];
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
-    <button type='submit' className='button'>{submitText}</button>
+    <button type='submit' className='button button--cta'>{submitText}</button>
     {children}
   </form>
 );
