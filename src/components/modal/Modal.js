@@ -9,13 +9,10 @@ const mapStateToProps = (state) => {
   const shouldDisplayModal = selectors.getShouldDisplayModal(state);
   const alertMessage = selectors.getAlertMessage(state);
   const type = alertMessage.level || 'loading';
-  let name;
+  let name = type;
 
   if (type === 'auth_error' || type === 'server_error') {
-    console.log(type);
     name = 'error';
-  } else {
-    name = type;
   }
 
   return {
