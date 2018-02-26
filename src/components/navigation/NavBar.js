@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'redux-first-router-link';
+import { Droppable } from 'react-beautiful-dnd';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
@@ -53,20 +54,24 @@ const NavBar = ({
   routeArray = [],
   onAdd,
 }) => (
-  <nav className={`nav nav--${type}`}>
-    {elements.map(element => (
-      <NavLink
-        key={element.id}
-        to={getNavLink(selectedElement, element.id, routeArray)}
-        className={`nav__element nav__element--${type}`}
-        activeClassName='nav__element--selected'
-      >{element.title ? element.title : `New ${type}`}</NavLink>
-    ))}
-    {canAdd && <button
-        onClick={onAdd}
-        className={`nav__element button__nav button__nav--${type}`}
-    >Add</button>}
-  </nav>
+  <Droppable droppableId={`dnd-nav-bar-${type}`} type={type}>
+    {(provided, snapshot) => (
+      <nav className={`nav nav--${type}`} ref={provided.innerRef} {...provided.droppableProps}>
+        {elements.map(element => (
+          <NavLink
+            key={element.id}
+            to={getNavLink(selectedElement, element.id, routeArray)}
+            className={`nav__element nav__element--${type}`}
+            activeClassName='nav__element--selected'
+          >{element.title ? element.title : `New ${type}`}</NavLink>
+        ))}
+        {canAdd && <button
+            onClick={onAdd}
+            className={`nav__element button__nav button__nav--${type}`}
+        >Add</button>}
+      </nav>
+    )}
+  </Droppable>
 );
 
 NavBar.propTypes = {
