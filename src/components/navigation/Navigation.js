@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as selectors from '@/reducers/selectors';
 
@@ -20,29 +21,33 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  onDragEnd: (result) => console.log('end', result),
+});
+
 const Navigation = ({
   displaySections = false,
   selectedPage = '',
   selectedSection = '',
   pages = [],
   sections = [],
-}) => ([
-  <NavBar
-    key='nav-page'
-    type='page'
-    selectedElement={selectedPage}
-    elements={pages}
-    routeArray={['page']}
-  />
-  ,
-  displaySections && <NavBar
-    key='nav-section'
-    type='section'
-    selectedElement={selectedSection}
-    elements={sections}
-    routeArray={['page', selectedPage, 'section']}
-  />
-]);
+  onDragEnd,
+}) => (
+  <DragDropContext onDragEnd={onDragEnd}>
+    <NavBar
+      type='page'
+      selectedElement={selectedPage}
+      elements={pages}
+      routeArray={['page']}
+    />
+    {displaySections && <NavBar
+      type='section'
+      selectedElement={selectedSection}
+      elements={sections}
+      routeArray={['page', selectedPage, 'section']}
+    />}
+  </DragDropContext>
+);
 
 Navigation.propTypes = {
   displaySections: PropTypes.bool,
@@ -50,6 +55,7 @@ Navigation.propTypes = {
   selectedSection: PropTypes.string,
   pages: PropTypes.array,
   sections: PropTypes.array,
+  onDragEnd: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
