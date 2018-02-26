@@ -20,6 +20,7 @@ describe('middleware/gatherRequestData', () => {
       getMetaData: jest.fn(),
       getAllPages: jest.fn(),
       getAllSections: jest.fn(),
+      getFields: jest.fn(),
     };
     mockStore = {
       dispatch: mockDispatch,

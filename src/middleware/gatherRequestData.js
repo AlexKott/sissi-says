@@ -1,5 +1,6 @@
 import { getFormValues } from 'redux-form';
 
+import { transformToHtml } from '@/helpers/markdownHtmlConverter';
 import * as t from '@/actions/types';
 import * as selectors from '@/reducers/selectors';
 
@@ -14,6 +15,7 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
     const pageData = getters.getAllPages(state);
     const sectionData = getters.getAllSections(state);
     const formInput = collector(formName)(state);
+    const fields = getters.getFields(state);
 
     let meta = metaData;
     let pages = pageData;
@@ -37,11 +39,9 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
       }
     }
 
-    action.payload.requestData = {
-      meta,
-      pages,
-      sections,
-    };
+    const transformedData = transformToHtml({ meta, pages, sections }, fields);
+
+    action.payload.requestData = transformedData;
   }
   next(action);
 }
