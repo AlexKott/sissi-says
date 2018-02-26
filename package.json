@@ -37,6 +37,7 @@
     "jest": "20.0.4",
     "jsonwebtoken": "^8.1.1",
     "lodash.clonedeep": "^4.5.0",
+    "marked": "^0.3.16",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.11",
     "object-assign": "4.1.1",
