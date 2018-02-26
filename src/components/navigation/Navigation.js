@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as selectors from '@/reducers/selectors';
+import * as actions from '@/actions/creators';
 
 import NavBar from './NavBar';
 
@@ -22,7 +23,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onDragEnd: (result) => console.log('end', result),
+  onDragEnd: ({ type, source, destination }) => {
+    if (type === 'page') {
+      dispatch(actions.dragPage(source.index, destination.index));
+    } else if (type === 'section') {
+      dispatch(actions.dragSection(source.index, destination.index));
+    }
+  },
 });
 
 const Navigation = ({
