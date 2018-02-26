@@ -65,16 +65,18 @@ const NavBar = ({
         {elements.map((element, index) => (
           <Draggable key={element.id} draggableId={element.id} type={type} index={index}>
             {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                className={`nav__element nav__element--${type}`}
-              >
-                <NavLink
-                  to={getNavLink(selectedElement, element.id, routeArray)}
-                  activeClassName='nav__element--selected'
-                >{element.title ? element.title : `New ${type}`}</NavLink>
+              <div>
+                <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                >
+                  <NavLink
+                    to={getNavLink(selectedElement, element.id, routeArray)}
+                    className={`nav__element nav__element--${type}`}
+                    activeClassName='nav__element--selected'
+                  >{element.title ? element.title : `New ${type}`}</NavLink>
+                </div>
                 {provided.placeholder}
               </div>
             )}
