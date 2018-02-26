@@ -18,16 +18,20 @@ function getNavLink(selectedElement, elementId, routeArray) {
 
 const mapStateToProps = (state, ownProps) => {
   let canAdd = true;
+  let droppableId;
 
   if (ownProps.type === 'page') {
     canAdd = selectors.getCanAddPage(state);
+    droppableId = 'droppable-page';
   } else if (ownProps.type === 'section') {
     const pageId = ownProps.routeArray[1];
     canAdd = selectors.getCanAddSection(state, pageId);
+    droppableId = pageId;
   }
 
   return {
     canAdd,
+    droppableId,
   };
 }
 
@@ -48,13 +52,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const NavBar = ({
   canAdd,
+  droppableId,
   selectedElement = '',
   type = '',
   elements = [],
   routeArray = [],
   onAdd,
 }) => (
-  <Droppable droppableId={`dnd-droppable-${type}`} type={type}>
+  <Droppable droppableId={droppableId} type={type}>
     {(provided, snapshot) => (
       <nav className={`nav nav--${type}`} ref={provided.innerRef} {...provided.droppableProps}>
         {elements.map((element, index) => (
@@ -87,6 +92,7 @@ const NavBar = ({
 
 NavBar.propTypes = {
   canAdd: PropTypes.bool,
+  droppableId: PropTypes.string,
   selectedElement: PropTypes.string,
   type: PropTypes.string,
   elements: PropTypes.array,

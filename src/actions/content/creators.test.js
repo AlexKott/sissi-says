@@ -77,9 +77,10 @@ describe('actions/content', () => {
 
   describe('dragSection', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.dragSection(2, 6);
+      const action = actions.dragSection('testPage', 2, 6);
 
       expect(action).toHaveProperty('type', t.DRAG_SECTION);
+      expect(action.payload).toHaveProperty('pageId', 'testPage');
       expect(action.payload).toHaveProperty('from', 2);
       expect(action.payload).toHaveProperty('to', 6);
     });

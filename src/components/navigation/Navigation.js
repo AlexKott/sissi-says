@@ -24,10 +24,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onDragEnd: ({ type, source, destination }) => {
-    if (type === 'page') {
+    if (!destination) {
+      return;
+    } else if (type === 'page') {
       dispatch(actions.dragPage(source.index, destination.index));
     } else if (type === 'section') {
-      dispatch(actions.dragSection(source.index, destination.index));
+      dispatch(actions.dragSection(source.droppableId, source.index, destination.index));
     }
   },
 });

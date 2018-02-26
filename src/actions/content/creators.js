@@ -46,9 +46,9 @@ export function dragPage(from, to) {
   };
 }
 
-export function dragSection(from, to) {
+export function dragSection(pageId, from, to) {
   return {
     type: t.DRAG_SECTION,
-    payload: { from, to },
+    payload: { pageId, from, to },
   };
 }
