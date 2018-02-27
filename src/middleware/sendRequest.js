@@ -14,6 +14,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       method,
       dataType,
       requestData,
+      contentType = 'json',
       successDispatch = [],
     } = payload;
 
@@ -22,7 +23,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
 
     try {
       store.dispatch(actions.setLoading(true));
-      const response = await client(endpoint, token)[method](requestData);
+      const response = await client(endpoint, token, contentType)[method](requestData);
       successDispatch.forEach(action => store.dispatch(action(response[0])));
     } catch(error) {
       if (error[0] && error[0].status === 401) {

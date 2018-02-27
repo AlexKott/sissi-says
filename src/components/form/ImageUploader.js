@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onUploadImage: (e) => console.log(e),
+  onUploadImage: (e) => dispatch(actions.saveImage(e.target.files[0])),
   onOpenPopup: () => dispatch(actions.fetchData('images')),
 });
 
@@ -40,6 +40,7 @@ class ImageUploader extends React.Component {
     if (!this.fileBrowser) {
       this.fileBrowser = document.createElement('input');
       this.fileBrowser.type = 'file';
+      this.fileBrowser.accept = 'image/*';
       this.fileBrowser.style.display = 'none';
       document.querySelector('body').append(this.fileBrowser);
       this.fileBrowser.addEventListener('change', this.props.onUploadImage);
@@ -57,7 +58,6 @@ class ImageUploader extends React.Component {
     const {
       input,
       images = [],
-      onUploadImage,
     } = this.props;
 
     return ([
@@ -103,7 +103,6 @@ class ImageUploader extends React.Component {
 ImageUploader.propTypes = {
   input: PropTypes.object,
   images: PropTypes.array,
-  onUploadImage: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUploader);

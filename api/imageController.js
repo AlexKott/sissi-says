@@ -22,32 +22,30 @@ export async function saveImage(req, res) {
   if (!req.files) {
     return res.sendStatus(400);
   }
-  const savedFiles = await saveFiles(req.files);
 
-  res.send(savedFiles);
+  try {
+    const savedFileName = await saveFile(req.files);
+    res.send(savedFileName);
+  } catch(error) {
+    res.sendStatus(500);
+  }
 }
 
-async function saveFiles(files) {
-  const fileNames = {};
-  const errors = {};
+async function saveFile(files) {
+  const file = Object.values(files)[0];
 
-  const promises = Object.keys(files).map(file => {
-    return new Promise(resolve => {
-      const now = (new Date).getTime();
-      const nameParts = files[file].name.split('.');
-      const hashedName = hash.unique(`${nameParts[0]}${now}`);
-      const fileName = `${hashedName}.${nameParts[1]}`;
+  return new Promise((resolve, reject) => {
+    const now = (new Date).getTime();
+    const nameParts = file.name.split('.');
+    const hashedName = hash.unique(`${nameParts[0]}${now}`);
+    const fileName = `${hashedName}.${nameParts[1].toLowerCase()}`;
 
-      files[file].mv(`${imageDirectory}/${fileName}`, (err) => {
-        if (!err) {
-          fileNames[file] = fileName;
-        } else {
-          errors[file] = err;
-        }
-        resolve();
-      });
+    file.mv(`${imageDirectory}/${fileName}`, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({ fileName });
+      }
     });
   });
-  await Promise.all(promises);
-  return { fileNames, errors };
 }

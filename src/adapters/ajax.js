@@ -1,8 +1,11 @@
-export default function ajax(url, token) {
+export default function ajax(url, token, contentType = 'json') {
   let uri = url;
   const options = {};
+  const contentTypes = {
+    json: 'application/json',
+    file: 'multipart/form-data',
+  };
   options.headers = new Headers();
-  options.headers.append('Content-Type', 'application/json');
 
   if (token) {
     options.headers.append('authorization', `Bearer ${token}`);
@@ -15,7 +18,16 @@ export default function ajax(url, token) {
     },
     post(body) {
       options.method = 'POST';
-      options.body = JSON.stringify(body);
+      if (contentType === 'json') {
+        options.headers.append('Content-Type', contentTypes[contentType]);
+        options.body = JSON.stringify(body);
+      } else if (contentType === 'file') {
+        console.log(body);
+        const formData = new FormData();
+        formData.append('file', body);
+        options.body = formData;
+        options.headers.append('enctype', 'multipart/form-data');
+      }
       return makeRequest(uri, options);
     }
   }
