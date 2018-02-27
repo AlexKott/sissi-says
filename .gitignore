@@ -4,6 +4,7 @@
 # production
 /build
 /api-build
+/public/images
 /images
 
 # sissi files

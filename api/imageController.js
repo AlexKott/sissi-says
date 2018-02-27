@@ -2,11 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import hash from 'shorthash';
 
-const imageDirectory = path.join(process.cwd(), 'images');
+const imageDirectory = path.join(process.cwd(), 'public', 'images');
 try {
   fs.statSync(imageDirectory);
 } catch (error) {
   fs.mkdirSync(imageDirectory);
+}
+
+export function getAllImages(req, res) {
+  fs.readdir(imageDirectory, (error, files) => {
+    if (error) {
+      return res.sendStatus(500);
+    }
+    res.send(files);
+  });
 }
 
 export async function saveImage(req, res) {

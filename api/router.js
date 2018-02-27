@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 
 import { readJson, writeJson } from './jsonController';
-import { saveImage } from './imageController';
+import { getAllImages, saveImage } from './imageController';
 import { authenticate, login } from './authService';
 
 const router = express.Router();
@@ -42,7 +42,14 @@ router.route('/login')
   });
 
 router.route('/images')
-  .post(saveImage);
+  .get(
+    authenticate(),
+    getAllImages
+  )
+  .post(
+    authenticate(),
+    saveImage
+  );
 
 router.use('/images', express.static(imageDirectory));
 
