@@ -13,7 +13,8 @@ const t = {
       headingStyle: 'atx',
     };
     const turndownService = new TurndownService(options);
-    return turndownService.turndown(html);
+    const markdown = turndownService.turndown(html);
+    return markdown.replace(/(#.*)(\n\n)/g, '$1\n');
   },
 };
 
