@@ -9,9 +9,9 @@ const mapStateToProps = (state) => ({
   images: selectors.getAllImages(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onChooseImage: (e) => {
-    console.log(e.target.files[0]);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onUploadImage: (e) => {
+    console.log(e);
   },
   onOpenPopup: () => dispatch(actions.fetchData('images')),
 });
@@ -35,11 +35,16 @@ class ImageUploader extends React.Component {
     }
   }
 
+  selectImage(image) {
+    this.props.input.onChange(image);
+    this.setState(() => ({ isPopupActive: false }));
+  }
+
   render() {
     const {
       input,
       images = [],
-      onChooseImage,
+      onUploadImage,
     } = this.props;
 
     if (this.state.isPopupActive) {
@@ -51,6 +56,7 @@ class ImageUploader extends React.Component {
                 key={image}
                 style={{ backgroundImage: `url('/images/${image}')` }}
                 className='image-popup__image'
+                onClick={this.selectImage.bind(this, image)}
               />
             ))}
             <div className='image-popup__image placeholder'>Upload new image</div>
@@ -77,7 +83,7 @@ class ImageUploader extends React.Component {
 ImageUploader.propTypes = {
   input: PropTypes.object,
   images: PropTypes.array,
-  onChooseImage: PropTypes.func,
+  onUploadImage: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageUploader);
