@@ -10,9 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onUploadImage: (e) => {
-    console.log(e);
-  },
+  onUploadImage: (e) => console.log(e),
   onOpenPopup: () => dispatch(actions.fetchData('images')),
 });
 
@@ -25,17 +23,32 @@ class ImageUploader extends React.Component {
   }
 
   openPopup() {
+    console.log('open');
     this.setState(() => ({ isPopupActive: true }));
     this.props.onOpenPopup();
   }
 
   closePopup(e) {
+    console.log('close');
     if (e.target.id === 'image-popup') {
       this.setState(() => ({ isPopupActive: false }));
     }
   }
 
+  openFileBrowser() {
+    console.log('files');
+    if (!this.fileBrowser) {
+      this.fileBrowser = document.createElement('input');
+      this.fileBrowser.type = 'file';
+      this.fileBrowser.style.display = 'none';
+      document.querySelector('body').append(this.fileBrowser);
+      this.fileBrowser.addEventListener('change', this.props.onUploadImage);
+    }
+    this.fileBrowser.click();
+  }
+
   selectImage(image) {
+    console.log('image');
     this.props.input.onChange(image);
     this.setState(() => ({ isPopupActive: false }));
   }
@@ -47,36 +60,43 @@ class ImageUploader extends React.Component {
       onUploadImage,
     } = this.props;
 
-    if (this.state.isPopupActive) {
-      return (
-        <div id='image-popup' className='image-popup__wrapper' onClick={this.closePopup.bind(this)}>
-          <div className='image-popup__box'>
-            {images.map(image => (
-              <div
-                key={image}
-                style={{ backgroundImage: `url('/images/${image}')` }}
-                className='image-popup__image'
-                onClick={this.selectImage.bind(this, image)}
-              />
-            ))}
-            <div className='image-popup__image placeholder'>Upload new image</div>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        input.value
-          ? <div
-              style={{ backgroundImage: `url('/images/${input.value}')` }}
-              className='form__field form__field--image'
-              onClick={this.openPopup.bind(this)}
+    return ([
+      this.state.isPopupActive && <div
+        key='image-popup'
+        id='image-popup'
+        className='image-popup__wrapper'
+        onClick={this.closePopup.bind(this)}
+      >
+        <div className='image-popup__box'>
+          {images.map(image => (
+            <div
+              key={image}
+              style={{ backgroundImage: `url('/images/${image}')` }}
+              className='image-popup__image'
+              onClick={this.selectImage.bind(this, image)}
             />
-          : <div
-              className='form__field form__field--image placeholder'
-              onClick={this.openPopup.bind(this)}
-            >Choose image</div>
-      );
-    }
+          ))}
+          <div
+            id='file-browser-button'
+            className='image-popup__image placeholder'
+            onClick={this.openFileBrowser.bind(this)}
+          >Upload new image</div>
+        </div>
+      </div>
+      ,
+      input.value
+        ? <div
+            key='image'
+            style={{ backgroundImage: `url('/images/${input.value}')` }}
+            className='form__field form__field--image'
+            onClick={this.openPopup.bind(this)}
+          />
+        : <div
+            key='placeholder'
+            className='form__field form__field--image placeholder'
+            onClick={this.openPopup.bind(this)}
+          >Choose image</div>
+    ]);
   }
 }
 
