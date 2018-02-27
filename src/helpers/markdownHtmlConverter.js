@@ -45,7 +45,7 @@ function transformObject(targetFormat, data, fields) {
   const output = {};
 
   Object.entries(data).forEach(entry => {
-    if (typeof entry[1] === 'string') {
+    if (isString(entry[1])) {
       if (needsTransforming(entry[0], fields)) {
         output[entry[0]] = t[targetFormat](entry[1]);
       } else {
@@ -56,6 +56,10 @@ function transformObject(targetFormat, data, fields) {
     }
   });
   return output;
+}
+
+function isString(data) {
+  return typeof data === 'string';
 }
 
 function isObject(data) {
