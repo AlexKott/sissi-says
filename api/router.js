@@ -4,7 +4,6 @@ import path from 'path';
 import { readJson, writeJson } from './jsonController';
 import { saveImage } from './imageController';
 import { authenticate, login } from './authService';
-import { readJson, writeJson } from './fileController';
 
 const router = express.Router();
 const imageDirectory = path.join(process.cwd(), 'images');
