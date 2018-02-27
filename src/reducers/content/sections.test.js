@@ -49,6 +49,15 @@ describe('reducers/content/sections', () => {
 
     expect(state).toEqual(expectedState);
   });
+
+  it('should reset the state', () => {
+    const action = {
+      type: t.RESET_SESSION,
+    };
+    const state = reducer({ sectionData: 'test' }, action);
+
+    expect(state).toEqual({});
+  });
 });
 
 describe('selectors/content/sections', () => {
@@ -81,6 +90,21 @@ describe('selectors/content/sections', () => {
       const value = selectors.getSectionById(mockState, 'section1');
 
       expect(value).toBe('testSection1');
+    });
+  });
+
+  describe('getInitialSectionValues', () => {
+    it('should return the filtered data for the specified section', () => {
+      const mockState = {
+        content: {
+          sections: {
+            test1: { sectionType: 'test1', otherData: 'test' },
+          },
+        },
+      };
+      const value = selectors.getInitialSectionValues(mockState, 'test1');
+
+      expect(value).toEqual({ otherData: 'test' });
     });
   });
 });

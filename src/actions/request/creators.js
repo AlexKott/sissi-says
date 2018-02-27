@@ -1,4 +1,8 @@
+import { getFormValues } from 'redux-form';
 import * as t from './types';
+import * as c from '@/constants';
+import { setAlert } from '@/actions/alerts/creators';
+import { redirectToIndex } from '@/actions/redirect/creators';
 
 export function fetchData(dataType) {
   const action = {
@@ -20,7 +24,7 @@ export function fetchData(dataType) {
 export function fetchDataSuccess(dataType, data) {
   return {
     type: t.FETCH_DATA_SUCCESS,
-    payload: { dataType, data },
+    payload: { dataType, data }
   };
 }
 
@@ -31,7 +35,42 @@ export function postContent(formName) {
       method: 'post',
       dataType: 'content',
       formName,
-      successDispatch: [fetchDataSuccess.bind({}, 'content')],
+      successDispatch: [
+        fetchDataSuccess.bind({}, 'content'),
+        setAlert.bind({}, c.SAVE_SUCCESS, 'success'),
+      ],
     }
+  };
+}
+
+export function login() {
+  return (dispatch, getState, selectFormValues = getFormValues) => {
+    const values = selectFormValues('login')(getState());
+    if (values) {
+      dispatch({
+        type: t.SEND_REQUEST,
+        payload: {
+          method: 'post',
+          dataType: 'login',
+          requestData: { username: values.username, password: values.password },
+          successDispatch: [loginSuccess, redirectToIndex],
+        },
+      });
+    } else {
+      dispatch(setAlert('Please enter a username and password!', 'error'));
+    }
+  };
+}
+
+export function loginSuccess(data) {
+  return {
+    type: t.LOGIN_SUCCESS,
+    payload: data.token,
+  };
+}
+
+export function resetSession() {
+  return {
+    type: t.RESET_SESSION,
   };
 }

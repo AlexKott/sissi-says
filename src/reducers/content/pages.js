@@ -9,7 +9,9 @@ import {
   getMinSectionsPerPage,
 } from '@/reducers/settings';
 
-export default (state = [], action = {}) => {
+const initialState = [];
+
+export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
@@ -36,6 +38,9 @@ export default (state = [], action = {}) => {
     const deleteIndex = page.sections.findIndex(section => section === payload.sectionId);
     page.sections.splice(deleteIndex, 1);
     return newState;
+
+  } else if (type === t.RESET_SESSION) {
+    return initialState;
   }
 
   return state;
@@ -69,6 +74,14 @@ export function getSectionsForPage(state, pageId, selectSectionById = getSection
     const section = selectSectionById(state, id);
     return { ...section, id };
   });
+}
+
+export function getInitialPageValues(state, pageId) {
+  const pageCopy = cloneDeep(getPageById(state, pageId));
+  delete pageCopy.id;
+  delete pageCopy.pageType;
+  delete pageCopy.sections;
+  return pageCopy;
 }
 
 export function getCanAddPage(state, selectMaxPages = getMaxPages) {

@@ -1,32 +1,36 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: auto;
-  margin-bottom: 20px;
+  min-width: 360px;
+  max-width: 600px;
+  margin: 20px 20px 20px 0;
 }
 
 .form__element {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+
+  &--markdown {
+    flex-direction: column;
+  }
 }
 
 .form__label {
-  flex-basis: 50%;
-  line-height: 20px;
+  flex-basis: 40%;
+  line-height: 32px;
 }
 
 .form__field {
-  flex-basis: 50%;
-  height: 24px;
+  flex-basis: 60%;
+  height: 32px;
   border: 1px solid $color-field-border;
   padding: 0 6px;
   background-color: white;
+  font-size: 16px;
 }
 
 .form__field--textarea {
-  flex-basis: 50%;
   height: 72px;
   padding: 4px 6px;
 }

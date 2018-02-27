@@ -3,11 +3,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
+
+import { init } from './authService';
 import router from './router';
 
 const app = express();
 const PORT = 3010;
 
+app.use(init());
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(cors({

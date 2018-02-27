@@ -1,22 +1,42 @@
 .button {
   align-self: flex-end;
   margin-top: 10px;
+  padding: 0;
   height: 40px;
   width: 120px;
+  font-size: 14px;
+  line-height: 40px;
+  text-decoration: none;
+  text-align: center;
   text-transform: uppercase;
-  color: $color-background-light;
-  background-color: $color-main-dark;
+  letter-spacing: 2px;
+  background-color: $color-background-light;
+  color: $color-main-dark;
   @include box-shadow;
 
-  &:first-of-type {
+  &:first-child {
     margin-top: 0;
+  }
+
+  &:hover {
+    color: $color-main-dark;
+    background-color: $color-main-light;
+    cursor: pointer;
   }
 }
 
+.button--cta {
+  color: $color-background-light;
+  background-color: $color-main-dark;
+}
+
 .nav__element.button__nav {
-  flex-basis: 36px;
+  height: 40px;
   padding: 10px;
+  font-size: 14px;
+  line-height: 1;
   text-transform: uppercase;
+  letter-spacing: 2px;
 
   &:hover {
     color: $color-main-dark;

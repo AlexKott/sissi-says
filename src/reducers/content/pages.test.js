@@ -72,6 +72,15 @@ describe('reducers/content/pages', () => {
       sections: ['section2'],
     }]);
   });
+
+  it('should reset the state', () => {
+    const action = {
+      type: t.RESET_SESSION,
+    };
+    const state = reducer([1, 2, 3], action);
+
+    expect(state).toEqual([]);
+  });
 });
 
 describe('selectors/content/pages', () => {
@@ -176,6 +185,21 @@ describe('selectors/content/pages', () => {
         { id: 'section1', content: 'test' },
         { id: 'section2', content: 'test2' },
       ]);
+    });
+  });
+
+  describe('getInitialPageValues', () => {
+    it('should return the filtered data for the specified page', () => {
+      const mockState = {
+        content: {
+          pages: [
+            { id: 'test1', pageType: 'test1', sections: [1, 2, 3], otherData: 'test' },
+          ],
+        },
+      };
+      const value = selectors.getInitialPageValues(mockState, 'test1');
+
+      expect(value).toEqual({ otherData: 'test' });
     });
   });
 

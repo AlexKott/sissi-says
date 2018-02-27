@@ -5,9 +5,9 @@ import * as selectors from '@/reducers/selectors';
 
 export default ({ dispatch, getState }, getters = selectors, collector = getFormValues) => next => action => {
   const { type, payload } = action;
+  const isPostRequest = type === t.SEND_REQUEST && payload.method === 'post';
 
-  // currently not testing for dataType === 'content' because only content can be posted
-  if (type === t.SEND_REQUEST && payload.method === 'post') {
+  if (isPostRequest && payload.dataType === 'content') {
     const { formName } = payload;
     const state = getState();
     const metaData = getters.getMetaData(state);
@@ -32,7 +32,8 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
         pageData.splice(newPageIndex, 1, newPage);
         pages = pageData;
       } else if (formType === 'section') {
-        sections = Object.assign({}, sectionData, { [formId]: formInput });
+        const newSection = Object.assign({}, sectionData[formId], formInput);
+        sections = Object.assign({}, sectionData, { [formId]: newSection });
       }
     }
 

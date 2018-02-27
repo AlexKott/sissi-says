@@ -1,8 +1,12 @@
-export default function ajax(url) {
+export default function ajax(url, token) {
   let uri = url;
   const options = {};
   options.headers = new Headers();
   options.headers.append('Content-Type', 'application/json');
+
+  if (token) {
+    options.headers.append('authorization', `Bearer ${token}`);
+  }
 
   return {
     get() {
