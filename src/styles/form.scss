@@ -17,20 +17,73 @@
 }
 
 .form__label {
-  flex-basis: 40%;
+  width: 40%;
   line-height: 32px;
 }
 
 .form__field {
-  flex-basis: 60%;
+  width: 60%;
   height: 32px;
   border: 1px solid $color-field-border;
   padding: 0 6px;
   background-color: white;
   font-size: 16px;
+
+  &::placeholder {
+    color: $color-field-placeholder;
+  }
+
+  &--textarea {
+    height: 72px;
+    padding: 4px 6px;
+  }
 }
 
-.form__field--textarea {
-  height: 72px;
-  padding: 4px 6px;
+.form__field--image {
+  position: relative;
+  min-width: 120px;
+  height: 160px;
+  border: none;
+  padding: 0;
+  text-align: center;
+  line-height: 160px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  cursor: pointer;
+
+  &.placeholder {
+    color: $color-field-placeholder;
+    border: 1px dashed;
+
+    &:hover {
+      color: $color-main-dark;
+
+      &::after {
+        content: '';
+        height: 0;
+      }
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    height: 0;
+    width: 100%;
+    background-color: $color-white;
+    opacity: 0.8;
+    transition: height .2s;
+  }
+
+  &:hover {
+    &::after {
+      content: 'Change image';
+      height: 100%;
+    }
+  }
 }

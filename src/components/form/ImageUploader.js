@@ -8,14 +8,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const ImageUploader = ({ input, onChooseImage }) => [
-  <input
-    key='input'
-    type='file'
-    accept='.jpg, .jpeg, .png, .gif'
-    onChange={onChooseImage}
-  />
-];
+const ImageUploader = ({ input, onChooseImage }) => (
+  input.value
+    ? <div
+        style={{ backgroundImage: `url('/images/${input.value}')` }}
+        className='form__field form__field--image'
+      />
+    : <button className='form__field form__field--image placeholder'>Choose image</button>
+
+);
 
 ImageUploader.propTypes = {
   input: PropTypes.object,
