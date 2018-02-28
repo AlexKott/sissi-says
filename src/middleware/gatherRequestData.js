@@ -1,19 +1,24 @@
 import { getFormValues } from 'redux-form';
 
+import { transformToHtml } from '@/helpers/markdownHtmlConverter';
 import * as t from '@/actions/types';
 import * as selectors from '@/reducers/selectors';
 
-export default ({ dispatch, getState }, getters = selectors, collector = getFormValues) => next => action => {
+export default (
+  { dispatch, getState },
+  methods = { ...selectors, getFormValues, transformToHtml }
+) => next => action => {
   const { type, payload } = action;
   const isPostRequest = type === t.SEND_REQUEST && payload.method === 'post';
 
   if (isPostRequest && payload.dataType === 'content') {
     const { formName } = payload;
     const state = getState();
-    const metaData = getters.getMetaData(state);
-    const pageData = getters.getAllPages(state);
-    const sectionData = getters.getAllSections(state);
-    const formInput = collector(formName)(state);
+    const metaData = methods.getMetaData(state);
+    const pageData = methods.getAllPages(state);
+    const sectionData = methods.getAllSections(state);
+    const formInput = methods.getFormValues(formName)(state);
+    const fields = methods.getFields(state);
 
     let meta = metaData;
     let pages = pageData;
@@ -37,11 +42,9 @@ export default ({ dispatch, getState }, getters = selectors, collector = getForm
       }
     }
 
-    action.payload.requestData = {
-      meta,
-      pages,
-      sections,
-    };
+    const transformedData = methods.transformToHtml({ meta, pages, sections }, fields);
+
+    action.payload.requestData = transformedData;
   }
   next(action);
 }

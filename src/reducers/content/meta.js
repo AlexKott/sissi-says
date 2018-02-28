@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 import * as t from '@/actions/types';
 
 const initialState = {};
@@ -16,5 +18,5 @@ export default (state = initialState, action = {}) => {
 }
 
 export function getMetaData(state) {
-  return state.content.meta;
+  return cloneDeep(state.content.meta);
 }

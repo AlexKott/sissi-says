@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const App = ({ Component, route }) => (
+const App = ({ Component }) => (
   <div className='app'>
     <Modal />
     <Navigation />

@@ -1,4 +1,5 @@
 import ajax from '@/adapters/ajax';
+import { transformToMarkdown } from '@/helpers/markdownHtmlConverter';
 import * as t from '@/actions/types';
 import * as actions from '@/actions/creators';
 import * as selectors from '@/reducers/selectors';
@@ -24,7 +25,14 @@ export default (store, client = ajax, getters = selectors) => next => async acti
     try {
       store.dispatch(actions.setLoading(true));
       const response = await client(endpoint, token, contentType)[method](requestData);
-      successDispatch.forEach(action => store.dispatch(action(response[0])));
+      let data = response[0];
+
+      if (dataType === 'content' && method === 'get') {
+        const fields = selectors.getFields(store.getState());
+        data = transformToMarkdown(response[0], fields);
+      }
+
+      successDispatch.forEach(action => store.dispatch(action(data)));
     } catch(error) {
       if (error[0] && error[0].status === 401) {
         store.dispatch(actions.setAlert(c.AUTH_ERROR, 'auth_error'));
