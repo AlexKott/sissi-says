@@ -19,12 +19,10 @@ const t = {
 };
 
 export function transformToHtml(data, fields) {
-  console.log(transform('toHtml', data, fields));
   return transform('toHtml', data, fields);
 }
 
 export function transformToMarkdown(data, fields) {
-  console.log(transform('toMarkdown', data, fields));
   return transform('toMarkdown', data, fields);
 }
 
