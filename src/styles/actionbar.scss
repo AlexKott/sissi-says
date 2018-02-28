@@ -2,6 +2,7 @@
   position: fixed;
   top: 32px;
   right: 10px;
+  z-index: $z-index-actionbar;
 
   display: flex;
   flex-direction: column;

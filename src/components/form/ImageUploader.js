@@ -4,13 +4,31 @@ import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as c from '@/constants';
 
 const mapStateToProps = (state) => ({
   images: selectors.getAllImages(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onUploadImage: (e) => dispatch(actions.saveImage(e.target.files[0])),
+  onUploadImage: (e) => {
+    const validTypes = [
+      'image/gif',
+      'image/jpeg',
+      'image/png',
+      'image/svg+xml',
+      'image/tiff',
+      'image/webp',
+    ];
+    const image = e.target.files[0];
+
+    if (validTypes.indexOf(image.type) === -1) {
+      return dispatch(actions.setAlert(c.ERROR_IMAGE_TYPE, 'error'));
+    } else if (image.size > 500000) {
+      return dispatch(actions.setAlert(c.ERROR_IMAGE_SIZE, 'error'));
+    }
+    dispatch(actions.saveImage(image));
+  },
   onOpenPopup: () => dispatch(actions.fetchData('images')),
 });
 
