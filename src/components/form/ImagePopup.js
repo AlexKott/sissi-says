@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 import * as c from '@/constants';
+
+const mapStateToProps = (state) => ({
+  images: selectors.getAllImages(state),
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onUploadImage: (e) => {
@@ -85,4 +90,4 @@ ImagePopup.propTypes = {
   onClosePopup: PropTypes.func,
 };
 
-export default connect(null, mapDispatchToProps)(ImagePopup);
+export default connect(mapStateToProps, mapDispatchToProps)(ImagePopup);

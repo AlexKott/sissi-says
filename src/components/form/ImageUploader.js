@@ -2,14 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 
 import ImagePopup from './ImagePopup';
-
-const mapStateToProps = (state) => ({
-  images: selectors.getAllImages(state),
-});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onOpenPopup: () => dispatch(actions.fetchData('images')),
@@ -46,13 +41,11 @@ class ImageUploader extends React.Component {
   render() {
     const {
       input,
-      images = [],
     } = this.props;
 
     return ([
       this.state.isPopupActive && <ImagePopup
         key='image-popup'
-        images={images}
         onClosePopup={this.closePopup}
         onSelectImage={this.selectImage}
       />
@@ -75,7 +68,6 @@ class ImageUploader extends React.Component {
 
 ImageUploader.propTypes = {
   input: PropTypes.object,
-  images: PropTypes.array,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageUploader);
+export default connect(null, mapDispatchToProps)(ImageUploader);
