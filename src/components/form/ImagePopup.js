@@ -11,6 +11,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  onClosePopup: (e) => {
+    if (e.target.id === 'image-popup') {
+      dispatch(actions.setImagePopup(false));
+    }
+  },
   onUploadImage: (e) => {
     const validTypes = [
       'image/gif',
