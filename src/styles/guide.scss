@@ -52,6 +52,7 @@
   }
 
   & h3 {
+    margin-top: 32px;
     margin-bottom: 10px;
   }
 
@@ -59,8 +60,27 @@
     line-height: 1.4;
   }
 
-  ul {
+  & ul {
     list-style-type: none;
+  }
+
+  & code {
+    background-color: $color-light-grey;
+  }
+
+  blockquote {
+    margin-left: 0;
+    border-left: 10px solid $color-light-grey;
+    padding-left: 20px;
+
+    & ul {
+      padding: 0;
+    }
+  }
+
+  & img {
+    height: 120px;
+    width: auto;
   }
 }
 
@@ -87,4 +107,21 @@
   margin-right: 40px;
   color: $color-main-dark;
   text-decoration: none;
+}
+
+.guide__footer {
+  margin: 0 -20px -26px;
+  padding: 12px 20px;
+  color: $color-background-light;
+  background-color: $color-main-dark;
+  font-size: 14px;
+  line-height: 1.5;
+
+  & a {
+    color: $color-main-light;
+  }
+
+  & p {
+    margin-bottom: 6px;
+  }
 }
