@@ -1,40 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
+import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 
 import ImagePopup from './ImagePopup';
 
+const mapStateToProps = (state) => ({
+  isImagePopupActive: selectors.getDisplayImagePopup(state),
+});
+
 const mapDispatchToProps = (dispatch) => ({
-  onSelectImage: (markdownString) => dispatch(actions.setAlert(markdownString, 'success')),
+  onOpenImagePopup: () => dispatch(actions.setImagePopup(true)),
+  onSelectImage: (image) => {
+    const markdownString = `![](/images/${image})`;
+    const alertString = `Please copy this line and paste it in your content:\n${markdownString}`;
+    dispatch(actions.setAlert(alertString, 'success'));
+    dispatch(actions.setImagePopup(false));
+  },
 });
 
 class MarkdownEditor extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isImagePopupActive: false,
-    };
-
-    this.closeImagePopup = this.closeImagePopup.bind(this);
-    this.selectImage = this.selectImage.bind(this);
-  }
-
-  closeImagePopup(e) {
-    if (e.target.id === 'image-popup') {
-      this.setState(() => ({ isImagePopupActive: false }));
-    }
-  }
-
-  selectImage(image) {
-    const imageUrl = `/images/${image}`;
-    const markdownString = `![](${imageUrl})`;
-    const alertString = `Please copy the following line and paste it where you want to place the image:\n${markdownString}`;
-    this.props.onSelectImage(alertString);
-    this.setState(() => ({ isImagePopupActive: false }));
-  }
 
   componentDidMount() {
     const mde = new InscrybMDE({
@@ -55,27 +43,35 @@ class MarkdownEditor extends React.Component {
           className: 'fa fa-picture-o',
           title: 'Insert Image',
           action: function selectImage(editor) {
-            this.setState({ isImagePopupActive: true });
+            this.props.onOpenImagePopup();
           }.bind(this),
         },
       ],
     });
-
     mde.codemirror.on('change', () => this.props.input.onChange(mde.value()));
   }
 
   render() {
-    const { input } = this.props;
-    return (
-      <div className='markdown-editor__wrapper'>
+    const {
+      isImagePopupActive,
+      input,
+      onSelectImage,
+    } = this.props;
+
+    return ([
+      isImagePopupActive && <ImagePopup key='image-popup' onSelectImage={onSelectImage} />
+      ,
+      <div key='markdown-editor' className='markdown-editor__wrapper'>
         <textarea className='markdown-editor' {...input} />
-        {this.state.isImagePopupActive && <ImagePopup
-          onClosePopup={this.closeImagePopup}
-          onSelectImage={this.selectImage}
-        />}
       </div>
-    );
+    ]);
   }
 }
 
-export default connect(null, mapDispatchToProps)(MarkdownEditor);
+MarkdownEditor.propTypes = {
+  isImagePopupActive: PropTypes.bool,
+  input: PropTypes.object,
+  onSelectImage: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MarkdownEditor);
