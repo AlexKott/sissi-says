@@ -13,7 +13,14 @@ class MarkdownEditor extends React.Component {
         'italic',
         'unordered-list',
         'link',
-        'image',
+        {
+          name: 'image',
+          className: 'fa fa-picture-o',
+          title: 'Insert Image',
+          action: function selectImage(editor) {
+            console.log('custom image selection');
+          },
+        },
       ],
     });
 
