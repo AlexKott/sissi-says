@@ -1,0 +1,20 @@
+.guide__button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 120px;
+  width: 100px;
+  padding: 6px;
+  cursor: pointer;
+
+  &:hover {
+    padding: 0;
+  }
+}
+
+.guide__teaser {
+  position: fixed;
+  bottom: 20px;
+  right: 126px;
+  color: $color-main-dark;
+}

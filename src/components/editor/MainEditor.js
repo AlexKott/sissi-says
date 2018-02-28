@@ -23,8 +23,8 @@ const MainEditor = ({
     initialValues={initialValues}
     formName='meta'
   >
-    <p className='editor__hint'>Or get working on your pages by selecting one! (You can always get back here by deselecting the current page.)</p>
-    <p className='editor__hint'>If you get stuck – sissi's always here to help!</p>
+
+    <p className='guide__teaser'>If you get stuck – sissi's always here to help!</p>
   </Editor>
 );
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
 import ActionBar from './actionBar/ActionBar';
+import Guide from './guide/Guide';
 
 const mapStateToProps = (state) => {
   const route = state.location.type;
@@ -20,6 +21,7 @@ const App = ({ Component }) => (
     <Navigation />
     <ActionBar />
     <Component />
+    <Guide />
   </div>
 );
 
