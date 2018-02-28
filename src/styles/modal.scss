@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  z-index: 10;
+  z-index: $z-index-alerts;
   width: 100%;
   height: 100%;
   background-color: $color-background-transparent;
@@ -31,6 +31,7 @@
   color: $color-main-dark;
   box-shadow: inset 0 0 0 20px;
   text-align: center;
+  white-space: pre-wrap;
 
   &--error {
     color: $color-error;

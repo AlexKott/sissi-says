@@ -2,6 +2,8 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
+
 import { init } from './authService';
 import router from './router';
 
@@ -13,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cors({
   origin: 'http://localhost:3000',
 }));
+app.use(fileUpload());
 
 app.use('/', router);
 
