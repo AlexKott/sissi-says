@@ -54,14 +54,18 @@ class ImagePopup extends React.Component {
     this.fileBrowser.click();
   }
 
-  selectImage(image) {
-    this.props.onSelectImage(image);
+  componentWillUnmount() {
+    if (this.fileBrowser) {
+      const parent = document.querySelector('body');
+      parent.removeChild(this.fileBrowser);
+    }
   }
 
   render() {
     const {
       images = [],
       onClosePopup,
+      onSelectImage,
     } = this.props;
 
     return (
@@ -76,7 +80,7 @@ class ImagePopup extends React.Component {
               key={image}
               style={{ backgroundImage: `url('/images/${image}')` }}
               className='image-popup__image'
-              onClick={() => this.selectImage(image)}
+              onClick={() => onSelectImage(image)}
             />
           ))}
           <div
@@ -93,6 +97,7 @@ class ImagePopup extends React.Component {
 ImagePopup.propTypes = {
   images: PropTypes.array,
   onClosePopup: PropTypes.func,
+  onSelectImage: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImagePopup);
