@@ -24,11 +24,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onDragEnd: ({ type, source, destination }) => {
-    if (!destination) {
-      return;
-    } else if (type === 'page') {
+    if (destination && type === 'page') {
       dispatch(actions.dragPage(source.index, destination.index));
-    } else if (type === 'section') {
+    } else if (destination && type === 'section') {
       dispatch(actions.dragSection(source.droppableId, source.index, destination.index));
     }
   },

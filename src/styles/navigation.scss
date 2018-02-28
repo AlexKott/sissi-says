@@ -1,7 +1,9 @@
 .nav {
   position: relative;
-  min-width: 200px;
-  overflow: hidden;
+  flex-basis: 200px;
+  flex-grow: 1;
+  flex-shrink: 0;
+  overflow-x: hidden;
 }
 
 .nav--page {

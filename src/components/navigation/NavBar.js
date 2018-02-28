@@ -60,11 +60,11 @@ const NavBar = ({
   onAdd,
 }) => (
   <Droppable droppableId={droppableId} type={type}>
-    {(provided, snapshot) => (
+    {(provided) => (
       <nav className={`nav nav--${type}`} ref={provided.innerRef} {...provided.droppableProps}>
         {elements.map((element, index) => (
           <Draggable key={element.id} draggableId={element.id} type={type} index={index}>
-            {(provided, snapshot) => (
+            {(provided) => (
               <div>
                 <div
                   ref={provided.innerRef}
@@ -84,8 +84,8 @@ const NavBar = ({
         ))}
         {provided.placeholder}
         {canAdd && <button
-            onClick={onAdd}
-            className={`nav__element button__nav button__nav--${type}`}
+          onClick={onAdd}
+          className={`nav__element button__nav button__nav--${type}`}
         >Add</button>}
       </nav>
     )}
