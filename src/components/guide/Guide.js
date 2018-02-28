@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 
+import GuideContent from './GuideContent';
 import Sissi from '@/components/svgs/Sissi';
 
 const mapStateToProps = (state) => ({
@@ -21,8 +22,16 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Guide = ({ isGuideOpen, onOpenGuide, onCloseGuide }) => ([
-  isGuideOpen && <div key='guide__wrapper' id='guide-popup' onClick={onCloseGuide}>
-    The guide.
+  isGuideOpen && <div
+    key='guide__wrapper'
+    id='guide-popup'
+    className='popup__wrapper'
+    onClick={onCloseGuide}
+  >
+    <div className='popup__box popup__box--guide'>
+      <Sissi className='guide__sissi' />
+      <GuideContent />
+    </div>
   </div>
   ,
   <div key='guide-button' className='guide__button' onClick={onOpenGuide}>
@@ -32,6 +41,7 @@ const Guide = ({ isGuideOpen, onOpenGuide, onCloseGuide }) => ([
 
 Guide.propTypes = {
   isGuideOpen: PropTypes.bool,
+  onOpenGuide: PropTypes.func,
   onCloseGuide: PropTypes.func,
 };
 

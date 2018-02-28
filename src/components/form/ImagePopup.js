@@ -71,10 +71,10 @@ class ImagePopup extends React.Component {
     return (
       <div
         id='image-popup'
-        className='image-popup__wrapper'
+        className='popup__wrapper'
         onClick={onClosePopup}
       >
-        <div className='image-popup__box'>
+        <div className='popup__box'>
           {images.map(image => (
             <div
               key={image}

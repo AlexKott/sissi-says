@@ -24,7 +24,7 @@ const Editor = ({
 
 Editor.propTypes = {
   canDelete: PropTypes.bool,
-  children: PropTypes.array,
+  children: PropTypes.object,
   fields: PropTypes.array,
   title: PropTypes.string,
   type: PropTypes.string,

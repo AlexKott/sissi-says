@@ -1,11 +1,10 @@
 import React from 'react';
 
-const Sissi = ({ size }) => (
+const Sissi = ({ className }) => (
   <svg
+    className={className}
     x="0px"
     y="0px"
-    height='100%'
-    width={size}
     viewBox="0 0 281.106 368.986"
     preserveAspectRatio='xMidYMid meet'
   >
