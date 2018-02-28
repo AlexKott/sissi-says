@@ -1,14 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import * as actions from '@/actions/creators';
 
 import ImagePopup from './ImagePopup';
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onOpenPopup: () => dispatch(actions.fetchData('images')),
-});
 
 class ImageUploader extends React.Component {
   constructor(props) {
@@ -24,7 +17,6 @@ class ImageUploader extends React.Component {
 
   openPopup() {
     this.setState(() => ({ isPopupActive: true }));
-    this.props.onOpenPopup();
   }
 
   closePopup(e) {
@@ -70,4 +62,4 @@ ImageUploader.propTypes = {
   input: PropTypes.object,
 };
 
-export default connect(null, mapDispatchToProps)(ImageUploader);
+export default ImageUploader;

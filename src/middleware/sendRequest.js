@@ -31,8 +31,8 @@ export default (store, client = ajax, getters = selectors) => next => async acti
         const fields = selectors.getFields(store.getState());
         data = transformToMarkdown(response[0], fields);
       }
-
       successDispatch.forEach(action => store.dispatch(action(data)));
+      
     } catch(error) {
       if (error[0] && error[0].status === 401) {
         store.dispatch(actions.setAlert(c.AUTH_ERROR, 'auth_error'));

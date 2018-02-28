@@ -16,6 +16,7 @@ export default {
 
     if (isLoggedIn && !isInitialDataFetched) {
       dispatch(actions.fetchData('structure'));
+      dispatch(actions.fetchData('images'));
     }
   }
 }
