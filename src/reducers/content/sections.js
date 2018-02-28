@@ -26,7 +26,7 @@ export default (state = initialState, action = {}) => {
 };
 
 export function getAllSections(state) {
-  return state.content.sections;
+  return cloneDeep(state.content.sections);
 }
 
 export function getSectionById(state, sectionId) {

@@ -4,6 +4,9 @@ import InscrybMDE from 'inscrybmde';
 class MarkdownEditor extends React.Component {
   componentDidMount() {
     const mde = new InscrybMDE({
+      blockStyles: {
+        italic: '_',
+      },
       element: document.querySelector('.markdown-editor'),
       minHeight: '220px',
       spellChecker: false,
