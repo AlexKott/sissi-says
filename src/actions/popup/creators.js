@@ -1,8 +1,11 @@
 import * as t from './types';
 
-export function setImagePopup(displayPopup) {
+export function displayPopup(type, shouldDisplay) {
   return {
-    type: t.SET_IMAGE_POPUP,
-    payload: displayPopup,
+    type: t.SET_POPUP,
+    payload: {
+      type,
+      shouldDisplay,
+    }
   };
 }

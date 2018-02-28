@@ -13,12 +13,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenImagePopup: () => dispatch(actions.setImagePopup(true)),
+  onOpenImagePopup: () => dispatch(actions.displayPopup('image', true)),
   onSelectImage: (image) => {
     const markdownString = `![](/images/${image})`;
     const alertString = `Please copy this line and paste it in your content:\n${markdownString}`;
     dispatch(actions.setAlert(alertString, 'success'));
-    dispatch(actions.setImagePopup(false));
+    dispatch(actions.displayPopup('image', false));
   },
 });
 

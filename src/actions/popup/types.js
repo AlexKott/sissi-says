@@ -1,1 +1,1 @@
-export const SET_IMAGE_POPUP = 'popup/SET_IMAGE_POPUP';
+export const SET_POPUP = 'popup/SET_POPUP';
