@@ -64,4 +64,25 @@ describe('actions/content', () => {
       expect(action.payload).toHaveProperty('sectionId', 'testSection');
     });
   });
+
+  describe('dragPage', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.dragPage(3, 2);
+
+      expect(action).toHaveProperty('type', t.DRAG_PAGE);
+      expect(action.payload).toHaveProperty('from', 3);
+      expect(action.payload).toHaveProperty('to', 2);
+    });
+  });
+
+  describe('dragSection', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.dragSection('testPage', 2, 6);
+
+      expect(action).toHaveProperty('type', t.DRAG_SECTION);
+      expect(action.payload).toHaveProperty('pageId', 'testPage');
+      expect(action.payload).toHaveProperty('from', 2);
+      expect(action.payload).toHaveProperty('to', 6);
+    });
+  });
 });
