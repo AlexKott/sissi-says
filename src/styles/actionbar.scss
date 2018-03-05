@@ -1,9 +1,12 @@
 .action-bar {
   position: fixed;
-  top: 32px;
-  right: 10px;
+  top: $gap-normal;
+  right: $gap-half;
   z-index: $z-index-actionbar;
 
   display: flex;
   flex-direction: column;
+
+  height: calc(100% - #{$gap-double});
+  padding: $gap-half 0;
 }

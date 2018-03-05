@@ -13,7 +13,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenGuide: () => dispatch(actions.displayPopup('guide', true)),
   onCloseGuide: (e) => {
     if (e.target.id === 'guide-popup') {
       dispatch(actions.displayPopup('guide', false));
@@ -21,27 +20,22 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Guide = ({ isGuideOpen, onOpenGuide, onCloseGuide }) => ([
-  isGuideOpen && <div
+const Guide = ({ isGuideOpen, onCloseGuide }) => ([
+  isGuideOpen && <aside
     key='guide__wrapper'
     id='guide-popup'
     className='popup__wrapper'
     onClick={onCloseGuide}
   >
-    <div className='popup__box popup__box--guide'>
+    <article className='popup__box popup__box--guide'>
       <Sissi className='guide__sissi' />
       <GuideContent />
-    </div>
-  </div>
-  ,
-  <div key='guide-button' className='guide__button' onClick={onOpenGuide}>
-    <Sissi />
-  </div>
+    </article>
+  </aside>
 ]);
 
 Guide.propTypes = {
   isGuideOpen: PropTypes.bool,
-  onOpenGuide: PropTypes.func,
   onCloseGuide: PropTypes.func,
 };
 

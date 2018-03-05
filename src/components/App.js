@@ -17,11 +17,11 @@ const mapStateToProps = (state) => {
 
 const App = ({ Component }) => (
   <div className='app'>
-    <Modal />
     <Navigation />
-    <ActionBar />
     <Component />
+    <ActionBar />
     <Guide />
+    <Modal />
   </div>
 );
 

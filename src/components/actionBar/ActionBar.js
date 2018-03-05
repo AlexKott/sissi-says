@@ -3,11 +3,12 @@ import { NavLink } from 'redux-first-router-link';
 
 import { ROUTE_INDEX } from '@/router/routes';
 
+import GuideButton from './GuideButton';
 import LogoutButton from './LogoutButton';
 import PublishButton from './PublishButton';
 
 const ActionBar = () => (
-  <div className='action-bar'>
+  <aside className='action-bar'>
     <PublishButton />
     <LogoutButton />
     <NavLink
@@ -16,7 +17,8 @@ const ActionBar = () => (
       activeClassName='hidden'
       exact={true}
     >Index</NavLink>
-  </div>
+    <GuideButton />
+  </aside>
 );
 
 export default ActionBar;

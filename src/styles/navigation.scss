@@ -1,8 +1,7 @@
 .nav {
   position: relative;
-  flex-basis: 200px;
-  flex-grow: 1;
-  flex-shrink: 0;
+  width: 20%;
+  min-width: 200px;
   overflow-x: hidden;
 }
 
@@ -24,8 +23,8 @@
   display: block;
 
   height: 72px;
-  margin: 0 20px 20px 20px;
-  padding: 20px;
+  margin: 0 $gap-normal $gap-normal $gap-normal;
+  padding: $gap-normal;
 
   border: none;
   border-radius: 0;
@@ -38,11 +37,11 @@
   text-decoration: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  transition: color .2s, background-color .2s, margin-right .2s;
+  transition: color .1s, background-color .1s, margin-right .2s;
 }
 
 .nav__element:first-child {
-  margin-top: 20px;
+  margin-top: $gap-normal;
 }
 
 .nav__element:hover {

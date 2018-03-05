@@ -38,13 +38,13 @@ const Modal = ({
   type,
   onConfirm,
 }) => (
-  <div className={modalClassName}>
-    <div className={boxClassName}>
+  <aside className={modalClassName}>
+    <article className={boxClassName}>
       <h2 className='modal__title'>{name}</h2>
       <p className='modal__message'>{message}</p>
       {type !== 'server_error' && <button className={buttonClassName} onClick={onConfirm}>OK</button>}
-    </div>
-  </div>
+    </article>
+  </aside>
 );
 
 Modal.propTypes = {

@@ -1,10 +1,9 @@
 .guide__button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+  margin-top: auto;
   height: 120px;
-  width: 100px;
-  padding: 6px;
+  width: 120px;
+  padding: 6px 6px 0 6px;
+  background-color: transparent;
   cursor: pointer;
 
   &:hover {

@@ -1,3 +1,5 @@
+/* COLORS */
+
 $color-main-dark: rgb(28, 82, 83);
 $color-main-medium: rgb(76, 170, 83);
 $color-main-light: rgb(195, 221, 48);
@@ -16,6 +18,17 @@ $color-success: $color-main-light;
 $color-field-background: $color-white;
 $color-field-border: $color-light-grey;
 $color-field-placeholder: $color-medium-grey;
+
+/* MEASURES */
+
+$gap-normal: 20px;
+$gap-half: 10px;
+$gap-double: 40px;
+
+$button-width: 120px;
+$button-height: 40px;
+
+/* Z-INDEX */
 
 $z-index-alerts: 6;
 $z-index-popups: 5;
