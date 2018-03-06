@@ -48,6 +48,7 @@ const GuideContent = () => ([
     <p>There are two main ways to use the editor: either by writing <a href='#editor-markdown'>markdown syntax</a> or by clicking on the desired format in the toolbar which will enter the required markdown characters for you.</p>
     <h4 id='editor-markdown'>Why are there weird characters in my content? <a href='#guide-top' className='guide__to-top'>▲</a></h4>
     <p>The editor uses markdown. This is a syntax that helps us translate your content for web browsers, so that it can be viewed on your website. So please don’t worry about all the weird <code>##</code>s and <code>[]</code>s and <code>__</code>s – they are very important to make all this work but will all be removed and never appear on your website!</p>
+    <p>If they DO appear on your website you probably used some markdown characters in your text which can mess things up. For example, if you're linking to a phone number using brackets, like this: <code>[+46(0)123](tel:+46(0)123)</code> the editor will think you're closing the link already after the first <code>)</code>. To solve this just avoid the brackets and use non-markdown characters like <code>-</code> instead. This is working fine: <code>[+46(0)123](tel:+46-0-123)</code>.</p>
     <h4 id='editor-paragraph'>How to add a paragraph? <a href='#guide-top' className='guide__to-top'>▲</a></h4>
     <p>You can just click in the editor and start writing – this will produce regular text. If you want to start a new paragraph just hit enter twice, to leave an empty line in between.</p>
     <blockquote>
