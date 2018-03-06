@@ -78,7 +78,7 @@ const GuideContent = () => ([
       <p>And here is the next part of the content – not a part of the list.</p>
     </blockquote>
     <h4 id='editor-link'>How to enter a link? <a href='#guide-top' className='guide__to-top'>▲</a></h4>
-    <p>A link is written in the following way: <code>[the link text](the link url, e.g. https://google.com)</code>. You can place links anywhere in your text, no need to start a new line.</p>
+    <p>A link is written in the following way: <code>[the link text](the link url, e.g. https://google.com)</code>. If you want to link to another place on your own website you simply use the path you want to link to as url, e.g. <code>/contact</code>. You can place links anywhere in your text, no need to start a new line.</p>
     <blockquote>
       <p>This will [look like](https://a-square.eu) that:</p>
       <p>This will <a href='https://a-square.eu'>look like</a> that:</p>
