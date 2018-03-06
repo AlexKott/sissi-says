@@ -5,7 +5,11 @@ const t = {
   toHtml(markdown) {
     const renderer = new marked.Renderer();
     renderer.heading = (text, level) => `<h${level}>${text}</h${level}>`;
-    marked.setOptions({ renderer });
+    marked.setOptions({
+      renderer,
+      gfm: true,
+      breaks: true,
+    });
     return marked(markdown);
   },
   toMarkdown(html) {
