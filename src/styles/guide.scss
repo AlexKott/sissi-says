@@ -1,126 +1,113 @@
-.guide__button {
-  margin-top: auto;
-  height: 120px;
-  width: 120px;
-  padding: 6px 6px 0 6px;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:hover {
-    padding: 0;
-  }
-
-  & svg {
-    height: 100%;
-    width: 100%;
-  }
-}
-
 .guide__teaser {
   position: fixed;
-  bottom: 20px;
-  right: 126px;
+  bottom: $gap-normal;
+  right: $button-width + $gap-tiny;
   color: $color-main-dark;
 }
 
 .guide__sissi {
   float: left;
-  width: 120px;
-  margin: 0 10px 10px 0;
+  height: 160px;
+  margin-right: $gap-normal;
+}
+
+.guide__intro {
+  height: 160px;
+  margin-bottom: $gap-normal;
+
+  h1, h2 {
+    margin-top: 0;
+    color: $color-main-dark;
+  }
+
+  h1 {
+    font-size: $font-size-title;
+  }
+
+  h2 {
+    font-size: 22px;
+    line-height: 1.4;
+  }
 }
 
 .guide__content {
-  & h1, h2, h2, p {
-    margin-top: 0;
+  h3, h4 {
+    margin: $gap-double 0 0 0;
+    font-size: 22px;
   }
 
-  & h1 {
+  h3 {
     color: $color-main-dark;
-  }
-
-  & h2 {
-    margin-bottom: 12px;
-    color: $color-main-dark;
-    font-size: 24px;
-    line-height: 1.3;
     text-transform: uppercase;
   }
 
-  & .guide__intro {
-    text-transform: none;
-  }
-
-  & h3 {
-    margin-top: 32px;
-    margin-bottom: 10px;
-  }
-
-  & p {
+  p {
+    margin: $gap-half 0 0 0;
     line-height: 1.4;
   }
 
-  & ul {
+  ul {
+    margin: 0;
     list-style-type: none;
   }
 
-  & code {
+  code {
     background-color: $color-light-grey;
   }
 
   blockquote {
     margin-left: 0;
-    border-left: 10px solid $color-light-grey;
-    padding-left: 20px;
+    border-left: $gap-half solid $color-light-grey;
+    padding-left: $gap-normal;
 
-    & ul {
+    ul {
       padding: 0;
     }
   }
 
-  & img {
+  img {
     height: 120px;
     width: auto;
+    margin-top: $gap-half;
   }
 }
 
 .guide__main-list {
-  margin: 40px 0;
-  padding-left: 130px;
+  margin: $gap-double 0;
   line-height: 1.4;
 
-  & ul {
-    padding-left: 20px;
+  ul {
+    padding-left: $gap-normal;
   }
 
-  & a {
+  a {
     color: $color-main-dark;
   }
 }
 
 .guide__main-list__item {
-  margin: 20px 0 6px;
+  margin: $gap-normal 0 $gap-tiny;
 }
 
 .guide__to-top {
   float: right;
-  margin-right: 40px;
+  margin-right: $gap-double;
   color: $color-main-dark;
   text-decoration: none;
 }
 
 .guide__footer {
-  margin: 0 -20px -26px;
-  padding: 12px 20px;
+  margin: 0 (-$gap-normal) (-$gap-normal);
+  padding: $gap-half $gap-normal;
   color: $color-background-light;
   background-color: $color-main-dark;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: $font-size-button;
 
-  & a {
+  a {
     color: $color-main-light;
   }
 
-  & p {
-    margin-bottom: 6px;
+  p {
+    margin-bottom: $gap-tiny;
   }
 }

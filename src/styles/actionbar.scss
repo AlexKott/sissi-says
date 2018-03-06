@@ -9,4 +9,12 @@
 
   height: calc(100% - #{$gap-double});
   padding: $gap-half 0;
+
+  .button {
+    margin-top: $gap-half;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
 }

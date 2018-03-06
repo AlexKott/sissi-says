@@ -3,57 +3,71 @@
   flex-direction: column;
   min-width: 360px;
   max-width: 600px;
-  margin: 20px 20px 20px 0;
+  margin: $gap-normal $gap-normal $gap-normal 0;
 }
 
 .form__element {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: $gap-normal;
+}
 
-  &--markdown {
-    flex-direction: column;
-  }
+.form__element--markdown {
+  flex-direction: column;
 }
 
 .form__label {
   width: 40%;
-  line-height: 32px;
+  margin: $gap-tiny $gap-half 0 0;
 }
 
 .form__field {
   width: 60%;
-  height: 32px;
+  height: $input-height;
+  padding: 0 $gap-tiny;
   border: 1px solid $color-field-border;
-  padding: 0 6px;
-  background-color: white;
-  font-size: 16px;
+
+  background-color: $color-field-background;
+  font-size: $font-size-small;
 
   &::placeholder {
     color: $color-field-placeholder;
   }
 
   &--textarea {
-    height: 72px;
-    padding: 4px 6px;
+    height: $element-height-double;
+    padding: $gap-tiny;
+  }
+}
+
+.form__buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  .button {
+    margin-left: $gap-half;
   }
 }
 
 .form__field--image {
   position: relative;
+
+  height: $image-input-height;
   min-width: 120px;
-  height: 160px;
-  border: none;
   padding: 0;
-  text-align: center;
-  line-height: 160px;
+  border: none;
+  overflow: hidden;
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  overflow: hidden;
+
+  line-height: $image-input-height;
+  text-align: center;
+
   cursor: pointer;
 
-  &.placeholder {
+  .placeholder {
     color: $color-field-placeholder;
     border: 1px dashed;
 
@@ -69,14 +83,18 @@
 
   &::after {
     content: '';
+
     position: absolute;
     bottom: 0;
     left: 0;
+
     display: block;
     height: 0;
     width: 100%;
+
     background-color: $color-white;
     opacity: 0.8;
+
     transition: height .2s;
   }
 

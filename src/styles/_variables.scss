@@ -9,24 +9,40 @@ $color-background-transparent: rgba(247, 255, 221, 0.9);
 
 $color-black: rgb(0, 0, 0);
 $color-white: rgb(248, 255, 248);
+$color-true-white: rgb(255, 255, 255);
 $color-light-grey: rgb(230, 230, 230);
 $color-medium-grey: rgb(180, 180, 180);
 
 $color-error: rgb(158, 14, 19);
 $color-success: $color-main-light;
 
-$color-field-background: $color-white;
+$color-field-background: $color-true-white;
 $color-field-border: $color-light-grey;
 $color-field-placeholder: $color-medium-grey;
 
 /* MEASURES */
 
+$gap-double: 40px;
 $gap-normal: 20px;
 $gap-half: 10px;
-$gap-double: 40px;
+$gap-tiny: 6px;
+
+$element-height: 40px;
+$element-height-double: 80px;
 
 $button-width: 120px;
-$button-height: 40px;
+$button-height: $element-height;
+
+$input-height: $element-height;
+$image-input-height: $element-height-double * 2;
+$nav-element-height: $element-height-double;
+
+/* FONT SIZE */
+
+$font-size-title: 32px;
+$font-size-normal: 18px;
+$font-size-small: 16px;
+$font-size-button: 14px; // only used with text-transform: uppercase
 
 /* Z-INDEX */
 

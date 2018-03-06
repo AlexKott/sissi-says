@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const GuideButton = ({ onOpenGuide }) => (
-  <button key='guide-button' type='button' className='guide__button' onClick={onOpenGuide}>
+  <button key='guide-button' type='button' className='guide-button' onClick={onOpenGuide}>
     <Sissi />
   </button>
 );

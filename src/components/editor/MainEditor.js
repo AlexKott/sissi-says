@@ -23,7 +23,6 @@ const MainEditor = ({
     initialValues={initialValues}
     formName='meta'
   >
-
     <p className='guide__teaser'>If you get stuck – sissi's always here to help!</p>
   </Editor>
 );
