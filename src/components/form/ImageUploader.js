@@ -12,10 +12,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onOpenPopup: () => dispatch(actions.displayPopup('image', true)),
+  onOpenPopup: () => dispatch(actions.togglePopup('image', true)),
   onSelectImage: (image) => {
     ownProps.input.onChange(image);
-    dispatch(actions.displayPopup('image', false));
+    dispatch(actions.togglePopup('image', false));
   },
 });
 

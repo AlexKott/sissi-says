@@ -1,11 +1,11 @@
 import * as t from './types';
 
-export function displayPopup(type, shouldDisplay) {
+export function togglePopup(type, isVisible) {
   return {
-    type: t.SET_POPUP,
+    type: t.TOGGLE_POPUP,
     payload: {
       type,
-      shouldDisplay,
+      isVisible,
     }
   };
 }

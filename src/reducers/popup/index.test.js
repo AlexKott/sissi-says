@@ -13,8 +13,8 @@ describe('reducers/popup', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('should return the new state when SET_POPUP is dispatched', () => {
-    const action = { type: t.SET_POPUP, payload: { type: 'image', shouldDisplay: true }};
+  it('should return the new state when TOGGLE_POPUP is dispatched', () => {
+    const action = { type: t.TOGGLE_POPUP, payload: { type: 'image', isVisible: true }};
     const state = reducer(initialState, action);
 
     expect(state).toHaveProperty('image', true);

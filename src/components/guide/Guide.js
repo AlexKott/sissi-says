@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCloseGuide: (e) => {
     if (e.target.id === 'guide-popup') {
-      dispatch(actions.displayPopup('guide', false));
+      dispatch(actions.togglePopup('guide', false));
     }
   },
 });

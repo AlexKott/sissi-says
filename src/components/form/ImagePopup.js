@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onClosePopup: (e) => {
     if (e.target.id === 'image-popup') {
-      dispatch(actions.displayPopup('image', false));
+      dispatch(actions.togglePopup('image', false));
     }
   },
   onUploadImage: (e) => {

@@ -1,1 +1,1 @@
-export const SET_POPUP = 'popup/SET_POPUP';
+export const TOGGLE_POPUP = 'popup/TOGGLE_POPUP';

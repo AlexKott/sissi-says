@@ -8,8 +8,8 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.SET_POPUP) {
-    return Object.assign({}, state, { [payload.type]: payload.shouldDisplay });
+  if (type === t.TOGGLE_POPUP) {
+    return Object.assign({}, state, { [payload.type]: payload.isVisible });
   }
 
   return state;
