@@ -20,9 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Guide = ({ isGuideOpen, onCloseGuide }) => ([
+const Guide = ({ isGuideOpen, onCloseGuide }) => (
   isGuideOpen && <aside
-    key='guide__wrapper'
     id='guide-popup'
     className='popup__wrapper'
     onClick={onCloseGuide}
@@ -32,7 +31,7 @@ const Guide = ({ isGuideOpen, onCloseGuide }) => ([
       <GuideContent />
     </article>
   </aside>
-]);
+);
 
 Guide.propTypes = {
   isGuideOpen: PropTypes.bool,
