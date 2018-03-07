@@ -1,11 +1,13 @@
 .editor {
   flex-basis: auto;
   flex-grow: 1;
-  padding: 20px 120px 20px 20px;
-  background-color: $color-background-light;
-  border: 20px solid $color-main-dark;
+
+  padding: $gap-normal $button-width $gap-normal $gap-normal;
+  border: $gap-normal solid $color-main-dark;
   border-left: none;
   overflow-y: scroll;
+
+  background-color: $color-background-light;
 }
 
 .editor--page {
@@ -14,7 +16,7 @@
 
 .editor--section {
   border-color: $color-main-light;
-  border-left: 20px solid $color-main-light;
+  border-left: $gap-normal solid $color-main-light;
 }
 
 .editor--main .form {
@@ -27,10 +29,5 @@
 
 .editor__title {
   margin-top: 0;
-}
-
-.editor__hint {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: $color-main-dark;
+  font-size: $font-size-title;
 }

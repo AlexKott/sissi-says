@@ -1,27 +1,25 @@
 .button {
-  align-self: flex-end;
-  margin-top: 10px;
+  @include box-shadow;
+
+  height: $button-height;
+  width: $button-width;
   padding: 0;
-  height: 40px;
-  width: 120px;
-  font-size: 14px;
-  line-height: 40px;
+
+  background-color: $color-background-light;
+  color: $color-main-dark;
+
+  font-size: $font-size-button;
+  line-height: $button-height;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
-  background-color: $color-background-light;
-  color: $color-main-dark;
-  @include box-shadow;
 
-  &:first-child {
-    margin-top: 0;
-  }
+  cursor: pointer;
 
   &:hover {
     color: $color-main-dark;
     background-color: $color-main-light;
-    cursor: pointer;
   }
 }
 
@@ -30,27 +28,30 @@
   background-color: $color-main-dark;
 }
 
-.nav__element.button__nav {
-  height: 40px;
-  width: calc(100% - 40px);
-  padding: 10px;
-  font-size: 14px;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.button--nav {
+  width: calc(100% - #{$gap-double});
+  margin: 0 $gap-normal $gap-normal $gap-normal;
 
   &:hover {
-    color: $color-main-dark;
     background-color: $color-background-light;
   }
 }
 
-.nav__element.button__nav--page {
-  color: $color-background-light;
-  background-color: $color-main-medium;
-}
+.guide-button {
+  height: $button-width;
+  width: $button-width;
+  margin-top: auto;
+  padding: $gap-tiny $gap-tiny 0 $gap-tiny;
 
-.nav__element.button__nav--section {
-  color: $color-main-dark;
-  background-color: $color-main-light;;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    padding: 0;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }

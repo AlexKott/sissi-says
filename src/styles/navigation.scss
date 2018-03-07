@@ -1,21 +1,47 @@
 .nav {
   position: relative;
-  flex-basis: 200px;
-  flex-grow: 1;
-  flex-shrink: 0;
+  width: 20%;
+  min-width: 200px;
   overflow-x: hidden;
 }
 
 .nav--page {
   background-color: $color-main-dark;
+
+  .nav__element:hover {
+    color: $color-background-light;
+    background-color: $color-main-medium;
+  }
+
+  .nav__element--selected {
+    background-color: $color-main-medium;
+  }
+
+  .button--nav {
+    color: $color-background-light;
+    background-color: $color-main-medium;
+  }
 }
 
 .nav--section {
   background-color: $color-main-medium;
-}
 
-.nav--section::after {
-  @include wipe-animation($color-main-medium, 80);
+  .nav__element:hover {
+    background-color: $color-main-light;
+  }
+
+  .nav__element--selected {
+    background-color: $color-main-light;
+  }
+
+  .button--nav {
+    color: $color-main-dark;
+    background-color: $color-main-light;;
+  }
+
+  &::after {
+    @include wipe-animation($color-main-medium, 80);
+  }
 }
 
 .nav__element {
@@ -23,9 +49,9 @@
 
   display: block;
 
-  height: 72px;
-  margin: 0 20px 20px 20px;
-  padding: 20px;
+  height: $nav-element-height;
+  margin: 0 $gap-normal $gap-normal $gap-normal;
+  padding: $gap-normal;
 
   border: none;
   border-radius: 0;
@@ -33,37 +59,19 @@
 
   color: $color-main-dark;
   background-color: $color-background-light;
-  font-size: 16px;
-  line-height: 2;
+
+  font-size: $font-size-small;
+  line-height: 2.5;
   text-decoration: none;
   white-space: nowrap;
   text-overflow: ellipsis;
-  transition: color .2s, background-color .2s, margin-right .2s;
-}
 
-.nav__element:first-child {
-  margin-top: 20px;
-}
-
-.nav__element:hover {
+  transition: color .1s, background-color .1s, margin-right .2s;
   cursor: pointer;
-}
 
-.nav__element--page:hover {
-  color: $color-background-light;
-  background-color: $color-main-medium;
-}
-
-.nav__element--section:hover {
-  background-color: $color-main-light;
-}
-
-.nav__element--page.nav__element--selected {
-  background-color: $color-main-medium;
-}
-
-.nav__element--section.nav__element--selected {
-  background-color: $color-main-light;
+  &:first-child {
+    margin-top: $gap-normal;
+  }
 }
 
 .nav__element--selected {

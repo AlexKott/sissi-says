@@ -73,7 +73,7 @@ const NavBar = ({
                 >
                   <NavLink
                     to={getNavLink(selectedElement, element.id, routeArray)}
-                    className={`nav__element nav__element--${type}`}
+                    className='nav__element'
                     activeClassName='nav__element--selected'
                   >{element.title ? element.title : `New ${type}`}</NavLink>
                 </div>
@@ -85,7 +85,7 @@ const NavBar = ({
         {provided.placeholder}
         {canAdd && <button
           onClick={onAdd}
-          className={`nav__element button__nav button__nav--${type}`}
+          className='button button--nav'
         >Add</button>}
       </nav>
     )}

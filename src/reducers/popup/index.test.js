@@ -3,7 +3,8 @@ import * as t from '@/actions/types';
 
 describe('reducers/popup', () => {
   const initialState = {
-    displayImagePopup: false,
+    image: false,
+    guide: false,
   };
 
   it('should return the initial state', () => {
@@ -12,22 +13,30 @@ describe('reducers/popup', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('should return the new state when SET_IMAGE_POPUP is dispatched', () => {
-    const action = { type: t.SET_IMAGE_POPUP, payload: true };
+  it('should return the new state when TOGGLE_POPUP is dispatched', () => {
+    const action = { type: t.TOGGLE_POPUP, payload: { type: 'image', isVisible: true }};
     const state = reducer(initialState, action);
 
-    expect(state).toHaveProperty('displayImagePopup', true);
+    expect(state).toHaveProperty('image', true);
   });
 });
 
 describe('selectors/popup', () => {
-  const mockState = { popup: { displayImagePopup: true }};
+  const mockState = { popup: { image: true, guide: false }};
 
   describe('getDisplayImagePopup', () => {
     it('should return the correct value from state', () => {
       const value = selectors.getDisplayImagePopup(mockState);
 
       expect(value).toBe(true);
+    });
+  });
+
+  describe('getDisplayGuidePopup', () => {
+    it('should return the correct value from state', () => {
+      const value = selectors.getDisplayGuidePopup(mockState);
+
+      expect(value).toBe(false);
     });
   });
 });

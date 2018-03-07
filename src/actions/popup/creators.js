@@ -1,8 +1,11 @@
 import * as t from './types';
 
-export function setImagePopup(displayPopup) {
+export function togglePopup(type, isVisible) {
   return {
-    type: t.SET_IMAGE_POPUP,
-    payload: displayPopup,
+    type: t.TOGGLE_POPUP,
+    payload: {
+      type,
+      isVisible,
+    }
   };
 }
