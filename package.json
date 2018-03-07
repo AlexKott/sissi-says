@@ -28,6 +28,7 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.4.0",
     "express": "^4.16.2",
+    "express-fileupload": "^0.3.0",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
@@ -58,6 +59,7 @@
     "redux-form": "^7.2.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
+    "shorthash": "^0.0.2",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "turndown": "^4.0.1",
@@ -68,11 +70,12 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "build:frontend": "node scripts/build.js",
     "build:api": "babel --out-dir api-build api --presets=env --no-babelrc",
-    "start:api": "nodemon api-build/index.js",
+    "build": "yarn build:frontend && yarn build:api",
+    "start:api": "node api-build/index.js",
     "start:frontend": "node scripts/start.js",
-    "start": "concurrently \"yarn start:frontend\" \"yarn build:api --watch\" \"yarn start:api\"",
-    "build": "node scripts/build.js",
+    "start": "concurrently \"yarn start:frontend\" \"yarn build:api --watch\" \"nodemon api-build/index.js\"",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {

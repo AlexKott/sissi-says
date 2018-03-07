@@ -43,6 +43,26 @@ export function postContent(formName) {
   };
 }
 
+export function saveImage(image) {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType: 'images',
+      contentType: 'file',
+      requestData: image,
+      successDispatch: [saveImageSuccess],
+    }
+  };
+}
+
+export function saveImageSuccess(data) {
+  return {
+    type: t.SAVE_IMAGE_SUCCESS,
+    payload: data.fileName,
+  };
+}
+
 export function login() {
   return (dispatch, getState, selectFormValues = getFormValues) => {
     const values = selectFormValues('login')(getState());
