@@ -17,19 +17,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     }
   },
   onUploadImage: (e) => {
-    const validTypes = [
-      'image/gif',
-      'image/jpeg',
-      'image/png',
-      'image/svg+xml',
-      'image/tiff',
-      'image/webp',
-    ];
     const image = e.target.files[0];
 
-    if (validTypes.indexOf(image.type) === -1) {
+    if (c.validTypes.indexOf(image.type) === -1) {
       return dispatch(actions.setAlert(c.ERROR_IMAGE_TYPE, 'error'));
-    } else if (image.size > 500000) {
+    } else if (image.size > c.maxImageSize) {
       return dispatch(actions.setAlert(c.ERROR_IMAGE_SIZE, 'error'));
     }
     dispatch(actions.saveImage(image));
@@ -56,8 +48,7 @@ class ImagePopup extends React.Component {
 
   componentWillUnmount() {
     if (this.fileBrowser) {
-      const parent = document.querySelector('body');
-      parent.removeChild(this.fileBrowser);
+      document.querySelector('body').removeChild(this.fileBrowser);
     }
   }
 

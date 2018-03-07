@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
-
 import * as t from '@/actions/types';
 
 const initialState = [];
@@ -11,9 +9,7 @@ export default (state = initialState, action = {}) => {
     return payload.data;
 
   } else if (type === t.SAVE_IMAGE_SUCCESS) {
-    const newState = cloneDeep(state);
-    newState.push(payload);
-    return newState;
+    return [...state, payload];
 
   } else if (type === t.RESET_SESSION) {
     return initialState;
