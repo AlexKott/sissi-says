@@ -67,7 +67,7 @@
 
   cursor: pointer;
 
-  .placeholder {
+  &.placeholder {
     color: $color-field-placeholder;
     border: 1px dashed;
 
