@@ -5,7 +5,7 @@ import * as actions from '@/actions/creators';
 import * as selectors from '@/reducers/selectors';
 import * as c from '@/constants';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || window.location.origin;
 
 export default (store, client = ajax, getters = selectors) => next => async action => {
   const { type, payload } = action;
@@ -14,7 +14,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
     const {
       method,
       dataType,
-      requestData,
+      requestData = {},
       contentType = 'json',
       successDispatch = [],
     } = payload;
@@ -32,10 +32,12 @@ export default (store, client = ajax, getters = selectors) => next => async acti
         data = transformToMarkdown(response[0], fields);
       }
       successDispatch.forEach(action => store.dispatch(action(data)));
-      
+
     } catch(error) {
       if (error[0] && error[0].status === 401) {
         store.dispatch(actions.setAlert(c.AUTH_ERROR, 'auth_error'));
+      } else if (error[0] && error[0].status === 422) {
+        store.dispatch(actions.setAlert(c.BUILD_ERROR, 'auth_error'));
       } else {
         store.dispatch(actions.setAlert(c.SERVER_ERROR, 'server_error'));
       }

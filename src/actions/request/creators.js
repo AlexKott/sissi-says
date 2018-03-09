@@ -43,6 +43,17 @@ export function postContent(formName) {
   };
 }
 
+export function buildPage() {
+  return {
+    type: t.SEND_REQUEST,
+    payload: {
+      method: 'post',
+      dataType: 'build',
+      successDispatch: [setAlert.bind({}, c.BUILD_SUCCESS, 'success')],
+    },
+  };
+}
+
 export function saveImage(image) {
   return {
     type: t.SEND_REQUEST,
@@ -52,7 +63,7 @@ export function saveImage(image) {
       contentType: 'file',
       requestData: image,
       successDispatch: [saveImageSuccess],
-    }
+    },
   };
 }
 

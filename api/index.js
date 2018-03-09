@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -12,10 +13,10 @@ const PORT = 3010;
 
 app.use(init());
 app.use(bodyParser.json());
-app.use(cors({
-  origin: 'http://localhost:3000',
-}));
+app.use(cors());
 app.use(fileUpload());
+
+app.use('/', express.static(path.join(__dirname, '..', 'build')));
 
 app.use('/', router);
 
