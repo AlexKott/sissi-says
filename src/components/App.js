@@ -25,7 +25,7 @@ const App = ({ Component, onBuild }) => (
   <div className='app'>
     <Navigation />
     <Component />
-    <ActionBar />
+    <ActionBar onBuild={onBuild} />
     <Guide />
     <Modal />
   </div>
