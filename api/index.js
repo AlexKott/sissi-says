@@ -14,7 +14,7 @@ const PORT = 3010;
 app.use(init());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'localhost',
 }));
 app.use(fileUpload());
 

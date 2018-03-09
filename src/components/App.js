@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actions from '@/actions/creators';
+import { ROUTE_LOGIN } from '@/router/routes';
 
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
@@ -14,18 +14,15 @@ const mapStateToProps = (state) => {
   const Component = state.location.routesMap[route].component;
   return {
     Component,
+    route,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onBuild: () => dispatch(actions.buildPage()),
-});
-
-const App = ({ Component, onBuild }) => (
+const App = ({ Component, route }) => (
   <div className='app'>
     <Navigation />
     <Component />
-    <ActionBar onBuild={onBuild} />
+    {route !== ROUTE_LOGIN && <ActionBar />}
     <Guide />
     <Modal />
   </div>
@@ -33,7 +30,7 @@ const App = ({ Component, onBuild }) => (
 
 App.propTypes = {
   Component: PropTypes.func,
-  onBuild: PropTypes.func,
+  route: PropTypes.string,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

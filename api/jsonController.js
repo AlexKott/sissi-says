@@ -28,7 +28,7 @@ export function writeJson(fileName) {
   return async (req, res) => {
     const jsonData = req.body;
     try {
-      await writeFileAsync(path.join(filePaths[fileName] || `${fileName}.json`);
+      await writeFileAsync(filePaths[fileName] || path.join(process.cwd(), `${fileName}.json`));
       res.send(jsonData);
     } catch(error) {
       res.sendStatus(500);
