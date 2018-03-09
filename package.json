@@ -1,7 +1,10 @@
 {
   "name": "sissi-says",
   "version": "0.1.0",
-  "private": true,
+  "description": "The CMS for sissi (simple static sites)",
+  "author": "Alina Beck",
+  "license": "ISC",
+  "repository": "github.com/square-a/sissi-snaps",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-cli": "^6.26.0",
