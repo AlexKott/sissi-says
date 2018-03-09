@@ -15,7 +15,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       method,
       dataType,
       requestData = {},
-      contentType = 'json', 
+      contentType = 'json',
       successDispatch = [],
     } = payload;
 
@@ -36,6 +36,8 @@ export default (store, client = ajax, getters = selectors) => next => async acti
     } catch(error) {
       if (error[0] && error[0].status === 401) {
         store.dispatch(actions.setAlert(c.AUTH_ERROR, 'auth_error'));
+      } else if (error[0] && error[0].status === 422) {
+        store.dispatch(actions.setAlert(c.BUILD_ERROR, 'auth_error'));
       } else {
         store.dispatch(actions.setAlert(c.SERVER_ERROR, 'server_error'));
       }

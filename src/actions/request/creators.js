@@ -49,7 +49,7 @@ export function buildPage() {
     payload: {
       method: 'post',
       dataType: 'build',
-      successDispatch: [],
+      successDispatch: [setAlert.bind({}, c.BUILD_SUCCESS, 'success')],
     },
   };
 }

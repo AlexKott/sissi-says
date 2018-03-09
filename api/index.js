@@ -13,9 +13,7 @@ const PORT = 3010;
 
 app.use(init());
 app.use(bodyParser.json());
-app.use(cors({
-  origin: 'localhost',
-}));
+app.use(cors());
 app.use(fileUpload());
 
 app.use('/', express.static(path.join(__dirname, '..', 'build')));
