@@ -56,19 +56,22 @@ router.route('/images')
 router.use('/images', express.static(imageDirectory));
 
 router.route('/build')
-  .post((req, res) => {
-    const child = spawn('yarn', ['build'], { cwd: process.cwd() });
+  .post(
+    authenticate(),
+    (req, res) => {
+      const child = spawn('yarn', ['build'], { cwd: process.cwd() });
 
-    child.stderr.on('data', (data) => console.log(data.toString()));
+      child.stderr.on('data', (data) => console.log(data.toString()));
 
-    child.stdout.on('data', (data) => console.log(data.toString()));
-    child.on('close', (code) => {
-      if (code !== 0) {
-        return res.sendStatus(500);
-      }
+      child.stdout.on('data', (data) => console.log(data.toString()));
+      child.on('close', (code) => {
+        if (code !== 0) {
+          return res.sendStatus(500);
+        }
 
-      res.sendStatus(200);
-    });
-  });
+        res.sendStatus(200);
+      });
+    }
+  );
 
 export default router;
