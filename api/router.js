@@ -8,7 +8,7 @@ import { getAllImages, saveImage } from './imageController';
 import { authenticate, login } from './authService';
 
 const router = express.Router();
-const imageDirectory = path.join(process.cwd(), 'images');
+const imageDirectory = path.join(process.cwd(), 'public', 'images');
 
 router.route('/structure')
   .get(
@@ -68,7 +68,7 @@ router.route('/build')
         console.log(data.toString());
       });
 
-      child.stdout.on('data', (data) => console.log(data.toString())); 
+      child.stdout.on('data', (data) => console.log(data.toString()));
 
       child.on('close', (code) => {
         if (isErrored) {
