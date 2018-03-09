@@ -38,3 +38,17 @@ export function deleteSection(pageId, sectionId) {
     payload: { pageId, sectionId },
   };
 }
+
+export function dragPage(from, to) {
+  return {
+    type: t.DRAG_PAGE,
+    payload: { from, to },
+  };
+}
+
+export function dragSection(pageId, from, to) {
+  return {
+    type: t.DRAG_SECTION,
+    payload: { pageId, from, to },
+  };
+}

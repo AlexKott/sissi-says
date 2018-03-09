@@ -24,6 +24,15 @@ describe('reducers/settings', () => {
 
     expect(state).toEqual(expectedState);
   });
+
+  it('should reset the state', () => {
+    const action = {
+      type: t.RESET_SESSION,
+    };
+    const state = reducer({ testData: 'test' }, action);
+
+    expect(state).toEqual({});
+  });
 });
 
 describe('selectors/settings', () => {

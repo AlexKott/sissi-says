@@ -15,7 +15,7 @@ const Editor = ({
 }) => (
   <section className={`editor editor--${type}`}>
     <h1 className='editor__title'>{title}</h1>
-    <Form form={formName} initialValues={initialValues} fields={fields}>
+    <Form form={formName} initialValues={initialValues} fields={fields} key={formName}>{/* Do not remove the key! */}
       {canDelete && <button type='button' onClick={onDelete} className='button'>Delete</button>}
     </Form>
     {children}
@@ -24,7 +24,7 @@ const Editor = ({
 
 Editor.propTypes = {
   canDelete: PropTypes.bool,
-  children: PropTypes.array,
+  children: PropTypes.object,
   fields: PropTypes.array,
   title: PropTypes.string,
   type: PropTypes.string,

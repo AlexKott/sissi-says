@@ -9,7 +9,9 @@ import {
   getMinSectionsPerPage,
 } from '@/reducers/settings';
 
-export default (state = [], action = {}) => {
+const initialState = [];
+
+export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
@@ -36,6 +38,22 @@ export default (state = [], action = {}) => {
     const deleteIndex = page.sections.findIndex(section => section === payload.sectionId);
     page.sections.splice(deleteIndex, 1);
     return newState;
+
+  } else if (type === t.DRAG_PAGE) {
+    const newState = cloneDeep(state);
+    const [movedPage] = newState.splice(payload.from, 1);
+    newState.splice(payload.to, 0, movedPage);
+    return newState;
+
+  } else if (type === t.DRAG_SECTION) {
+    const newState = cloneDeep(state);
+    const page = newState.find(page => page.id === payload.pageId);
+    const [movedSection] = page.sections.splice(payload.from, 1);
+    page.sections.splice(payload.to, 0, movedSection);
+    return newState;
+
+  } else if (type === t.RESET_SESSION) {
+    return initialState;
   }
 
   return state;

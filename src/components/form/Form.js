@@ -9,7 +9,7 @@ import * as actions from '@/actions/creators';
 import FormFieldBuilder from './FormFieldBuilder';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSave: (e) => {
+  onSubmit: ownProps.onSubmit ? ownProps.onSubmit : (e) => {
     e.preventDefault();
     dispatch(actions.postContent(ownProps.form));
   },
@@ -17,32 +17,34 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const Form = ({
   children,
-  className = '',
   fields = [],
-  onSave,
+  submitText = 'Save',
+  onSubmit,
 }) => (
-  <form className='form' onSubmit={onSave}>
+  <form className='form' onSubmit={onSubmit}>
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];
       const fieldStructure = field[fieldName];
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
     })}
-    <button type='submit' className='button'>Save</button>
-    {children}
+    <div className='form__buttons'>
+      {children}
+      <button type='submit' className='button button--cta'>{submitText}</button>
+    </div>
   </form>
 );
 
 Form.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string,
   fields: PropTypes.array,
-  onSave: PropTypes.func,
+  submitText: PropTypes.string,
+  onSubmit: PropTypes.func,
 }
 
 export default compose(
   connect(null, mapDispatchToProps),
   reduxForm({
-    destroyOnUnmount: false,
+    destroyOnUnmount: true,
     enableReinitialize: true,
   })
 )(Form);

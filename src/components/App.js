@@ -6,11 +6,15 @@ import * as actions from '@/actions/creators';
 
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
+import ActionBar from './actionBar/ActionBar';
+import Guide from './guide/Guide';
 
 const mapStateToProps = (state) => {
   const route = state.location.type;
   const Component = state.location.routesMap[route].component;
-  return { Component };
+  return {
+    Component,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -19,10 +23,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const App = ({ Component, onBuild }) => (
   <div className='app'>
-    <Modal />
     <Navigation />
     <Component />
-    <button type='button' onClick={onBuild}>Build</button>
+    <ActionBar />
+    <Guide />
+    <Modal />
   </div>
 );
 

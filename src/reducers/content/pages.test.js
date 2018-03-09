@@ -72,6 +72,51 @@ describe('reducers/content/pages', () => {
       sections: ['section2'],
     }]);
   });
+
+  it('should move a page', () => {
+    const mockState = [
+      { id: 'testPage1' },
+      { id: 'testPage2' },
+    ];
+    const action = {
+      type: t.DRAG_PAGE,
+      payload: { from: 1, to: 0 },
+    };
+    const expectedState = [
+      { id: 'testPage2' },
+      { id: 'testPage1' },
+    ];;
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should move a section', () => {
+    const mockState = [
+      { id: 'testPage1', sections: ['section1', 'section2'] },
+      { id: 'testPage2', sections: ['section1', 'section2'] },
+    ];
+    const action = {
+      type: t.DRAG_SECTION,
+      payload: { pageId: 'testPage2', from: 0, to: 1 },
+    };
+    const expectedState = [
+      { id: 'testPage1', sections: ['section1', 'section2'] },
+      { id: 'testPage2', sections: ['section2', 'section1'] },
+    ];
+    const state = reducer(mockState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should reset the state', () => {
+    const action = {
+      type: t.RESET_SESSION,
+    };
+    const state = reducer([1, 2, 3], action);
+
+    expect(state).toEqual([]);
+  });
 });
 
 describe('selectors/content/pages', () => {

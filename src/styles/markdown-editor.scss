@@ -1,0 +1,48 @@
+.markdown-editor__wrapper {
+  margin-top: 6px;
+  background-color: $color-white;
+}
+
+.editor-toolbar {
+  padding: 4px;
+  border-radius: 0;
+  border: none;
+  background-color: $color-light-grey;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+}
+
+.CodeMirror {
+  border-radius: 0;
+  border: 1px solid $color-light-grey;
+}
+
+.CodeMirror .CodeMirror-code {
+  & .cm-header-1 {
+    font-size: 140%;
+    line-height: 140%;
+  }
+  & .cm-header-2 {
+    font-size: 120%;
+    line-height: 120%;
+  }
+  & .cm-header-3 {
+    font-size: 100%;
+    line-height: 100%;
+  }
+  & .cm-header-4 {
+    font-size: 100%;
+    line-height: 100%;
+  }
+  & .cm-header-5 {
+    font-size: 100%;
+    line-height: 100%;
+  }
+  & .cm-header-6 {
+    font-size: 100%;
+    line-height: 100%;
+  }
+}

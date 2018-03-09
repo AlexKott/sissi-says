@@ -24,9 +24,50 @@ describe('reducers/structure/fields', () => {
 
     expect(state).toEqual(expectedState);
   });
+
+  it('should reset the state', () => {
+    const action = {
+      type: t.RESET_SESSION,
+    };
+    const state = reducer({ fieldsData: 'test' }, action);
+
+    expect(state).toEqual({});
+  });
 });
 
 describe('selectors/structure/fields', () => {
+  describe('getFields', () => {
+    it('should return all fields', () => {
+      const mockState = {
+        structure: {
+          fields: {
+            field1: {
+              label: 'testLabel',
+              type: 'test',
+            },
+            field2: {
+              label: 'testLabel',
+              type: 'test',
+            },
+          },
+        },
+      };
+      const expectedValue = {
+        field1: {
+          label: 'testLabel',
+          type: 'test',
+        },
+        field2: {
+          label: 'testLabel',
+          type: 'test',
+        },
+      };
+      const value = selectors.getFields(mockState);
+
+      expect(value).toEqual(expectedValue);
+    });
+  });
+
   describe('getFieldByName', () => {
     it('should return a field, given the field name', () => {
       const mockState = {
