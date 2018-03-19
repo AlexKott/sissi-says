@@ -31,6 +31,7 @@ class MarkdownEditor extends React.Component {
       },
       element: document.querySelector('.markdown-editor'),
       minHeight: '220px',
+      placeholder: this.props.placeholder,
       spellChecker: false,
       status: false,
       toolbar: [
