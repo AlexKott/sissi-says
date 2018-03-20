@@ -7,7 +7,7 @@ import * as selectors from '@/reducers/selectors';
 import Editor from '@/components/editor/Editor';
 
 const mapStateToProps = (state) => ({
-  fields: selectors.getMetaFields(state),
+  fields: selectors.getIsInitialDataFetched(state) ? selectors.getMetaFields(state) : [],
   initialValues: selectors.getMetaData(state),
 });
 

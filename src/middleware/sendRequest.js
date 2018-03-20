@@ -27,7 +27,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       const response = await client(endpoint, token, contentType)[method](requestData);
       let data = response[0];
 
-      if (dataType === 'content' && method === 'get') {
+      if (dataType === 'content') {
         const fields = selectors.getFields(store.getState());
         data = transformToMarkdown(response[0], fields);
       }

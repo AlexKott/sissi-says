@@ -1,5 +1,6 @@
 .guide__teaser {
   position: fixed;
+  z-index: $z-index-actionbar;
   bottom: $gap-normal;
   right: $button-width + $gap-tiny;
   color: $color-main-dark;
