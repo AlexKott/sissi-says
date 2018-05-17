@@ -1,62 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as selectors from '@/reducers/selectors';
-import * as actions from '@/actions/creators';
 
-import NavBar from './NavBar';
+import PageNav from './PageNav';
+import SectionNav from './SectionNav';
 
-const mapStateToProps = (state) => {
-  const selectedPage = selectors.getSelectedPageId(state);
-  const selectedSection = selectors.getSelectedSectionId(state);
-  const pages = selectors.getAllPages(state);
-  const sections = selectedPage ? selectors.getSectionsForPage(state, selectedPage) : null;
-  return {
-    displayPages: pages.length > 1,
-    displaySections: sections !== null,
-    pages,
-    sections,
-    selectedPage,
-    selectedSection,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onDragEnd: ({ type, source, destination }) => {
-    if (destination && type === 'page') {
-      dispatch(actions.dragPage(source.index, destination.index));
-    } else if (destination && type === 'section') {
-      dispatch(actions.dragSection(source.droppableId, source.index, destination.index));
-    }
-  },
+const mapStateToProps = (state) => ({
+  isSinglePage: selectors.getIsSinglePage(state),
+  selectedPage: selectors.getSelectedPageId(state),
 });
 
 const Navigation = ({
-  displayPages = true,
-  displaySections = false,
+  isSinglePage = false,
   selectedPage = '',
-  selectedSection = '',
-  pages = [],
-  sections = [],
-  onDragEnd,
-}) => (
-  <DragDropContext onDragEnd={onDragEnd}>
-    {displayPages && <NavBar
-      type='page'
-      selectedElement={selectedPage}
-      elements={pages}
-      routeArray={['page']}
-    />}
-    {displaySections && <NavBar
-      type='section'
-      selectedElement={selectedSection}
-      elements={sections}
-      routeArray={['page', selectedPage, 'section']}
-    />}
-  </DragDropContext>
-);
+}) => {
+  if (isSinglePage) {
+    return (selectedPage && <SectionNav selectedPage={selectedPage} className={'nav nav--page'} />);
+  } else {
+    return ([
+      <PageNav id='page-nav' className={'nav nav--page'} />
+      ,
+      selectedPage && <SectionNav
+        id='section-nav'
+        selectedPage={selectedPage}
+        className={'nav nav--section'}
+      />
+    ]);
+  }
+}
 
 Navigation.propTypes = {
   displaySections: PropTypes.bool,
@@ -64,7 +37,6 @@ Navigation.propTypes = {
   selectedSection: PropTypes.string,
   pages: PropTypes.array,
   sections: PropTypes.array,
-  onDragEnd: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps)(Navigation);

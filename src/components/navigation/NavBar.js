@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { NavLink } from 'redux-first-router-link';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-
-import * as selectors from '@/reducers/selectors';
-import * as actions from '@/actions/creators';
 
 function getNavLink(selectedElement, elementId, routeArray) {
   if (selectedElement === elementId) {
@@ -16,42 +12,9 @@ function getNavLink(selectedElement, elementId, routeArray) {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  let canAdd = true;
-  let droppableId;
-
-  if (ownProps.type === 'page') {
-    canAdd = selectors.getCanAddPage(state);
-    droppableId = 'droppable-page';
-  } else if (ownProps.type === 'section') {
-    const pageId = ownProps.routeArray[1];
-    canAdd = selectors.getCanAddSection(state, pageId);
-    droppableId = pageId;
-  }
-
-  return {
-    canAdd,
-    droppableId,
-  };
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  let onAdd;
-
-  if (ownProps.type === 'page') {
-    onAdd = () => dispatch(actions.addPage());
-  } else if (ownProps.type === 'section') {
-    const pageId = ownProps.routeArray[1];
-    onAdd = () => dispatch(actions.addSection(pageId));
-  }
-
-  return {
-    onAdd,
-  };
-}
-
 const NavBar = ({
   canAdd,
+  className = 'nav',
   droppableId,
   selectedElement = '',
   type = '',
@@ -61,7 +24,7 @@ const NavBar = ({
 }) => (
   <Droppable droppableId={droppableId} type={type}>
     {(provided) => (
-      <nav className={`nav nav--${type}`} ref={provided.innerRef} {...provided.droppableProps}>
+      <nav className={className} ref={provided.innerRef} {...provided.droppableProps}>
         {elements.map((element, index) => (
           <Draggable key={element.id} draggableId={element.id} type={type} index={index}>
             {(provided) => (
@@ -94,6 +57,7 @@ const NavBar = ({
 
 NavBar.propTypes = {
   canAdd: PropTypes.bool,
+  className: PropTypes.string,
   droppableId: PropTypes.string,
   selectedElement: PropTypes.string,
   type: PropTypes.string,
@@ -102,4 +66,4 @@ NavBar.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;

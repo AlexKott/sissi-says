@@ -7,6 +7,8 @@ export default {
     const isLoggedIn = selectors.getAuthToken(getState()) !== null;
     const isNavigatingToLogin = bag.action.type === routes.ROUTE_LOGIN;
     const isInitialDataFetched = selectors.getIsInitialDataFetched(getState());
+    const isSinglePage = selectors.getIsSinglePage(getState());
+    const isNavigatingToPage = bag.action.type === routes.ROUTE_PAGE;
 
     if (isNavigatingToLogin && isLoggedIn) {
       return dispatch(actions.redirectToIndex());
@@ -17,6 +19,10 @@ export default {
     if (isLoggedIn && !isInitialDataFetched) {
       dispatch(actions.fetchData('structure'));
       dispatch(actions.fetchData('images'));
+    }
+
+    if (isSinglePage && isNavigatingToPage) {
+      return dispatch(actions.redirectToIndex());
     }
   }
 }
