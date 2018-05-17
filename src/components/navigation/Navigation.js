@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
   const pages = selectors.getAllPages(state);
   const sections = selectedPage ? selectors.getSectionsForPage(state, selectedPage) : null;
   return {
+    displayPages: pages.length > 1,
     displaySections: sections !== null,
     pages,
     sections,
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Navigation = ({
+  displayPages = true,
   displaySections = false,
   selectedPage = '',
   selectedSection = '',
@@ -41,12 +43,12 @@ const Navigation = ({
   onDragEnd,
 }) => (
   <DragDropContext onDragEnd={onDragEnd}>
-    <NavBar
+    {displayPages && <NavBar
       type='page'
       selectedElement={selectedPage}
       elements={pages}
       routeArray={['page']}
-    />
+    />}
     {displaySections && <NavBar
       type='section'
       selectedElement={selectedSection}

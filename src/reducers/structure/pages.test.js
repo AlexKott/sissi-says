@@ -154,4 +154,26 @@ describe('selectors/structure/pages', () => {
       expect(value).toEqual([]);
     });
   });
+
+  describe('getIsSinglePage', () => {
+    it('should return true if there are no pages', () => {
+      const mockState = {
+        structure: { pages: {}},
+      };
+      const value = selectors.getIsSinglePage(mockState);
+      expect(value).toBe(true);
+    });
+
+    it('should return false if there are pages', () => {
+      const mockState = {
+        structure: {
+          pages: {
+            abc: 'abc',
+          },
+        },
+      };
+      const value = selectors.getIsSinglePage(mockState);
+      expect(value).toBe(false);
+    });
+  });
 });
