@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form';
+import { reduxForm, FieldArray } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actions from '@/actions/creators';
 
+import FieldArrayBuilder from './FieldArrayBuilder';
 import FormFieldBuilder from './FormFieldBuilder';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -25,7 +26,18 @@ const Form = ({
     {fields.map(field => {
       const fieldName = Object.keys(field)[0];
       const fieldStructure = field[fieldName];
-      return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
+      if (fieldStructure.type === 'list') {
+        return (<FieldArray
+          key={fieldName}
+          name={fieldName}
+          component={FieldArrayBuilder}
+          listName={fieldName}
+          fieldStructure={fieldStructure}
+        />);
+
+      } else {
+        return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
+      }
     })}
     <div className='form__buttons'>
       {children}
