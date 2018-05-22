@@ -18,6 +18,7 @@ describe('middleware/contentBuilder', () => {
       getMinPages: jest.fn(() => 0),
       getProtectedPages: jest.fn(() => []),
       getNumberOfPages: jest.fn(() => 1),
+      getIsSinglePage: jest.fn(() => false),
     };
     mockAction = { type: t.FETCH_DATA_SUCCESS, payload: { dataType: 'content', data: {}}};
   });
@@ -66,6 +67,6 @@ describe('middleware/contentBuilder', () => {
     middleware(mockStore, mockSelectors)(mockNext)(mockAction);
 
     expect(mockDispatch.mock.calls).toHaveLength(3);
-    expect(mockDispatch).toBeCalledWith(actions.addPage());
+    expect(mockDispatch).toBeCalledWith(actions.addPage('standard'));
   });
 });

@@ -8,16 +8,24 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
 
   if (type === t.ADD_PAGE) {
     const pageType = payload.pageType || 'standard';
-    const fields = getters.getPageFieldNames(getState(), pageType);
-    const protectedSections = getters.getProtectedSectionsForPage(getState(), pageType);
     const minSectionsPerPage = getters.getMinSectionsPerPage(getState());
+    let protectedSections = [];
 
     const pageId = getRandomString();
     const newPage = {};
     newPage.id = pageId;
     newPage.pageType = pageType;
     newPage.sections = [];
-    fields.forEach(field => newPage[field] = '');
+
+    if (pageType === 'singlePage') {
+      protectedSections = getters.getProtectedSections(getState());
+      
+    } else {
+      protectedSections = getters.getProtectedSectionsForPage(getState(), pageType);
+
+      const fields = getters.getPageFieldNames(getState(), pageType);
+      fields.forEach(field => newPage[field] = '');
+    }
 
     payload.page = newPage;
     next(action);
