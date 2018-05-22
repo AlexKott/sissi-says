@@ -14,7 +14,7 @@ describe('middleware/sectionBuilder', () => {
       dispatch: mockDispatch,
     };
     mockSelectors = {
-      getSectionFieldNames: jest.fn(() => ['field1', 'field2']),
+      getSectionFields: jest.fn(() => [{'field1': { type: 'standard' }}, {'field2': { type: 'standard' }}]),
     };
     mockAction = { type: t.ADD_SECTION, payload: { pageId: 'mockPage', sectionType: 'testType' }};
   });
@@ -39,5 +39,31 @@ describe('middleware/sectionBuilder', () => {
     expect(testedAction.payload.section).toHaveProperty('sectionType', 'testType');
     expect(testedAction.payload.section).toHaveProperty('field1', '');
     expect(testedAction.payload.section).toHaveProperty('field2', '');
+  });
+
+  it('should add the minimum list items for each field of type "list"', () => {
+    mockSelectors.getSectionFields = jest.fn(() => [{
+      'listField1': {
+        type: 'list',
+        minItems: 3,
+        fields: ['fieldA', 'fieldB']
+      },
+    }]);
+
+    middleware(mockStore, mockSelectors)(mockNext)(mockAction);
+
+    const testedAction = mockNext.mock.calls[0][0];
+    expect(mockNext.mock.calls).toHaveLength(1);
+    expect(testedAction).toHaveProperty('type', t.ADD_SECTION);
+    expect(testedAction).toHaveProperty('payload');
+    expect(testedAction.payload).toHaveProperty('sectionId');
+    expect(testedAction.payload).toHaveProperty('section');
+    expect(testedAction.payload.section).toHaveProperty('sectionType', 'testType');
+    expect(testedAction.payload.section).toHaveProperty('listField1');
+    expect(testedAction.payload.section.listField1).toEqual([
+      { 'fieldA': '', 'fieldB': '' },
+      { 'fieldA': '', 'fieldB': '' },
+      { 'fieldA': '', 'fieldB': '' },
+    ]);
   });
 });

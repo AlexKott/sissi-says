@@ -7,16 +7,41 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
 
   if (type === t.ADD_SECTION) {
     const sectionType = payload.sectionType || 'standard';
-    const fields = getters.getSectionFieldNames(getState(), sectionType);
+    const fields = getters.getSectionFields(getState(), sectionType);
 
     const sectionId = getRandomString();
     const newSection = {};
     newSection.sectionType = sectionType;
-    fields.forEach(field => newSection[field] = '');
+
+    fields.forEach(fieldObj => {
+      const fieldName = Object.keys(fieldObj)[0];
+      const field = Object.values(fieldObj)[0];
+
+      if (field.type === 'list') {
+        const { fields: itemFieldNames, minItems } = field;
+        newSection[fieldName] = [];
+
+        for (let i = 0; i < minItems; i++) {
+          const newItem = {};
+          itemFieldNames.forEach(fieldName => newItem[fieldName] = '');
+          newSection[fieldName].push(newItem);
+        }
+
+      } else {
+        newSection[fieldName] = '';
+      }
+    })
 
     payload.sectionId = sectionId;
     payload.section = newSection;
     next(action);
+
+  } else if (type === t.ADD_LIST_ITEM) {
+      const fields = getters.getListFieldNames(getState(), payload.listName);
+      const newItem = {};
+      fields.forEach(fieldName => newItem[fieldName] = '');
+      payload.listItem = newItem;
+      next(action);
 
   } else {
     next(action);
