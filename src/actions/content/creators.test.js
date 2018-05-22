@@ -29,6 +29,16 @@ describe('actions/content', () => {
     });
   });
 
+  describe('addListItem', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.addListItem('section123', 'listAbc');
+
+      expect(action).toHaveProperty('type', t.ADD_LIST_ITEM);
+      expect(action.payload).toHaveProperty('sectionId', 'section123');
+      expect(action.payload).toHaveProperty('listName', 'listAbc');
+    });
+  });
+
   describe('deletePage', () => {
     it('should return a thunk that dispatches the correct actions', () => {
       const mockDispatch = jest.fn();

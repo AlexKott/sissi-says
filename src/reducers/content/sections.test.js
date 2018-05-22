@@ -31,6 +31,18 @@ describe('reducers/content/sections', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should add a list item', () => {
+    const action = {
+      type: t.ADD_LIST_ITEM,
+      payload: { sectionId: 'section1', listName: 'testList', listItem: 'testItem' },
+    };
+    const preState = { 'section1': { testList: [] }};
+    const expectedState = { 'section1': { testList: ['testItem'] }};
+    const state = reducer(preState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should delete a section', () => {
     const mockState = {
       section1: { test: 'test' },
@@ -105,6 +117,21 @@ describe('selectors/content/sections', () => {
       const value = selectors.getInitialSectionValues(mockState, 'test1');
 
       expect(value).toEqual({ otherData: 'test' });
+    });
+  });
+
+  describe('getNumberOfListItems', () => {
+    it('should return the number of items in the requested list', () => {
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getNumberOfListItems(mockState, 'test1', 'testList');
+
+      expect(value).toBe(2);
     });
   });
 });

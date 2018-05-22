@@ -13,6 +13,12 @@ export default (state = initialState, action = {}) => {
   } else if (type === t.ADD_SECTION) {
     return Object.assign({}, state, { [payload.sectionId]: payload.section });
 
+  } else if (type === t.ADD_LIST_ITEM) {
+    const newState = cloneDeep(state);
+    newState[payload.sectionId][payload.listName].push(payload.listItem);
+    debugger;
+    return newState;
+
   } else if (type === t.DELETE_SECTION) {
     const newState = cloneDeep(state);
     delete newState[payload.sectionId];
@@ -37,4 +43,9 @@ export function getInitialSectionValues(state, sectionId) {
   const sectionCopy = cloneDeep(getSectionById(state, sectionId));
   delete sectionCopy.sectionType;
   return sectionCopy;
+}
+
+export function getNumberOfListItems(state, sectionId, listName) {
+  const sectionCopy = cloneDeep(getSectionById(state, sectionId));
+  return sectionCopy[listName].length;
 }

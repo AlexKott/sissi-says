@@ -21,6 +21,13 @@ export function addSection(pageId, sectionType) {
   };
 }
 
+export function addListItem(sectionId, listName) {
+  return {
+    type: t.ADD_LIST_ITEM,
+    payload: { sectionId, listName },
+  };
+}
+
 export function deletePage(pageId) {
   return (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
     const sectionIds = selectSectionIdsForPage(getState(), pageId);
