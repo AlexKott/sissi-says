@@ -3,14 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'redux-first-router-link';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-function getNavLink(selectedElement, elementId, routeArray) {
-  if (selectedElement === elementId) {
-    const shortArray = routeArray.slice(0, -1);
-    return shortArray;
-  } else {
-    return [...routeArray, elementId];
-  }
-}
+import getNavLink from '@/helpers/getNavLink';
 
 const NavBar = ({
   canAdd,

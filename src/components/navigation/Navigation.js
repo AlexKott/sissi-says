@@ -17,26 +17,27 @@ const Navigation = ({
   selectedPage = '',
 }) => {
   if (isSinglePage) {
-    return (selectedPage && <SectionNav selectedPage={selectedPage} className={'nav nav--page'} />);
+    return (selectedPage && <SectionNav selectedPage={selectedPage} className={'nav nav--dark'} />);
   } else {
     return ([
-      <PageNav id='page-nav' className={'nav nav--page'} />
+      <PageNav
+        id='page-nav'
+        selectedPage={selectedPage}
+        className={'nav nav--dark'}
+      />
       ,
       selectedPage && <SectionNav
         id='section-nav'
         selectedPage={selectedPage}
-        className={'nav nav--section'}
+        className={'nav nav--light'}
       />
     ]);
   }
 }
 
 Navigation.propTypes = {
-  displaySections: PropTypes.bool,
+  isSinglePage: PropTypes.bool,
   selectedPage: PropTypes.string,
-  selectedSection: PropTypes.string,
-  pages: PropTypes.array,
-  sections: PropTypes.array,
 };
 
 export default connect(mapStateToProps)(Navigation);

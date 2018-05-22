@@ -11,7 +11,6 @@ import NavBar from './NavBar';
 const mapStateToProps = (state) => ({
   canAddPage: selectors.getCanAddPage(state),
   pages: selectors.getAllPages(state),
-  selectedPage: selectors.getSelectedPageId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
