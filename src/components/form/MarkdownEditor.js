@@ -22,14 +22,18 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+let count = 0;
+
 class MarkdownEditor extends React.Component {
 
   componentDidMount() {
+    count++;
+    const nodeList = document.querySelectorAll('.markdown-editor');
     const mde = new InscrybMDE({
       blockStyles: {
         italic: '_',
       },
-      element: document.querySelector('.markdown-editor'),
+      element: nodeList.item(count - 1),
       minHeight: '220px',
       placeholder: this.props.placeholder,
       spellChecker: false,
@@ -50,6 +54,10 @@ class MarkdownEditor extends React.Component {
       ],
     });
     mde.codemirror.on('change', () => this.props.input.onChange(mde.value()));
+  }
+
+  componentWillUnmount() {
+    count--;
   }
 
   render() {
