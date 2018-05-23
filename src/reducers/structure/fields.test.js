@@ -102,4 +102,21 @@ describe('selectors/structure/fields', () => {
       expect(value).toEqual(['abc', 'def']);
     });
   });
+
+  describe('getListFieldNames', () => {
+    it('should return the maxItems for a given listName', () => {
+      const mockState = {
+        structure: {
+          fields: {
+            field1: {
+              maxItems: 19,
+            },
+          },
+        },
+      };
+      const value = selectors.getMaxListItems(mockState, 'field1');
+
+      expect(value).toEqual(19);
+    });
+  });
 });

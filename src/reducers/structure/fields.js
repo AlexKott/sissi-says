@@ -27,3 +27,7 @@ export function getFieldByName(state, fieldName) {
 export function getListFieldNames(state, listName) {
   return state.structure.fields[listName].fields;
 }
+
+export function getMaxListItems(state, listName) {
+  return state.structure.fields[listName].maxItems;
+}

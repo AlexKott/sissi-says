@@ -146,4 +146,34 @@ describe('selectors/content/sections', () => {
       expect(value).toBe(2);
     });
   });
+
+  describe('getCanAddListItem', () => {
+    it('should return false if the item maximum is reached', () => {
+      const mockGetMaxItems = jest.fn(() => 2);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanAddListItem(mockState, 'test1', 'testList', mockGetMaxItems);
+
+      expect(value).toBe(false);
+    });
+
+    it('should return true if the item maximum is not yet reached', () => {
+      const mockGetMaxItems = jest.fn(() => 7);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanAddListItem(mockState, 'test1', 'testList', mockGetMaxItems);
+
+      expect(value).toBe(true);
+    });
+  });
 });

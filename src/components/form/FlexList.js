@@ -7,12 +7,16 @@ import * as actions from '@/actions/creators';
 
 import FormFieldBuilder from './FormFieldBuilder';
 
-const mapStateToProps = (state, ownProps) => ({
-  selectedSection: selectors.getSelectedSectionId(state),
-  nestedFields: ownProps.fieldStructure.fields.map(fieldName => {
-    return selectors.getFieldByName(state, fieldName);
-  }),
-});
+const mapStateToProps = (state, ownProps) => {
+  const selectedSection = selectors.getSelectedSectionId(state);
+  return {
+    canAddItem: selectors.getCanAddListItem(state, selectedSection, ownProps.listName),
+    nestedFields: ownProps.fieldStructure.fields.map(fieldName => {
+      return selectors.getFieldByName(state, fieldName);
+    }),
+    selectedSection,
+  };
+}
 
 const mapDispatchToProps = (dispatch) => ({
   onAddItem: (sectionId, listName) => dispatch(actions.addListItem(sectionId, listName)),
@@ -20,6 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const FlexList = ({
+  canAddItem,
   fields: reduxFormFields,
   listName,
   fieldStructure,
@@ -28,7 +33,7 @@ const FlexList = ({
   onAddItem,
   onDeleteItem,
 }) => (
-  <div>
+  <section>
     <h3>{fieldStructure.label}</h3>
     {reduxFormFields.map((f, index) => {
       return ([
@@ -50,12 +55,12 @@ const FlexList = ({
         >Delete</button>
       ]);
     })}
-    <button
+    {canAddItem && <button
       type='button'
       onClick={() => onAddItem(selectedSection, listName)}
       className='button'
-    >+ {fieldStructure.itemLabel}</button>
-  </div>
+    >+ {fieldStructure.itemLabel}</button>}
+  </section>
 );
 
 FlexList.propTypes = {
