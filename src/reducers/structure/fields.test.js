@@ -103,7 +103,7 @@ describe('selectors/structure/fields', () => {
     });
   });
 
-  describe('getListFieldNames', () => {
+  describe('getMaxListItems', () => {
     it('should return the maxItems for a given listName', () => {
       const mockState = {
         structure: {
@@ -117,6 +117,23 @@ describe('selectors/structure/fields', () => {
       const value = selectors.getMaxListItems(mockState, 'field1');
 
       expect(value).toEqual(19);
+    });
+  });
+
+  describe('getMinListItems', () => {
+    it('should return the minItems for a given listName', () => {
+      const mockState = {
+        structure: {
+          fields: {
+            field1: {
+              minItems: 4,
+            },
+          },
+        },
+      };
+      const value = selectors.getMinListItems(mockState, 'field1');
+
+      expect(value).toEqual(4);
     });
   });
 });

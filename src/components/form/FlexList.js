@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   const selectedSection = selectors.getSelectedSectionId(state);
   return {
     canAddItem: selectors.getCanAddListItem(state, selectedSection, ownProps.listName),
+    canDeleteItem: selectors.getCanDeleteListItem(state, selectedSection, ownProps.listName),
     nestedFields: ownProps.fieldStructure.fields.map(fieldName => {
       return selectors.getFieldByName(state, fieldName);
     }),
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const FlexList = ({
   canAddItem,
+  canDeleteItem,
   fields: reduxFormFields,
   listName,
   fieldStructure,
@@ -47,7 +49,7 @@ const FlexList = ({
           />);
         })
         ,
-        <button
+        canDeleteItem && <button
           key={`delete-${index}`}
           type='button'
           onClick={() => onDeleteItem(selectedSection, listName, index)}
@@ -64,6 +66,8 @@ const FlexList = ({
 );
 
 FlexList.propTypes = {
+  canAddItem: PropTypes.bool,
+  canDeleteItem: PropTypes.bool,
   reduxFormFields: PropTypes.array,
   listName: PropTypes.string,
   fieldStructure: PropTypes.object,

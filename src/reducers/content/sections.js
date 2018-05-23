@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 
 import * as t from '@/actions/types';
-import { getMaxListItems } from '@/reducers/structure/fields';
+import { getMaxListItems, getMinListItems } from '@/reducers/structure/fields';
 
 const initialState = {};
 
@@ -57,4 +57,8 @@ export function getNumberOfListItems(state, sectionId, listName) {
 
 export function getCanAddListItem(state, sectionId, listName, selectMaxListItems = getMaxListItems) {
   return getNumberOfListItems(state, sectionId, listName) < selectMaxListItems(state, listName);
+}
+
+export function getCanDeleteListItem(state, sectionId, listName, selectMinListItems = getMinListItems) {
+  return getNumberOfListItems(state, sectionId, listName) > selectMinListItems(state, listName);
 }

@@ -176,4 +176,34 @@ describe('selectors/content/sections', () => {
       expect(value).toBe(true);
     });
   });
+
+  describe('getCanDeleteListItem', () => {
+    it('should return false if the item minimum is reached', () => {
+      const mockGetMinItems = jest.fn(() => 2);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanDeleteListItem(mockState, 'test1', 'testList', mockGetMinItems);
+
+      expect(value).toBe(false);
+    });
+
+    it('should return true if the item minimum is not yet reached', () => {
+      const mockGetMinItems = jest.fn(() => 0);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanDeleteListItem(mockState, 'test1', 'testList', mockGetMinItems);
+
+      expect(value).toBe(true);
+    });
+  });
 });

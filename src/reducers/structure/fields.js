@@ -31,3 +31,7 @@ export function getListFieldNames(state, listName) {
 export function getMaxListItems(state, listName) {
   return state.structure.fields[listName].maxItems;
 }
+
+export function getMinListItems(state, listName) {
+  return state.structure.fields[listName].minItems;
+}
