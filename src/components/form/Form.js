@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '@/actions/creators';
 
-import FieldArrayBuilder from './FieldArrayBuilder';
+import FlexList from './FlexList';
 import FormFieldBuilder from './FormFieldBuilder';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -30,7 +30,7 @@ const Form = ({
         return (<FieldArray
           key={fieldName}
           name={fieldName}
-          component={FieldArrayBuilder}
+          component={FlexList}
           listName={fieldName}
           fieldStructure={fieldStructure}
         />);

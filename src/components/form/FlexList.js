@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
   }),
 });
 
-const FieldArrayBuilder = ({
+const FlexList = ({
   fields: reduxFormFields,
   fieldName,
   fieldStructure,
@@ -36,11 +36,11 @@ const FieldArrayBuilder = ({
   </div>
 );
 
-FieldArrayBuilder.propTypes = {
+FlexList.propTypes = {
   reduxFormFields: PropTypes.array,
   fieldName: PropTypes.string,
   fieldStructure: PropTypes.object,
   nestedFields: PropTypes.array,
 };
 
-export default connect(mapStateToProps)(FieldArrayBuilder);
+export default connect(mapStateToProps)(FlexList);
