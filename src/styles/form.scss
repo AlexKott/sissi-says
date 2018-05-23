@@ -106,3 +106,28 @@
     }
   }
 }
+
+.form__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  & > .form__label {
+    align-self: flex-start;
+    width: 25%;
+    margin-bottom: -$gap-normal;
+  }
+
+  & .list-item {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin-bottom: $gap-normal;
+    padding: $gap-normal;
+    border: 1px dashed $color-main-light;
+  }
+
+  & .button {
+    align-self: flex-end;
+  }
+}

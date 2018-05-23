@@ -35,33 +35,36 @@ const FlexList = ({
   onAddItem,
   onDeleteItem,
 }) => (
-  <section>
-    <h3>{fieldStructure.label}</h3>
-    {reduxFormFields.map((f, index) => {
-      return ([
-        nestedFields.map((field) => {
-          const fieldName = Object.keys(field)[0];
-          const fieldStructure = field[fieldName];
-          return (<FormFieldBuilder
-            key={fieldName}
-            fieldName={`${f}.${fieldName}`}
-            fieldStructure={fieldStructure}
-          />);
-        })
-        ,
-        canDeleteItem && <button
-          key={`delete-${index}`}
-          type='button'
-          onClick={() => onDeleteItem(selectedSection, listName, index)}
-          className='button'
-        >Delete</button>
-      ]);
-    })}
-    {canAddItem && <button
-      type='button'
-      onClick={() => onAddItem(selectedSection, listName)}
-      className='button'
-    >+ {fieldStructure.itemLabel}</button>}
+  <section className='form__list'>
+    <span className='form__label'>{fieldStructure.label}:</span>
+      {reduxFormFields.map((f, index) => {
+        return (
+          <article key={index} className='list-item'>
+            {nestedFields.map((field) => {
+              const fieldName = Object.keys(field)[0];
+              const fieldStructure = field[fieldName];
+              return (<FormFieldBuilder
+                key={fieldName}
+                fieldName={`${f}.${fieldName}`}
+                fieldStructure={fieldStructure}
+              />);
+            })}
+            {canDeleteItem && <button
+              key={`delete-${index}`}
+              type='button'
+              onClick={() => onDeleteItem(selectedSection, listName, index)}
+              className='button'
+            >Delete</button>}
+          </article>
+        );
+      })}
+    {canAddItem && <article className='list-item'>
+      <button
+        type='button'
+        onClick={() => onAddItem(selectedSection, listName)}
+        className='button'
+      >+ {fieldStructure.itemLabel}</button>
+    </article>}
   </section>
 );
 
