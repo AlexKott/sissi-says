@@ -75,6 +75,17 @@ describe('actions/content', () => {
     });
   });
 
+  describe('deleteListItem', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.deleteListItem('section123', 'listAbc', 4);
+
+      expect(action).toHaveProperty('type', t.DELETE_LIST_ITEM);
+      expect(action.payload).toHaveProperty('sectionId', 'section123');
+      expect(action.payload).toHaveProperty('listName', 'listAbc');
+      expect(action.payload).toHaveProperty('itemIndex', 4);
+    });
+  });
+
   describe('dragPage', () => {
     it('should dispatch an action with the correct type and payload', () => {
       const action = actions.dragPage(3, 2);

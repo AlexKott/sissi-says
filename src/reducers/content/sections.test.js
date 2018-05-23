@@ -62,6 +62,18 @@ describe('reducers/content/sections', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should delete a list item', () => {
+    const action = {
+      type: t.DELETE_LIST_ITEM,
+      payload: { sectionId: 'section1', listName: 'testList', itemIndex: 0 },
+    };
+    const preState = { 'section1': { testList: ['item1', 'item2'] }};
+    const expectedState = { 'section1': { testList: ['item2'] }};
+    const state = reducer(preState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,

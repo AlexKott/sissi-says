@@ -16,12 +16,16 @@ export default (state = initialState, action = {}) => {
   } else if (type === t.ADD_LIST_ITEM) {
     const newState = cloneDeep(state);
     newState[payload.sectionId][payload.listName].push(payload.listItem);
-    debugger;
     return newState;
 
   } else if (type === t.DELETE_SECTION) {
     const newState = cloneDeep(state);
     delete newState[payload.sectionId];
+    return newState;
+
+  } else if (type === t.DELETE_LIST_ITEM) {
+    const newState = cloneDeep(state);
+    newState[payload.sectionId][payload.listName].splice(payload.itemIndex, 1);
     return newState;
 
   } else if (type === t.RESET_SESSION) {

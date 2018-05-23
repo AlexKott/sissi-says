@@ -46,6 +46,13 @@ export function deleteSection(pageId, sectionId) {
   };
 }
 
+export function deleteListItem(sectionId, listName, itemIndex) {
+  return {
+    type: t.DELETE_LIST_ITEM,
+    payload: { sectionId, listName, itemIndex },
+  };
+}
+
 export function dragPage(from, to) {
   return {
     type: t.DRAG_PAGE,
