@@ -1,7 +1,7 @@
 export default function getNavLink(selectedElement, elementId, routeArray) {
   if (selectedElement === elementId) {
-    const shortArray = routeArray.slice(0, -1);
-    return shortArray;
+    const targetRoute = routeArray.slice(0, -1);
+    return targetRoute;
   } else {
     return [...routeArray, elementId];
   }
