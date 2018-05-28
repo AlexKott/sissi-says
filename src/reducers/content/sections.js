@@ -51,8 +51,7 @@ export function getInitialSectionValues(state, sectionId) {
 }
 
 export function getNumberOfListItems(state, sectionId, listName) {
-  const sectionCopy = cloneDeep(getSectionById(state, sectionId));
-  return sectionCopy[listName].length;
+  return getSectionById(state, sectionId)[listName].length;
 }
 
 export function getCanAddListItem(state, sectionId, listName, selectMaxListItems = getMaxListItems) {

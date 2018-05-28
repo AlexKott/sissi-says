@@ -12,9 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     canAddItem: selectors.getCanAddListItem(state, selectedSection, ownProps.listName),
     canDeleteItem: selectors.getCanDeleteListItem(state, selectedSection, ownProps.listName),
-    nestedFields: ownProps.fieldStructure.fields.map(fieldName => {
-      return selectors.getFieldByName(state, fieldName);
-    }),
+    nestedFields: ownProps.fieldStructure.fields.map(fieldName => selectors.getFieldByName(state, fieldName)),
     selectedSection,
   };
 }
@@ -37,8 +35,7 @@ const FlexList = ({
 }) => (
   <section className='form__list'>
     <span className='form__label'>{fieldStructure.label}:</span>
-      {reduxFormFields.map((f, index) => {
-        return (
+      {reduxFormFields.map((f, index) => (
           <article key={index} className='list-item'>
             {nestedFields.map((field) => {
               const fieldName = Object.keys(field)[0];
@@ -56,8 +53,7 @@ const FlexList = ({
               className='button'
             >Delete</button>}
           </article>
-        );
-      })}
+        ))}
     {canAddItem && <article className='list-item'>
       <button
         type='button'

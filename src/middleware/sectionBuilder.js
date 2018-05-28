@@ -14,8 +14,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     newSection.sectionType = sectionType;
 
     fields.forEach(fieldObj => {
-      const fieldName = Object.keys(fieldObj)[0];
-      const field = Object.values(fieldObj)[0];
+      const [fieldName, field] = Object.entries(fieldObj)[0];
 
       if (field.type === 'list') {
         const { fields: itemFieldNames, minItems } = field;

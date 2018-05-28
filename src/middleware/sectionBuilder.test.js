@@ -14,7 +14,10 @@ describe('middleware/sectionBuilder', () => {
       dispatch: mockDispatch,
     };
     mockSelectors = {
-      getSectionFields: jest.fn(() => [{'field1': { type: 'standard' }}, {'field2': { type: 'standard' }}]),
+      getSectionFields: jest.fn(() => [
+        { 'field1': { type: 'standard' }},
+        { 'field2': { type: 'standard' }},
+      ]),
     };
     mockAction = { type: t.ADD_SECTION, payload: { pageId: 'mockPage', sectionType: 'testType' }};
   });
