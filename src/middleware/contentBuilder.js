@@ -12,6 +12,8 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
       const metaFields = getters.getMetaFieldNames(getState());
       const minPages = getters.getMinPages(getState());
       const protectedPages = getters.getProtectedPages(getState());
+      const isSinglePage = getters.getIsSinglePage(getState());
+      const pageType = isSinglePage ? 'singlePage' : 'standard';
 
       const initialMetaData = {};
       metaFields.forEach(field => initialMetaData[field] = '');
@@ -21,7 +23,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
       protectedPages.forEach(page => dispatch(actions.addPage(page)));
 
       while (minPages > getters.getNumberOfPages(getState())) {
-        dispatch(actions.addPage());
+        dispatch(actions.addPage(pageType));
       }
     } else {
       next(action);

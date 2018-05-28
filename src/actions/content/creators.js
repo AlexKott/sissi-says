@@ -21,6 +21,13 @@ export function addSection(pageId, sectionType) {
   };
 }
 
+export function addListItem(sectionId, listName) {
+  return {
+    type: t.ADD_LIST_ITEM,
+    payload: { sectionId, listName },
+  };
+}
+
 export function deletePage(pageId) {
   return (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
     const sectionIds = selectSectionIdsForPage(getState(), pageId);
@@ -36,6 +43,13 @@ export function deleteSection(pageId, sectionId) {
   return {
     type: t.DELETE_SECTION,
     payload: { pageId, sectionId },
+  };
+}
+
+export function deleteListItem(sectionId, listName, itemIndex) {
+  return {
+    type: t.DELETE_LIST_ITEM,
+    payload: { sectionId, listName, itemIndex },
   };
 }
 

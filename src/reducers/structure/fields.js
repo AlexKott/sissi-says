@@ -23,3 +23,15 @@ export function getFieldByName(state, fieldName) {
   const field = state.structure.fields[fieldName] || {};
   return { [fieldName]: field };
 }
+
+export function getListFieldNames(state, listName) {
+  return state.structure.fields[listName].fields;
+}
+
+export function getMaxListItems(state, listName) {
+  return state.structure.fields[listName].maxItems;
+}
+
+export function getMinListItems(state, listName) {
+  return state.structure.fields[listName].minItems;
+}

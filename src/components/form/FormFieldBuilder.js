@@ -45,6 +45,11 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
       type = 'file';
       break;
 
+    case 'date':
+      component = 'input';
+      type = 'date';
+      break;
+
     default:
       component = 'input';
       type = 'text';

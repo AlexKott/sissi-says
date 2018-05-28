@@ -19,6 +19,7 @@ describe('middleware/pageBuilder', () => {
       getProtectedSectionsForPage: jest.fn(() => []),
       getMinSectionsPerPage: jest.fn(() => 0),
       getNumberOfSectionsForPage: jest.fn(() => 1),
+      getIsSinglePage: jest.fn(() => false),
     };
     mockAction = { type: t.ADD_PAGE, payload: { pageType: null }};
   });
