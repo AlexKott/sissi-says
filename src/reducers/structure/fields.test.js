@@ -85,4 +85,55 @@ describe('selectors/structure/fields', () => {
       expect(value).toEqual({ field1: { label: 'testLabel', type: 'test' }});
     });
   });
+
+  describe('getListFieldNames', () => {
+    it('should return a list of field names for a given listName', () => {
+      const mockState = {
+        structure: {
+          fields: {
+            field1: {
+              fields: ['abc', 'def'],
+            },
+          },
+        },
+      };
+      const value = selectors.getListFieldNames(mockState, 'field1');
+
+      expect(value).toEqual(['abc', 'def']);
+    });
+  });
+
+  describe('getMaxListItems', () => {
+    it('should return the maxItems for a given listName', () => {
+      const mockState = {
+        structure: {
+          fields: {
+            field1: {
+              maxItems: 19,
+            },
+          },
+        },
+      };
+      const value = selectors.getMaxListItems(mockState, 'field1');
+
+      expect(value).toEqual(19);
+    });
+  });
+
+  describe('getMinListItems', () => {
+    it('should return the minItems for a given listName', () => {
+      const mockState = {
+        structure: {
+          fields: {
+            field1: {
+              minItems: 4,
+            },
+          },
+        },
+      };
+      const value = selectors.getMinListItems(mockState, 'field1');
+
+      expect(value).toEqual(4);
+    });
+  });
 });

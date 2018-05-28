@@ -112,3 +112,7 @@ export function getCanAddSection(state, pageId, selectMaxSections = getMaxSectio
 export function getCanDeleteSection(state, pageId, selectMinSections = getMinSectionsPerPage) {
   return getNumberOfSectionsForPage(state, pageId) > selectMinSections(state);
 }
+
+export function getSinglePageId(state) {
+  return state.content.pages[0] ? state.content.pages[0].id : null;
+}

@@ -7,7 +7,7 @@ export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
-    return payload.data.pages;
+    return payload.data.pages || initialState;
 
   } else if (type === t.RESET_SESSION) {
     return initialState;
@@ -43,4 +43,8 @@ export function getPageFields(state, page, selectFieldByName = getFieldByName) {
 export function getRequiredSections(state, pageId) {
   const page = state.structure.pages[pageId] || {};
   return page.requiredSections || [];
+}
+
+export function getIsSinglePage(state) {
+  return Object.keys(state.structure.pages).length === 0;
 }

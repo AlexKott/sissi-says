@@ -1,4 +1,10 @@
-export function getSelectedPageId(state) {
+import { getIsSinglePage } from '@/reducers/structure/pages';
+import { getSinglePageId } from '@/reducers/content/pages';
+
+export function getSelectedPageId(state, getters = { getIsSinglePage, getSinglePageId }) {
+  if (getters.getIsSinglePage(state)) {
+    return getters.getSinglePageId(state);
+  }
   return state.location.payload.pageId;
 }
 

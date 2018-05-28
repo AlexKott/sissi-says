@@ -357,4 +357,19 @@ describe('selectors/content/pages', () => {
       expect(value).toBe(false);
     });
   });
+
+  describe('getSinglePageId', () => {
+    it('should return the id of a single page', () => {
+      const mockState = {
+        content: {
+          pages: [
+            { id: 'page1' },
+          ],
+        },
+      };
+      const value = selectors.getSinglePageId(mockState);
+
+      expect(value).toEqual('page1');
+    });
+  });
 });

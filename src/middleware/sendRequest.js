@@ -28,7 +28,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       let data = response[0];
 
       if (dataType === 'content') {
-        const fields = selectors.getFields(store.getState());
+        const fields = getters.getFields(store.getState());
         data = transformToMarkdown(response[0], fields);
       }
       successDispatch.forEach(action => store.dispatch(action(data)));

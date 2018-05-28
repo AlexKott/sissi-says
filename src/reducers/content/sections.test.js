@@ -31,6 +31,18 @@ describe('reducers/content/sections', () => {
     expect(state).toEqual(expectedState);
   });
 
+  it('should add a list item', () => {
+    const action = {
+      type: t.ADD_LIST_ITEM,
+      payload: { sectionId: 'section1', listName: 'testList', listItem: 'testItem' },
+    };
+    const preState = { 'section1': { testList: [] }};
+    const expectedState = { 'section1': { testList: ['testItem'] }};
+    const state = reducer(preState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
   it('should delete a section', () => {
     const mockState = {
       section1: { test: 'test' },
@@ -46,6 +58,18 @@ describe('reducers/content/sections', () => {
       section3: { test: 'test' },
     };
     const state = reducer(mockState, action);
+
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should delete a list item', () => {
+    const action = {
+      type: t.DELETE_LIST_ITEM,
+      payload: { sectionId: 'section1', listName: 'testList', itemIndex: 0 },
+    };
+    const preState = { 'section1': { testList: ['item1', 'item2'] }};
+    const expectedState = { 'section1': { testList: ['item2'] }};
+    const state = reducer(preState, action);
 
     expect(state).toEqual(expectedState);
   });
@@ -105,6 +129,81 @@ describe('selectors/content/sections', () => {
       const value = selectors.getInitialSectionValues(mockState, 'test1');
 
       expect(value).toEqual({ otherData: 'test' });
+    });
+  });
+
+  describe('getNumberOfListItems', () => {
+    it('should return the number of items in the requested list', () => {
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getNumberOfListItems(mockState, 'test1', 'testList');
+
+      expect(value).toBe(2);
+    });
+  });
+
+  describe('getCanAddListItem', () => {
+    it('should return false if the item maximum is reached', () => {
+      const mockGetMaxItems = jest.fn(() => 2);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanAddListItem(mockState, 'test1', 'testList', mockGetMaxItems);
+
+      expect(value).toBe(false);
+    });
+
+    it('should return true if the item maximum is not yet reached', () => {
+      const mockGetMaxItems = jest.fn(() => 7);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanAddListItem(mockState, 'test1', 'testList', mockGetMaxItems);
+
+      expect(value).toBe(true);
+    });
+  });
+
+  describe('getCanDeleteListItem', () => {
+    it('should return false if the item minimum is reached', () => {
+      const mockGetMinItems = jest.fn(() => 2);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanDeleteListItem(mockState, 'test1', 'testList', mockGetMinItems);
+
+      expect(value).toBe(false);
+    });
+
+    it('should return true if the item minimum is not yet reached', () => {
+      const mockGetMinItems = jest.fn(() => 0);
+      const mockState = {
+        content: {
+          sections: {
+            test1: { testList: ['test1', 'test2'] },
+          },
+        },
+      };
+      const value = selectors.getCanDeleteListItem(mockState, 'test1', 'testList', mockGetMinItems);
+
+      expect(value).toBe(true);
     });
   });
 });
