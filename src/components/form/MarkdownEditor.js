@@ -3,28 +3,32 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
-import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 
 import ImagePopup from './ImagePopup';
 
-const mapStateToProps = (state) => ({
-  isImagePopupActive: selectors.getDisplayImagePopup(state),
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  onOpenImagePopup: () => dispatch(actions.togglePopup('image', true)),
   onSelectImage: (image) => {
     const markdownString = `![](/images/${image})`;
     const alertString = `Please copy this line and paste it in your content:\n${markdownString}`;
     dispatch(actions.setAlert(alertString, 'success'));
-    dispatch(actions.togglePopup('image', false));
   },
 });
 
 let count = 0;
 
 class MarkdownEditor extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isImagePopupActive: false,
+    };
+
+    this.onSelectImage = this.onSelectImage.bind(this);
+    this.onToggleImagePopup = this.onToggleImagePopup.bind(this);
+  }
 
   componentDidMount() {
     count++;
@@ -48,7 +52,7 @@ class MarkdownEditor extends React.Component {
           className: 'fa fa-picture-o',
           title: 'Insert Image',
           action: function selectImage(editor) {
-            this.props.onOpenImagePopup();
+            this.onToggleImagePopup();
           }.bind(this),
         },
       ],
@@ -60,15 +64,28 @@ class MarkdownEditor extends React.Component {
     count--;
   }
 
+  onToggleImagePopup() {
+    this.setState({
+      isImagePopupActive: !this.state.isImagePopupActive,
+    });
+  }
+
+  onSelectImage(image) {
+    this.props.onSelectImage(image);
+    this.onToggleImagePopup();
+  }
+
   render() {
     const {
-      isImagePopupActive,
       input,
-      onSelectImage,
     } = this.props;
 
     return ([
-      isImagePopupActive && <ImagePopup key='image-popup' onSelectImage={onSelectImage} />
+      this.state.isImagePopupActive &&
+        <ImagePopup
+          key={`image-popup-${count}`}
+          onSelectImage={this.onSelectImage}
+        />
       ,
       <div key='markdown-editor' className='markdown-editor__wrapper'>
         <textarea className='markdown-editor' {...input} />
@@ -78,9 +95,7 @@ class MarkdownEditor extends React.Component {
 }
 
 MarkdownEditor.propTypes = {
-  isImagePopupActive: PropTypes.bool,
   input: PropTypes.object,
-  onSelectImage: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarkdownEditor);
+export default connect(null, mapDispatchToProps)(MarkdownEditor);
