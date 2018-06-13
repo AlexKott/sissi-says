@@ -17,8 +17,11 @@ const mapStateToProps = (state, ownProps) => {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddItem: (sectionId, listName) => dispatch(actions.addListItem(sectionId, listName)),
+const mapDispatchToProps = (dispatch, { fields }) => ({
+  onAddItem: (sectionId, listName) => {
+    dispatch(actions.addListItem(sectionId, listName));
+    fields.push({});
+  },
   onDeleteItem: (sectionId, listName, itemIndex) => dispatch(actions.deleteListItem(sectionId, listName, itemIndex)),
 });
 
