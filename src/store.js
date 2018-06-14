@@ -1,11 +1,14 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { connectRoutes } from 'redux-first-router';
-import createHistory from 'history/createBrowserHistory';
+import { localizeReducer, initialize } from 'react-localize-redux';
 import { reducer as formReducer } from 'redux-form';
-import thunk from 'redux-thunk';
-
-import routes from './router/routes';
+import { renderToStaticMarkup } from 'react-dom/server';
+import createHistory from 'history/createBrowserHistory';
 import routerOptions from './router/options';
+import routes from './router/routes';
+import thunk from 'redux-thunk';
+import translations from './constants/translations';
+
 import * as reducers from './reducers';
 import * as middlewares from './middleware';
 // not exported with other middlewares to make sure gatherRequestData middleware is executed first
@@ -15,7 +18,6 @@ import gatherRequestDataMiddleware from '@/middleware/gatherRequestData';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const customMiddleware = Object.values(middlewares);
-
 const history = createHistory();
 
 const {
@@ -32,8 +34,23 @@ const middleware = applyMiddleware(
 );
 
 const store = createStore(
-    combineReducers({ location: locationReducer, form: formReducer, ...reducers }),
+    combineReducers({
+      location: locationReducer,
+      form: formReducer,
+      localize: localizeReducer,
+      ...reducers
+    }),
     composeEnhancers(locationEnhancer, middleware)
 );
+
+const localizeOptions = {
+  languages: ['en', 'de'],
+  translation: translations,
+  options: {
+    renderToStaticMarkup,
+  }
+};
+
+store.dispatch(initialize(localizeOptions));
 
 export default store;

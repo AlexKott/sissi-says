@@ -1,0 +1,64 @@
+{
+  "index": [
+    "Index"
+  ],
+  "logout": [
+    "Logout",
+    "Abmelden"
+  ],
+  "publish": [
+    "Publish"
+  ],
+  "delete": [
+    "Delete",
+    "Löschen"
+  ],
+  "guideTeaser": [
+    "If you get stuck – sissi's always here to help!"
+  ],
+  "editorTitle": [
+    "Welcome to your Website Manager!"
+  ],
+  "pageEditorTitle": [
+    "Page Editor"
+  ],
+  "sectionEditorTitle": [
+    "Section Editor"
+  ],
+  "save": [
+    "Save"
+  ],
+  "uploadImage": [
+    "Upload new image"
+  ],
+  "selectImage": [
+    "Choose an image"
+  ],
+  "welcome": [
+    "Welcome to your Website Manager!"
+  ],
+  "loginPrompt": [
+    "Please login to edit your website"
+  ],
+  "loading": [
+    "Loading"
+  ],
+  "error": [
+    "Error"
+  ],
+  "success": [
+    "Success"
+  ],
+  "newPage": [
+    "New Page"
+  ],
+  "newSection": [
+    "New Section"
+  ],
+  "add": [
+    "Add"
+  ],
+  "magic": [
+    "Magic is happening..."
+  ]
+}
