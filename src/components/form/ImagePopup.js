@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
@@ -78,7 +79,7 @@ class ImagePopup extends React.Component {
             id='file-browser-button'
             className='image-popup__image placeholder'
             onClick={this.openFileBrowser}
-          >Upload new image</div>
+          ><Translate id='uploadImage' /></div>
         </div>
       </div>
     );

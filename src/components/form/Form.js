@@ -3,11 +3,19 @@ import PropTypes from 'prop-types';
 import { reduxForm, FieldArray } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { getTranslate } from 'react-localize-redux';
 
 import * as actions from '@/actions/creators';
 
 import FlexList from './FlexList';
 import FormFieldBuilder from './FormFieldBuilder';
+
+const mapStateToProps = (state, { submitText }) => {
+  const translate = getTranslate(state.localize);
+  return {
+    submitText: submitText || translate('save'),
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onSubmit: ownProps.onSubmit ? ownProps.onSubmit : (e) => {
@@ -19,7 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Form = ({
   children,
   fields = [],
-  submitText = 'Save',
+  submitText,
   onSubmit,
 }) => (
   <form className='form' onSubmit={onSubmit}>
@@ -54,7 +62,7 @@ Form.propTypes = {
 }
 
 export default compose(
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     destroyOnUnmount: true,
     enableReinitialize: true,

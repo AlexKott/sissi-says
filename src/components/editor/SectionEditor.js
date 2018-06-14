@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
@@ -12,11 +13,12 @@ const mapStateToProps = (state, ownProps) => {
   const sectionId = selectors.getSelectedSectionId(state);
   const section = selectors.getSectionById(state, sectionId);
   const isProtected = selectors.getIsProtectedSection(state, section.sectionType);
+  const translate = getTranslate(state.localize);
 
   return {
     canDelete: selectors.getCanDeleteSection(state, pageId) && !isProtected,
     fields: selectors.getSectionFields(state, section.sectionType),
-    title: 'Section Editor',
+    title: translate('sectionEditorTitle'),
     type: 'section',
     initialValues: selectors.getInitialSectionValues(state, sectionId),
     formName: `editor-section-${sectionId}`,

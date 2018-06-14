@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Translate } from 'react-localize-redux';
 
 import Form from '@/components/form/Form';
 
@@ -16,7 +17,9 @@ const Editor = ({
   <section className={`editor editor--${type}`}>
     <h1 className='editor__title'>{title}</h1>
     <Form form={formName} initialValues={initialValues} fields={fields} key={formName}>{/* Do not remove the key! */}
-      {canDelete && <button type='button' onClick={onDelete} className='button'>Delete</button>}
+      {canDelete && <button type='button' onClick={onDelete} className='button'>
+        <Translate id='delete' />
+      </button>}
     </Form>
     {children}
   </section>

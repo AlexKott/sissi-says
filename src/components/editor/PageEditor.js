@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
@@ -11,11 +12,12 @@ const mapStateToProps = (state) => {
   const pageId = selectors.getSelectedPageId(state);
   const page = selectors.getPageById(state, pageId);
   const isProtected = selectors.getIsProtectedPage(state, page.pageType);
+  const translate = getTranslate(state.localize);
 
   return {
     canDelete: selectors.getCanDeletePage(state) && !isProtected,
     fields: selectors.getPageFields(state, page.pageType),
-    title: 'Page Editor',
+    title: translate('pageEditorTitle'),
     type: 'page',
     initialValues: selectors.getInitialPageValues(state, pageId),
     formName: `editor-page-${pageId}`,

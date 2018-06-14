@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate, getTranslate } from 'react-localize-redux';
 
 import * as actions from '@/actions/creators';
 
 import Form from '@/components/form/Form';
 
-const loginFields = [
-  {
-    username: {
-      label: 'Nutzername',
-      type: 'string',
+const mapStateToProps = (state) => {
+  const translate = getTranslate(state.localize);
+  const loginFields = [
+    {
+      username: {
+        label: translate('username'),
+        type: 'string',
+      },
     },
-  },
-  {
-    password: {
-      label: 'Passwort',
-      type: 'password',
+    {
+      password: {
+        label: translate('password'),
+        type: 'password',
+      },
     },
-  },
-];
+  ];
+
+  return {
+    loginFields,
+    translate,
+  };
+}
 
 const mapDispatchToProps = (dispatch) => ({
   onLogin: (e) => {
@@ -28,21 +37,22 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Login = ({ onLogin }) => (
+const Login = ({ loginFields, onLogin, translate }) => (
   <div className='login'>
-    <h1>Welcome to your Website Manager!</h1>
-    <p>Please login to edit your website.</p>
+    <h1><Translate id='welcome' /></h1>
+    <p><Translate id='loginPrompt' /></p>
     <Form
       form='login'
       fields={loginFields}
-      submitText='Login'
+      submitText={translate('login')}
       onSubmit={onLogin}
     />
   </div>
 );
 
 Login.propTypes = {
+  loginFields: PropTypes.array,
   onLogin: PropTypes.func,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

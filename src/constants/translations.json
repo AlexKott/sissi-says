@@ -16,9 +16,6 @@
   "guideTeaser": [
     "If you get stuck – sissi's always here to help!"
   ],
-  "editorTitle": [
-    "Welcome to your Website Manager!"
-  ],
   "pageEditorTitle": [
     "Page Editor"
   ],
@@ -60,5 +57,20 @@
   ],
   "magic": [
     "Magic is happening..."
+  ],
+  "username": [
+    "Username"
+  ],
+  "password": [
+    "Password"
+  ],
+  "ok": [
+    "OK"
+  ],
+  "page": [
+    "Page"
+  ],
+  "section": [
+    "Section"
   ]
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
@@ -54,7 +55,7 @@ const FlexList = ({
               type='button'
               onClick={() => onDeleteItem(selectedSection, listName, index)}
               className='button'
-            >Delete</button>}
+            ><Translate id='delete' /></button>}
           </article>
         ))}
     {canAddItem && <article className='list-item'>

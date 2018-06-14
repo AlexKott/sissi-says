@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Translate } from 'react-localize-redux';
 
 import ImagePopup from './ImagePopup';
 
@@ -49,7 +50,7 @@ class ImageUploader extends React.Component {
             key='placeholder'
             className='form__field form__field--image placeholder'
             onClick={this.onToggleImagePopup}
-          >Choose image</div>
+          ><Translate id='selectImage'/></div>
     ]);
   }
 }

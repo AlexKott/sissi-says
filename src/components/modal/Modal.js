@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate, getTranslate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 
 const mapStateToProps = (state) => {
   const shouldDisplayModal = selectors.getShouldDisplayModal(state);
+  const translate = getTranslate(state.localize);
   const alertMessage = selectors.getAlertMessage(state);
   const type = alertMessage.level || 'loading';
   let name = type;
@@ -19,7 +21,7 @@ const mapStateToProps = (state) => {
     boxClassName: `modal__box modal__box--${name}`,
     buttonClassName: `modal__button modal__button--${name}`,
     modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
-    message: alertMessage.text || 'Magic is happening...',
+    message: alertMessage.text || translate('magic'),
     name,
     type,
   };
@@ -42,7 +44,9 @@ const Modal = ({
     <article className={boxClassName}>
       <h2 className='modal__title'>{name}</h2>
       <p className='modal__message'>{message}</p>
-      {type !== 'server_error' && <button className={buttonClassName} onClick={onConfirm}>OK</button>}
+      {type !== 'server_error' && <button className={buttonClassName} onClick={onConfirm}>
+        <Translate id='ok' />
+      </button>}
     </article>
   </aside>
 );
