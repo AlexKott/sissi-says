@@ -48,7 +48,7 @@ const localizeOptions = {
   translation: translations,
   options: {
     renderToStaticMarkup,
-    onMissingTranslation: ({ defaultTranslation }) => defaultTranslation,
+    onMissingTranslation: ({ defaultTranslation }) => defaultTranslation || '',
   }
 };
 

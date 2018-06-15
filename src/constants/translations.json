@@ -1,76 +1,102 @@
 {
   "index": [
-    "Index"
+    "Index",
+    "Start"
   ],
   "logout": [
     "Logout",
     "Abmelden"
   ],
   "publish": [
-    "Publish"
+    "Publish",
+    "Veröffentlichen"
   ],
   "delete": [
     "Delete",
     "Löschen"
   ],
   "guideTeaser": [
-    "If you get stuck – sissi's always here to help!"
+    "If you get stuck – sissi's always here to help!",
+    "Wenn du nicht weiter weißt – sissi kann dir helfen!"
   ],
   "pageEditorTitle": [
-    "Page Editor"
+    "Page Editor",
+    "Seite bearbeiten"
   ],
   "sectionEditorTitle": [
-    "Section Editor"
+    "Section Editor",
+    "Abschnitt bearbeiten"
   ],
   "save": [
-    "Save"
+    "Save",
+    "Speichern"
   ],
   "uploadImage": [
-    "Upload new image"
+    "Upload new image",
+    "Neues Bild hochladen"
   ],
   "selectImage": [
-    "Choose an image"
+    "Choose an image",
+    "Bild auswählen"
   ],
   "welcome": [
-    "Welcome to your Website Manager!"
+    "Welcome to your Website Manager!",
+    "Willkommen zum sissi Website Manager!"
   ],
   "loginPrompt": [
-    "Please login to edit your website"
+    "Please login to edit your website",
+    "Bitte melde dich an, um deine Seite zu bearbeiten"
   ],
   "loading": [
-    "Loading"
+    "Loading",
+    "Ein Moment"
   ],
   "error": [
-    "Error"
+    "Error",
+    "Fehler"
   ],
   "success": [
-    "Success"
+    "Success",
+    "Erfolg"
   ],
   "newPage": [
-    "New Page"
+    "New Page",
+    "Neue Seite"
   ],
   "newSection": [
-    "New Section"
+    "New Section",
+    "Neuer Abschnitt"
   ],
   "add": [
-    "Add"
+    "Add",
+    "Hinzufügen"
   ],
   "magic": [
-    "Magic is happening..."
+    "Magic is happening...",
+    "Gleich ist es soweit..."
   ],
   "username": [
-    "Username"
+    "Username",
+    "Nutzername"
   ],
   "password": [
-    "Password"
+    "Password",
+    "Passwort"
   ],
   "ok": [
+    "OK",
     "OK"
   ],
   "page": [
-    "Page"
+    "Page",
+    "Seite"
   ],
   "section": [
-    "Section"
+    "Section",
+    "Abschnitt"
+  ],
+  "login": [
+    "Login",
+    "Anmelden"
   ]
 }
