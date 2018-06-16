@@ -2,7 +2,7 @@ import middleware from './sendRequest';
 
 import * as actions from '@/actions/creators';
 import * as t from '@/actions/types';
-import * as c from '@/constants';
+import * as tr from '@/translations';
 
 describe('middleware/sendRequest', () => {
   let mockAction, mockClient, mockDispatch, mockGet, mockNext, mockSelectors, mockStore;
@@ -96,7 +96,7 @@ describe('middleware/sendRequest', () => {
         successDispatch: [successAction]
       },
     };
-    const expectedAction = { type: t.SET_ALERT, payload: { message: c.SERVER_ERROR, level: 'server_error' }};
+    const expectedAction = { type: t.SET_ALERT, payload: { message: tr.ERROR_SERVER, level: 'server_error' }};
 
     mockGet = jest.fn(() => new Promise((resolve, reject) => reject([{}, { ok: false }])));
 
