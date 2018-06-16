@@ -35,11 +35,11 @@ export default (store, client = ajax, getters = selectors) => next => async acti
 
     } catch(error) {
       if (error[0] && error[0].status === 401) {
-        store.dispatch(actions.setAlert(tr.ERROR_AUTH, 'auth_error'));
+        store.dispatch(actions.setAlert(tr.ERROR_AUTH, tr.ERROR));
       } else if (error[0] && error[0].status === 422) {
-        store.dispatch(actions.setAlert(tr.ERROR_BUILD, 'auth_error'));
+        store.dispatch(actions.setAlert(tr.ERROR_BUILD, tr.ERROR));
       } else {
-        store.dispatch(actions.setAlert(tr.ERROR_SERVER, 'server_error'));
+        store.dispatch(actions.setAlert(tr.ERROR_SERVER, tr.ERROR));
       }
     } finally {
       store.dispatch(actions.setLoading(false));

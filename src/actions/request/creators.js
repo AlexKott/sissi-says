@@ -37,7 +37,7 @@ export function postContent(formName) {
       formName,
       successDispatch: [
         fetchDataSuccess.bind({}, 'content'),
-        setAlert.bind({}, tr.SUCCESS_SAVE, 'success'),
+        setAlert.bind({}, tr.SUCCESS_SAVE, tr.SUCCESS),
       ],
     }
   };
@@ -49,7 +49,7 @@ export function buildPage() {
     payload: {
       method: 'post',
       dataType: 'build',
-      successDispatch: [setAlert.bind({}, tr.SUCCESS_PUBLISH, 'success')],
+      successDispatch: [setAlert.bind({}, tr.SUCCESS_PUBLISH, tr.SUCCESS)],
     },
   };
 }
@@ -88,7 +88,7 @@ export function login() {
         },
       });
     } else {
-      dispatch(setAlert('Please enter a username and password!', 'error'));
+      dispatch(setAlert(tr.ERROR_AUTH, tr.ERROR));
     }
   };
 }

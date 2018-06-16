@@ -96,7 +96,7 @@ describe('middleware/sendRequest', () => {
         successDispatch: [successAction]
       },
     };
-    const expectedAction = { type: t.SET_ALERT, payload: { message: tr.ERROR_SERVER, level: 'server_error' }};
+    const expectedAction = { type: t.SET_ALERT, payload: { message: tr.ERROR_SERVER, level: tr.ERROR }};
 
     mockGet = jest.fn(() => new Promise((resolve, reject) => reject([{}, { ok: false }])));
 

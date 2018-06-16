@@ -11,19 +11,21 @@ const mapStateToProps = (state) => {
   const shouldDisplayModal = selectors.getShouldDisplayModal(state);
   const translate = getTranslate(state.localize);
   const alertMessage = selectors.getAlertMessage(state);
-  const type = alertMessage.level || tr.LOADING;
-  let name = translate(type);
+  const type = alertMessage.level ? translate(alertMessage.level) : translate(tr.LOADING);
+  let className;
 
-  if (type.indexOf('error') !== -1) {
-    name = translate(tr.ERROR);
+  if (alertMessage.level === tr.ERROR) {
+    className = 'error';
+  } else if (alertMessage.level === tr.SUCCESS) {
+    className = 'success'
   }
 
   return {
-    boxClassName: `modal__box modal__box--${name}`,
-    buttonClassName: `modal__button modal__button--${name}`,
+    allowConfirm: alertMessage.level && alertMessage.text !== tr.ERROR_SERVER,
+    boxClassName: `modal__box modal__box--${className}`,
+    buttonClassName: `modal__button modal__button--${className}`,
     modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
     message: alertMessage.text ? translate(alertMessage.text) : translate(tr.LOADING_TEXT),
-    name,
     type,
   };
 };
@@ -33,19 +35,19 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Modal = ({
+  allowConfirm,
   boxClassName = 'modal__box',
   buttonClassName = 'modal__button',
   modalClassName = 'modal modal--hidden',
   message,
-  name,
   type,
   onConfirm,
 }) => (
   <aside className={modalClassName}>
     <article className={boxClassName}>
-      <h2 className='modal__title'>{name}</h2>
+      <h2 className='modal__title'>{type}</h2>
       <p className='modal__message'>{message}</p>
-      {type !== 'server_error' && <button className={buttonClassName} onClick={onConfirm}>
+      {allowConfirm && <button className={buttonClassName} onClick={onConfirm}>
         <Translate id={tr.OK} />
       </button>}
     </article>
@@ -57,7 +59,6 @@ Modal.propTypes = {
   buttonClassName: PropTypes.string,
   modalClassName: PropTypes.string,
   message: PropTypes.string,
-  name: PropTypes.string,
   type: PropTypes.string,
   onConfirm: PropTypes.func,
 };
