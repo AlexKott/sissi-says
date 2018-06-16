@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { getTranslate } from 'react-localize-redux';
 
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import FlexList from './FlexList';
 import FormFieldBuilder from './FormFieldBuilder';
@@ -13,7 +14,7 @@ import FormFieldBuilder from './FormFieldBuilder';
 const mapStateToProps = (state, { submitText }) => {
   const translate = getTranslate(state.localize);
   return {
-    submitText: submitText || translate('save'),
+    submitText: submitText ? translate(submitText) : translate(tr.SAVE),
   };
 };
 

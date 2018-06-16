@@ -5,6 +5,7 @@ import { getTranslate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations'
 
 import Editor from '@/components/editor/Editor';
 
@@ -17,7 +18,7 @@ const mapStateToProps = (state) => {
   return {
     canDelete: selectors.getCanDeletePage(state) && !isProtected,
     fields: selectors.getPageFields(state, page.pageType),
-    title: translate('pageEditorTitle'),
+    title: translate(tr.PAGE_EDITOR_TITLE),
     type: 'page',
     initialValues: selectors.getInitialPageValues(state, pageId),
     formName: `editor-page-${pageId}`,

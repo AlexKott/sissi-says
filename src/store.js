@@ -49,7 +49,7 @@ const localizeOptions = {
   options: {
     renderToStaticMarkup,
     onMissingTranslation: ({ defaultTranslation }) => defaultTranslation || '',
-  }
+  },
 };
 
 store.dispatch(initialize(localizeOptions));

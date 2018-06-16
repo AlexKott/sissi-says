@@ -80,7 +80,7 @@ class ImagePopup extends React.Component {
             id='file-browser-button'
             className='image-popup__image placeholder'
             onClick={this.openFileBrowser}
-          ><Translate id='uploadImage' /></div>
+          ><Translate id={tr.IMAGE_UPLOAD} /></div>
         </div>
       </div>
     );

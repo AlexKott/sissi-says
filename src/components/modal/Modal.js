@@ -5,23 +5,24 @@ import { Translate, getTranslate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 const mapStateToProps = (state) => {
   const shouldDisplayModal = selectors.getShouldDisplayModal(state);
   const translate = getTranslate(state.localize);
   const alertMessage = selectors.getAlertMessage(state);
-  const type = alertMessage.level || 'loading';
-  let name = type;
+  const type = alertMessage.level || tr.LOADING;
+  let name = translate(type);
 
   if (type.indexOf('error') !== -1) {
-    name = 'error';
+    name = translate(tr.ERROR);
   }
 
   return {
     boxClassName: `modal__box modal__box--${name}`,
     buttonClassName: `modal__button modal__button--${name}`,
     modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
-    message: alertMessage.text || translate('magic'),
+    message: alertMessage.text ? translate(alertMessage.text) : translate(tr.LOADING_TEXT),
     name,
     type,
   };
@@ -45,7 +46,7 @@ const Modal = ({
       <h2 className='modal__title'>{name}</h2>
       <p className='modal__message'>{message}</p>
       {type !== 'server_error' && <button className={buttonClassName} onClick={onConfirm}>
-        <Translate id='ok' />
+        <Translate id={tr.OK} />
       </button>}
     </article>
   </aside>

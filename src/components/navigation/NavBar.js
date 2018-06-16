@@ -4,6 +4,8 @@ import { NavLink } from 'redux-first-router-link';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Translate } from 'react-localize-redux';
 
+import * as tr from '@/translations';
+
 import getNavLink from '@/helpers/getNavLink';
 
 const NavBar = ({
@@ -43,7 +45,7 @@ const NavBar = ({
         {canAdd && <button
           onClick={onAdd}
           className='button button--nav'
-        ><Translate id='add' /></button>}
+        ><Translate id={tr.ADD} /></button>}
       </nav>
     )}
   </Droppable>

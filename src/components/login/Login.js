@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Translate, getTranslate } from 'react-localize-redux';
 
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import Form from '@/components/form/Form';
 
@@ -12,13 +13,13 @@ const mapStateToProps = (state) => {
   const loginFields = [
     {
       username: {
-        label: translate('username'),
+        label: translate(tr.USERNAME),
         type: 'string',
       },
     },
     {
       password: {
-        label: translate('password'),
+        label: translate(tr.PASSWORD),
         type: 'password',
       },
     },
@@ -26,7 +27,6 @@ const mapStateToProps = (state) => {
 
   return {
     loginFields,
-    translate,
   };
 }
 
@@ -37,14 +37,14 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Login = ({ loginFields, onLogin, translate }) => (
+const Login = ({ loginFields, onLogin }) => (
   <div className='login'>
-    <h1><Translate id='welcome' /></h1>
-    <p><Translate id='loginPrompt' /></p>
+    <h1><Translate id={tr.WELCOME} /></h1>
+    <p><Translate id={tr.LOGIN_PROMPT} /></p>
     <Form
       form='login'
       fields={loginFields}
-      submitText={translate('login')}
+      submitText={tr.LOGIN}
       onSubmit={onLogin}
     />
   </div>

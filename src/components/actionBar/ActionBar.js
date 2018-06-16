@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'redux-first-router-link';
 import { Translate } from 'react-localize-redux';
 
+import * as tr from '@/translations';
 import { ROUTE_INDEX } from '@/router/routes';
 
 import GuideButton from './GuideButton';
@@ -17,7 +18,7 @@ const ActionBar = () => (
       className='button'
       activeClassName='hidden'
       exact={true}
-    ><Translate id='index' /></NavLink>
+    ><Translate id={tr.INDEX} /></NavLink>
     <GuideButton />
   </aside>
 );

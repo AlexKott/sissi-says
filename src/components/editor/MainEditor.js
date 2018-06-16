@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Translate, getTranslate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
+import * as tr from '@/translations';
 
 import Editor from '@/components/editor/Editor';
 
@@ -21,12 +22,12 @@ const MainEditor = ({
   <Editor
     canDelete={false}
     fields={fields}
-    title={translate('welcome')}
+    title={translate(tr.WELCOME)}
     type='main'
     initialValues={initialValues}
     formName='meta'
   >
-    <p className='guide__teaser'><Translate id='guideTeaser' /></p>
+    <p className='guide__teaser'><Translate id={tr.GUIDE_TEASER} /></p>
   </Editor>
 );
 

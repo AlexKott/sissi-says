@@ -18,7 +18,7 @@ export default {
   ],
   [INDEX]: [
     "Index",
-    "Start"
+    "Startseite"
   ],
   [LOGIN]: [
     "Login",

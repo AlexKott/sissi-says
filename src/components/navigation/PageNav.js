@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import NavBar from './NavBar';
 
@@ -38,7 +39,7 @@ const PageNav = ({
       elements={pages}
       selectedElement={selectedPage}
       routeArray={['page']}
-      type='page'
+      type={tr.PAGE}
       onAdd={onAddPage}
     />
   </DragDropContext>
