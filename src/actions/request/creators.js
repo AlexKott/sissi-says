@@ -1,6 +1,6 @@
 import { getFormValues } from 'redux-form';
 import * as t from './types';
-import * as c from '@/constants';
+import * as tr from '@/translations';
 import { setAlert } from '@/actions/alerts/creators';
 import { redirectToIndex } from '@/actions/redirect/creators';
 
@@ -37,7 +37,7 @@ export function postContent(formName) {
       formName,
       successDispatch: [
         fetchDataSuccess.bind({}, 'content'),
-        setAlert.bind({}, c.SAVE_SUCCESS, 'success'),
+        setAlert.bind({}, tr.SUCCESS_SAVE, 'success'),
       ],
     }
   };
@@ -49,7 +49,7 @@ export function buildPage() {
     payload: {
       method: 'post',
       dataType: 'build',
-      successDispatch: [setAlert.bind({}, c.BUILD_SUCCESS, 'success')],
+      successDispatch: [setAlert.bind({}, tr.SUCCESS_PUBLISH, 'success')],
     },
   };
 }

@@ -7,7 +7,7 @@ import createHistory from 'history/createBrowserHistory';
 import routerOptions from './router/options';
 import routes from './router/routes';
 import thunk from 'redux-thunk';
-import translations from './constants/translations';
+import translations from './translations';
 
 import * as reducers from './reducers';
 import * as middlewares from './middleware';
