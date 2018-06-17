@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { LocalizeProvider } from 'react-localize-redux';
 
 import store from './store';
 import App from './components/App';
@@ -10,7 +11,9 @@ import '@/styles/index.scss';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <LocalizeProvider store={store}>
+      <App />
+    </LocalizeProvider>
   </Provider>,
   document.getElementById('root')
 );

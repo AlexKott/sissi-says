@@ -1,27 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 const mapStateToProps = (state) => {
   const shouldDisplayModal = selectors.getShouldDisplayModal(state);
   const alertMessage = selectors.getAlertMessage(state);
-  const type = alertMessage.level || 'loading';
-  let name = type;
+  let classModifier = '';
 
-  if (type.indexOf('error') !== -1) {
-    name = 'error';
+  if (alertMessage.level === tr.ERROR) {
+    classModifier = 'error';
+  } else if (alertMessage.level === tr.SUCCESS) {
+    classModifier = 'success'
   }
 
   return {
-    boxClassName: `modal__box modal__box--${name}`,
-    buttonClassName: `modal__button modal__button--${name}`,
+    allowConfirm: alertMessage.level && alertMessage.text !== tr.ERROR_SERVER,
+    boxClassName: `modal__box modal__box--${classModifier}`,
+    buttonClassName: `modal__button modal__button--${classModifier}`,
     modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
-    message: alertMessage.text || 'Magic is happening...',
-    name,
-    type,
+    message: alertMessage.text || tr.LOADING_TEXT,
+    type: alertMessage.level || tr.LOADING,
   };
 };
 
@@ -30,29 +33,31 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Modal = ({
-  boxClassName = 'modal__box',
-  buttonClassName = 'modal__button',
-  modalClassName = 'modal modal--hidden',
+  allowConfirm,
+  boxClassName,
+  buttonClassName,
+  modalClassName,
   message,
-  name,
   type,
   onConfirm,
 }) => (
   <aside className={modalClassName}>
     <article className={boxClassName}>
-      <h2 className='modal__title'>{name}</h2>
-      <p className='modal__message'>{message}</p>
-      {type !== 'server_error' && <button className={buttonClassName} onClick={onConfirm}>OK</button>}
+      <h2 className='modal__title'><Translate id={type} /></h2>
+      <p className='modal__message'><Translate id={message} /></p>
+      {allowConfirm && <button className={buttonClassName} onClick={onConfirm}>
+        <Translate id={tr.OK} />
+      </button>}
     </article>
   </aside>
 );
 
 Modal.propTypes = {
+  allowConfirm: PropTypes.bool,
   boxClassName: PropTypes.string,
   buttonClassName: PropTypes.string,
   modalClassName: PropTypes.string,
   message: PropTypes.string,
-  name: PropTypes.string,
   type: PropTypes.string,
   onConfirm: PropTypes.func,
 };

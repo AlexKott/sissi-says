@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 const mapDispatchToProps = (dispatch) => ({
   onLogout: () => {
@@ -12,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const LogoutButton = ({ onLogout }) => (
-  <button className='button' onClick={onLogout}>Logout</button>
+  <button className='button' onClick={onLogout}><Translate id={tr.LOGOUT} /></button>
 );
 
 LogoutButton.propTypes = {

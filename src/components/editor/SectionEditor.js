@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import Editor from '@/components/editor/Editor';
 
@@ -16,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     canDelete: selectors.getCanDeleteSection(state, pageId) && !isProtected,
     fields: selectors.getSectionFields(state, section.sectionType),
-    title: 'Section Editor',
+    title: tr.SECTION_EDITOR_TITLE,
     type: 'section',
     initialValues: selectors.getInitialSectionValues(state, sectionId),
     formName: `editor-section-${sectionId}`,

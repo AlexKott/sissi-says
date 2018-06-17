@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { reduxForm, FieldArray } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import FlexList from './FlexList';
 import FormFieldBuilder from './FormFieldBuilder';
@@ -19,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const Form = ({
   children,
   fields = [],
-  submitText = 'Save',
+  submitText = tr.SAVE,
   onSubmit,
 }) => (
   <form className='form' onSubmit={onSubmit}>
@@ -41,7 +43,7 @@ const Form = ({
     })}
     <div className='form__buttons'>
       {children}
-      <button type='submit' className='button button--cta'>{submitText}</button>
+      <button type='submit' className='button button--cta'><Translate id={submitText} /></button>
     </div>
   </form>
 );

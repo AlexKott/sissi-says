@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import FormFieldBuilder from './FormFieldBuilder';
 
@@ -54,7 +56,7 @@ const FlexList = ({
               type='button'
               onClick={() => onDeleteItem(selectedSection, listName, index)}
               className='button'
-            >Delete</button>}
+            ><Translate id={tr.DELETE} /></button>}
           </article>
         ))}
     {canAddItem && <article className='list-item'>

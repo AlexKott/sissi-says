@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
+import * as tr from '@/translations';
 
 import Editor from '@/components/editor/Editor';
 
@@ -18,12 +20,12 @@ const MainEditor = ({
   <Editor
     canDelete={false}
     fields={fields}
-    title='Welcome to your Website Manager!'
+    title={tr.WELCOME}
     type='main'
     initialValues={initialValues}
     formName='meta'
   >
-    <p className='guide__teaser'>If you get stuck – sissi's always here to help!</p>
+    <p className='guide__teaser'><Translate id={tr.GUIDE_TEASER} /></p>
   </Editor>
 );
 

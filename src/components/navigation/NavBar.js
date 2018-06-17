@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'redux-first-router-link';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Translate } from 'react-localize-redux';
+
+import * as tr from '@/translations';
 
 import getNavLink from '@/helpers/getNavLink';
 
@@ -31,7 +34,7 @@ const NavBar = ({
                     to={getNavLink(selectedElement, element.id, routeArray)}
                     className='nav__element'
                     activeClassName='nav__element--selected'
-                  >{element.title ? element.title : `New ${type}`}</NavLink>
+                  >{element.title ? element.title : (<Translate id={type} />)}</NavLink>
                 </div>
                 {provided.placeholder}
               </div>
@@ -42,7 +45,7 @@ const NavBar = ({
         {canAdd && <button
           onClick={onAdd}
           className='button button--nav'
-        >Add</button>}
+        ><Translate id={tr.ADD} /></button>}
       </nav>
     )}
   </Droppable>

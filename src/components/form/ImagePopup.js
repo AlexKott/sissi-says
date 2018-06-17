@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
 import * as c from '@/constants';
+import * as tr from '@/translations';
 
 const mapStateToProps = (state) => ({
   images: selectors.getAllImages(state),
@@ -19,10 +21,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onUploadImage: (e) => {
     const image = e.target.files[0];
 
-    if (c.validTypes.indexOf(image.type) === -1) {
-      return dispatch(actions.setAlert(c.ERROR_IMAGE_TYPE, 'error'));
+    if (c.validImageTypes.indexOf(image.type) === -1) {
+      return dispatch(actions.setAlert(tr.ERROR_IMAGE_TYPE, 'error'));
     } else if (image.size > c.maxImageSize) {
-      return dispatch(actions.setAlert(c.ERROR_IMAGE_SIZE, 'error'));
+      return dispatch(actions.setAlert(tr.ERROR_IMAGE_SIZE, 'error'));
     }
     dispatch(actions.saveImage(image));
   },
@@ -78,7 +80,7 @@ class ImagePopup extends React.Component {
             id='file-browser-button'
             className='image-popup__image placeholder'
             onClick={this.openFileBrowser}
-          >Upload new image</div>
+          ><Translate id={tr.IMAGE_UPLOAD} /></div>
         </div>
       </div>
     );

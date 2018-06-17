@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as selectors from '@/reducers/selectors';
 import * as actions from '@/actions/creators';
+import * as tr from '@/translations';
 
 import NavBar from './NavBar';
 
@@ -40,7 +41,7 @@ const SectionNav = ({
       elements={sections}
       selectedElement={selectedSection}
       routeArray={['page', selectedPage, 'section']}
-      type='section'
+      type={tr.SECTION}
       onAdd={onAddSection}
     />
   </DragDropContext>
