@@ -8,16 +8,16 @@ import Form from '@/components/form/Form';
 
 const Editor = ({
   canDelete,
-  children = [],
+  children,
   fields = [],
-  title = '',
-  type = '',
+  title,
+  type,
   initialValues,
-  formName = '',
+  formName,
   onDelete,
 }) => (
   <section className={`editor editor--${type}`}>
-    <h1 className='editor__title'>{title}</h1>
+    <h1 className='editor__title'><Translate id={title} /></h1>
     <Form form={formName} initialValues={initialValues} fields={fields} key={formName}>{/* Do not remove the key! */}
       {canDelete && <button type='button' onClick={onDelete} className='button'>
         <Translate id={tr.DELETE} />

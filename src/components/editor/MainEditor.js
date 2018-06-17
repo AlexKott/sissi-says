@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Translate, getTranslate } from 'react-localize-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as selectors from '@/reducers/selectors';
 import * as tr from '@/translations';
@@ -11,18 +11,16 @@ import Editor from '@/components/editor/Editor';
 const mapStateToProps = (state) => ({
   fields: selectors.getIsInitialDataFetched(state) ? selectors.getMetaFields(state) : [],
   initialValues: selectors.getMetaData(state),
-  translate: getTranslate(state.localize),
 });
 
 const MainEditor = ({
   fields = [],
   initialValues = {},
-  translate,
 }) => (
   <Editor
     canDelete={false}
     fields={fields}
-    title={translate(tr.WELCOME)}
+    title={tr.WELCOME}
     type='main'
     initialValues={initialValues}
     formName='meta'
@@ -34,7 +32,6 @@ const MainEditor = ({
 MainEditor.propTypes = {
   fields: PropTypes.array,
   initialValues: PropTypes.object,
-  translate: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(MainEditor);
