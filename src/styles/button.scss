@@ -1,6 +1,10 @@
 .button {
   @include box-shadow;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   height: $button-height;
   width: $button-width;
   padding: 0;
@@ -9,11 +13,11 @@
   color: $color-main-dark;
 
   font-size: $font-size-button;
-  line-height: $button-height;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
+  hyphens: auto;
 
   cursor: pointer;
 
