@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
   }
 
   return {
-    allowConfirm: alertMessage.level && alertMessage.text !== tr.ERROR_SERVER,
+    allowConfirm: alertMessage.level !== '' && alertMessage.text !== tr.ERROR_SERVER,
     boxClassName: `modal__box modal__box--${classModifier}`,
     buttonClassName: `modal__button modal__button--${classModifier}`,
     modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
