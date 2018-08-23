@@ -36,6 +36,15 @@ describe('reducers/settings', () => {
 });
 
 describe('selectors/settings', () => {
+  describe('getLanguage', () => {
+    it('should return the correct value from the state', () => {
+      const mockState = { settings: { language: 'se' } };
+      const value = selectors.getLanguage(mockState);
+
+      expect(value).toBe('se');
+    });
+  });
+
   describe('getMinPages', () => {
     it('should return the correct value from the state', () => {
       const mockState = { settings: { minPages: 7 } };
