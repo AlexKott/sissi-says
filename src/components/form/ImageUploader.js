@@ -39,6 +39,7 @@ class ImageUploader extends React.Component {
       this.state.isImagePopupActive && <ImagePopup
         key='image-popup'
         onSelectImage={this.onSelectImage}
+        onClosePopup={this.onToggleImagePopup}
       />
       ,
       input.value
