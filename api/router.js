@@ -10,13 +10,13 @@ import { authenticate, login } from './authService';
 const router = express.Router();
 const imageDirectory = path.join(process.cwd(), 'public', 'images');
 
-router.route('/structure')
+router.route('/api/structure')
   .get(
     authenticate(),
     readJson('structure')
   );
 
-router.route('/content')
+router.route('/api/content')
   .get(
     authenticate(),
     readJson('content')
@@ -26,7 +26,7 @@ router.route('/content')
     writeJson('content')
   );
 
-router.route('/login')
+router.route('/api/login')
   .post((req, res) => {
     const { username, password } = req.body;
     let token;
@@ -43,7 +43,7 @@ router.route('/login')
     res.status(200).send({ token });
   });
 
-router.route('/images')
+router.route('/api/images')
   .get(
     authenticate(),
     getAllImages
@@ -55,7 +55,7 @@ router.route('/images')
 
 router.use('/images', express.static(imageDirectory));
 
-router.route('/build')
+router.route('/api/build')
   .post(
     authenticate(),
     (req, res) => {
