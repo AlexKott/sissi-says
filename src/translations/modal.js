@@ -3,6 +3,7 @@ export const ERROR_AUTH = 'translations/modal/errorAuth';
 export const ERROR_BUILD = 'translations/modal/errorBuild';
 export const ERROR_IMAGE_SIZE = 'translations/modal/errorImageSize';
 export const ERROR_IMAGE_TYPE = 'translations/modal/errorImageType';
+export const ERROR_LOGIN = 'translations/modal/errorLogin';
 export const ERROR_SERVER = 'translations/modal/errorServer';
 export const LOADING = 'translations/modal/loading';
 export const LOADING_TEXT = 'translations/modal/loadingText';
@@ -16,8 +17,8 @@ export default {
     "Ohje..."
   ],
   [ERROR_AUTH]: [
-    "Sorry, the username or password you entered was not found.",
-    "Leider stimmt dieses Passwort oder der Nutzername nicht."
+    "You have been logged out. Please login again with your username and password.",
+    "Du wurdest ausgeloggt. Bitte melde dich erneut mit Nutzername und Passwort an."
   ],
   [ERROR_BUILD]: [
     "Something went wrong while publishing your page. Please try again! If this keeps happening contact your developer",
@@ -30,6 +31,10 @@ export default {
   [ERROR_IMAGE_TYPE]: [
     "Sorry, this file type is not valid. Please select an image.",
     "Dieses Format ist ungültig. Bitte wähle ein Bild aus."
+  ],
+  [ERROR_LOGIN]: [
+    "Sorry, the username or password you entered was not found.",
+    "Leider stimmt dieses Passwort oder der Nutzername nicht."
   ],
   [ERROR_SERVER]: [
     "The server is not responding. Please try to reload the page! If this keeps happening contact your developer.",

@@ -37,7 +37,7 @@ router.route('/api/login')
     }
 
     if (!token) {
-      return res.sendStatus(401);
+      return res.sendStatus(403);
     }
 
     res.status(200).send({ token });
