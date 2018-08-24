@@ -1,7 +1,6 @@
 import * as t from '@/actions/types';
 
 const initialState = {
-  image: false,
   guide: false,
 };
 
@@ -14,10 +13,6 @@ export default (state = initialState, action = {}) => {
 
   return state;
 };
-
-export function getDisplayImagePopup(state) {
-  return state.popup.image;
-}
 
 export function getDisplayGuidePopup(state) {
   return state.popup.guide;
