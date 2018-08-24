@@ -5,7 +5,7 @@ import * as actions from '@/actions/creators';
 import * as selectors from '@/reducers/selectors';
 import * as tr from '@/translations';
 
-const API_URL = process.env.REACT_APP_API_URL || window.location.origin;
+const API_URL = 'http://localhost:3010/api';
 
 export default (store, client = ajax, getters = selectors) => next => async action => {
   const { type, payload } = action;

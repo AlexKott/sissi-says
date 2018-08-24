@@ -1,6 +1,6 @@
 {
   "name": "sissi-says",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "The CMS for sissi (simple static sites)",
   "author": "A Square",
   "contributors": [
@@ -8,7 +8,7 @@
     "Alex Kott"
   ],
   "license": "ISC",
-  "repository": "github.com/square-a/sissi-snaps",
+  "repository": "github.com/square-a/sissi-says",
   "devDependencies": {
     "autoprefixer": "7.1.6",
     "babel-cli": "^6.26.0",
@@ -65,7 +65,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.0.0-rc.2",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "dotenv": "4.0.0",
@@ -92,41 +92,6 @@
     "start:frontend": "node scripts/start.js",
     "start": "concurrently \"npm run start:frontend\" \"npm run build:api --watch\" \"npm run start:api:dev\"",
     "test": "node scripts/test.js --env=jsdom"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
-    "setupTestFrameworkScriptFile": "<rootDir>/src/__testSetup__/setup.js",
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
-    ],
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
-    "moduleNameMapper": {
-      "^@(.*)$": "<rootDir>/src$1"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "mjs",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node"
-    ]
   },
   "babel": {
     "presets": [
