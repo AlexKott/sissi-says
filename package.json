@@ -1,8 +1,12 @@
 {
   "name": "sissi-says",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The CMS for sissi (simple static sites)",
-  "author": "Alina Beck",
+  "author": "A Square",
+  "contributors": [
+    "Alina Beck",
+    "Alex Kott"
+  ],
   "license": "ISC",
   "repository": "github.com/square-a/sissi-snaps",
   "devDependencies": {
@@ -79,14 +83,14 @@
     "sissi-says": "./bin/sissi-says.js"
   },
   "scripts": {
-    "prepare": "rm -rf api-build/* && rm -rf build && yarn build",
+    "prepare": "rm -rf api-build/* && rm -rf build && npm run build",
     "build:frontend": "node scripts/build.js",
     "build:api": "babel --out-dir api-build api --presets=env --no-babelrc",
-    "build": "export NODE_ENV=production && yarn build:frontend && yarn build:api",
+    "build": "export NODE_ENV=production && npm run build:frontend && npm run build:api",
     "start:api": "node api-build/index.js",
     "start:api:dev": "nodemon api-build/index.js",
     "start:frontend": "node scripts/start.js",
-    "start": "concurrently \"yarn start:frontend\" \"yarn build:api --watch\" \"yarn start:api:dev\"",
+    "start": "concurrently \"npm run start:frontend\" \"npm run build:api --watch\" \"npm run start:api:dev\"",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
