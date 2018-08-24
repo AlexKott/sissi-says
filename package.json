@@ -1,6 +1,6 @@
 {
   "name": "sissi-says",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "The CMS for sissi (simple static sites)",
   "author": "A Square",
   "contributors": [
@@ -80,7 +80,7 @@
     "shorthash": "^0.0.2"
   },
   "bin": {
-    "sissi-says": "./bin/sissi-says.js"
+    "sissi-says": "./bin/run"
   },
   "scripts": {
     "prepare": "rm -rf api-build/* && rm -rf build && npm run build",
