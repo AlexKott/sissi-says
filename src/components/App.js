@@ -1,15 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withLocalize, getActiveLanguage } from 'react-localize-redux';
 
 import { ROUTE_LOGIN } from '@/router/routes';
+
+import * as selectors from '@/reducers/selectors';
 
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
 import ActionBar from './actionBar/ActionBar';
 import Guide from './guide/Guide';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { setActiveLanguage }) => {
+  const appLanguage = selectors.getLanguage(state);
+  const activeLanguage = getActiveLanguage(state.localize);
+  if (appLanguage && activeLanguage && activeLanguage.code !== appLanguage) {
+    setActiveLanguage(appLanguage);
+  }
+
   const route = state.location.type;
   const Component = state.location.routesMap[route].component;
   return {
@@ -33,4 +43,7 @@ App.propTypes = {
   route: PropTypes.string,
 };
 
-export default connect(mapStateToProps)(App);
+export default compose(
+  withLocalize,
+  connect(mapStateToProps)
+)(App);

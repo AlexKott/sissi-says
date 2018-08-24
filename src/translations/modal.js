@@ -42,7 +42,7 @@ export default {
   ],
   [LOADING]: [
     "Loading",
-    "Ein Moment"
+    "Einen Moment"
   ],
   [LOADING_TEXT]: [
     "Magic is happening...",
