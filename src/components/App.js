@@ -16,7 +16,7 @@ import Guide from './guide/Guide';
 const mapStateToProps = (state, { setActiveLanguage }) => {
   const appLanguage = selectors.getLanguage(state);
   const activeLanguage = getActiveLanguage(state.localize);
-  if (appLanguage && activeLanguage.code !== appLanguage) {
+  if (appLanguage && activeLanguage && activeLanguage.code !== appLanguage) {
     setActiveLanguage(appLanguage);
   }
 

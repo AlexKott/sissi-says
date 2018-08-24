@@ -25,7 +25,9 @@ const MainEditor = ({
     initialValues={initialValues}
     formName='meta'
   >
-    <p className='guide__teaser'><span><Translate id={tr.GUIDE_TEASER} /></span></p>
+    <p className='guide__teaser'>
+      <span className='guide__teaser-rotator'><Translate id={tr.GUIDE_TEASER} /></span>
+    </p>
   </Editor>
 );
 

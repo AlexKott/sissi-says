@@ -22,12 +22,14 @@ const Navigation = ({
     return ([
       <PageNav
         id='page-nav'
+        key='page-nav'
         selectedPage={selectedPage}
         className={'nav nav--dark'}
       />
       ,
       selectedPage && <SectionNav
         id='section-nav'
+        key='section-nav'
         selectedPage={selectedPage}
         className={'nav nav--light'}
       />
