@@ -3,7 +3,6 @@ import * as t from '@/actions/types';
 
 describe('reducers/popup', () => {
   const initialState = {
-    image: false,
     guide: false,
   };
 
@@ -14,23 +13,15 @@ describe('reducers/popup', () => {
   });
 
   it('should return the new state when TOGGLE_POPUP is dispatched', () => {
-    const action = { type: t.TOGGLE_POPUP, payload: { type: 'image', isVisible: true }};
+    const action = { type: t.TOGGLE_POPUP, payload: { type: 'guide', isVisible: true }};
     const state = reducer(initialState, action);
 
-    expect(state).toHaveProperty('image', true);
+    expect(state).toHaveProperty('guide', true);
   });
 });
 
 describe('selectors/popup', () => {
-  const mockState = { popup: { image: true, guide: false }};
-
-  describe('getDisplayImagePopup', () => {
-    it('should return the correct value from state', () => {
-      const value = selectors.getDisplayImagePopup(mockState);
-
-      expect(value).toBe(true);
-    });
-  });
+  const mockState = { popup: { guide: false }};
 
   describe('getDisplayGuidePopup', () => {
     it('should return the correct value from state', () => {

@@ -34,7 +34,11 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       successDispatch.forEach(action => store.dispatch(action(data)));
 
     } catch(error) {
-      if (error[0] && error[0].status === 401) {
+      if (error[0] && error[0].status === 403) {
+        store.dispatch(actions.setAlert(tr.ERROR_LOGIN, tr.ERROR));
+      } else if (error[0] && error[0].status === 401) {
+        store.dispatch(actions.resetSession());
+        store.dispatch(actions.redirectToLogin());
         store.dispatch(actions.setAlert(tr.ERROR_AUTH, tr.ERROR));
       } else if (error[0] && error[0].status === 422) {
         store.dispatch(actions.setAlert(tr.ERROR_BUILD, tr.ERROR));
