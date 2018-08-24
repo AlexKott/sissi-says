@@ -1,2 +1,5 @@
 #!/usr/bin/env node
+if (!global._babelPolyfill) {
+  require('babel-polyfill');
+}
 require('../api-build/index.js');
