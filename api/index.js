@@ -9,9 +9,12 @@ import router from './router';
 
 const imageDirectory = path.join(process.cwd(), 'public', 'images');
 
-module.exports = function run() {
+module.exports = function run(args, flags = {}) {
+  const {
+    port = 3010,
+  } = flags;
+
   const app = express();
-  const PORT = 3010;
 
   app.use(init());
   app.use(bodyParser.json());
@@ -24,5 +27,5 @@ module.exports = function run() {
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'cms', 'index.html')));
 
 
-  app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
+  app.listen(port, () => console.log(`Visit the CMS at http://localhost:${port}`));
 };
