@@ -5,10 +5,8 @@ import { promisify } from 'util';
 const readFileAsync = promisify(fs.readFile);
 const writeFileAsync = promisify(fs.writeFile);
 
-const contentDirectory = path.join(process.cwd(), 'src')
-
 const filePaths = {
-  content: path.join(process.cwd(), 'src', 'content.json'),
+  content: path.join(process.cwd(), 'content.json'),
   structure: path.join(process.cwd(), 'structure.json'),
 }
 

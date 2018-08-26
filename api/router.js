@@ -1,22 +1,19 @@
-import { promisify } from 'util';
 import { spawn } from 'child_process';
 import express from 'express';
-import path from 'path';
 
 import { readJson, writeJson } from './jsonController';
 import { getAllImages, saveImage } from './imageController';
 import { authenticate, login } from './authService';
 
 const router = express.Router();
-const imageDirectory = path.join(process.cwd(), 'public', 'images');
 
-router.route('/api/structure')
+router.route('/structure')
   .get(
     authenticate(),
     readJson('structure')
   );
 
-router.route('/api/content')
+router.route('/content')
   .get(
     authenticate(),
     readJson('content')
@@ -26,7 +23,7 @@ router.route('/api/content')
     writeJson('content')
   );
 
-router.route('/api/login')
+router.route('/login')
   .post((req, res) => {
     const { username, password } = req.body;
     let token;
@@ -43,7 +40,7 @@ router.route('/api/login')
     res.status(200).send({ token });
   });
 
-router.route('/api/images')
+router.route('/images')
   .get(
     authenticate(),
     getAllImages
@@ -53,14 +50,12 @@ router.route('/api/images')
     saveImage
   );
 
-router.use('/images', express.static(imageDirectory));
-
-router.route('/api/build')
+router.route('/build')
   .post(
     authenticate(),
     (req, res) => {
       let isErrored = false;
-      const child = spawn('yarn', ['build'], { cwd: process.cwd() });
+      const child = spawn('sissi', ['build'], { cwd: process.cwd() });
 
       child.stderr.on('data', (data) => {
         res.sendStatus(422);

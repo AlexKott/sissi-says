@@ -103,15 +103,15 @@
   },
   "scripts": {
     "build:frontend": "node scripts/build.js",
-    "build:api": "./node_modules/.bin/babel api -d api-build --presets=babel-preset-es2015-node5 --no-babelrc",
-    "build": "export NODE_ENV=production && npm run build:frontend && npm run build:api",
-    "clear": "rm -rf api-build && rm -rf build && mkdir api-build && mkdir build",
-    "dev:api": "nodemon api-build/index.js",
+    "build:api": "./node_modules/.bin/babel api -d lib --presets=babel-preset-es2015-node5 --no-babelrc",
+    "build": "export NODE_ENV=production && npm run build:api && npm run build:frontend",
+    "clear": "rm -rf lib && mkdir lib",
+    "dev:api": "nodemon bin/run",
     "dev": "concurrently \"npm run watch:frontend\" \"npm run watch:api\" \"npm run dev:api\"",
     "prepare": "npm run clear && npm run build",
-    "start": "node api-build/index.js",
+    "start": "bin/run",
     "test": "node scripts/test.js --env=jsdom",
-    "watch:api": "./node_modules/.bin/babel api -d api-build --presets=babel-preset-es2015-node5 --no-babelrc --watch",
+    "watch:api": "./node_modules/.bin/babel api -d lib --presets=babel-preset-es2015-node5 --no-babelrc --watch",
     "watch:frontend": "node scripts/start.js"
   }
 }

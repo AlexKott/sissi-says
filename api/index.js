@@ -7,16 +7,22 @@ import fileUpload from 'express-fileupload';
 import { init } from './authService';
 import router from './router';
 
-const app = express();
-const PORT = 3010;
+const imageDirectory = path.join(process.cwd(), 'public', 'images');
 
-app.use(init());
-app.use(bodyParser.json());
-app.use(cors());
-app.use(fileUpload());
+module.exports = function run() {
+  const app = express();
+  const PORT = 3010;
 
-app.use('/', express.static(path.join(__dirname, '..', 'build')));
+  app.use(init());
+  app.use(bodyParser.json());
+  app.use(cors());
+  app.use(fileUpload());
 
-app.use('/', router);
+  app.use('/api', router);
+  app.use('/', express.static(path.join(__dirname, 'cms')));
+  app.use('/images', express.static(imageDirectory));
+  app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'cms', 'index.html')));
 
-app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
+
+  app.listen(PORT, () => console.log(`API listening on port ${PORT}`));
+};
