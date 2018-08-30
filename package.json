@@ -33,6 +33,7 @@
     "passport-jwt": "^4.0.0",
     "raf": "3.4.0",
     "react-localize-redux": "^3.0.2",
+    "reselect": "^3.0.1",
     "shorthash": "^0.0.2"
   },
   "devDependencies": {
