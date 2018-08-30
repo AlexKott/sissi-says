@@ -6,7 +6,7 @@ import { withLocalize, getActiveLanguage } from 'react-localize-redux';
 
 import { ROUTE_LOGIN } from '@/router/routes';
 
-import * as selectors from '@/reducers/selectors';
+import * as selectors from '@/selectors';
 
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';

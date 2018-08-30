@@ -1,2 +1,8 @@
 /node_modules
 /lib
+
+.sissi
+.sthash
+/config.json
+/content.json
+/structure.json

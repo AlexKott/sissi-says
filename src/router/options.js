@@ -1,5 +1,5 @@
 import * as actions from '@/actions/creators';
-import * as selectors from '@/reducers/selectors';
+import * as selectors from '@/selectors';
 import * as routes from './routes';
 
 export default {

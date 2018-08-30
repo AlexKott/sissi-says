@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
-import * as selectors from '@/reducers/selectors';
+import * as selectors from '@/selectors';
 import * as actions from '@/actions/creators';
 import * as tr from '@/translations';
 
@@ -22,8 +22,8 @@ const mapStateToProps = (state) => {
     allowConfirm: alertMessage.level !== '' && alertMessage.text !== tr.ERROR_SERVER,
     boxClassName: `modal__box modal__box--${classModifier}`,
     buttonClassName: `modal__button modal__button--${classModifier}`,
-    modalClassName: shouldDisplayModal ? 'modal' : 'modal modal--hidden',
     message: alertMessage.text || tr.LOADING_TEXT,
+    shouldDisplayModal,
     type: alertMessage.level || tr.LOADING,
   };
 };
@@ -36,12 +36,12 @@ const Modal = ({
   allowConfirm,
   boxClassName,
   buttonClassName,
-  modalClassName,
   message,
+  shouldDisplayModal,
   type,
   onConfirm,
-}) => (
-  <aside className={modalClassName}>
+}) => shouldDisplayModal && (
+  <aside className='modal'>
     <article className={boxClassName}>
       <h2 className='modal__title'><Translate id={type} /></h2>
       <p className='modal__message'><Translate id={message} /></p>
@@ -56,8 +56,8 @@ Modal.propTypes = {
   allowConfirm: PropTypes.bool,
   boxClassName: PropTypes.string,
   buttonClassName: PropTypes.string,
-  modalClassName: PropTypes.string,
   message: PropTypes.string,
+  shouldDisplayModal: PropTypes.bool,
   type: PropTypes.string,
   onConfirm: PropTypes.func,
 };

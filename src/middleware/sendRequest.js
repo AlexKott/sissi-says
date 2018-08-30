@@ -2,7 +2,7 @@ import ajax from '@/adapters/ajax';
 import { transformToMarkdown } from '@/helpers/markdownHtmlConverter';
 import * as t from '@/actions/types';
 import * as actions from '@/actions/creators';
-import * as selectors from '@/reducers/selectors';
+import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 
 const API_URL = 'http://localhost:3010/api';
