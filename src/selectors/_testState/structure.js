@@ -16,19 +16,19 @@ export default {
     },
   },
   global: {
-    maxPages: 5,
-    minPages: 1,
+    maxItems: 5,
+    minItems: 1,
     fields: ['title', 'image'],
   },
   pages: {
     standard: {
-      maxSections: 6,
-      minSections: 2,
+      maxItems: 6,
+      minItems: 2,
       fields: ['title', 'path'],
     },
     gallery: {
-      maxSections: 10,
-      minSections: 4,
+      maxItems: 10,
+      minItems: 4,
       fields: ['title', 'path'],
       requiredSections: ['photo'],
       isProtected: true,

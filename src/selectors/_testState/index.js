@@ -4,4 +4,5 @@ import structure from './structure';
 export default {
   content,
   structure,
+  location: {},
 };

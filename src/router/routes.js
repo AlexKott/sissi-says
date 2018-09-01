@@ -12,6 +12,7 @@ export default {
   [ROUTE_INDEX]: {
     path: '/',
     component: MainEditor,
+    itemType: 'global',
   },
   [ROUTE_LOGIN]: {
     path: '/login',
@@ -20,9 +21,11 @@ export default {
   [ROUTE_PAGE]: {
     path: '/page/:pageId',
     component: PageEditor,
+    itemType: 'pages',
   },
   [ROUTE_SECTION]: {
     path: '/page/:pageId/section/:sectionId',
     component: SectionEditor,
+    itemType: 'sections',
   },
 };

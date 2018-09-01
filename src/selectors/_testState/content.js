@@ -1,35 +1,35 @@
 export default {
   global: {
+    _items: ['abc123', 'def345'],
     image: 'abcde.png',
-    pages: ['abc123', 'def345'],
     title: 'Test Project Title',
   },
   pages: {
     'abc123': {
-      id: 'abc123',
+      _id: 'abc123',
+      _items: ['345def'],
+      _type: 'standard',
       path: '',
-      sections: ['345def'],
       title: 'Welcome',
-      type: 'standard',
     },
     'def345': {
-      id: 'def345',
+      _id: 'def345',
+      _items: ['123abc'],
+      _type: 'gallery',
       path: 'photos',
-      sections: ['123abc'],
       title: 'My Album',
-      type: 'gallery',
     },
   },
   sections: {
     '123abc': {
-      id: '123abc',
+      _id: '123abc',
+      _type: 'photo',
       image: 'bfbfbfb.png',
-      type: 'photo',
     },
     '345def': {
-      id: '345def',
+      _id: '345def',
+      _type: 'standard',
       title: 'This is awesome',
-      type: 'standard',
     },
   },
 };

@@ -1,12 +1,50 @@
-import mockState from './_testState';
+import cloneDeep from 'lodash.clonedeep';
+import testState from './_testState';
+
 import * as selectors from './editor';
 
 describe('selectors/editor', () => {
+  let mockState;
+
+  beforeEach(() => {
+    mockState = cloneDeep(testState);
+  });
+
   describe('getPropsForEditor', () => {
     describe('pages', () => {
+      beforeEach(() => {
+        mockState.location = {
+          payload: {
+            pageId: 'abc123',
+          },
+          routesMap: {
+            pagesRoute: {
+              itemType: 'pages',
+            },
+          },
+          type: 'pagesRoute',
+        };
+      });
+
       describe('canDelete', () => {
+        it('should be true when amount of pages is over minimum', () => {
+          const result = selectors.getPropsForEditor(mockState);
+
+          expect(result).toHaveProperty('canDelete', true);
+        });
+
+        it('should be false when amount of pages is at minimum', () => {
+          mockState.structure.global.minItems = 2;
+
+          const result = selectors.getPropsForEditor(mockState);
+
+          expect(result).toHaveProperty('canDelete', false);
+        });
+
         it('should be false for protected pages', () => {
-          const result = selectors.getPropsForEditor('pages', 'def345')(mockState);
+          mockState.location.payload.pageId = 'def345';
+          
+          const result = selectors.getPropsForEditor(mockState);
 
           expect(result).toHaveProperty('canDelete', false);
         });
@@ -14,46 +52,116 @@ describe('selectors/editor', () => {
     });
   });
 
-  describe('getPropsForView', () => {
+  describe('getCurrentItem', () => {
+    describe('global', () => {
+      beforeEach(() => {
+        mockState.location = {
+          routesMap: {
+            globalRoute: {
+              itemType: 'global',
+            },
+          },
+          type: 'globalRoute',
+        };
+      });
+
+      it('should return the content', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('content');
+        expect(result.content).toHaveProperty('image', 'abcde.png');
+      });
+
+      it('should return the structure', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('structure');
+        expect(result.structure).toHaveProperty('minItems', 1);
+      });
+
+      it('should return null as parent', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('parent', null);
+      });
+    });
+
     describe('pages', () => {
-      it('should return the content for the page', () => {
-        const result = selectors.getPropsForView('pages', 'def345')(mockState);
+      beforeEach(() => {
+        mockState.location = {
+          payload: {
+            pageId: 'def345',
+          },
+          routesMap: {
+            pagesRoute: {
+              itemType: 'pages',
+            },
+          },
+          type: 'pagesRoute',
+        };
+      });
+
+      it('should return the content', () => {
+        const result = selectors.getCurrentItem(mockState);
 
         expect(result).toHaveProperty('content');
         expect(result.content).toHaveProperty('title', 'My Album');
       });
 
-      it('should return the structure for the page', () => {
-        const result = selectors.getPropsForView('pages', 'def345')(mockState);
+      it('should return the structure', () => {
+        const result = selectors.getCurrentItem(mockState);
 
         expect(result).toHaveProperty('structure');
         expect(result.structure).toHaveProperty('isProtected', true);
       });
-    });
-  });
 
-  describe('getSiblingIds', () => {
-    describe('global', () => {
-      it('should return an empty array', () => {
-        const result = selectors.getSiblingIds('global')(mockState);
+      it('should return the parent', () => {
+        const result = selectors.getCurrentItem(mockState);
 
-        expect(result).toEqual([]);
-      });
-    });
-
-    describe('pages', () => {
-      it('should return all page ids', () => {
-        const result = selectors.getSiblingIds('pages')(mockState);
-
-        expect(result).toEqual(['abc123', 'def345']);
+        expect(result).toHaveProperty('parent');
+        expect(result.parent).toHaveProperty('itemIds', ['abc123', 'def345']);
+        expect(result.parent).toHaveProperty('maxItems', 5);
+        expect(result.parent).toHaveProperty('minItems', 1);
       });
     });
 
     describe('sections', () => {
-      it('should return all section ids for the given page', () => {
-        const result = selectors.getSiblingIds('sections', 'abc123')(mockState);
+      beforeEach(() => {
+        mockState.location = {
+          payload: {
+            pageId: 'abc123',
+            sectionId: '345def',
+          },
+          routesMap: {
+            sectionsRoute: {
+              itemType: 'sections',
+            },
+          },
+          type: 'sectionsRoute',
+        };
+      });
 
-        expect(result).toEqual(['345def']);
+      it('should return the content', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('content');
+        expect(result.content).toHaveProperty('title', 'This is awesome');
+      });
+
+      it('should return the structure', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('structure');
+        expect(result.structure).toHaveProperty('fields', ['title']);
+      });
+
+      it('should return the parent', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('parent');
+        expect(result.parent).toHaveProperty('itemIds', ['345def']);
+        expect(result.parent).toHaveProperty('maxItems', 6);
+        expect(result.parent).toHaveProperty('minItems', 2);
       });
     });
   });

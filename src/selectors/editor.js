@@ -1,50 +1,54 @@
 import { createSelector } from 'reselect';
 
+import { getCurrentItemInfo } from './location';
+
 const getContent = state => state.content;
 const getStructure = state => state.structure;
 
-export const getPropsForEditor = (viewType, pageId, sectionId) => createSelector(
+export const getCurrentItem = createSelector(
   [
-    getPropsForView(viewType, pageId, sectionId),
-    getSiblingIds(viewType, pageId),
-  ],
-  ({ content, structure }, siblings) => ({
-    canDelete: false,
-  })
-);
-
-export const getPropsForView = (viewType, pageId, sectionId) => createSelector(
-  [
+    getCurrentItemInfo,
     getContent,
     getStructure,
   ],
-  (contentState, structureState) => {
-    let content = contentState[viewType];
-    let structure = structureState[viewType];
+  ({ item: itemInfo, parent: parentInfo }, contentState, structureState) => {
+    const content = itemInfo.id
+      ? contentState[itemInfo.type][itemInfo.id]
+      : contentState[itemInfo.type];
+    const structure = content._type
+      ? structureState[itemInfo.type][content._type]
+      : structureState[itemInfo.type];
+    let parent = null;
 
-    if (sectionId) {
-      content = content[sectionId];
-      structure = structure[content.type];
-    } else if (pageId) {
-      content = content[pageId];
-      structure = structure[content.type];
+    if (parentInfo) {
+      const parentContent = parentInfo.id
+        ? contentState[parentInfo.type][parentInfo.id]
+        : contentState[parentInfo.type];
+      const { maxItems, minItems } = parentContent._type
+        ? structureState[parentInfo.type][parentContent._type]
+        : structureState[parentInfo.type];
+      parent = {
+        itemIds: parentContent._items,
+        maxItems,
+        minItems,
+      };
     }
 
-    return { content, structure };
+    return {
+      content,
+      structure,
+      parent,
+    };
   }
 );
 
-export const getSiblingIds = (viewType, pageId) => createSelector(
+export const getPropsForEditor = createSelector(
   [
-    getContent,
+    getCurrentItem,
   ],
-  (contentState) => {
-    if (viewType === 'sections') {
-      return contentState.pages[pageId].sections;
-    } else if (viewType === 'pages') {
-      return contentState.global.pages;
-    } else {
-      return [];
-    }
+  ({ content, structure, parent }) => {
+    return {
+      canDelete: !structure.isProtected && parent.minItems < parent.itemIds.length,
+    };
   }
 );
