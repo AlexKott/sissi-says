@@ -38,7 +38,7 @@ const Form = ({
         />);
 
       } else {
-        return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
+        return <FormFieldBuilder key={fieldName} fieldName={fieldName} />;
       }
     })}
     <div className='form__buttons'>

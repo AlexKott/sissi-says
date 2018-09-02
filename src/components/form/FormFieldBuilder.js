@@ -1,48 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field } from 'redux-form';
+import { Field, FieldArray } from 'redux-form';
 
+import * as selectors from '@/selectors';
+
+import FieldList from './FieldList';
 import ImageUploader from './ImageUploader';
 import MarkdownEditor from './MarkdownEditor';
 import Select from './Select';
 
-const mapStateToProps = (state, { fieldStructure = {} }) => {
+const mapStateToProps = (state, { fieldName }) => ({
+  field: selectors.getFieldWithName(fieldName)(state),
+});
+
+const FormFieldBuilder = ({ field }) => {
   let component;
   let type = '';
   let options = [];
   let fieldClassName = '';
   let elementClassName = '';
 
-  switch(fieldStructure.type) {
-    case 'string':
-      component = 'input';
-      type = 'text';
-      break;
-
-    case 'password':
-      component = 'input';
-      type = 'password';
-      break;
-
-    case 'text':
-      component = 'textarea';
-      fieldClassName = 'form__field--textarea';
-      break;
-
-    case 'markdown':
-      component = MarkdownEditor;
-      elementClassName = 'form__element--markdown';
-      break;
+  switch(field.type) {
+    case 'list':
+      return <FieldArray component={FieldList} name={field.name} fieldNames={field.fields} />
 
     case 'choice':
       component = Select;
-      options = fieldStructure.choices;
-      break;
-
-    case 'image':
-      component = ImageUploader;
-      type = 'file';
+      options = field.choices;
       break;
 
     case 'date':
@@ -50,42 +35,53 @@ const mapStateToProps = (state, { fieldStructure = {} }) => {
       type = 'date';
       break;
 
+    case 'image':
+      component = ImageUploader;
+      type = 'file';
+      break;
+
+    case 'markdown':
+      component = MarkdownEditor;
+      elementClassName = 'form__element--markdown';
+      break;
+
+    case 'password':
+      component = 'input';
+      type = 'password';
+      break;
+
+    case 'string':
+      component = 'input';
+      type = 'text';
+      break;
+
+    case 'text':
+      component = 'textarea';
+      fieldClassName = 'form__field--textarea';
+      break;
+
     default:
       component = 'input';
       type = 'text';
   }
 
-  return {
-    fieldProps: { component, type, options },
-    fieldClassName,
-    elementClassName,
-  };
-};
-
-const FormFieldBuilder = ({
-  elementClassName = '',
-  fieldName = '',
-  fieldClassName = '',
-  fieldStructure = {},
-  fieldProps = {},
-}) => (
-  <label className={`form__element ${elementClassName}`}>
-    <span className='form__label'>{fieldStructure.label}:</span>
-    <Field
-      name={fieldName}
-      className={`form__field ${fieldClassName}`}
-      placeholder={fieldStructure.placeholder}
-      {...fieldProps}
-    />
-  </label>
-);
+  return (
+    <label className={`form__element ${elementClassName}`}>
+      <span className='form__label'>{field.label}:</span>
+      <Field
+        className={`form__field ${fieldClassName}`}
+        component={component}
+        name={field.name}
+        options={options}
+        placeholder={field.placeholder}
+        type={type}
+      />
+    </label>
+  );
+}
 
 FormFieldBuilder.propTypes = {
-  elementClassName: PropTypes.string,
-  fieldName: PropTypes.string,
-  fieldClassName: PropTypes.string,
-  fieldStructure: PropTypes.object,
-  fieldProps: PropTypes.object,
+  field: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(FormFieldBuilder);
