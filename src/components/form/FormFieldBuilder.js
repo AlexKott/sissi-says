@@ -14,7 +14,7 @@ const mapStateToProps = (state, { fieldName }) => ({
   field: selectors.getFieldWithName(fieldName)(state),
 });
 
-const FormFieldBuilder = ({ field }) => {
+const FormFieldBuilder = ({ field, prefix }) => {
   let component;
   let type = '';
   let options = [];
@@ -23,7 +23,11 @@ const FormFieldBuilder = ({ field }) => {
 
   switch(field.type) {
     case 'list':
-      return <FieldArray component={FieldList} name={field.name} fieldNames={field.fields} />
+      return (<FieldArray
+        component={FieldList}
+        fieldNames={field.fields}
+        name={field.name}
+      />);
 
     case 'choice':
       component = Select;
@@ -71,7 +75,7 @@ const FormFieldBuilder = ({ field }) => {
       <Field
         className={`form__field ${fieldClassName}`}
         component={component}
-        name={field.name}
+        name={`${prefix}${field.name}`}
         options={options}
         placeholder={field.placeholder}
         type={type}
@@ -82,6 +86,7 @@ const FormFieldBuilder = ({ field }) => {
 
 FormFieldBuilder.propTypes = {
   field: PropTypes.object,
+  prefix: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(FormFieldBuilder);
