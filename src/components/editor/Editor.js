@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
-// import * as selectors from '@/selectors';
+import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 
 import Form from '@/components/form/Form';
 
 const mapStateToProps = state => ({
-  // ...selectors.getPropsForEditor(state),
+  ...selectors.getPropsForEditor(state),
 });
 
 const Editor = ({
   canDelete,
-  fields: fieldNames,
+  fieldNames,
   formName,
   initialValues,
   viewLevel,

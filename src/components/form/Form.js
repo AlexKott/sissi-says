@@ -19,13 +19,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const Form = ({
   children,
-  fieldNames: fields = [],
+  fieldNames = [],
   submitText = tr.SAVE,
   onSubmit,
 }) => (
   <form className='form' onSubmit={onSubmit}>
-    {fields.map(field => {
-      const fieldName = Object.keys(field)[0];
+    {fieldNames.map(fieldName => {
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} />;
     })}
     <div className='form__buttons'>
