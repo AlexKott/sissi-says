@@ -48,7 +48,8 @@ export const getPropsForEditor = createSelector(
   ],
   ({ content, structure, parent }) => {
     return {
-      canDelete: !structure.isProtected && parent.minItems < parent.itemIds.length,
+      canDelete: !structure.isProtected && !!parent && parent.minItems < parent.itemIds.length,
+      fieldNames: structure.fields,
     };
   }
 );

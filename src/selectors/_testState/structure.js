@@ -23,7 +23,7 @@ export default {
   pages: {
     standard: {
       maxItems: 6,
-      minItems: 2,
+      minItems: 1,
       fields: ['title', 'path'],
     },
     gallery: {
@@ -40,6 +40,7 @@ export default {
     },
     photo: {
       fields: ['image'],
+      isProtected: true,
     },
   },
 };

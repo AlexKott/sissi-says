@@ -11,6 +11,31 @@ describe('selectors/editor', () => {
   });
 
   describe('getPropsForEditor', () => {
+    describe('global', () => {
+      beforeEach(() => {
+        mockState.location = {
+          routesMap: {
+            globalRoute: {
+              itemType: 'global',
+            },
+          },
+          type: 'globalRoute',
+        };
+      });
+
+      it('should return false for canDelete', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('canDelete', false);
+      });
+
+      it('should return fieldNames', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('fieldNames', ['title', 'image']);
+      });
+    });
+
     describe('pages', () => {
       beforeEach(() => {
         mockState.location = {
@@ -43,11 +68,64 @@ describe('selectors/editor', () => {
 
         it('should be false for protected pages', () => {
           mockState.location.payload.pageId = 'def345';
-          
+
           const result = selectors.getPropsForEditor(mockState);
 
           expect(result).toHaveProperty('canDelete', false);
         });
+      });
+
+      it('should return fieldNames', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('fieldNames', ['title', 'path']);
+      });
+    });
+
+    describe('sections', () => {
+      beforeEach(() => {
+        mockState.location = {
+          payload: {
+            pageId: 'abc123',
+            sectionId: '345def',
+          },
+          routesMap: {
+            sectionsRoute: {
+              itemType: 'sections',
+            },
+          },
+          type: 'sectionsRoute',
+        };
+      });
+
+      describe('canDelete', () => {
+        it('should be true when amount of sections is over minimum', () => {
+          const result = selectors.getPropsForEditor(mockState);
+
+          expect(result).toHaveProperty('canDelete', true);
+        });
+
+        it('should be false when amount of sections is at minimum', () => {
+          mockState.structure.pages.standard.minItems = 2;
+
+          const result = selectors.getPropsForEditor(mockState);
+
+          expect(result).toHaveProperty('canDelete', false);
+        });
+
+        it('should be false for protected sections', () => {
+          mockState.location.payload.sectionId = '123abc';
+
+          const result = selectors.getPropsForEditor(mockState);
+
+          expect(result).toHaveProperty('canDelete', false);
+        });
+      });
+
+      it('should return fieldNames', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('fieldNames', ['title']);
       });
     });
   });
@@ -159,9 +237,9 @@ describe('selectors/editor', () => {
         const result = selectors.getCurrentItem(mockState);
 
         expect(result).toHaveProperty('parent');
-        expect(result.parent).toHaveProperty('itemIds', ['345def']);
+        expect(result.parent).toHaveProperty('itemIds', ['345def', '123abc']);
         expect(result.parent).toHaveProperty('maxItems', 6);
-        expect(result.parent).toHaveProperty('minItems', 2);
+        expect(result.parent).toHaveProperty('minItems', 1);
       });
     });
   });

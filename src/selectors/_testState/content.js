@@ -7,7 +7,7 @@ export default {
   pages: {
     'abc123': {
       _id: 'abc123',
-      _items: ['345def'],
+      _items: ['345def', '123abc'],
       _type: 'standard',
       path: '',
       title: 'Welcome',
