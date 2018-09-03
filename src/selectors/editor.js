@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getCurrentItemInfo } from './location';
+import { getCurrentItemInfo, getCurrentViewLevel } from './location';
 
 const getContent = state => state.content;
 const getStructure = state => state.structure;
@@ -46,13 +46,15 @@ export const getCurrentItem = createSelector(
 export const getPropsForEditor = createSelector(
   [
     getCurrentItem,
+    getCurrentViewLevel,
   ],
-  ({ content, itemInfo, structure, parent }) => {
+  ({ content, itemInfo, structure, parent }, viewLevel) => {
     return {
       canDelete: !structure.isProtected && !!parent && parent.minItems < parent.itemIds.length,
       fieldNames: structure.fields,
       formName: itemInfo.id ? `${itemInfo.type}-${itemInfo.id}` : itemInfo.type,
       initialValues: content,
+      viewLevel,
     };
   }
 );

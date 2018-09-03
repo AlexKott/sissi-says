@@ -10,16 +10,16 @@
   background-color: $color-background-light;
 }
 
-.editor--page {
+.editor--level-2 {
   border-color: $color-main-medium;
 }
 
-.editor--section {
+.editor--level-3 {
   border-color: $color-main-light;
   border-left: $gap-normal solid $color-main-light;
 }
 
-.editor--main .form {
+.editor--level-1 .form {
   max-width: 680px;
 }
 

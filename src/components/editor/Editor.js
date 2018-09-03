@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
-import * as selectors from '@/selectors';
+// import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 
 import Form from '@/components/form/Form';
@@ -17,10 +17,10 @@ const Editor = ({
   fields: fieldNames,
   formName,
   initialValues,
+  viewLevel,
   onDelete,
 }) => (
-  /* TODO: set className according to editor level */
-  <section className='editor'>
+  <section className={`editor editor--level-${viewLevel}`}>
     <h1 className='editor__title'><Translate id={tr.EDITOR_TITLE} /></h1>
     {/* Do not remove the form key! */}
     <Form
@@ -40,6 +40,7 @@ Editor.propTypes = {
   fieldNames: PropTypes.array,
   formName: PropTypes.string,
   initialValues: PropTypes.object,
+  level: PropTypes.number,
   onDelete: PropTypes.func,
 };
 

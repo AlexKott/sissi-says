@@ -46,6 +46,12 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('initialValues', mockState.content.global);
       });
+
+      it('should return the current viewLevel', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('viewLevel');
+      });
     });
 
     describe('pages', () => {
@@ -103,6 +109,12 @@ describe('selectors/editor', () => {
         const result = selectors.getPropsForEditor(mockState);
 
         expect(result).toHaveProperty('initialValues', mockState.content.pages.abc123);
+      });
+
+      it('should return the current viewLevel', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('viewLevel');
       });
     });
 
@@ -162,6 +174,12 @@ describe('selectors/editor', () => {
         const result = selectors.getPropsForEditor(mockState);
 
         expect(result).toHaveProperty('initialValues', mockState.content.sections['345def']);
+      });
+
+      it('should return the current viewLevel', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('viewLevel');
       });
     });
   });
