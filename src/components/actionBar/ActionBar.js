@@ -19,6 +19,10 @@ const ActionBar = () => (
       activeClassName='hidden'
       exact={true}
     ><Translate id={tr.INDEX} /></NavLink>
+    {/* TODO: show teaser only on index */}
+    <p className='guide__teaser'>
+      <span className='guide__teaser-rotator'><Translate id={tr.GUIDE_TEASER} /></span>
+    </p>
     <GuideButton />
   </aside>
 );

@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
   return {
     canDelete: selectors.getCanDeletePage(state) && !isProtected,
     fields: selectors.getPageFields(state, page.pageType),
-    title: tr.PAGE_EDITOR_TITLE,
+    title: tr.EDITOR_TITLE,
     type: 'page',
     initialValues: selectors.getInitialPageValues(state, pageId),
     formName: `editor-page-${pageId}`,

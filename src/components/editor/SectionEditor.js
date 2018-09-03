@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     canDelete: selectors.getCanDeleteSection(state, pageId) && !isProtected,
     fields: selectors.getSectionFields(state, section.sectionType),
-    title: tr.SECTION_EDITOR_TITLE,
+    title: tr.EDITOR_TITLE,
     type: 'section',
     initialValues: selectors.getInitialSectionValues(state, sectionId),
     formName: `editor-section-${sectionId}`,

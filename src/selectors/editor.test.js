@@ -40,6 +40,12 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('formName', 'global');
       });
+
+      it('should return initialValues', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('initialValues', mockState.content.global);
+      });
     });
 
     describe('pages', () => {
@@ -91,6 +97,12 @@ describe('selectors/editor', () => {
         const result = selectors.getPropsForEditor(mockState);
 
         expect(result).toHaveProperty('formName', 'pages-abc123');
+      });
+
+      it('should return initialValues', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('initialValues', mockState.content.pages.abc123);
       });
     });
 
@@ -144,6 +156,12 @@ describe('selectors/editor', () => {
         const result = selectors.getPropsForEditor(mockState);
 
         expect(result).toHaveProperty('formName', 'sections-345def');
+      });
+
+      it('should return initialValues', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('initialValues', mockState.content.sections['345def']);
       });
     });
   });

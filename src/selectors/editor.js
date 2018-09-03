@@ -52,6 +52,7 @@ export const getPropsForEditor = createSelector(
       canDelete: !structure.isProtected && !!parent && parent.minItems < parent.itemIds.length,
       fieldNames: structure.fields,
       formName: itemInfo.id ? `${itemInfo.type}-${itemInfo.id}` : itemInfo.type,
+      initialValues: content,
     };
   }
 );
