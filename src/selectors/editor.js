@@ -36,6 +36,7 @@ export const getCurrentItem = createSelector(
 
     return {
       content,
+      itemInfo,
       structure,
       parent,
     };
@@ -46,10 +47,11 @@ export const getPropsForEditor = createSelector(
   [
     getCurrentItem,
   ],
-  ({ content, structure, parent }) => {
+  ({ content, itemInfo, structure, parent }) => {
     return {
       canDelete: !structure.isProtected && !!parent && parent.minItems < parent.itemIds.length,
       fieldNames: structure.fields,
+      formName: itemInfo.id ? `${itemInfo.type}-${itemInfo.id}` : itemInfo.type,
     };
   }
 );

@@ -34,6 +34,12 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('fieldNames', ['title', 'image']);
       });
+
+      it('should return the formName', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('formName', 'global');
+      });
     });
 
     describe('pages', () => {
@@ -79,6 +85,12 @@ describe('selectors/editor', () => {
         const result = selectors.getPropsForEditor(mockState);
 
         expect(result).toHaveProperty('fieldNames', ['title', 'path']);
+      });
+
+      it('should return the formName', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('formName', 'pages-abc123');
       });
     });
 
@@ -127,6 +139,12 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('fieldNames', ['title']);
       });
+
+      it('should return the formName', () => {
+        const result = selectors.getPropsForEditor(mockState);
+
+        expect(result).toHaveProperty('formName', 'sections-345def');
+      });
     });
   });
 
@@ -148,6 +166,14 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('content');
         expect(result.content).toHaveProperty('image', 'abcde.png');
+      });
+
+      it('should return the itemInfo', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('itemInfo');
+        expect(result.itemInfo).toHaveProperty('id', null);
+        expect(result.itemInfo).toHaveProperty('type', 'global');
       });
 
       it('should return the structure', () => {
@@ -184,6 +210,14 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('content');
         expect(result.content).toHaveProperty('title', 'My Album');
+      });
+
+      it('should return the itemInfo', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('itemInfo');
+        expect(result.itemInfo).toHaveProperty('id', 'def345');
+        expect(result.itemInfo).toHaveProperty('type', 'pages');
       });
 
       it('should return the structure', () => {
@@ -224,6 +258,14 @@ describe('selectors/editor', () => {
 
         expect(result).toHaveProperty('content');
         expect(result.content).toHaveProperty('title', 'This is awesome');
+      });
+
+      it('should return the itemInfo', () => {
+        const result = selectors.getCurrentItem(mockState);
+
+        expect(result).toHaveProperty('itemInfo');
+        expect(result.itemInfo).toHaveProperty('id', '345def');
+        expect(result.itemInfo).toHaveProperty('type', 'sections');
       });
 
       it('should return the structure', () => {
