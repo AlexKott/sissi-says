@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-import meta from './meta';
+import global from './global';
 import pages from './pages';
 import sections from './sections';
 
 export default combineReducers({
-  meta,
+  global,
   pages,
   sections,
 });
 
-export * from './meta';
+export * from './global';
 export * from './pages';
 export * from './sections';

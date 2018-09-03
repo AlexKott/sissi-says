@@ -8,8 +8,8 @@ import * as tr from '@/translations';
 import Editor from '@/components/editor/Editor';
 
 const mapStateToProps = (state) => ({
-  fields: selectors.getIsInitialDataFetched(state) ? selectors.getMetaFields(state) : [],
-  initialValues: selectors.getMetaData(state),
+  fields: selectors.getIsInitialDataFetched(state) ? selectors.getGlobalFields(state) : [],
+  initialValues: selectors.getGlobalData(state),
 });
 
 const MainEditor = ({
@@ -22,7 +22,7 @@ const MainEditor = ({
     title={tr.WELCOME}
     type='main'
     initialValues={initialValues}
-    formName='meta'
+    formName='global'
   />
 );
 

@@ -1,7 +1,7 @@
-import reducer, * as selectors from './meta';
+import reducer, * as selectors from './global';
 import * as t from '@/actions/types';
 
-describe('reducers/structure/meta', () => {
+describe('reducers/structure/global', () => {
   it('should return the initial state', () => {
     const expectedState = {};
     const state = reducer();
@@ -16,7 +16,7 @@ describe('reducers/structure/meta', () => {
       payload: {
         dataType: 'structure',
         data: {
-          meta: expectedState,
+          global: expectedState,
         },
       },
     };
@@ -29,24 +29,24 @@ describe('reducers/structure/meta', () => {
     const action = {
       type: t.RESET_SESSION,
     };
-    const state = reducer({ metaData: 'test' }, action);
+    const state = reducer({ globalData: 'test' }, action);
 
     expect(state).toEqual({});
   });
 });
 
-describe('selectors/structure/meta', () => {
-  describe('getMetaFieldNames', () => {
-    it('should return the meta fields', () => {
-      const mockState = { structure: { meta: { fields: ['field1', 'field2'] }}};
-      const value = selectors.getMetaFieldNames(mockState);
+describe('selectors/structure/global', () => {
+  describe('getGlobalFieldNames', () => {
+    it('should return the global fields', () => {
+      const mockState = { structure: { global: { fields: ['field1', 'field2'] }}};
+      const value = selectors.getGlobalFieldNames(mockState);
 
       expect(value).toEqual(['field1', 'field2']);
     });
   });
 
-  describe('getMetaFields', () => {
-    const mockState = { structure: { meta: { fields: ['field1', 'field2'] }}};
+  describe('getGlobalFields', () => {
+    const mockState = { structure: { global: { fields: ['field1', 'field2'] }}};
     const mockGetFieldByName = jest.fn((x, name) => {
       if (name === 'field1') {
         return { field1: { label1: 'testLabel' }};
@@ -55,7 +55,7 @@ describe('selectors/structure/meta', () => {
       }
     });
     it('should collect values from the right spot', () => {
-      selectors.getMetaFields(mockState, mockGetFieldByName);
+      selectors.getGlobalFields(mockState, mockGetFieldByName);
 
       expect(mockGetFieldByName.mock.calls).toHaveLength(2);
       expect(mockGetFieldByName.mock.calls[0][1]).toBe('field1');
@@ -63,7 +63,7 @@ describe('selectors/structure/meta', () => {
     });
 
     it('should return an array with fields', () => {
-      const value = selectors.getMetaFields(mockState, mockGetFieldByName);
+      const value = selectors.getGlobalFields(mockState, mockGetFieldByName);
 
       expect(value).toEqual([
         { field1: { label1: 'testLabel' }},

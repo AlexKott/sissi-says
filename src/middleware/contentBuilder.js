@@ -9,15 +9,15 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     const { dataType, data } = payload;
 
     if (dataType === 'content' && Object.keys(data).length === 0) {
-      const metaFields = getters.getMetaFieldNames(getState());
+      const globalFields = getters.getGlobalFieldNames(getState());
       const minPages = getters.getMinPages(getState());
       const protectedPages = getters.getProtectedPages(getState());
       const isSinglePage = getters.getIsSinglePage(getState());
       const pageType = isSinglePage ? 'singlePage' : 'standard';
 
-      const initialMetaData = {};
-      metaFields.forEach(field => initialMetaData[field] = '');
-      data.meta = initialMetaData;
+      const initialGlobalData = {};
+      globalFields.forEach(field => initialGlobalData[field] = '');
+      data.global = initialGlobalData;
       next(action);
 
       protectedPages.forEach(page => dispatch(actions.addPage(page)));

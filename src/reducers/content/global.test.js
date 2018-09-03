@@ -1,7 +1,7 @@
-import reducer, * as selectors from './meta';
+import reducer, * as selectors from './global';
 import * as t from '@/actions/types';
 
-describe('reducers/content/meta', () => {
+describe('reducers/content/global', () => {
   it('should return the initial state', () => {
     const expectedState = {};
     const state = reducer();
@@ -15,11 +15,11 @@ describe('reducers/content/meta', () => {
       payload: {
         dataType: 'content',
         data: {
-          meta: { metaTitle: 'test', metaDescription: 'alsoTest' },
+          global: { globalTitle: 'test', globalDescription: 'alsoTest' },
         },
       },
     };
-    const expectedState = { metaTitle: 'test', metaDescription: 'alsoTest' };
+    const expectedState = { globalTitle: 'test', globalDescription: 'alsoTest' };
     const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
@@ -29,23 +29,23 @@ describe('reducers/content/meta', () => {
     const action = {
       type: t.RESET_SESSION,
     };
-    const state = reducer({ metaData: 'test' }, action);
+    const state = reducer({ globalData: 'test' }, action);
 
     expect(state).toEqual({});
   });
 });
 
-describe('selectors/content&/meta', () => {
-  describe('getMetaData', () => {
-    it('should return the stored meta data', () => {
+describe('selectors/content&/global', () => {
+  describe('getGlobalData', () => {
+    it('should return the stored global data', () => {
       const mockState = {
         content: {
-          meta: { metaTitle: 'test', metaDescription: 'alsoTest' },
+          global: { globalTitle: 'test', globalDescription: 'alsoTest' },
         },
       };
-      const value = selectors.getMetaData(mockState);
+      const value = selectors.getGlobalData(mockState);
 
-      expect(value).toEqual({ metaTitle: 'test', metaDescription: 'alsoTest' });
+      expect(value).toEqual({ globalTitle: 'test', globalDescription: 'alsoTest' });
     });
   });
 });

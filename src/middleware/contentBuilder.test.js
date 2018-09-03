@@ -14,7 +14,7 @@ describe('middleware/contentBuilder', () => {
     };
     mockNext = jest.fn();
     mockSelectors = {
-      getMetaFieldNames: jest.fn(() => ['mockField1', 'mockField2']),
+      getGlobalFieldNames: jest.fn(() => ['mockField1', 'mockField2']),
       getMinPages: jest.fn(() => 0),
       getProtectedPages: jest.fn(() => []),
       getNumberOfPages: jest.fn(() => 1),
@@ -31,7 +31,7 @@ describe('middleware/contentBuilder', () => {
     expect(mockNext).toBeCalledWith(mockAction);
   });
 
-  it('should forward the action with the initial meta data if the type is FETCH_DATA_SUCCESS', () => {
+  it('should forward the action with the initial global data if the type is FETCH_DATA_SUCCESS', () => {
     middleware(mockStore, mockSelectors)(mockNext)(mockAction);
 
     const testedAction = mockNext.mock.calls[0][0];
@@ -39,9 +39,9 @@ describe('middleware/contentBuilder', () => {
     expect(testedAction).toHaveProperty('type', t.FETCH_DATA_SUCCESS);
     expect(testedAction).toHaveProperty('payload');
     expect(testedAction.payload).toHaveProperty('data');
-    expect(testedAction.payload.data).toHaveProperty('meta');
-    expect(testedAction.payload.data.meta).toHaveProperty('mockField1', '');
-    expect(testedAction.payload.data.meta).toHaveProperty('mockField2', '');
+    expect(testedAction.payload.data).toHaveProperty('global');
+    expect(testedAction.payload.data.global).toHaveProperty('mockField1', '');
+    expect(testedAction.payload.data.global).toHaveProperty('mockField2', '');
   });
 
   it('should dispatch addPage with the right type for each protected page', () => {

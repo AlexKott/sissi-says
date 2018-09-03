@@ -14,18 +14,18 @@ export default (
   if (isPostRequest && payload.dataType === 'content') {
     const { formName } = payload;
     const state = getState();
-    const metaData = methods.getMetaData(state);
+    const globalData = methods.getGlobalData(state);
     const pageData = methods.getAllPages(state);
     const sectionData = methods.getAllSections(state);
     const formInput = methods.getFormValues(formName)(state);
     const fields = methods.getFields(state);
 
-    let meta = metaData;
+    let global = globalData;
     let pages = pageData;
     let sections = sectionData;
 
-    if (formName === 'meta') {
-      meta = Object.assign({}, metaData, formInput);
+    if (formName === 'global') {
+      global = Object.assign({}, globalData, formInput);
     } else {
       const formNameArray = formName.split('-');
       const formType = formNameArray[1];
@@ -42,7 +42,7 @@ export default (
       }
     }
 
-    const transformedData = methods.transformToHtml({ meta, pages, sections }, fields);
+    const transformedData = methods.transformToHtml({ global, pages, sections }, fields);
 
     action.payload.requestData = transformedData;
   }

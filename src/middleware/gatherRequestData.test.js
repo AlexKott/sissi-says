@@ -25,7 +25,7 @@ describe('middleware/gatherRequestData', () => {
     mockGetState = jest.fn();
     mockNext = jest.fn();
     mockSelectors = {
-      getMetaData: jest.fn(),
+      getGlobalData: jest.fn(),
       getAllPages: jest.fn(),
       getAllSections: jest.fn(),
       getFields: jest.fn(),
@@ -61,40 +61,40 @@ describe('middleware/gatherRequestData', () => {
   it('should collect data from the relevant reducers and form', () => {
     middleware(mockStore, mockMethods)(mockNext)(mockAction);
 
-    expect(mockMethods.getMetaData).toBeCalled();
+    expect(mockMethods.getGlobalData).toBeCalled();
     expect(mockMethods.getAllPages).toBeCalled();
     expect(mockMethods.getAllSections).toBeCalled();
     expect(mockGetFormValues).toBeCalledWith('test');
   });
 
   it('should add requestData before forwarding the action', () => {
-    mockMethods.transformToHtml = jest.fn(() => ({ meta: 'test', pages: 'test', sections: 'test' }));
+    mockMethods.transformToHtml = jest.fn(() => ({ global: 'test', pages: 'test', sections: 'test' }));
     middleware(mockStore, mockMethods)(mockNext)(mockAction);
 
     expect(mockAction).toHaveProperty('payload');
     expect(mockAction.payload).toHaveProperty('requestData');
-    expect(mockAction.payload.requestData).toHaveProperty('meta');
+    expect(mockAction.payload.requestData).toHaveProperty('global');
     expect(mockAction.payload.requestData).toHaveProperty('pages');
     expect(mockAction.payload.requestData).toHaveProperty('sections');
     expect(mockNext).toBeCalled();
   });
 
-  describe('save meta form', () => {
+  describe('save global form', () => {
     it('should merge the reducer data with the form data', () => {
       mockAction = {
         type: t.SEND_REQUEST,
         payload: {
           method: 'post',
-          formName: 'meta',
+          formName: 'global',
           dataType: 'content',
         }};
-      mockMethods.getFormValues = jest.fn(() => () => ({ metaInfo: 'test' }));
-      mockMethods.getMetaData = jest.fn(() => ({ metaInfo: '', metaName: 'blubb' }));
-      const expectedMetaData = { metaInfo: 'test', metaName: 'blubb' };
+      mockMethods.getFormValues = jest.fn(() => () => ({ globalInfo: 'test' }));
+      mockMethods.getGlobalData = jest.fn(() => ({ globalInfo: '', globalName: 'blubb' }));
+      const expectedGlobalData = { globalInfo: 'test', globalName: 'blubb' };
 
       middleware(mockStore, mockMethods)(mockNext)(mockAction);
 
-      expect(mockAction.payload.requestData).toHaveProperty('meta', expectedMetaData);
+      expect(mockAction.payload.requestData).toHaveProperty('global', expectedGlobalData);
     });
   });
 

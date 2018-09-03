@@ -33,7 +33,7 @@ describe('reducers/images', () => {
   });
 });
 
-describe('selectors/content&/meta', () => {
+describe('selectors/content&/global', () => {
   describe('getAllImages', () => {
     it('should return the stored images', () => {
       const mockState = {

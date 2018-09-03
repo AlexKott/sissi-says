@@ -7,7 +7,7 @@ export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
-    return payload.data.meta;
+    return payload.data.global;
 
   } else if (type === t.RESET_SESSION) {
     return initialState;
@@ -16,11 +16,11 @@ export default (state = initialState, action = {}) => {
   return state;
 }
 
-export function getMetaFieldNames(state) {
-  return state.structure.meta.fields || [];
+export function getGlobalFieldNames(state) {
+  return state.structure.global.fields || [];
 }
 
-export function getMetaFields(state, selectFieldByName = getFieldByName) {
-  const fieldNames = getMetaFieldNames(state);
+export function getGlobalFields(state, selectFieldByName = getFieldByName) {
+  const fieldNames = getGlobalFieldNames(state);
   return fieldNames.map(fieldName => selectFieldByName(state, fieldName));
 }

@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const Form = ({
   children,
-  fields = [],
+  fieldNames: fields = [],
   submitText = tr.SAVE,
   onSubmit,
 }) => (
