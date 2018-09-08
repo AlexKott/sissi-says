@@ -2,8 +2,23 @@ import reducer, * as selectors from './pages';
 import * as t from '@/actions/types';
 
 describe('reducers/content/pages', () => {
+  let mockState;
+
+  beforeEach(() => {
+    mockState = {
+      testPage1: {
+        _id: 'testPage1',
+        _items: ['section1', 'section2'],
+      },
+      testPage2: {
+        _id: 'testPage2',
+        _items: ['section1', 'section2'],
+      },
+    };
+  });
+
   it('should return the initial state', () => {
-    const expectedState = [];
+    const expectedState = {};
     const state = reducer();
 
     expect(state).toEqual(expectedState);
@@ -12,9 +27,17 @@ describe('reducers/content/pages', () => {
   it('should return the fetched pages', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
-      payload: { dataType: 'content', data: { pages: ['page1', 'page2']}},
-    }
-    const expectedState = ['page1', 'page2'];
+      payload: {
+        dataType: 'content',
+        data: {
+          pages: {
+            page1: {},
+            page2: {},
+          },
+        },
+      },
+    };
+    const expectedState = { page1: {}, page2: {} };
     const state = reducer(undefined, action);
 
     expect(state).toEqual(expectedState);
@@ -23,99 +46,62 @@ describe('reducers/content/pages', () => {
   it('should add a page', () => {
     const action = {
       type: t.ADD_PAGE,
-      payload: { page: 'testPage' },
+      payload: { page: { _id: 'testPage', testField: 'hi' }},
     };
     const state = reducer(undefined, action);
 
-    expect(state).toEqual(['testPage']);
+    expect(state).toEqual({ testPage: { _id: 'testPage', testField: 'hi' }});
   });
 
   it('should delete a page', () => {
-    const mockState = [
-      { id: 'testPage1', sections: ['section1', 'section2'] },
-      { id: 'testPage2', sections: ['section1', 'section2'] },
-    ];
     const action = {
       type: t.DELETE_PAGE,
       payload: { pageId: 'testPage2' },
     };
-    const expectedState = [{ id: 'testPage1', sections: ['section1', 'section2'] }];
+    const expectedState = { testPage1: { _id: 'testPage1', _items: ['section1', 'section2'] }};
     const state = reducer(mockState, action);
 
     expect(state).toEqual(expectedState);
   });
 
   it('should add a section to a page', () => {
-    const mockState = [{ id: 'testPage', sections: ['section1', 'section2'] }];
     const action = {
       type: t.ADD_SECTION,
-      payload: { pageId: 'testPage', sectionId: 'testSection' },
+      payload: { pageId: 'testPage2', sectionId: 'testSection' },
     };
     const state = reducer(mockState, action);
 
-    expect(state).toEqual([{
-      id: 'testPage',
-      sections: ['section1', 'section2', 'testSection'],
-    }]);
+    expect(state.testPage2._items).toContain('testSection');
   });
 
   it('should delete a section from a page', () => {
-    const mockState = [{ id: 'testPage', sections: ['section1', 'section2'] }];
     const action = {
       type: t.DELETE_SECTION,
-      payload: { pageId: 'testPage', sectionId: 'section1' },
+      payload: { pageId: 'testPage1', sectionId: 'section1' },
     };
     const state = reducer(mockState, action);
 
-    expect(state).toEqual([{
-      id: 'testPage',
-      sections: ['section2'],
-    }]);
-  });
-
-  it('should move a page', () => {
-    const mockState = [
-      { id: 'testPage1' },
-      { id: 'testPage2' },
-    ];
-    const action = {
-      type: t.DRAG_PAGE,
-      payload: { from: 1, to: 0 },
-    };
-    const expectedState = [
-      { id: 'testPage2' },
-      { id: 'testPage1' },
-    ];;
-    const state = reducer(mockState, action);
-
-    expect(state).toEqual(expectedState);
+    expect(state.testPage1._items).not.toContain('section1');
   });
 
   it('should move a section', () => {
-    const mockState = [
-      { id: 'testPage1', sections: ['section1', 'section2'] },
-      { id: 'testPage2', sections: ['section1', 'section2'] },
-    ];
     const action = {
       type: t.DRAG_SECTION,
       payload: { pageId: 'testPage2', from: 0, to: 1 },
     };
-    const expectedState = [
-      { id: 'testPage1', sections: ['section1', 'section2'] },
-      { id: 'testPage2', sections: ['section2', 'section1'] },
-    ];
     const state = reducer(mockState, action);
 
-    expect(state).toEqual(expectedState);
+    expect(state.testPage2._items[0]).toEqual('section2');
+    expect(state.testPage2._items[1]).toEqual('section1');
   });
 
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,
     };
-    const state = reducer([1, 2, 3], action);
+    const state = reducer({ page1: {}, page2: {}}, action);
 
-    expect(state).toEqual([]);
+    expect(state).toEqual({});
   });
 });
 

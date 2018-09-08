@@ -9,47 +9,36 @@ import {
   getMinSectionsPerPage,
 } from '@/reducers/settings';
 
-const initialState = [];
+const initialState = {};
 
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
-    return payload.data.pages || [];
+    return payload.data.pages || {};
 
   } else if (type === t.ADD_PAGE) {
-    return [...state, payload.page];
+    return Object.assign({}, state, { [payload.page._id]: payload.page });
 
   } else if (type === t.DELETE_PAGE) {
     const newState = cloneDeep(state);
-    const deleteIndex = newState.findIndex(page => page.id === payload.pageId);
-    newState.splice(deleteIndex, 1);
+    delete newState[payload.pageId];
     return newState;
 
   } else if (type === t.ADD_SECTION) {
     const newState = cloneDeep(state);
-    const page = newState.find(page => page.id === payload.pageId);
-    page.sections.push(payload.sectionId);
+    newState[payload.pageId]._items.push(payload.sectionId);
     return newState;
 
   } else if (type === t.DELETE_SECTION) {
     const newState = cloneDeep(state);
-    const page = newState.find(page => page.id === payload.pageId);
-    const deleteIndex = page.sections.findIndex(section => section === payload.sectionId);
-    page.sections.splice(deleteIndex, 1);
-    return newState;
-
-  } else if (type === t.DRAG_PAGE) {
-    const newState = cloneDeep(state);
-    const [movedPage] = newState.splice(payload.from, 1);
-    newState.splice(payload.to, 0, movedPage);
+    newState[payload.pageId]._items = newState[payload.pageId]._items.filter(id => id !== payload.sectionId);
     return newState;
 
   } else if (type === t.DRAG_SECTION) {
     const newState = cloneDeep(state);
-    const page = newState.find(page => page.id === payload.pageId);
-    const [movedSection] = page.sections.splice(payload.from, 1);
-    page.sections.splice(payload.to, 0, movedSection);
+    const [movedSection] = newState[payload.pageId]._items.splice(payload.from, 1);
+    newState[payload.pageId]._items.splice(payload.to, 0, movedSection);
     return newState;
 
   } else if (type === t.RESET_SESSION) {
