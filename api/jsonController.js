@@ -28,7 +28,7 @@ export function writeJson(fileName) {
     try {
       await writeFileAsync(
         filePaths[fileName] || path.join(process.cwd(), `${fileName}.json`),
-        JSON.stringify(jsonData)
+        JSON.stringify(jsonData, null, 2)
       );
       res.send(jsonData);
     } catch(error) {
