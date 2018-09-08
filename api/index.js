@@ -5,11 +5,12 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 
 import { init } from './authService';
+import migrateContent from './migrateContent';
 import router from './router';
 
 const imageDirectory = path.join(process.cwd(), 'public', 'images');
 
-module.exports = function run(args, flags = {}) {
+module.exports = async function run(args, flags = {}) {
   const {
     port = 3010,
   } = flags;
@@ -26,6 +27,11 @@ module.exports = function run(args, flags = {}) {
   app.use('/images', express.static(imageDirectory));
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'cms', 'index.html')));
 
+  try {
+    await migrateContent();
+  } catch(error) {
+    return;
+  }
 
   app.listen(port, () => console.log(`Visit the CMS at http://localhost:${port}`));
 };
