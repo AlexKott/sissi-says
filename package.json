@@ -33,6 +33,7 @@
     "passport-jwt": "^4.0.0",
     "raf": "3.4.0",
     "react-localize-redux": "^3.0.2",
+    "sissi-moves": "^0.6.0",
     "shorthash": "^0.0.2"
   },
   "devDependencies": {
@@ -109,9 +110,8 @@
     "build": "export NODE_ENV=production && npm run build:api && npm run build:frontend",
     "clear": "rm -rf lib && mkdir lib",
     "dev:api": "nodemon bin/run",
-    "dev": "concurrently \"npm run watch:frontend\" \"npm run watch:api\" \"npm run dev:api\"",
     "prepare": "npm run clear && npm run build",
-    "start": "bin/run",
+    "start": "concurrently \"npm run watch:frontend\" \"npm run watch:api\" \"npm run dev:api\"",
     "test": "node scripts/test.js --env=jsdom",
     "watch:api": "./node_modules/.bin/babel api -d lib --presets=babel-preset-es2015-node5 --no-babelrc --watch",
     "watch:frontend": "node scripts/start.js"
