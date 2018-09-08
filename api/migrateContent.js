@@ -16,8 +16,7 @@ export default function migrateContent() {
       'hash',
     ], (error, stdout, stderr) => {
       if (error || stderr) {
-        console.log(error, stderr);
-        return reject();
+        return reject(error || stderr);
       }
       const newHash = stdout.trim();
 
@@ -29,12 +28,24 @@ export default function migrateContent() {
         'migrate',
       ], (error, stdout, stderr) => {
         if (error || stderr) {
-          console.log(error, stderr);
           return reject(error || stderr);
         }
-        console.log(stdout);
+        if (stdout) {
+          console.log(stdout);
+        }
         resolve();
       });
     });
   });
+}
+
+export async function migrateContentMiddleware(req, res, next) {
+  try {
+    await migrateContent();
+    next();
+
+  } catch(error) {
+    console.log(error);
+    return res.sendStatus(500)
+  }
 }

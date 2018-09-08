@@ -29,7 +29,9 @@ module.exports = async function run(args, flags = {}) {
 
   try {
     await migrateContent();
+
   } catch(error) {
+    console.log(error);
     return;
   }
 
