@@ -7,33 +7,43 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
   const { type, payload } = action;
 
   if (type === t.ADD_PAGE) {
-    const pageType = payload.pageType || 'standard';
+    const _type = payload.pageType || 'standard';
+    const _id = getRandomString();
     const minSectionsPerPage = getters.getMinSectionsPerPage(getState());
-    let protectedSections = [];
 
-    const pageId = getRandomString();
-    const newPage = {};
-    newPage.id = pageId;
-    newPage.pageType = pageType;
-    newPage.sections = [];
+    const newPage = {
+      _id,
+      _items: [],
+      _type,
+    };
 
-    if (pageType === 'singlePage') {
-      protectedSections = getters.getProtectedSections(getState());
-      
-    } else {
-      protectedSections = getters.getProtectedSectionsForPage(getState(), pageType);
+    const fields = getters.getPageFields(getState(), _type);
+    fields.forEach(fieldObj => {
+      const [fieldName, field] = Object.entries(fieldObj)[0];
 
-      const fields = getters.getPageFieldNames(getState(), pageType);
-      fields.forEach(field => newPage[field] = '');
-    }
+      if (field.type === 'list') {
+        const { fields: itemFieldNames, minItems } = field;
+        newPage[fieldName] = [];
+
+        for (let i = 0; i < minItems; i++) {
+          const newItem = {};
+          itemFieldNames.forEach(fieldName => newItem[fieldName] = '');
+          newPage[fieldName].push(newItem);
+        }
+
+      } else {
+        newPage[fieldName] = '';
+      }
+    })
 
     payload.page = newPage;
     next(action);
 
-    protectedSections.forEach(section => dispatch(actions.addSection(pageId, section)));
+    let currentAmountOfSections = getters.getNumberOfSectionsForPage(getState(), _id);
 
-    while (minSectionsPerPage > getters.getNumberOfSectionsForPage(getState(), pageId)) {
-      dispatch(actions.addSection(pageId));
+    while (currentAmountOfSections < minSectionsPerPage) {
+      dispatch(actions.addSection(_id));
+      currentAmountOfSections += 1;
     }
 
   } else {

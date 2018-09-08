@@ -32,10 +32,8 @@ export default (
       const formId = formNameArray[2];
 
       if (formType === 'page') {
-        const newPageIndex = pageData.findIndex(page => page.id === formId);
-        const newPage = Object.assign({}, pageData[newPageIndex], formInput);
-        pageData.splice(newPageIndex, 1, newPage);
-        pages = pageData;
+        const newPage = Object.assign({}, pageData[formId], formInput);
+        pages = Object.assign({}, pageData, { [formId]: newPage });
       } else if (formType === 'section') {
         const newSection = Object.assign({}, sectionData[formId], formInput);
         sections = Object.assign({}, sectionData, { [formId]: newSection });

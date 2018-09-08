@@ -106,13 +106,26 @@ describe('middleware/gatherRequestData', () => {
           method: 'post',
           formName: 'test-page-abc123',
           dataType: 'content',
-        }};
+        },
+      };
       mockMethods.getFormValues = jest.fn(() => () => ({ title: 'new' }));
-      mockMethods.getAllPages = jest.fn(() => ([
-        { id: 'page1' },
-        { id: 'abc123', title: 'test', image: 'yes' },
-      ]));
-      const expectedPageData = [{ id: 'page1' }, { id: 'abc123', title: 'new', image: 'yes' }];
+      mockMethods.getAllPages = jest.fn(() => ({
+        page1: { _id: 'page1' },
+        abc123: {
+          _id: 'abc123',
+          title: 'test',
+          image: 'yes',
+        },
+      }));
+
+      const expectedPageData = {
+        page1: { _id: 'page1' },
+        abc123: {
+          _id: 'abc123',
+          title: 'new',
+          image: 'yes',
+        },
+      };
 
       middleware(mockStore, mockMethods)(mockNext)(mockAction);
 

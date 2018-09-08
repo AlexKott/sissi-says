@@ -15,7 +15,10 @@ describe('middleware/pageBuilder', () => {
     };
     mockNext = jest.fn();
     mockSelectors = {
-      getPageFieldNames: jest.fn(() => ['mockField1', 'mockField2']),
+      getPageFields: jest.fn(() => [
+        { 'field1': { type: 'standard' }},
+        { 'field2': { type: 'standard' }},
+      ]),
       getProtectedSectionsForPage: jest.fn(() => []),
       getMinSectionsPerPage: jest.fn(() => 0),
       getNumberOfSectionsForPage: jest.fn(() => 1),
@@ -40,24 +43,11 @@ describe('middleware/pageBuilder', () => {
     expect(testedAction).toHaveProperty('type', t.ADD_PAGE);
     expect(testedAction).toHaveProperty('payload');
     expect(testedAction.payload).toHaveProperty('page');
-    expect(testedAction.payload.page).toHaveProperty('id');
-    expect(testedAction.payload.page).toHaveProperty('pageType');
-    expect(testedAction.payload.page).toHaveProperty('sections');
-    expect(testedAction.payload.page).toHaveProperty('mockField1');
-    expect(testedAction.payload.page).toHaveProperty('mockField2');
-  });
-
-  it('should dispatch addSection with the right type for each protected section', () => {
-    mockSelectors.getProtectedSectionsForPage = jest.fn(() => ['section1', 'section2']);
-
-    middleware(mockStore, mockSelectors)(mockNext)(mockAction);
-
-    const testedAction = mockDispatch.mock.calls;
-    expect(testedAction).toHaveLength(2);
-    expect(testedAction[0][0].payload).toHaveProperty('pageId');
-    expect(testedAction[0][0].payload).toHaveProperty('sectionType', 'section1');
-    expect(testedAction[1][0].payload).toHaveProperty('pageId');
-    expect(testedAction[1][0].payload).toHaveProperty('sectionType', 'section2');
+    expect(testedAction.payload.page).toHaveProperty('_id');
+    expect(testedAction.payload.page).toHaveProperty('_type');
+    expect(testedAction.payload.page).toHaveProperty('_items');
+    expect(testedAction.payload.page).toHaveProperty('field1');
+    expect(testedAction.payload.page).toHaveProperty('field2');
   });
 
   it('should dispatch addSection until the minimum of sections is created', () => {
