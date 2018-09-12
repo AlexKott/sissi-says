@@ -1,22 +1,18 @@
 import reducer, * as selectors from './pages';
 import * as t from '@/actions/types';
 
+const pagesState = {
+  testPage1: {
+    _id: 'testPage1',
+    _items: ['section1', 'section2'],
+  },
+  testPage2: {
+    _id: 'testPage2',
+    _items: ['section1', 'section2'],
+  },
+};
+
 describe('reducers/content/pages', () => {
-  let mockState;
-
-  beforeEach(() => {
-    mockState = {
-      testPage1: {
-        _id: 'testPage1',
-        _items: ['section1', 'section2'],
-      },
-      testPage2: {
-        _id: 'testPage2',
-        _items: ['section1', 'section2'],
-      },
-    };
-  });
-
   it('should return the initial state', () => {
     const expectedState = {};
     const state = reducer();
@@ -91,8 +87,7 @@ describe('reducers/content/pages', () => {
     };
     const state = reducer(mockState, action);
 
-    expect(state.testPage2._items[0]).toEqual('section2');
-    expect(state.testPage2._items[1]).toEqual('section1');
+    expect(state.testPage2._items).toEqual(['section2', 'section1']);
   });
 
   it('should reset the state', () => {
@@ -106,18 +101,6 @@ describe('reducers/content/pages', () => {
 });
 
 describe('selectors/content/pages', () => {
-  describe('getAllPages', () => {
-    it('should return an array of pages', () => {
-      const mockState = {
-        content: {
-          pages: ['page1', 'page2', 'page3'],
-        },
-      };
-      const value = selectors.getAllPages(mockState);
-
-      expect(value).toEqual(['page1', 'page2', 'page3']);
-    });
-  });
 
   describe('getPageById', () => {
     it('should return a page given its pageId', () => {

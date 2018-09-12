@@ -1,6 +1,7 @@
-import cloneDeep from 'lodash.clonedeep';
+import _cloneDeep from 'lodash.clonedeep';
 
 import * as t from '@/actions/types';
+import reorderArray from '@/helpers/reorderArray';
 import { getSectionById } from './sections';
 import {
   getMaxAmountOfPages,
@@ -12,61 +13,64 @@ const initialState = {};
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
-    return payload.data.pages || {};
+  switch(type) {
+    case t.FETCH_DATA_SUCCESS:
+      if (payload.dataType === 'content') {
+        return payload.data.pages || initialState;
+      }
+      return state;
 
-  } else if (type === t.ADD_PAGE) {
-    return Object.assign({}, state, { [payload.page._id]: payload.page });
+    case t.ADD_PAGE:
+      return {
+        ...state,
+        [payload.page._id]: payload.page,
+      };
 
-  } else if (type === t.DELETE_PAGE) {
-    const newState = cloneDeep(state);
-    delete newState[payload.pageId];
-    return newState;
+    case t.DELETE_PAGE:
+      const { [payload.pageId]: pageToDelete, ...newState } = state;
+      return newState;
 
-  } else if (type === t.ADD_SECTION) {
-    const newState = cloneDeep(state);
-    newState[payload.pageId]._items.push(payload.sectionId);
-    return newState;
+    case t.ADD_SECTION:
+      return {
+        ...state,
+        [payload.pageId]: {
+          ...state[payload.pageId],
+          _items: state[payload.pageId]._items.concat(payload.sectionId),
+        },
+      };
 
-  } else if (type === t.DELETE_SECTION) {
-    const newState = cloneDeep(state);
-    newState[payload.pageId]._items = newState[payload.pageId]._items.filter(id => id !== payload.sectionId);
-    return newState;
+    case t.DELETE_SECTION:
+      return {
+        ...state,
+        [payload.pageId]: {
+          ...state[payload.pageId],
+          _items: state[payload.pageId]._items.filter(id => id !== payload.sectionId),
+        },
+      };
 
-  } else if (type === t.DRAG_SECTION) {
-    const newState = cloneDeep(state);
-    const [movedSection] = newState[payload.pageId]._items.splice(payload.from, 1);
-    newState[payload.pageId]._items.splice(payload.to, 0, movedSection);
-    return newState;
+    case t.DRAG_SECTION:
+      return {
+        ...state,
+        [payload.pageId]: {
+          ...state[payload.pageId],
+          _items: reorderArray(state[payload.pageId]._items, payload.from, payload.to),
+        },
+      };
 
-  } else if (type === t.RESET_SESSION) {
-    return initialState;
+    case t.RESET_SESSION:
+      return initialState;
+
+    default:
+      return state;
   }
-
-  return state;
 };
 
-export function getAllPages(state) {
-  return cloneDeep(state.content.pages);
-}
+export const getContentPages = state => state.content.pages; // TODO: test
+export const getPageById = (state, pageId) => state.content.pages[pageId];
+export const getSectionIdsForPage = (state, pageId) => state.content.pages[pageId]._items; // TODO: move test
+export const getNumberOfSectionsForPage = (state, pageId) => state.content.pages[pageId]._items.length;
 
-export function getPageById(state, pageId) {
-  return state.content.pages.find(page => page.id === pageId) || {};
-}
-
-export function getNumberOfPages(state) {
-  return state.content.pages.length;
-}
-
-export function getNumberOfSectionsForPage(state, pageId) {
-  const page = state.content.pages.find(page => page.id === pageId);
-  return page ? page.sections.length : 0;
-}
-
-export function getSectionIdsForPage(state, pageId) {
-  return getPageById(state, pageId).sections || [];
-}
-
+// TODO: move below selectors + tests to selectors folder
 export function getSectionsForPage(state, pageId, selectSectionById = getSectionById) {
   const sectionIds = getSectionIdsForPage(state, pageId);
 
@@ -77,7 +81,7 @@ export function getSectionsForPage(state, pageId, selectSectionById = getSection
 }
 
 export function getInitialPageValues(state, pageId) {
-  const pageCopy = cloneDeep(getPageById(state, pageId));
+  const pageCopy = _cloneDeep(getPageById(state, pageId));
   delete pageCopy.id;
   delete pageCopy.pageType;
   delete pageCopy.sections;

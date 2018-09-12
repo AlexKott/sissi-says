@@ -1,46 +1,31 @@
-import reducer, * as selectors from './global';
 import * as t from '@/actions/types';
+import _testState from '@/reducers/_testState';
+
+import reducer, * as selectors from './global';
 
 describe('reducers/content/global', () => {
-  let mockState;
+  const mockState = _testState.content.global;
 
-  beforeEach(() => {
-    mockState = {
-      metaTitle: 'test',
-      metaDescription: 'also test',
-      _items: ['page1', 'page2'],
-    };
-  });
-
-  it('should return the initial state', () => {
-    const expectedState = {};
-    const state = reducer();
-
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should set the given content', () => {
+  it('should apply the fetched data', () => {
     const action = {
       type: t.FETCH_DATA_SUCCESS,
       payload: {
         dataType: 'content',
         data: {
-          global: { metaTitle: 'test', metaDescription: 'alsoTest' },
+          global: { metaTitle: 'test' },
         },
       },
     };
-    const expectedState = { metaTitle: 'test', metaDescription: 'alsoTest' };
-    const state = reducer(undefined, action);
+    const state = reducer(mockState, action);
 
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual({ metaTitle: 'test' });
   });
 
   it('should add a page', () => {
     const action = {
       type: t.ADD_PAGE,
-      payload: { page: { _id: 'newPage', testField: 'hi' }},
+      payload: { page: { _id: 'newPage' }},
     };
-
     const state = reducer(mockState, action);
 
     expect(state._items).toContain('newPage');
@@ -49,80 +34,49 @@ describe('reducers/content/global', () => {
   it('should delete a page', () => {
     const action = {
       type: t.DELETE_PAGE,
-      payload: { pageId: 'page1' },
+      payload: { pageId: 'abc123' },
     };
-
     const state = reducer(mockState, action);
 
-    expect(state._items).not.toContain('page1');
+    expect(state._items).not.toContain('abc123');
   });
 
   it('should move a page', () => {
     const action = {
       type: t.DRAG_PAGE,
-      payload: { from: 0, to: 1 },
+      payload: { from: 1, to: 0 },
     };
     const state = reducer(mockState, action);
 
-    expect(state._items[0]).toEqual('page2');
-    expect(state._items[1]).toEqual('page1');
+    expect(state._items).toEqual(['def345', 'abc123']);
   });
 
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,
     };
-    const state = reducer({ globalData: 'test' }, action);
+    const state = reducer(mockState, action);
 
     expect(state).toEqual({});
   });
 });
 
 describe('selectors/content/global', () => {
-  let mockState;
+  const mockState = _testState;
 
-  beforeEach(() => {
-    mockState = {
-      content: {
-        global: {
-          maxItems: 4,
-          minItems: 2,
-          _items: ['page1', 'page2'],
-          testField: 'this is a field',
-        },
-      },
-    };
-  });
-
-  describe('getGlobalContent', () => {
-    it('should return the correct value from the state', () => {
-      const value = selectors.getGlobalContent(mockState);
+  describe('getContentGlobal', () => {
+    it('should return the correct value', () => {
+      const value = selectors.getContentGlobal(mockState);
 
       expect(value).toEqual(mockState.content.global);
     });
   });
 
-  describe('getMaxAmountOfPages', () => {
-    it('should return the correct value from the state', () => {
-      const value = selectors.getMaxAmountOfPages(mockState);
-
-      expect(value).toBe(4);
-    });
-  });
-
-  describe('getMinAmountOfPages', () => {
-    it('should return the correct value from the state', () => {
-      const value = selectors.getMinAmountOfPages(mockState);
-
-      expect(value).toBe(2);
-    });
-  });
-
   describe('getAllPageIds', () => {
-    it('should return the correct value from the state', () => {
+    it('should return the correct value', () => {
       const value = selectors.getAllPageIds(mockState);
 
-      expect(value).toEqual(['page1', 'page2']);
+      expect(value).toEqual(['abc123', 'def345']);
     });
   });
 });
