@@ -25,7 +25,7 @@ describe('middleware/gatherRequestData', () => {
     mockGetState = jest.fn();
     mockNext = jest.fn();
     mockSelectors = {
-      getGlobalData: jest.fn(),
+      getGlobalContent: jest.fn(),
       getAllPages: jest.fn(),
       getAllSections: jest.fn(),
       getFields: jest.fn(),
@@ -61,7 +61,7 @@ describe('middleware/gatherRequestData', () => {
   it('should collect data from the relevant reducers and form', () => {
     middleware(mockStore, mockMethods)(mockNext)(mockAction);
 
-    expect(mockMethods.getGlobalData).toBeCalled();
+    expect(mockMethods.getGlobalContent).toBeCalled();
     expect(mockMethods.getAllPages).toBeCalled();
     expect(mockMethods.getAllSections).toBeCalled();
     expect(mockGetFormValues).toBeCalledWith('test');
@@ -89,7 +89,7 @@ describe('middleware/gatherRequestData', () => {
           dataType: 'content',
         }};
       mockMethods.getFormValues = jest.fn(() => () => ({ globalInfo: 'test' }));
-      mockMethods.getGlobalData = jest.fn(() => ({ globalInfo: '', globalName: 'blubb' }));
+      mockMethods.getGlobalContent = jest.fn(() => ({ globalInfo: '', globalName: 'blubb' }));
       const expectedGlobalData = { globalInfo: 'test', globalName: 'blubb' };
 
       middleware(mockStore, mockMethods)(mockNext)(mockAction);

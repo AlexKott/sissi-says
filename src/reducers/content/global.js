@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash.clonedeep';
+import _cloneDeep from 'lodash.clonedeep';
 
 import * as t from '@/actions/types';
 
@@ -6,33 +6,51 @@ const initialState = {};
 
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
+  let nextState;
 
-  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
-    return payload.data.global;
+  switch(type) {
+    case t.FETCH_DATA_SUCCESS:
+      if (payload.dataType === 'content') {
+        return payload.data.global;
+      }
+      return state;
 
-  } else if (type === t.ADD_PAGE) {
-    const newState = cloneDeep(state);
-    newState._items.push(payload.page._id);
-    return newState;
+    case t.ADD_PAGE:
+      nextState = _cloneDeep(state);
+      nextState._items.push(payload.page._id);
+      return nextState;
 
-  } else if (type === t.DELETE_PAGE) {
-    const newState = cloneDeep(state);
-    newState._items = newState._items.filter(id => id !== payload.pageId);
-    return newState;
+    case t.DELETE_PAGE:
+      nextState = _cloneDeep(state);
+      nextState._items = nextState._items.filter(id => id !== payload.pageId);
+      return nextState;
 
-  } else if (type === t.DRAG_PAGE) {
-    const newState = cloneDeep(state);
-    const [pageToMove] = newState._items.splice(payload.from, 1);
-    newState._items.splice(payload.to, 0, pageToMove);
-    return newState;
+    case t.DRAG_PAGE:
+      nextState = _cloneDeep(state);
+      const [pageToMove] = nextState._items.splice(payload.from, 1);
+      nextState._items.splice(payload.to, 0, pageToMove);
+      return nextState;
 
-  } else if (type === t.RESET_SESSION) {
-    return initialState;
+    case t.RESET_SESSION:
+      return initialState;
+
+    default:
+      return state;
   }
-
-  return state;
 }
 
-export function getGlobalData(state) {
-  return cloneDeep(state.content.global);
+export function getGlobalContent(state) {
+  return state.content.global;
+}
+
+export function getMaxAmountOfPages(state) {
+  return state.content.global.maxItems;
+}
+
+export function getMinAmountOfPages(state) {
+  return state.content.global.minItems;
+}
+
+export function getAllPageIds(state) {
+  return state.content.global._items;
 }

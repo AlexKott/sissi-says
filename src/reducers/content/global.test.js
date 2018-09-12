@@ -78,17 +78,51 @@ describe('reducers/content/global', () => {
   });
 });
 
-describe('selectors/content&/global', () => {
-  describe('getGlobalData', () => {
-    it('should return the stored global data', () => {
-      const mockState = {
-        content: {
-          global: { globalTitle: 'test', globalDescription: 'alsoTest' },
-        },
-      };
-      const value = selectors.getGlobalData(mockState);
+describe('selectors/content/global', () => {
+  let mockState;
 
-      expect(value).toEqual({ globalTitle: 'test', globalDescription: 'alsoTest' });
+  beforeEach(() => {
+    mockState = {
+      content: {
+        global: {
+          maxItems: 4,
+          minItems: 2,
+          _items: ['page1', 'page2'],
+          testField: 'this is a field',
+        },
+      },
+    };
+  });
+
+  describe('getGlobalContent', () => {
+    it('should return the correct value from the state', () => {
+      const value = selectors.getGlobalContent(mockState);
+
+      expect(value).toEqual(mockState.content.global);
+    });
+  });
+
+  describe('getMaxAmountOfPages', () => {
+    it('should return the correct value from the state', () => {
+      const value = selectors.getMaxAmountOfPages(mockState);
+
+      expect(value).toBe(4);
+    });
+  });
+
+  describe('getMinAmountOfPages', () => {
+    it('should return the correct value from the state', () => {
+      const value = selectors.getMinAmountOfPages(mockState);
+
+      expect(value).toBe(2);
+    });
+  });
+
+  describe('getAllPageIds', () => {
+    it('should return the correct value from the state', () => {
+      const value = selectors.getAllPageIds(mockState);
+
+      expect(value).toEqual(['page1', 'page2']);
     });
   });
 });

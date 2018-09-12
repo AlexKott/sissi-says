@@ -18,19 +18,3 @@ export default (state = initialState, action = {}) => {
 export function getLanguage(state) {
   return state.settings.language;
 }
-
-export function getMinPages(state) {
-  return state.settings.minPages;
-}
-
-export function getMinSectionsPerPage(state) {
-  return state.settings.minSectionsPerPage;
-}
-
-export function getMaxPages(state) {
-  return state.settings.maxPages;
-}
-
-export function getMaxSectionsPerPage(state) {
-  return state.settings.maxSectionsPerPage;
-}

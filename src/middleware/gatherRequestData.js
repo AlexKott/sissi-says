@@ -14,7 +14,7 @@ export default (
   if (isPostRequest && payload.dataType === 'content') {
     const { formName } = payload;
     const state = getState();
-    const globalData = methods.getGlobalData(state);
+    const globalData = methods.getGlobalContent(state);
     const pageData = methods.getAllPages(state);
     const sectionData = methods.getAllSections(state);
     const formInput = methods.getFormValues(formName)(state);
