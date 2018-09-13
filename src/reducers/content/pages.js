@@ -2,11 +2,10 @@ import _cloneDeep from 'lodash.clonedeep';
 
 import * as t from '@/actions/types';
 import reorderArray from '@/helpers/reorderArray';
-import { getSectionById } from './sections';
 import {
   getMaxAmountOfPages,
   getMinAmountOfPages,
-} from '@/reducers/content/global';
+} from '@/reducers/structure/global';
 
 const initialState = {};
 
@@ -66,20 +65,11 @@ export default (state = initialState, action = {}) => {
 };
 
 export const getContentPages = state => state.content.pages; // TODO: test
-export const getPageById = (state, pageId) => state.content.pages[pageId];
-export const getSectionIdsForPage = (state, pageId) => state.content.pages[pageId]._items; // TODO: move test
-export const getNumberOfSectionsForPage = (state, pageId) => state.content.pages[pageId]._items.length;
+export const getPageById = pageId => state => state.content.pages[pageId];
+export const getSectionIdsForPage = pageId => state => state.content.pages[pageId]._items; // TODO: move test
+export const getNumberOfSectionsForPage = pageId => state => state.content.pages[pageId]._items.length;
 
 // TODO: move below selectors + tests to selectors folder
-export function getSectionsForPage(state, pageId, selectSectionById = getSectionById) {
-  const sectionIds = getSectionIdsForPage(state, pageId);
-
-  return sectionIds.map(id => {
-    const section = selectSectionById(state, id);
-    return { ...section, id };
-  });
-}
-
 export function getInitialPageValues(state, pageId) {
   const pageCopy = _cloneDeep(getPageById(state, pageId));
   delete pageCopy.id;
@@ -92,16 +82,8 @@ export function getCanAddPage(state, selectMaxPages = getMaxAmountOfPages) {
   return getNumberOfPages(state) < selectMaxPages(state);
 }
 
-export function getCanDeletePage(state, selectMinPages = getMinAmountOfPages) {
-  return getNumberOfPages(state) > selectMinPages(state);
-}
-
 export function getCanAddSection(state, pageId, selectMaxSections = getMaxSectionsPerPage) {
   return getNumberOfSectionsForPage(state, pageId) < selectMaxSections(state);
-}
-
-export function getCanDeleteSection(state, pageId, selectMinSections = getMinSectionsPerPage) {
-  return getNumberOfSectionsForPage(state, pageId) > selectMinSections(state);
 }
 
 export function getSinglePageId(state) {

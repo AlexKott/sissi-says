@@ -79,4 +79,12 @@ describe('selectors/content/global', () => {
       expect(value).toEqual(['abc123', 'def345']);
     });
   });
+
+  describe('getNumberOfPages', () => {
+    it('should return the correct value', () => {
+      const value = selectors.getNumberOfPages(mockState);
+
+      expect(value).toBe(2);
+    });
+  });
 });

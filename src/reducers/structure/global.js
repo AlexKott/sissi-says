@@ -24,3 +24,6 @@ export function getGlobalFields(state, selectFieldByName = getFieldByName) {
   const fieldNames = getGlobalFieldNames(state);
   return fieldNames.map(fieldName => selectFieldByName(state, fieldName));
 }
+
+export const getMaxAmountOfPages = state => state.structure.global.maxItems;
+export const getMinAmountOfPages = state => state.structure.global.minItems;
