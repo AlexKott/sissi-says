@@ -36,10 +36,10 @@ describe('reducers/settings', () => {
 });
 
 describe('selectors/settings', () => {
-  describe('getLanguage', () => {
+  describe('getSettingsLanguage', () => {
     it('should return the correct value from the state', () => {
       const mockState = { settings: { language: 'se' } };
-      const value = selectors.getLanguage(mockState);
+      const value = selectors.getSettingsLanguage(mockState);
 
       expect(value).toBe('se');
     });

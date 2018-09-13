@@ -11,3 +11,5 @@ export function getSelectedPageId(state, getters = { getIsSinglePage, getSingleP
 export function getSelectedSectionId(state) {
   return state.location.payload.sectionId;
 }
+
+export const getCurrentRoute = state => state.location.type;

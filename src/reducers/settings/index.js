@@ -15,6 +15,4 @@ export default (state = initialState, action = {}) => {
   return state;
 };
 
-export function getLanguage(state) {
-  return state.settings.language;
-}
+export const getSettingsLanguage = state => state.settings.language;
