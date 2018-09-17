@@ -1,55 +1,49 @@
 import { createSelector } from 'reselect';
 
+const getAllPageIds = state => state.content.global._items;
 const getMaxAmountOfPages = state => state.structure.global.maxItems;
-const getContent = state => state.content;
-const getStructure = state => state.structure;
-const getCurrentPageId = state => state.location.payload ? state.location.payload.pageId : null;
+const getLocationPageId = state => state.location.payload ? state.location.payload.pageId : null;
+const getSinglePageId = state => Object.keys(state.content.pages)[0];
+const getSectionIdsForPage = pageId => state => state.content.pages[pageId]._items;
+const getPageStructureById = pageId => state => state.structure.pages[state.content.pages[pageId]._type];
 
-export const getPropsForNavBar = level => createSelector(
+export const getActivePageId = createSelector(
   [
-    getContent,
-    getStructure,
+    getLocationPageId,
     getMaxAmountOfPages,
-    getCurrentPageId,
+    getSinglePageId,
   ],
-  (content, structure, maxAmountOfPages, currentPageId) => {
-    let type = 'pages';
-    let navItems, pageId, maxItems, existingItems;
+  (locationPageId, maxAmountOfPages, singlePageId) => maxAmountOfPages > 1 ? locationPageId : singlePageId
+);
 
-    if (level === 1 && maxAmountOfPages <= 1) {
-      type = 'sections';
-      pageId = Object.keys(content.pages)[0];
-    } else if (level === 2) {
-      pageId = currentPageId;
-      type = (maxAmountOfPages <= 1 || structure.pages[content.pages[currentPageId]._type].maxItems === 0) ? null : 'sections';
+export const getPropsForPageNav = createSelector(
+  [
+    getAllPageIds,
+    getMaxAmountOfPages,
+  ],
+  (pageIds, maxAmountOfPages) => {
+    if (maxAmountOfPages > 1) {
+      return {
+        canAdd: maxAmountOfPages > pageIds.length,
+        itemIds: pageIds,
+      };
     }
+    return null;
+  }
+);
 
-    if (type === 'pages') {
-      navItems = content.global._items.map(pageId => {
-        const page = content.pages[pageId];
-        page._link = `/page/${pageId}`;
-        return page;
-      });
-
-      maxItems = maxAmountOfPages;
-      existingItems = content.global._items.length;
-
-    } else if (type === 'sections') {
-      navItems = content.pages[pageId]._items.map(sectionId => {
-        const section = content.sections[sectionId];
-        section._link = `/page/${pageId}/section/${sectionId}`;
-        return section;
-      });
-
-      maxItems = structure.pages[content.pages[pageId]._type].maxItems;
-      existingItems = content.pages[pageId]._items.length;
+export const getPropsForSectionNav = pageId => createSelector(
+  [
+    getSectionIdsForPage(pageId),
+    getPageStructureById(pageId),
+  ],
+  (sectionIds, { maxItems }) => {
+    if (pageId && maxItems > 0) {
+      return {
+        canAdd: maxItems > sectionIds.length,
+        itemIds: sectionIds,
+      };
     }
-
-    return {
-      canAdd: maxItems > existingItems,
-      navItems,
-      type,
-      parentId: type === 'sections' ? pageId : 'global',
-    };
+    return null;
   }
 );

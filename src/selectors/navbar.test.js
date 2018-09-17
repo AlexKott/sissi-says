@@ -8,213 +8,139 @@ describe('selectors/navbar', () => {
 
   beforeEach(() => {
     mockState = _cloneDeep(testState);
-    mockState.location = {
-      routesMap: {
-        globalRoute: {
-          itemType: 'global',
-        },
-      },
-      type: 'globalRoute',
-    };
   });
 
-  describe('getPropsForNavBar', () => {
-    describe('level 1', () => {
-      describe('multiple pages allowed', () => {
-        it('should return "pages" as type', () => {
-          const result = selectors.getPropsForNavBar(1)(mockState);
+  describe('single page', () => {
+    beforeEach(() => {
+      mockState.structure.global.maxItems = 1;
+      mockState.content.global._items = ['singlePage'];
+      mockState.content.pages = {
+        singlePage: {
+          _id: 'singlePage',
+          _items: ['345def', '123abc'],
+          _type: 'standard',
+        },
+      };
+    });
 
-          expect(result).toHaveProperty('type', 'pages');
-        });
+    describe('getActivePageId', () => {
+      it('should return the id of the single page', () => {
+        const result = selectors.getActivePageId(mockState);
 
-        it('should return "global" as parentId', () => {
-          const result = selectors.getPropsForNavBar(1)(mockState);
+        expect(result).toBe('singlePage');
+      });
+    });
 
-          expect(result).toHaveProperty('parentId', 'global');
-        });
+    describe('getPropsForPageNav', () => {
+      it('should return null', () => {
+        const result = selectors.getActivePageId(mockState);
 
-        describe('navItems', () => {
-          it('should be an array of pages', () => {
-            const result = selectors.getPropsForNavBar(1)(mockState);
+        expect(result).toBe('singlePage');
+      });
+    });
 
-            expect(result.navItems[0]).toHaveProperty('_id', 'abc123');
-            expect(result.navItems[1]).toHaveProperty('_id', 'def345');
-          });
+    describe('getPropsForSectionNav', () => {
+      describe('itemIds', () => {
+        it('should be an array of all section ids', () => {
+          const result = selectors.getPropsForSectionNav('singlePage')(mockState);
 
-          it('should include a link for each item', () => {
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result.navItems[0]).toHaveProperty('_link', '/page/abc123');
-            expect(result.navItems[1]).toHaveProperty('_link', '/page/def345');
-          });
-        });
-
-        describe('canAdd', () => {
-          it('should be true if more pages can be added', () => {
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result).toHaveProperty('canAdd', true);
-          });
-
-          it('should be false if no more pages can be added', () => {
-            mockState.structure.global.maxItems = 2;
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result).toHaveProperty('canAdd', false);
-          });
+          expect(result).toHaveProperty('itemIds');
+          expect(result.itemIds).toContain('345def');
+          expect(result.itemIds).toContain('123abc');
         });
       });
 
-      describe('single page', () => {
-        beforeEach(() => {
-          mockState.structure.global.maxItems = 1;
-          mockState.content.global._items = ['singlePage'];
-          mockState.content.pages = {
-            singlePage: {
-              _id: 'singlePage',
-              _items: ['345def', '123abc'],
-              _type: 'standard',
-            },
-          };
+      describe('canAdd', () => {
+        it('should be true if more sections can be added', () => {
+          const result = selectors.getPropsForSectionNav('singlePage')(mockState);
+
+          expect(result).toHaveProperty('canAdd', true);
         });
 
-        it('should return "sections" as type', () => {
-          const result = selectors.getPropsForNavBar(1)(mockState);
+        it('should be false if no more sections can be added', () => {
+          mockState.structure.pages.standard.maxItems = 2;
+          const result = selectors.getPropsForSectionNav('singlePage')(mockState);
 
-          expect(result).toHaveProperty('type', 'sections');
+          expect(result).toHaveProperty('canAdd', false);
+        });
+      });
+    });
+  });
+
+  describe('multiple pages', () => {
+    describe('getActivePageId', () => {
+      it('should return the id of the selected page', () => {
+        const result = selectors.getActivePageId(mockState);
+
+        expect(result).toBe('abc123');
+      });
+
+      it('should return null if no page is selected', () => {
+        mockState.location = {};
+        const result = selectors.getActivePageId(mockState);
+
+        expect(result).toBe(null);
+      });
+    });
+
+    describe('getPropsForPageNav', () => {
+      describe('itemIds', () => {
+        it('should be an array of all page ids', () => {
+          const result = selectors.getPropsForPageNav(mockState);
+
+          expect(result).toHaveProperty('itemIds');
+          expect(result.itemIds).toContain('abc123');
+          expect(result.itemIds).toContain('def345');
+        });
+      });
+
+      describe('canAdd', () => {
+        it('should be true if more pages can be added', () => {
+          const result = selectors.getPropsForPageNav(mockState);
+
+          expect(result).toHaveProperty('canAdd', true);
         });
 
-        it('should return the single page id as parentId', () => {
-          const result = selectors.getPropsForNavBar(1)(mockState);
+        it('should be false if no more pages can be added', () => {
+          mockState.structure.global.maxItems = 2;
+          const result = selectors.getPropsForPageNav(mockState);
 
-          expect(result).toHaveProperty('parentId', 'singlePage');
-        });
-
-        describe('navItems', () => {
-          it('should be an array of sections', () => {
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result.navItems[0]).toHaveProperty('_id', '345def');
-            expect(result.navItems[1]).toHaveProperty('_id', '123abc');
-          });
-
-          it('should include a link for each item', () => {
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result.navItems[0]).toHaveProperty('_link', '/page/singlePage/section/345def');
-            expect(result.navItems[1]).toHaveProperty('_link', '/page/singlePage/section/123abc');
-          });
-        });
-
-        describe('canAdd', () => {
-          it('should be true if more sections can be added', () => {
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result).toHaveProperty('canAdd', true);
-          });
-
-          it('should be false if no more sections can be added', () => {
-            mockState.structure.pages.standard.maxItems = 2;
-            const result = selectors.getPropsForNavBar(1)(mockState);
-
-            expect(result).toHaveProperty('canAdd', false);
-          });
+          expect(result).toHaveProperty('canAdd', false);
         });
       });
     });
 
-    describe('level 2', () => {
-      beforeEach(() => {
-        mockState.location = {
-          payload: {
-            pageId: 'abc123',
-          },
-          routesMap: {
-            pagesRoute: {
-              itemType: 'pages',
-            },
-          },
-          type: 'pagesRoute',
-        };
-      });
+    describe('getPropsForSectionNav', () => {
+      describe('itemIds', () => {
+        it('should be an array of all section ids', () => {
+          const result = selectors.getPropsForSectionNav('abc123')(mockState);
 
-      describe('multiple sections allowed for current page type', () => {
-        it('should return "sections" as type', () => {
-          const result = selectors.getPropsForNavBar(2)(mockState);
-
-          expect(result).toHaveProperty('type', 'sections');
-        });
-
-        it('should return the id of the selected page as parentId', () => {
-          const result = selectors.getPropsForNavBar(2)(mockState);
-
-          expect(result).toHaveProperty('parentId', 'abc123');
-        });
-
-        describe('navItems', () => {
-          it('should be an array of sections', () => {
-            const result = selectors.getPropsForNavBar(2)(mockState);
-
-            expect(result.navItems[0]).toHaveProperty('_id', '345def');
-            expect(result.navItems[1]).toHaveProperty('_id', '123abc');
-          });
-
-          it('should include a link for each item', () => {
-            const result = selectors.getPropsForNavBar(2)(mockState);
-
-            expect(result.navItems[0]).toHaveProperty('_link', '/page/abc123/section/345def');
-            expect(result.navItems[1]).toHaveProperty('_link', '/page/abc123/section/123abc');
-          });
-        });
-
-        describe('canAdd', () => {
-          it('should be true if more sections can be added', () => {
-            const result = selectors.getPropsForNavBar(2)(mockState);
-
-            expect(result).toHaveProperty('canAdd', true);
-          });
-
-          it('should be false if no more sections can be added', () => {
-            mockState.structure.pages.standard.maxItems = 2;
-            const result = selectors.getPropsForNavBar(2)(mockState);
-
-            expect(result).toHaveProperty('canAdd', false);
-          });
+          expect(result).toHaveProperty('itemIds');
+          expect(result.itemIds).toContain('345def');
+          expect(result.itemIds).toContain('123abc');
         });
       });
 
-      describe('no sections allowed for current page type', () => {
-        it('should return null as type', () => {
-          mockState.structure.pages.standard.maxItems = 0;
-          const result = selectors.getPropsForNavBar(2)(mockState);
+      describe('canAdd', () => {
+        it('should be true if more sections can be added', () => {
+          const result = selectors.getPropsForSectionNav('abc123')(mockState);
 
-          expect(result).toHaveProperty('type', null);
+          expect(result).toHaveProperty('canAdd', true);
+        });
+
+        it('should be false if no more sections can be added', () => {
+          mockState.structure.pages.standard.maxItems = 2;
+          const result = selectors.getPropsForSectionNav('abc123')(mockState);
+
+          expect(result).toHaveProperty('canAdd', false);
         });
       });
 
-      describe('single page', () => {
-        it('should return null as type', () => {
-          mockState.structure.global.maxItems = 1;
-          mockState.content.global._items = ['singlePage'];
-          mockState.content.pages = {
-            singlePage: {
-              _id: 'singlePage',
-              _items: ['345def', '123abc'],
-              _type: 'standard',
-            },
-          };
-          mockState.location = {
-            routesMap: {
-              globalRoute: {
-                itemType: 'global',
-              },
-            },
-            type: 'globalRoute',
-          };
-          const result = selectors.getPropsForNavBar(2)(mockState);
+      it('should return null if the page with the given id can not have sections', () => {
+        mockState.structure.pages.standard.maxItems = 0;
+        const result = selectors.getPropsForSectionNav('abc123')(mockState);
 
-          expect(result).toHaveProperty('type', null);
-        });
+        expect(result).toBe(null);
       });
     });
   });
