@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { NavLink } from 'redux-first-router-link';
 import { Draggable } from 'react-beautiful-dnd';
+
+import * as selectors from '@/selectors';
+
+const mapStateToProps = (state, ownProps) => ({
+  ...selectors.getPropsForNavItem(ownProps.id, ownProps.type)(state),
+});
 
 const NavItem = ({
   id,
   index,
-  linkArray = ['coming', 'soon'],
-  title = 'coming soon',
+  linkArray,
+  title,
   type,
 }) => (
   <Draggable draggableId={id} type={type} index={index}>
@@ -35,4 +42,4 @@ NavItem.propTypes = {
   type: PropTypes.string,
 };
 
-export default NavItem;
+export default connect(mapStateToProps)(NavItem);

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { getCurrentItemInfo } from './location';
 
 const getAllPageIds = state => state.content.global._items || [];
 const getMaxAmountOfPages = state => state.structure.global.maxItems;
@@ -9,6 +10,8 @@ const getSectionIdsForPage = pageId => state => state.content.pages[pageId]
   : [];
 const getContentPages = state => state.content.pages;
 const getStructurePages = state => state.structure.pages;
+const getItemContent = (id, type) => state => state.content[type][id];
+const getItemStructure = (id, type) => state => state.structure[type][state.content[type][id]._type];
 
 export const getPageStructureById = pageId => createSelector(
   [
@@ -28,6 +31,39 @@ export const getActivePageId = createSelector(
     getSinglePageId,
   ],
   (locationPageId, maxAmountOfPages, singlePageId) => maxAmountOfPages > 1 ? locationPageId : singlePageId
+);
+
+export const getPropsForNavItem = (id, type) => createSelector(
+  [
+    getCurrentItemInfo,
+    getMaxAmountOfPages,
+    getSinglePageId,
+    getItemContent(id, type),
+    getItemStructure(id, type),
+  ],
+  ({ item: currentItem, parent: currentParent }, maxAmountOfPages, singlePageId, itemContent, itemStructure) => {
+    const parent = currentItem.type === type ? currentParent : currentItem;
+    const backLinkArray = [];
+    let linkArray;
+
+    if (maxAmountOfPages > 1 && parent.id) {
+      backLinkArray.push(parent.type);
+      backLinkArray.push(parent.id);
+    }
+    linkArray = backLinkArray.concat([type, id]);
+
+    if (maxAmountOfPages <= 1) {
+      linkArray.unshift(singlePageId);
+      linkArray.unshift('pages');
+    }
+
+    return {
+      isActive: currentItem.id === id,
+      backLinkArray,
+      linkArray,
+      title: itemContent.title ? itemContent.title : itemStructure.label,
+    }
+  }
 );
 
 export const getPropsForPageNav = createSelector(

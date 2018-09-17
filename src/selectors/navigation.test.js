@@ -31,6 +31,67 @@ describe('selectors/navbar', () => {
       });
     });
 
+    describe('getPropsForNavItem', () => {
+      describe('isActive', () => {
+        it('should be true if the item is currently selected', () => {
+          mockState.location = {
+            payload: {
+              pageId: 'singlePage',
+              sectionId: '345def',
+            },
+            routesMap: {
+              sectionsRoute: {
+                itemType: 'sections',
+              },
+            },
+            type: 'sectionsRoute',
+          };
+          const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+          expect(result).toHaveProperty('isActive', true);
+        });
+
+        it('should be false is the item is not selected', () => {
+          const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+          expect(result).toHaveProperty('isActive', false);
+        });
+      });
+
+      describe('backLinkArray', () => {
+        it('should point to index', () => {
+          const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+          expect(result).toHaveProperty('backLinkArray');
+          expect(result.backLinkArray).toEqual([]);
+        });
+      });
+
+      describe('linkArray', () => {
+        it('should point to the given section', () => {
+          const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+          expect(result).toHaveProperty('linkArray');
+          expect(result.linkArray).toEqual(['pages', 'singlePage', 'sections', '345def']);
+        });
+      });
+
+      describe('title', () => {
+        it('should use the title from content', () => {
+          const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+          expect(result).toHaveProperty('title', 'This is awesome');
+        });
+
+        it('should use the label if there is no title in content', () => {
+          mockState.content.sections['345def'].title = undefined;
+          const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+          expect(result).toHaveProperty('title', 'Standard section');
+        });
+      });
+    });
+
     describe('getPropsForPageNav', () => {
       it('should return null', () => {
         const result = selectors.getActivePageId(mockState);
@@ -80,6 +141,154 @@ describe('selectors/navbar', () => {
         const result = selectors.getActivePageId(mockState);
 
         expect(result).toBe(null);
+      });
+    });
+
+    describe('getPropsForNavItem', () => {
+      describe('pages', () => {
+        beforeEach(() => {
+          mockState.location = {
+            routesMap: {
+              globalRoute: {
+                itemType: 'global',
+              },
+            },
+            type: 'globalRoute',
+          };
+        });
+
+        describe('isActive', () => {
+          it('should be true if the item is currently selected', () => {
+            mockState.location = {
+              payload: {
+                pageId: 'abc123',
+              },
+              routesMap: {
+                pagesRoute: {
+                  itemType: 'pages',
+                },
+              },
+              type: 'pagesRoute',
+            };
+            const result = selectors.getPropsForNavItem('abc123', 'pages')(mockState);
+
+            expect(result).toHaveProperty('isActive', true);
+          });
+
+          it('should be false is the item is not selected', () => {
+            const result = selectors.getPropsForNavItem('abc123', 'pages')(mockState);
+
+            expect(result).toHaveProperty('isActive', false);
+          });
+        });
+
+        describe('backLinkArray', () => {
+          it('should point to index', () => {
+            const result = selectors.getPropsForNavItem('abc123', 'pages')(mockState);
+
+            expect(result).toHaveProperty('backLinkArray');
+            expect(result.backLinkArray).toEqual([]);
+          });
+        });
+
+        describe('linkArray', () => {
+          it('should point to the given page', () => {
+            const result = selectors.getPropsForNavItem('abc123', 'pages')(mockState);
+
+            expect(result).toHaveProperty('linkArray');
+            expect(result.linkArray).toEqual(['pages', 'abc123']);
+          });
+        });
+
+        describe('title', () => {
+          it('should use the title from content', () => {
+            const result = selectors.getPropsForNavItem('abc123', 'pages')(mockState);
+
+            expect(result).toHaveProperty('title', 'Welcome');
+          });
+
+          it('should use the label if there is no title in content', () => {
+            mockState.content.pages['abc123'].title = undefined;
+            const result = selectors.getPropsForNavItem('abc123', 'pages')(mockState);
+
+            expect(result).toHaveProperty('title', 'Standard page');
+          });
+        });
+      });
+
+      describe('sections', () => {
+        beforeEach(() => {
+          mockState.location = {
+            payload: {
+              pageId: 'abc123',
+            },
+            routesMap: {
+              pagesRoute: {
+                itemType: 'pages',
+              },
+            },
+            type: 'pagesRoute',
+          };
+        });
+
+        describe('isActive', () => {
+          it('should be true if the item is currently selected', () => {
+            mockState.location = {
+              payload: {
+                pageId: 'abc123',
+                sectionId: '345def',
+              },
+              routesMap: {
+                sectionsRoute: {
+                  itemType: 'sections',
+                },
+              },
+              type: 'sectionsRoute',
+            };
+            const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+            expect(result).toHaveProperty('isActive', true);
+          });
+
+          it('should be false is the item is not selected', () => {
+            const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+            expect(result).toHaveProperty('isActive', false);
+          });
+        });
+
+        describe('backLinkArray', () => {
+          it('should point to the parent page', () => {
+            const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+            expect(result).toHaveProperty('backLinkArray');
+            expect(result.backLinkArray).toEqual(['pages', 'abc123']);
+          });
+        });
+
+        describe('linkArray', () => {
+          it('should point to the given section', () => {
+            const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+            expect(result).toHaveProperty('linkArray');
+            expect(result.linkArray).toEqual(['pages', 'abc123', 'sections', '345def']);
+          });
+        });
+
+        describe('title', () => {
+          it('should use the title from content', () => {
+            const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+            expect(result).toHaveProperty('title', 'This is awesome');
+          });
+
+          it('should use the label if there is no title in content', () => {
+            mockState.content.sections['345def'].title = undefined;
+            const result = selectors.getPropsForNavItem('345def', 'sections')(mockState);
+
+            expect(result).toHaveProperty('title', 'Standard section');
+          });
+        });
       });
     });
 
