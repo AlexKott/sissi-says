@@ -5,7 +5,7 @@
   overflow-x: hidden;
 }
 
-.nav--dark {
+.nav--level-1 {
   background-color: $color-main-dark;
 
   .nav__element:hover {
@@ -23,7 +23,7 @@
   }
 }
 
-.nav--light {
+.nav--level-2 {
   background-color: $color-main-medium;
 
   .nav__element:hover {
