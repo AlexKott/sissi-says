@@ -1,7 +1,7 @@
 import _cloneDeep from 'lodash.clonedeep';
 import testState from './_testState';
 
-import * as selectors from './navbar';
+import * as selectors from './navigation';
 
 describe('selectors/navbar', () => {
   let mockState;
