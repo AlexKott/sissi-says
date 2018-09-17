@@ -10,7 +10,7 @@ import { ROUTE_LOGIN } from '@/router/routes';
 import ActionBar from './actionBar/ActionBar';
 import Editor from './editor/Editor';
 import Guide from './guide/Guide';
-import Login from './login';
+import Login from './login/Login';
 import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
 
@@ -30,7 +30,12 @@ const App = ({ route }) => (
   <div className='app'>
     {route === ROUTE_LOGIN
       ? <Login />
-      : [<Navigation key='navigation' />, <Editor key='editor' />, <Guide key='guide' />]
+      : [
+          <Navigation key='navigation' />,
+          <Editor key='editor' />,
+          <ActionBar key='actionbar' />,
+          <Guide key='guide' />,
+        ]
     }
     <Modal />
   </div>

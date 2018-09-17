@@ -4,42 +4,58 @@ import { connect } from 'react-redux';
 
 import * as selectors from '@/selectors';
 
-import PageNav from './PageNav';
-import SectionNav from './SectionNav';
+import AddButton from './AddButton';
+import NavBar from './NavBar';
+import NavItem from './NavItem';
 
-const mapStateToProps = (state) => ({
-  isSinglePage: selectors.getIsSinglePage(state),
-  selectedPage: selectors.getSelectedPageId(state),
-});
+const mapStateToProps = state => {
+  const pageId = selectors.getActivePageId(state);
+  return {
+    pageProps: selectors.getPropsForPageNav(state),
+    sectionProps: selectors.getPropsForSectionNav(pageId)(state),
+  }
+};
 
 const Navigation = ({
-  isSinglePage = false,
-  selectedPage = '',
-}) => {
-  if (isSinglePage) {
-    return (selectedPage && <SectionNav selectedPage={selectedPage} className={'nav nav--dark'} />);
-  } else {
-    return ([
-      <PageNav
-        id='page-nav'
-        key='page-nav'
-        selectedPage={selectedPage}
-        className={'nav nav--dark'}
+  pageProps,
+  sectionProps,
+}) => [
+  pageProps && <NavBar
+    key='pageNav'
+    level='1'
+    type='pages'
+  >
+    {pageProps.itemIds.map((id, index) => (
+      <NavItem
+        key={id}
+        id={id}
+        index={index}
+        type='pages'
       />
-      ,
-      selectedPage && <SectionNav
-        id='section-nav'
-        key='section-nav'
-        selectedPage={selectedPage}
-        className={'nav nav--light'}
+    ))}
+    {pageProps.canAdd && <AddButton />}
+  </NavBar>
+  ,
+  sectionProps && <NavBar
+    key='sectionNav'
+    level={pageProps ? '2' : '1'}
+    type='sections'
+  >
+    {sectionProps.itemIds.map((id, index) => (
+      <NavItem
+        key={id}
+        id={id}
+        index={index}
+        type='sections'
       />
-    ]);
-  }
-}
+    ))}
+    {sectionProps.canAdd && <AddButton />}
+  </NavBar>
+];
 
 Navigation.propTypes = {
-  isSinglePage: PropTypes.bool,
-  selectedPage: PropTypes.string,
+  pageProps: PropTypes.object,
+  sectionProps: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(Navigation);
