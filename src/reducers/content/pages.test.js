@@ -128,64 +128,6 @@ describe('selectors/content/pages', () => {
     });
   });
 
-  describe('getCanAddPage', () => {
-    let mockGetMaxPages = jest.fn();
-    const mockState = {
-      content: {
-        pages: [{ id: 'page1', sections: ['section1', 'section2'] }],
-      },
-    };
-
-    it('should get the maximum pages from the settings reducer', () => {
-      selectors.getCanAddPage(mockState, mockGetMaxPages);
-
-      expect(mockGetMaxPages).toBeCalled();
-    });
-
-    it('should return true if the maximum has not been reached', () => {
-      mockGetMaxPages = jest.fn(() => 5);
-      const value = selectors.getCanAddPage(mockState, mockGetMaxPages);
-
-      expect(value).toBe(true);
-    });
-
-    it('should return false if the maximum been reached', () => {
-      mockGetMaxPages = jest.fn(() => 1);
-      const value = selectors.getCanAddPage(mockState, mockGetMaxPages);
-
-      expect(value).toBe(false);
-    });
-  });
-
-  describe('getCanAddSection', () => {
-    let mockGetMaxSections = jest.fn();
-    const mockState = {
-      content: {
-        pages: [{ id: 'testPage', sections: ['section1', 'section2'] }],
-      },
-    };
-
-    it('should get the maximum sections from the settings reducer', () => {
-      selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
-
-      expect(mockGetMaxSections).toBeCalled();
-    });
-
-    it('should return true if the maximum has not been reached', () => {
-      mockGetMaxSections = jest.fn(() => 5);
-      const value = selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
-
-      expect(value).toBe(true);
-    });
-
-    it('should return false if the maximum been reached', () => {
-      mockGetMaxSections = jest.fn(() => 2);
-      const value = selectors.getCanAddSection(mockState, 'testPage', mockGetMaxSections);
-
-      expect(value).toBe(false);
-    });
-  });
-
   describe('getSinglePageId', () => {
     it('should return the id of a single page', () => {
       const mockState = {
