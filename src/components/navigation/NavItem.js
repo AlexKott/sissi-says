@@ -11,6 +11,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const NavItem = ({
+  isActive,
+  backLinkArray,
   id,
   index,
   linkArray,
@@ -26,7 +28,7 @@ const NavItem = ({
           {...provided.dragHandleProps}
         >
           <NavLink
-            to={linkArray}
+            to={isActive ? backLinkArray : linkArray}
             className='nav__element'
             activeClassName='nav__element--selected'
           >{title}</NavLink>
@@ -38,7 +40,12 @@ const NavItem = ({
 );
 
 NavItem.propTypes = {
+  isActive: PropTypes.bool,
+  backLinkArray: PropTypes.array,
   id: PropTypes.string,
+  index: PropTypes.number,
+  linkArray: PropTypes.array,
+  title: PropTypes.string,
   type: PropTypes.string,
 };
 

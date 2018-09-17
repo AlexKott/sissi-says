@@ -46,7 +46,7 @@ export const getPropsForNavItem = (id, type) => createSelector(
     const backLinkArray = [];
     let linkArray;
 
-    if (maxAmountOfPages > 1 && parent.id) {
+    if (maxAmountOfPages > 1 && parent.id && parent.type !== 'sections') {
       backLinkArray.push(parent.type);
       backLinkArray.push(parent.id);
     }
@@ -58,7 +58,7 @@ export const getPropsForNavItem = (id, type) => createSelector(
     }
 
     return {
-      isActive: currentItem.id === id,
+      isActive: currentItem.id === id || (!!currentParent && currentParent.id === id),
       backLinkArray,
       linkArray,
       title: itemContent.title ? itemContent.title : itemStructure.label,

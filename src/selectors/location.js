@@ -7,20 +7,20 @@ export const getCurrentItemInfo = createSelector(
   [
     getLocation,
   ],
-  location => {
-    const type = location.routesMap[location.type].itemType;
+  ({ routesMap, type: locationType, payload }) => {
+    const type = routesMap[locationType].itemType;
     let parent = null;
     let id = null;
 
     if (type === 'sections') {
-      id = location.payload.sectionId;
+      id = payload.sectionId;
       parent = {
-        id: location.payload.pageId,
+        id: payload.pageId,
         type: 'pages',
       };
 
     } else if (type === 'pages') {
-      id = location.payload.pageId;
+      id = payload.pageId;
       parent = {
         id: null,
         type: 'global',

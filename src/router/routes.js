@@ -12,11 +12,11 @@ export default {
     path: '/login',
   },
   [ROUTE_PAGE]: {
-    path: '/page/:pageId',
+    path: '/pages/:pageId',
     itemType: 'pages',
   },
   [ROUTE_SECTION]: {
-    path: '/page/:pageId/section/:sectionId',
+    path: '/pages/:pageId/sections/:sectionId',
     itemType: 'sections',
   },
 };
