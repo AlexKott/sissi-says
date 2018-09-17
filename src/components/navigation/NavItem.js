@@ -5,11 +5,12 @@ import { Draggable } from 'react-beautiful-dnd';
 
 const NavItem = ({
   id,
+  index,
   linkArray = ['coming', 'soon'],
   title = 'coming soon',
   type,
 }) => (
-  <Draggable draggableId={id} type={type}>
+  <Draggable draggableId={id} type={type} index={index}>
     {(provided) => (
       <div>
         <div

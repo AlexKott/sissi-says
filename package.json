@@ -72,7 +72,7 @@
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
     "react": "^16.1.1",
-    "react-beautiful-dnd": "^5.0.0",
+    "react-beautiful-dnd": "^9.0.2",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
