@@ -66,7 +66,6 @@ describe('selectors/navbar', () => {
       });
 
       describe('single page', () => {
-
         beforeEach(() => {
           mockState.structure.global.maxItems = 1;
           mockState.content.global._items = ['singlePage'];
@@ -187,6 +186,31 @@ describe('selectors/navbar', () => {
       describe('no sections allowed for current page type', () => {
         it('should return null as type', () => {
           mockState.structure.pages.standard.maxItems = 0;
+          const result = selectors.getPropsForNavBar(2)(mockState);
+
+          expect(result).toHaveProperty('type', null);
+        });
+      });
+
+      describe('single page', () => {
+        it('should return null as type', () => {
+          mockState.structure.global.maxItems = 1;
+          mockState.content.global._items = ['singlePage'];
+          mockState.content.pages = {
+            singlePage: {
+              _id: 'singlePage',
+              _items: ['345def', '123abc'],
+              _type: 'standard',
+            },
+          };
+          mockState.location = {
+            routesMap: {
+              globalRoute: {
+                itemType: 'global',
+              },
+            },
+            type: 'globalRoute',
+          };
           const result = selectors.getPropsForNavBar(2)(mockState);
 
           expect(result).toHaveProperty('type', null);

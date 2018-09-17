@@ -16,12 +16,12 @@ export const getPropsForNavBar = level => createSelector(
     let type = 'pages';
     let navItems, pageId, maxItems, existingItems;
 
-    if (maxAmountOfPages <= 1) {
+    if (level === 1 && maxAmountOfPages <= 1) {
       type = 'sections';
       pageId = Object.keys(content.pages)[0];
     } else if (level === 2) {
       pageId = currentPageId;
-      type = structure.pages[content.pages[currentPageId]._type].maxItems === 0 ? null : 'sections';
+      type = (maxAmountOfPages <= 1 || structure.pages[content.pages[currentPageId]._type].maxItems === 0) ? null : 'sections';
     }
 
     if (type === 'pages') {
@@ -34,7 +34,7 @@ export const getPropsForNavBar = level => createSelector(
       maxItems = maxAmountOfPages;
       existingItems = content.global._items.length;
 
-    } else {
+    } else if (type === 'sections') {
       navItems = content.pages[pageId]._items.map(sectionId => {
         const section = content.sections[sectionId];
         section._link = `/page/${pageId}/section/${sectionId}`;
@@ -44,7 +44,6 @@ export const getPropsForNavBar = level => createSelector(
       maxItems = structure.pages[content.pages[pageId]._type].maxItems;
       existingItems = content.pages[pageId]._items.length;
     }
-
 
     return {
       canAdd: maxItems > existingItems,
