@@ -1,3 +1,7 @@
+export const GLOBAL = 'global';
+export const PAGES = 'pages';
+export const SECTIONS = 'sections';
+
 export const validImageTypes = [
   'image/gif',
   'image/jpeg',

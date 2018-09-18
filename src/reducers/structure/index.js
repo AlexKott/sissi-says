@@ -16,3 +16,6 @@ export * from './fields';
 export * from './global';
 export * from './pages';
 export * from './sections';
+
+export const getStructure = state => state.structure;
+export const getStructureByType = type => state => state.structure[type];

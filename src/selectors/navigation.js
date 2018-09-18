@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getCurrentItemInfo } from './location';
+import { getCurrentItemBlueprintWithParent } from './item';
 
 const getAllPageIds = state => state.content.global._items || [];
 const getMaxAmountOfPages = state => state.structure.global.maxItems;
@@ -35,7 +35,7 @@ export const getActivePageId = createSelector(
 
 export const getPropsForNavItem = (id, type) => createSelector(
   [
-    getCurrentItemInfo,
+    getCurrentItemBlueprintWithParent,
     getMaxAmountOfPages,
     getSinglePageId,
     getItemContent(id, type),

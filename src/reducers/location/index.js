@@ -12,4 +12,5 @@ export function getSelectedSectionId(state) {
   return state.location.payload.sectionId;
 }
 
+export const getLocation = state => state.location;
 export const getCurrentRoute = state => state.location.type;

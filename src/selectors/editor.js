@@ -1,59 +1,23 @@
 import { createSelector } from 'reselect';
 
-import { getCurrentItemInfo, getCurrentViewLevel } from './location';
-
-const getContent = state => state.content;
-const getStructure = state => state.structure;
-
-export const getCurrentItem = createSelector(
-  [
-    getCurrentItemInfo,
-    getContent,
-    getStructure,
-  ],
-  ({ item: itemInfo, parent: parentInfo }, contentState, structureState) => {
-    const content = itemInfo.id
-      ? contentState[itemInfo.type][itemInfo.id]
-      : contentState[itemInfo.type];
-    const structure = content._type
-      ? structureState[itemInfo.type][content._type]
-      : structureState[itemInfo.type];
-    let parent = null;
-
-    if (parentInfo) {
-      const parentContent = parentInfo.id
-        ? contentState[parentInfo.type][parentInfo.id]
-        : contentState[parentInfo.type];
-      const { maxItems, minItems } = parentContent._type
-        ? structureState[parentInfo.type][parentContent._type]
-        : structureState[parentInfo.type];
-      parent = {
-        itemIds: parentContent._items,
-        maxItems,
-        minItems,
-      };
-    }
-
-    return {
-      content,
-      itemInfo,
-      structure,
-      parent,
-    };
-  }
-);
+import { getCurrentItemWithParent } from './item';
+import { getCurrentViewLevel } from './location';
 
 export const getPropsForEditor = createSelector(
   [
-    getCurrentItem,
+    getCurrentItemWithParent,
     getCurrentViewLevel,
   ],
-  ({ content, itemInfo, structure, parent }, viewLevel) => {
+  ({ item, parent }, viewLevel) => {
+    const canDelete = !item.structure.isProtected
+      && parent !== null
+      && parent.structure.minItems < parent.content._items.length;
+
     return {
-      canDelete: !structure.isProtected && !!parent && parent.minItems < parent.itemIds.length,
-      fieldNames: structure.fields,
-      formName: itemInfo.id ? `${itemInfo.type}-${itemInfo.id}` : itemInfo.type,
-      initialValues: content,
+      canDelete,
+      fieldNames: item.structure.fields,
+      formName: item.id ? `${item.type}-${item.id}` : item.type,
+      initialValues: item.content,
       viewLevel,
     };
   }
