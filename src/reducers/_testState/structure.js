@@ -24,11 +24,13 @@ export default {
     standard: {
       maxItems: 6,
       minItems: 1,
+      label: 'Standard page',
       fields: ['title', 'path'],
     },
     gallery: {
       maxItems: 10,
       minItems: 4,
+      label: 'Gallery page',
       fields: ['title', 'path'],
       requiredSections: ['photo'],
       isProtected: true,
@@ -36,9 +38,11 @@ export default {
   },
   sections: {
     standard: {
+      label: 'Standard section',
       fields: ['title'],
     },
     photo: {
+      label: 'Photo section',
       fields: ['image'],
       isProtected: true,
     },

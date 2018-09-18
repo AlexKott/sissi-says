@@ -1,12 +1,11 @@
 import { createSelector } from 'reselect';
 
-const getSectionIdsForPage = pageId => state => state.content.pages[pageId]._items;
-const getContentSections = state => state.content.sections;
+import * as s from '@/reducers/selectors';
 
 export const getSectionsForPage = pageId => createSelector(
   [
-    getSectionIdsForPage(pageId),
-    getContentSections,
+    s.getSectionIdsForPage(pageId),
+    s.getContentSections,
   ],
   (sectionIds, contentSections) => sectionIds.map(id => contentSections[id])
 );

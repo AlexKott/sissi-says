@@ -1,9 +1,9 @@
 import _cloneDeep from 'lodash.clonedeep';
-import testState from './_testState';
+import testState from '@/reducers/_testState';
 
 import * as selectors from './navigation';
 
-describe('selectors/navbar', () => {
+describe('selectors/navigation', () => {
   let mockState;
 
   beforeEach(() => {
@@ -21,14 +21,6 @@ describe('selectors/navbar', () => {
           _type: 'standard',
         },
       };
-    });
-
-    describe('getActivePageId', () => {
-      it('should return the id of the single page', () => {
-        const result = selectors.getActivePageId(mockState);
-
-        expect(result).toBe('singlePage');
-      });
     });
 
     describe('getPropsForNavItem', () => {
@@ -94,9 +86,9 @@ describe('selectors/navbar', () => {
 
     describe('getPropsForPageNav', () => {
       it('should return null', () => {
-        const result = selectors.getActivePageId(mockState);
+        const result = selectors.getPropsForPageNav(mockState);
 
-        expect(result).toBe('singlePage');
+        expect(result).toBe(null);
       });
     });
 
@@ -129,21 +121,6 @@ describe('selectors/navbar', () => {
   });
 
   describe('multiple pages', () => {
-    describe('getActivePageId', () => {
-      it('should return the id of the selected page', () => {
-        const result = selectors.getActivePageId(mockState);
-
-        expect(result).toBe('abc123');
-      });
-
-      it('should return null if no page is selected', () => {
-        mockState.location = {};
-        const result = selectors.getActivePageId(mockState);
-
-        expect(result).toBe(null);
-      });
-    });
-
     describe('getPropsForNavItem', () => {
       describe('pages', () => {
         beforeEach(() => {

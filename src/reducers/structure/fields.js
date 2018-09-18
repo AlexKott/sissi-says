@@ -15,10 +15,6 @@ export default (state = initialState, action = {}) => {
   return state;
 }
 
-export function getFields(state) {
-  return state.structure.fields;
-}
-
 export function getFieldByName(state, fieldName) {
   const field = state.structure.fields[fieldName] || {};
   return { [fieldName]: field };
@@ -35,3 +31,5 @@ export function getMaxListItems(state, listName) {
 export function getMinListItems(state, listName) {
   return state.structure.fields[listName].minItems;
 }
+
+export const getFields = state => state.structure.fields;

@@ -1,61 +1,38 @@
 import { createSelector } from 'reselect';
 
 import * as s from '@/reducers/selectors';
-import { getCurrentItemBlueprintWithParent } from './item';
-import { getSinglePageId } from './pages';
-
-const getItemContent = (id, type) => state => state.content[type][id];
-const getItemStructure = (id, type) => state => state.structure[type][state.content[type][id]._type];
-
-export const getPageStructureById = pageId => createSelector(
-  [
-    s.getContentPages,
-    s.getStructurePages,
-  ],
-  (contentPages, structurePages) => {
-    const pageType = contentPages[pageId] ? contentPages[pageId]._type : null;
-    return structurePages[pageType] || {};
-  }
-);
-
-export const getActivePageId = createSelector(
-  [
-    s.getLocationPageId,
-    s.getMaxAmountOfPages,
-    getSinglePageId,
-  ],
-  (locationPageId, maxAmountOfPages, singlePageId) => maxAmountOfPages > 1 ? locationPageId : singlePageId
-);
+import { getMaxSectionsForPage } from './pages';
+import {
+  getCurrentItemBlueprintWithParent,
+  getItemWithParent,
+} from './item';
 
 export const getPropsForNavItem = (id, type) => createSelector(
   [
     getCurrentItemBlueprintWithParent,
+    getItemWithParent(id, type),
     s.getMaxAmountOfPages,
-    getSinglePageId,
-    getItemContent(id, type),
-    getItemStructure(id, type),
   ],
-  ({ item: currentItem, parent: currentParent }, maxAmountOfPages, singlePageId, itemContent, itemStructure) => {
-    const parent = currentItem.type === type ? currentParent : currentItem;
-    const backLinkArray = [];
+  ({ item: currentItem, parent: currentParent }, { item, parent }, maxAmountOfPages) => {
+    let backLinkArray = [];
     let linkArray;
 
-    if (maxAmountOfPages > 1 && parent.id && parent.type !== 'sections') {
+    if (parent && parent.id) {
       backLinkArray.push(parent.type);
       backLinkArray.push(parent.id);
     }
+
     linkArray = backLinkArray.concat([type, id]);
 
     if (maxAmountOfPages <= 1) {
-      linkArray.unshift(singlePageId);
-      linkArray.unshift('pages');
+      backLinkArray = [];
     }
 
     return {
       isActive: currentItem.id === id || (!!currentParent && currentParent.id === id),
       backLinkArray,
       linkArray,
-      title: itemContent.title ? itemContent.title : itemStructure.label,
+      title: item.content.title ? item.content.title : item.structure.label,
     }
   }
 );
@@ -79,12 +56,12 @@ export const getPropsForPageNav = createSelector(
 export const getPropsForSectionNav = pageId => createSelector(
   [
     s.getSectionIdsForPage(pageId),
-    getPageStructureById(pageId),
+    getMaxSectionsForPage(pageId),
   ],
-  (sectionIds, { maxItems }) => {
-    if (pageId && maxItems > 0) {
+  (sectionIds, maxSections) => {
+    if (pageId && maxSections > 0) {
       return {
-        canAdd: maxItems > sectionIds.length,
+        canAdd: maxSections > sectionIds.length,
         itemIds: sectionIds,
       };
     }

@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
-const getFields = state => state.structure.fields;
+import * as s from '@/reducers/selectors';
 
 export const getFieldWithName = fieldName => createSelector(
   [
-    getFields,
+    s.getFields,
   ],
   fields => ({ ...fields[fieldName], name: fieldName })
 );

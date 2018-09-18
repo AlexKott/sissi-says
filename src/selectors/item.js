@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 import * as c from '@/constants';
 import * as s from '@/reducers/selectors';
+import selectItem from '@/helpers/selectItem';
 
 export const getCurrentItemBlueprintWithParent = createSelector(
   [
@@ -43,36 +44,48 @@ export const getCurrentItemWithParent = createSelector(
     s.getContent,
     s.getStructure,
   ],
-  ({ item: itemBlueprint, parent: parentBlueprint }, contentState, structureState) => {
-    const content = itemBlueprint.id
-      ? contentState[itemBlueprint.type][itemBlueprint.id]
-      : contentState[itemBlueprint.type];
-    const structure = content._type
-      ? structureState[itemBlueprint.type][content._type]
-      : structureState[itemBlueprint.type];
-    let parent = null;
+  ({ item: itemBlueprint, parent: parentBlueprint }, contentState, structureState) => ({
+    item: selectItem(contentState, structureState, itemBlueprint.type, itemBlueprint.id),
+    parent: parentBlueprint
+      ? selectItem(contentState, structureState, parentBlueprint.type, parentBlueprint.id)
+      : null,
+  })
+);
 
-    if (parentBlueprint) {
-      const parentContent = parentBlueprint.id
-        ? contentState[parentBlueprint.type][parentBlueprint.id]
-        : contentState[parentBlueprint.type];
-      const parentStructure = parentContent._type
-        ? structureState[parentBlueprint.type][parentContent._type]
-        : structureState[parentBlueprint.type];
-      parent = {
-        ...parentBlueprint,
-        content: parentContent,
-        structure: parentStructure,
+export const getItem = (id, type) => createSelector(
+  [
+    s.getContent,
+    s.getStructure,
+  ],
+  (contentState, structureState) => selectItem(contentState, structureState, type, id)
+);
+
+export const getItemWithParent = (id, type) => createSelector(
+  [
+    s.getContent,
+    s.getStructure,
+  ],
+  (contentState, structureState) => {
+    let parentBlueprint;
+
+    if (type === c.SECTIONS) {
+      parentBlueprint = {
+        type: c.PAGES,
+        id: Object.values(contentState.pages).find(page => page._items.includes(id))._id,
+      };
+
+    } else if (type === c.PAGES) {
+      parentBlueprint = {
+        type: c.GLOBAL,
+        id: null,
       };
     }
 
     return {
-      item: {
-        ...itemBlueprint,
-        content,
-        structure,
-      },
-      parent,
+      item: selectItem(contentState, structureState, type, id),
+      parent: parentBlueprint
+        ? selectItem(contentState, structureState, parentBlueprint.type, parentBlueprint.id)
+        : null,
     };
   }
-);
+)

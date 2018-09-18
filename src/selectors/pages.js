@@ -22,3 +22,22 @@ export const getSinglePageId = createSelector(
     return null;
   }
 );
+
+export const getMaxSectionsForPage = pageId => createSelector(
+  [
+    s.getContentPages,
+    s.getStructurePages,
+  ],
+  (contentPages, structurePages) => {
+    const pageType = contentPages[pageId] ? contentPages[pageId]._type : null;
+    return structurePages[pageType] ? structurePages[pageType].maxItems : 0;
+  }
+);
+
+export const getActivePageId = createSelector(
+  [
+    s.getLocationPageId,
+    getSinglePageId,
+  ],
+  (locationPageId, singlePageId) => singlePageId ? singlePageId : locationPageId
+);

@@ -64,7 +64,7 @@ export const getPageById = pageId => state => state.content.pages[pageId] || {};
 export const getSectionIdsForPage = pageId => state => state.content.pages[pageId]
   ? state.content.pages[pageId]._items
   : [];
-  
+
 export const getAmountOfSectionsForPage = pageId => state => state.content.pages[pageId]
   ? state.content.pages[pageId]._items.length
   : 0;

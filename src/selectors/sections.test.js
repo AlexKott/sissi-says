@@ -1,5 +1,5 @@
 import _cloneDeep from 'lodash.clonedeep';
-import testState from './_testState';
+import testState from '@/reducers/_testState';
 
 import * as selectors from './sections';
 

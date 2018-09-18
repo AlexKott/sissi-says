@@ -61,3 +61,5 @@ export function getCanAddListItem(state, sectionId, listName, selectMaxListItems
 export function getCanDeleteListItem(state, sectionId, listName, selectMinListItems = getMinListItems) {
   return getNumberOfListItems(state, sectionId, listName) > selectMinListItems(state, listName);
 }
+
+export const getContentSections = state => state.content.sections;

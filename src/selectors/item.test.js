@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
-import testState from './_testState';
+import testState from '@/reducers/_testState';
 
 import * as c from '@/constants';
 import * as selectors from './item';
