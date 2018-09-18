@@ -48,3 +48,5 @@ export function getRequiredSections(state, pageId) {
 export function getIsSinglePage(state) {
   return Object.keys(state.structure.pages).length === 0;
 }
+
+export const getStructurePages = state => state.structure.pages;

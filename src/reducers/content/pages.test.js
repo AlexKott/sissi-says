@@ -105,41 +105,11 @@ describe('selectors/content/pages', () => {
     });
   });
 
-  describe('getNumberOfSectionsForPage', () => {
+  describe('getAmountOfSectionsForPage', () => {
     it('should return the number of sections for a given pageId', () => {
-      const value = selectors.getNumberOfSectionsForPage('abc123')(mockState);
+      const value = selectors.getAmountOfSectionsForPage('abc123')(mockState);
 
       expect(value).toBe(2);
-    });
-  });
-
-  describe('getInitialPageValues', () => {
-    it('should return the filtered data for the specified page', () => {
-      const mockState = {
-        content: {
-          pages: [
-            { id: 'test1', pageType: 'test1', sections: [1, 2, 3], otherData: 'test' },
-          ],
-        },
-      };
-      const value = selectors.getInitialPageValues(mockState, 'test1');
-
-      expect(value).toEqual({ otherData: 'test' });
-    });
-  });
-
-  describe('getSinglePageId', () => {
-    it('should return the id of a single page', () => {
-      const mockState = {
-        content: {
-          pages: [
-            { id: 'page1' },
-          ],
-        },
-      };
-      const value = selectors.getSinglePageId(mockState);
-
-      expect(value).toEqual('page1');
     });
   });
 });

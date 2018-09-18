@@ -80,9 +80,9 @@ describe('selectors/content/global', () => {
     });
   });
 
-  describe('getNumberOfPages', () => {
+  describe('getAmountOfPages', () => {
     it('should return the correct value', () => {
-      const value = selectors.getNumberOfPages(mockState);
+      const value = selectors.getAmountOfPages(mockState);
 
       expect(value).toBe(2);
     });

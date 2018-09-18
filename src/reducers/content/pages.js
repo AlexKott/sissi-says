@@ -1,5 +1,3 @@
-import _cloneDeep from 'lodash.clonedeep';
-
 import * as t from '@/actions/types';
 import reorderArray from '@/helpers/reorderArray';
 
@@ -60,20 +58,13 @@ export default (state = initialState, action = {}) => {
   }
 };
 
-export const getContentPages = state => state.content.pages; // TODO: test
-export const getPageById = pageId => state => state.content.pages[pageId];
-export const getSectionIdsForPage = pageId => state => state.content.pages[pageId]._items; // TODO: move test
-export const getNumberOfSectionsForPage = pageId => state => state.content.pages[pageId]._items.length;
+export const getContentPages = state => state.content.pages;
+export const getPageById = pageId => state => state.content.pages[pageId] || {};
 
-// TODO: move below selectors + tests to selectors folder
-export function getInitialPageValues(state, pageId) {
-  const pageCopy = _cloneDeep(getPageById(state, pageId));
-  delete pageCopy.id;
-  delete pageCopy.pageType;
-  delete pageCopy.sections;
-  return pageCopy;
-}
-
-export function getSinglePageId(state) {
-  return state.content.pages[0] ? state.content.pages[0].id : null;
-}
+export const getSectionIdsForPage = pageId => state => state.content.pages[pageId]
+  ? state.content.pages[pageId]._items
+  : [];
+  
+export const getAmountOfSectionsForPage = pageId => state => state.content.pages[pageId]
+  ? state.content.pages[pageId]._items.length
+  : 0;

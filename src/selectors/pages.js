@@ -1,12 +1,24 @@
 import { createSelector } from 'reselect';
 
-const getAllPageIds = state => state.content.global._items;
-const getPagesContent = state => state.content.pages;
+import * as s from '@/reducers/selectors';
 
 export const getAllPages = createSelector(
   [
-    getAllPageIds,
-    getPagesContent,
+    s.getAllPageIds,
+    s.getContentPages,
   ],
-  (pageIds, pagesContent) => pageIds.map(id => pagesContent[id])
+  (pageIds, contentPages) => pageIds.map(id => contentPages[id])
+);
+
+export const getSinglePageId = createSelector(
+  [
+    s.getAllPageIds,
+    s.getMaxAmountOfPages,
+  ],
+  (pageIds, maxAmountOfPages) => {
+    if (maxAmountOfPages <= 1) {
+      return pageIds[0];
+    }
+    return null;
+  }
 );

@@ -1,22 +1,16 @@
 import { createSelector } from 'reselect';
-import { getCurrentItemBlueprintWithParent } from './item';
 
-const getAllPageIds = state => state.content.global._items || [];
-const getMaxAmountOfPages = state => state.structure.global.maxItems;
-const getLocationPageId = state => state.location.payload ? state.location.payload.pageId : null;
-const getSinglePageId = state => Object.keys(state.content.pages)[0];
-const getSectionIdsForPage = pageId => state => state.content.pages[pageId]
-  ? state.content.pages[pageId]._items
-  : [];
-const getContentPages = state => state.content.pages;
-const getStructurePages = state => state.structure.pages;
+import * as s from '@/reducers/selectors';
+import { getCurrentItemBlueprintWithParent } from './item';
+import { getSinglePageId } from './pages';
+
 const getItemContent = (id, type) => state => state.content[type][id];
 const getItemStructure = (id, type) => state => state.structure[type][state.content[type][id]._type];
 
 export const getPageStructureById = pageId => createSelector(
   [
-    getContentPages,
-    getStructurePages,
+    s.getContentPages,
+    s.getStructurePages,
   ],
   (contentPages, structurePages) => {
     const pageType = contentPages[pageId] ? contentPages[pageId]._type : null;
@@ -26,8 +20,8 @@ export const getPageStructureById = pageId => createSelector(
 
 export const getActivePageId = createSelector(
   [
-    getLocationPageId,
-    getMaxAmountOfPages,
+    s.getLocationPageId,
+    s.getMaxAmountOfPages,
     getSinglePageId,
   ],
   (locationPageId, maxAmountOfPages, singlePageId) => maxAmountOfPages > 1 ? locationPageId : singlePageId
@@ -36,7 +30,7 @@ export const getActivePageId = createSelector(
 export const getPropsForNavItem = (id, type) => createSelector(
   [
     getCurrentItemBlueprintWithParent,
-    getMaxAmountOfPages,
+    s.getMaxAmountOfPages,
     getSinglePageId,
     getItemContent(id, type),
     getItemStructure(id, type),
@@ -68,8 +62,8 @@ export const getPropsForNavItem = (id, type) => createSelector(
 
 export const getPropsForPageNav = createSelector(
   [
-    getAllPageIds,
-    getMaxAmountOfPages,
+    s.getAllPageIds,
+    s.getMaxAmountOfPages,
   ],
   (pageIds, maxAmountOfPages) => {
     if (maxAmountOfPages > 1) {
@@ -84,7 +78,7 @@ export const getPropsForPageNav = createSelector(
 
 export const getPropsForSectionNav = pageId => createSelector(
   [
-    getSectionIdsForPage(pageId),
+    s.getSectionIdsForPage(pageId),
     getPageStructureById(pageId),
   ],
   (sectionIds, { maxItems }) => {
