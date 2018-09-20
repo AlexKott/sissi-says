@@ -64,6 +64,7 @@
     "inscrybmde": "^1.11.3",
     "jest": "20.0.4",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.merge": "^4.6.1",
     "marked": "^0.3.16",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.11",
