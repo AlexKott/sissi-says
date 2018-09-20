@@ -1,15 +1,11 @@
 import middleware from './gatherRequestData';
+import testState from '@/reducers/_testState';
 import * as t from '@/actions/types';
 
 describe('middleware/gatherRequestData', () => {
   let mockAction,
-    mockDispatch,
     mockGetFormValues,
-    mockGetState,
     mockNext,
-    mockSelectors,
-    mockTransformToHtml,
-    mockMethods,
     mockStore;
 
   beforeEach(() => {
@@ -17,35 +13,21 @@ describe('middleware/gatherRequestData', () => {
       type: t.SEND_REQUEST,
       payload: {
         method: 'post',
-        formName: 'test',
+        formName: 'global',
         dataType: 'content',
       }};
-    mockDispatch = jest.fn();
     mockGetFormValues = jest.fn(() => () => ({}));
-    mockGetState = jest.fn();
     mockNext = jest.fn();
-    mockSelectors = {
-      getContentGlobal: jest.fn(),
-      getAllPages: jest.fn(),
-      getAllSections: jest.fn(),
-      getFields: jest.fn(),
-    };
-    mockTransformToHtml = jest.fn((input) => input);
-    mockMethods = {
-      ...mockSelectors,
-      getFormValues: mockGetFormValues,
-      transformToHtml: mockTransformToHtml,
-    };
     mockStore = {
-      dispatch: mockDispatch,
-      getState: mockGetState,
+      dispatch: jest.fn(),
+      getState: jest.fn(() => testState),
     };
   });
 
   it('should forward the action if the type is not SEND_REQUEST', () => {
     mockAction = { type: 'test' };
 
-    middleware(mockStore, mockMethods)(mockNext)(mockAction);
+    middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
 
     expect(mockNext).toBeCalledWith(mockAction);
   });
@@ -53,25 +35,14 @@ describe('middleware/gatherRequestData', () => {
   it('should forward the action if the method is not "post"', () => {
     mockAction = { type: t.SEND_REQUEST, payload: { method: 'test' }};
 
-    middleware(mockStore, mockMethods)(mockNext)(mockAction);
+    middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
 
     expect(mockNext).toBeCalledWith(mockAction);
   });
 
-  it('should collect data from the relevant reducers and form', () => {
-    middleware(mockStore, mockMethods)(mockNext)(mockAction);
-
-    expect(mockMethods.getContentGlobal).toBeCalled();
-    expect(mockMethods.getAllPages).toBeCalled();
-    expect(mockMethods.getAllSections).toBeCalled();
-    expect(mockGetFormValues).toBeCalledWith('test');
-  });
-
   it('should add requestData before forwarding the action', () => {
-    mockMethods.transformToHtml = jest.fn(() => ({ global: 'test', pages: 'test', sections: 'test' }));
-    middleware(mockStore, mockMethods)(mockNext)(mockAction);
+    middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
 
-    expect(mockAction).toHaveProperty('payload');
     expect(mockAction.payload).toHaveProperty('requestData');
     expect(mockAction.payload.requestData).toHaveProperty('global');
     expect(mockAction.payload.requestData).toHaveProperty('pages');
@@ -79,79 +50,63 @@ describe('middleware/gatherRequestData', () => {
     expect(mockNext).toBeCalled();
   });
 
-  describe('save global form', () => {
+  it('should transform markdown to HTML before forwarding the action', () => {
+    testState.structure.fields.text = { type: 'markdown' };
+    mockGetFormValues = jest.fn(() => () => ({ text: '# heading\nparagraph' }));
+
+    middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
+
+    expect(mockAction.payload.requestData.global.text).toBe('<h1>heading</h1><p>paragraph</p>\n');
+  });
+
+  describe('global', () => {
     it('should merge the reducer data with the form data', () => {
-      mockAction = {
-        type: t.SEND_REQUEST,
-        payload: {
-          method: 'post',
-          formName: 'global',
-          dataType: 'content',
-        }};
-      mockMethods.getFormValues = jest.fn(() => () => ({ globalInfo: 'test' }));
-      mockMethods.getContentGlobal = jest.fn(() => ({ globalInfo: '', globalName: 'blubb' }));
-      const expectedGlobalData = { globalInfo: 'test', globalName: 'blubb' };
+      mockGetFormValues = jest.fn(() => () => ({ image: 'blubb.png' }));
 
-      middleware(mockStore, mockMethods)(mockNext)(mockAction);
+      middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
 
-      expect(mockAction.payload.requestData).toHaveProperty('global', expectedGlobalData);
+      const globalData = mockAction.payload.requestData.global;
+      expect(globalData).toHaveProperty('image', 'blubb.png');
+      expect(globalData).toHaveProperty('title', 'Test Project Title');
     });
   });
 
-  describe('save pages form', () => {
+  describe('pages', () => {
     it('should merge the reducer data with the form data', () => {
       mockAction = {
         type: t.SEND_REQUEST,
         payload: {
           method: 'post',
-          formName: 'test-page-abc123',
+          formName: 'pages-abc123',
           dataType: 'content',
         },
       };
-      mockMethods.getFormValues = jest.fn(() => () => ({ title: 'new' }));
-      mockMethods.getAllPages = jest.fn(() => ({
-        page1: { _id: 'page1' },
-        abc123: {
-          _id: 'abc123',
-          title: 'test',
-          image: 'yes',
-        },
-      }));
+      mockGetFormValues = jest.fn(() => () => ({ title: 'New Title' }));
 
-      const expectedPageData = {
-        page1: { _id: 'page1' },
-        abc123: {
-          _id: 'abc123',
-          title: 'new',
-          image: 'yes',
-        },
-      };
+      middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
 
-      middleware(mockStore, mockMethods)(mockNext)(mockAction);
-
-      expect(mockAction.payload.requestData).toHaveProperty('pages', expectedPageData);
+      const pageData = mockAction.payload.requestData.pages.abc123;
+      expect(pageData).toHaveProperty('title', 'New Title');
+      expect(pageData).toHaveProperty('path', '');
     });
   });
 
-  describe('save sections form', () => {
+  describe('sections', () => {
     it('should merge the reducer data with the form data', () => {
       mockAction = {
         type: t.SEND_REQUEST,
         payload: {
           method: 'post',
-          formName: 'test-section-abc123',
+          formName: 'sections-123abc',
           dataType: 'content',
         }};
-      mockMethods.getFormValues = jest.fn(() => () => ({ title: 'new' }));
-      mockMethods.getAllSections = jest.fn(() => ({
-        section1: 'testData',
-        abc123: { title: 'oldTitle' },
-      }));
-      const expectedSectionData = { section1: 'testData', abc123: { title: 'new' }};
+        mockGetFormValues = jest.fn(() => () => ({ title: 'Nanana' }));
 
-      middleware(mockStore, mockMethods)(mockNext)(mockAction);
+      middleware(mockStore, mockGetFormValues)(mockNext)(mockAction);
 
-      expect(mockAction.payload.requestData).toHaveProperty('sections', expectedSectionData);
+      const sectionData = mockAction.payload.requestData.sections['123abc'];
+      expect(sectionData).toHaveProperty('title', 'Nanana');
+      expect(sectionData).toHaveProperty('image', 'bfbfbfb.png');
     });
   });
 });
