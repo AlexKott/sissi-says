@@ -15,4 +15,3 @@ export * from './pages';
 export * from './sections';
 
 export const getContent = state => state.content;
-export const getContentByType = type => state => state.content[type];

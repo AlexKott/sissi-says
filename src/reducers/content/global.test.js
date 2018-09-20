@@ -64,27 +64,11 @@ describe('reducers/content/global', () => {
 describe('selectors/content/global', () => {
   const mockState = _testState;
 
-  describe('getContentGlobal', () => {
-    it('should return the correct value', () => {
-      const value = selectors.getContentGlobal(mockState);
-
-      expect(value).toEqual(mockState.content.global);
-    });
-  });
-
   describe('getAllPageIds', () => {
     it('should return the correct value', () => {
       const value = selectors.getAllPageIds(mockState);
 
       expect(value).toEqual(['abc123', 'def345']);
-    });
-  });
-
-  describe('getAmountOfPages', () => {
-    it('should return the correct value', () => {
-      const value = selectors.getAmountOfPages(mockState);
-
-      expect(value).toBe(2);
     });
   });
 });

@@ -28,7 +28,7 @@ export default ({ dispatch, getState }, selectFormValues = getFormValues) => nex
       };
     }
 
-    const newContent = _merge(selectors.getContent(state), contentUpdate);
+    const newContent = _merge({}, selectors.getContent(state), contentUpdate);
     const transformedData = transformToHtml(newContent, selectors.getFields(state));
 
     action.payload.requestData = transformedData;

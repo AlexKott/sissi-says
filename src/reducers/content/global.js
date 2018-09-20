@@ -39,6 +39,4 @@ export default (state = initialState, action = {}) => {
   }
 }
 
-export const getContentGlobal = state => state.content.global;
 export const getAllPageIds = state => state.content.global._items || [];
-export const getAmountOfPages = state => state.content.global._items.length;

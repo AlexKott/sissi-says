@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 import * as t from '@/actions/types';
 import reorderArray from '@/helpers/reorderArray';
 
@@ -61,10 +63,9 @@ export default (state = initialState, action = {}) => {
 export const getContentPages = state => state.content.pages;
 export const getPageById = pageId => state => state.content.pages[pageId] || {};
 
-export const getSectionIdsForPage = pageId => state => state.content.pages[pageId]
-  ? state.content.pages[pageId]._items
-  : [];
-
-export const getAmountOfSectionsForPage = pageId => state => state.content.pages[pageId]
-  ? state.content.pages[pageId]._items.length
-  : 0;
+export const getSectionIdsForPage = pageId => createSelector(
+  [
+    getPageById(pageId),
+  ],
+  page => page._items || []
+);
