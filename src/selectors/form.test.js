@@ -7,8 +7,8 @@ describe('selectors/form', () => {
     it('should return the field with an added "name" parameter', () => {
       const result = selectors.getFieldWithName('title')(testState);
 
-      expect(result).toHaveProperty('placeholder', 'Your title');
       expect(result).toHaveProperty('name', 'title');
+      expect(result).toHaveProperty('placeholder', 'Your title');
     });
   });
 });

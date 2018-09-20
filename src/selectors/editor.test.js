@@ -47,10 +47,10 @@ describe('selectors/editor', () => {
         expect(result).toHaveProperty('initialValues', mockState.content.global);
       });
 
-      it('should return the current viewLevel', () => {
+      it('should return 1 as viewLevel', () => {
         const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('viewLevel');
+        expect(result).toHaveProperty('viewLevel', 1);
       });
     });
 
@@ -111,10 +111,10 @@ describe('selectors/editor', () => {
         expect(result).toHaveProperty('initialValues', mockState.content.pages.abc123);
       });
 
-      it('should return the current viewLevel', () => {
+      it('should return 2 as viewLevel', () => {
         const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('viewLevel');
+        expect(result).toHaveProperty('viewLevel', 2);
       });
     });
 
@@ -148,14 +148,6 @@ describe('selectors/editor', () => {
 
           expect(result).toHaveProperty('canDelete', false);
         });
-
-        it('should be false for protected sections', () => {
-          mockState.location.payload.sectionId = '123abc';
-
-          const result = selectors.getPropsForEditor(mockState);
-
-          expect(result).toHaveProperty('canDelete', false);
-        });
       });
 
       it('should return fieldNames', () => {
@@ -176,10 +168,19 @@ describe('selectors/editor', () => {
         expect(result).toHaveProperty('initialValues', mockState.content.sections['345def']);
       });
 
-      it('should return the current viewLevel', () => {
-        const result = selectors.getPropsForEditor(mockState);
+      describe('viewLevel', () => {
+        it('should be 2 for single pages', () => {
+          mockState.structure.global.maxItems = 1;
+          const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('viewLevel');
+          expect(result).toHaveProperty('viewLevel', 2);
+        });
+
+        it('should be 3 when multiple pages are allowed', () => {
+          const result = selectors.getPropsForEditor(mockState);
+
+          expect(result).toHaveProperty('viewLevel', 3);
+        });
       });
     });
   });

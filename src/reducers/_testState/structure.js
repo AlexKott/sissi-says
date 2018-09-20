@@ -32,7 +32,7 @@ export default {
       minItems: 4,
       label: 'Gallery page',
       fields: ['title', 'path'],
-      requiredSections: ['photo'],
+      allowedItems: ['photo'],
       isProtected: true,
     },
   },
@@ -44,7 +44,6 @@ export default {
     photo: {
       label: 'Photo section',
       fields: ['image'],
-      isProtected: true,
     },
   },
 };

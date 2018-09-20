@@ -52,14 +52,6 @@ export const getCurrentItemWithParent = createSelector(
   })
 );
 
-export const getItem = (id, type) => createSelector(
-  [
-    s.getContent,
-    s.getStructure,
-  ],
-  (contentState, structureState) => selectItem(contentState, structureState, type, id)
-);
-
 export const getItemWithParent = (id, type) => createSelector(
   [
     s.getContent,

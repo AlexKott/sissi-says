@@ -87,15 +87,6 @@ describe('reducers/content/pages', () => {
 describe('selectors/content/pages', () => {
   const mockState = _testState;
 
-  describe('getContentPages', () => {
-    it('should return the content pages', () => {
-      const value = selectors.getContentPages(mockState);
-
-      expect(value).toHaveProperty('abc123');
-      expect(value).toHaveProperty('def345');
-    });
-  });
-
   describe('getPageById', () => {
     it('should return a page given its pageId', () => {
       const value = selectors.getPageById('abc123')(mockState);

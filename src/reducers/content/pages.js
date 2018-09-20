@@ -60,7 +60,6 @@ export default (state = initialState, action = {}) => {
   }
 };
 
-export const getContentPages = state => state.content.pages;
 export const getPageById = pageId => state => state.content.pages[pageId] || {};
 
 export const getSectionIdsForPage = pageId => createSelector(

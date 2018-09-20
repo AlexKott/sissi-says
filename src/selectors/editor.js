@@ -1,17 +1,27 @@
 import { createSelector } from 'reselect';
 
+import * as c from '@/constants';
+import * as s from '@/reducers/selectors';
 import { getCurrentItemWithParent } from './item';
-import { getCurrentViewLevel } from './location';
 
 export const getPropsForEditor = createSelector(
   [
     getCurrentItemWithParent,
-    getCurrentViewLevel,
+    s.getMaxAmountOfPages,
   ],
-  ({ item, parent }, viewLevel) => {
+  ({ item, parent }, maxAmountOfPages) => {
     const canDelete = !item.structure.isProtected
       && parent !== null
       && parent.structure.minItems < parent.content._items.length;
+
+    let viewLevel;
+    if (item.type === c.SECTIONS && maxAmountOfPages > 1) {
+      viewLevel = 3;
+    } else if (item.type === c.GLOBAL) {
+      viewLevel = 1;
+    } else {
+      viewLevel = 2;
+    }
 
     return {
       canDelete,

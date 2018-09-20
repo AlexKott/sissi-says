@@ -10,13 +10,26 @@ describe('selectors/pages', () => {
     mockState = _cloneDeep(testState);
   });
 
-  describe('getAllPages', () => {
-    it('should return an array of page objects', () => {
-      const result = selectors.getAllPages(mockState);
+  describe('getSinglePageId', () => {
+    it('should return the id of a single page', () => {
+      mockState.structure.global.maxItems = 1;
+      const result = selectors.getSinglePageId(mockState);
 
-      expect(result.length).toBe(2);
-      expect(result[0]._id).toBe('abc123');
-      expect(result[1]).toHaveProperty('path', 'photos');
+      expect(result).toBe('abc123');
+    });
+
+    it('should return null if multiple pages are allowed', () => {
+      const result = selectors.getSinglePageId(mockState);
+
+      expect(result).toBe(null);
+    })
+  });
+
+  describe('getMaxSectionsForPage', () => {
+    it('should return the maximum amount of sections for the given page id', () => {
+      const result = selectors.getMaxSectionsForPage('abc123')(mockState);
+
+      expect(result).toBe(6);
     });
   });
 
