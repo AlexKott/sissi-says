@@ -6,7 +6,7 @@ export default store => next => action => {
 
   if (type === t.ADD_LIST_ITEM) {
     const { item: listParent } = selectors.getCurrentItemBlueprintWithParent(store.getState());
-    const fields = selectors.getListFieldNames(store.getState(), payload.listName);
+    const fields = selectors.getFieldListFields(payload.listName)(store.getState());
     const newItem = {};
     fields.forEach(fieldName => newItem[fieldName] = '');
 
