@@ -1,7 +1,8 @@
-import * as t from './types';
+import * as t from '@/actions/types';
+
 import * as actions from './creators';
 
-describe('actions/alerts', () => {
+describe('actions/ui', () => {
   describe('setLoading', () => {
     it('should dispatch an action with the correct type and payload', () => {
       const action = actions.setLoading(true);
@@ -26,6 +27,16 @@ describe('actions/alerts', () => {
       const action = actions.clearAlerts();
 
       expect(action).toHaveProperty('type', t.CLEAR_ALERTS);
+    });
+  });
+
+  describe('togglePopup', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.togglePopup('image', true);
+
+      expect(action).toHaveProperty('type', t.TOGGLE_POPUP);
+      expect(action.payload).toHaveProperty('type', 'image');
+      expect(action.payload).toHaveProperty('isVisible', true);
     });
   });
 });

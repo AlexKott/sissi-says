@@ -1,8 +1,7 @@
 import { getFormValues } from 'redux-form';
-import * as t from './types';
+import * as t from '@/actions/types';
 import * as tr from '@/translations';
-import { setAlert } from '@/actions/alerts/creators';
-import { redirectToIndex } from '@/actions/redirect/creators';
+import { setAlert, redirectToIndex } from '@/actions';
 
 export function fetchData(dataType) {
   const action = {
