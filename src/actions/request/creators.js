@@ -13,7 +13,8 @@ export const fetchData = dataType => {
     payload: {
       method: 'get',
       dataType,
-    }
+      onSuccess: [],
+    },
   };
 
   if (dataType === 'structure') {
@@ -30,7 +31,7 @@ export const postContent = formName => ({
     dataType: 'content',
     formName,
     onSuccess: [dispatch => dispatch(setAlert(tr.SUCCESS_SAVE, tr.SUCCESS))],
-  }
+  },
 });
 
 export const buildPage = () => ({
