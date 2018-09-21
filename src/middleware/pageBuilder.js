@@ -1,16 +1,16 @@
 import * as actions from '@/actions';
 import * as t from '@/actions/types';
 import * as k from '@/constants/keywords';
-import getRandomString from '@/helpers/getRandomString';
 import * as selectors from '@/selectors';
+import getRandomString from '@/helpers/getRandomString';
 
-export default ({ dispatch, getState }, getters = selectors) => next => action => {
+export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_PAGE) {
     const _type = payload.pageType || k.STANDARD;
     const _id = getRandomString();
-    const minSectionsPerPage = getters.getMinSectionsPerPage(getState());
+    const minSectionsPerPage = selectors.getMinAmountOfSectionsForPageType(_type)(getState());
 
     const newPage = {
       _id,
@@ -18,29 +18,28 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
       _type,
     };
 
-    const fields = getters.getPageFields(getState(), _type);
-    fields.forEach(fieldObj => {
-      const [fieldName, field] = Object.entries(fieldObj)[0];
+    const fields = selectors.getFieldsForPageType(_type)(getState());
+    fields.forEach(field => {
 
       if (field.type === k.LIST) {
         const { fields: itemFieldNames, minItems } = field;
-        newPage[fieldName] = [];
+        newPage[field._name] = [];
 
         for (let i = 0; i < minItems; i++) {
           const newItem = {};
-          itemFieldNames.forEach(fieldName => newItem[fieldName] = '');
-          newPage[fieldName].push(newItem);
+          itemFieldNames.forEach(fieldName => newItem[field._name] = '');
+          newPage[field._name].push(newItem);
         }
 
       } else {
-        newPage[fieldName] = '';
+        newPage[field._name] = '';
       }
     })
 
     payload.page = newPage;
     next(action);
 
-    let currentAmountOfSections = getters.getNumberOfSectionsForPage(getState(), _id);
+    let currentAmountOfSections = selectors.getSectionIdsForPage(_id)(getState()).length;
 
     while (currentAmountOfSections < minSectionsPerPage) {
       dispatch(actions.addSection(_id));
