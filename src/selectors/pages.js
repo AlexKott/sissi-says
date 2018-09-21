@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import * as s from '@/reducers/selectors';
+import { getLocationPageId } from './location';
 
 export const getSinglePageId = createSelector(
   [
@@ -22,7 +23,7 @@ export const getMaxSectionsForPage = pageId => createSelector(
 
 export const getActivePageId = createSelector(
   [
-    s.getLocationPageId,
+    getLocationPageId,
     getSinglePageId,
   ],
   (locationPageId, singlePageId) => singlePageId ? singlePageId : locationPageId

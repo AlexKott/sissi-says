@@ -2,11 +2,12 @@ import { createSelector } from 'reselect';
 
 import * as c from '@/constants';
 import * as s from '@/reducers/selectors';
+import { getLocation } from './location';
 import selectItem from '@/helpers/selectItem';
 
 export const getCurrentItemBlueprintWithParent = createSelector(
   [
-    s.getLocation,
+    getLocation,
   ],
   ({ routesMap, type: locationType, payload }) => {
     const type = routesMap[locationType].itemType;
