@@ -6,7 +6,7 @@ export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.SET_MODAL_TYPE) {
-    return payload;
+    return payload.type;
   }
 
   return state;
