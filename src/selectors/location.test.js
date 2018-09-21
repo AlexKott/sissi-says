@@ -49,4 +49,23 @@ describe('selectors/location', () => {
       expect(value).toBe('pagesRoute');
     });
   });
+
+  describe('getIsInitialDataFetched', () => {
+    it('should return true if there is content in store', () => {
+      const value = selectors.getIsInitialDataFetched(mockState);
+
+      expect(value).toBe(true);
+    });
+
+    it('should return false if there is no content in store', () => {
+      mockState.content = {
+        global: {},
+        pages: {},
+        sections: {},
+      };
+      const value = selectors.getIsInitialDataFetched(mockState);
+
+      expect(value).toBe(false);
+    });
+  });
 });
