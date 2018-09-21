@@ -70,10 +70,11 @@ describe('actions/content', () => {
 
   describe('deleteListItem', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.deleteListItem('section123', 'listAbc', 4);
+      const action = actions.deleteListItem('section', 'abc123', 'listAbc', 4);
 
       expect(action).toHaveProperty('type', t.DELETE_LIST_ITEM);
-      expect(action.payload).toHaveProperty('sectionId', 'section123');
+      expect(action.payload).toHaveProperty('parentType', 'section');
+      expect(action.payload).toHaveProperty('parentId', 'abc123');
       expect(action.payload).toHaveProperty('listName', 'listAbc');
       expect(action.payload).toHaveProperty('itemIndex', 4);
     });

@@ -31,9 +31,9 @@ export const deleteSection = (pageId, sectionId) => ({
   payload: { pageId, sectionId },
 });
 
-export const deleteListItem = (sectionId, listName, itemIndex) => ({
+export const deleteListItem = (parentType, parentId, listName, itemIndex) => ({
   type: t.DELETE_LIST_ITEM,
-  payload: { sectionId, listName, itemIndex },
+  payload: { parentType, parentId, listName, itemIndex },
 });
 
 export const dragPage = (from, to) => ({
