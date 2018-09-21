@@ -5,8 +5,8 @@ const initialState = [];
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'images') {
-    return payload.data;
+  if (type === t.SEND_REQUEST && payload.dataType === 'images') {
+    return payload.responseData;
 
   } else if (type === t.SAVE_IMAGE_SUCCESS) {
     return [...state, payload];

@@ -6,8 +6,8 @@ const initialState = {};
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'structure') {
-    return payload.data.global;
+  if (type === t.SEND_REQUEST && payload.dataType === 'structure') {
+    return payload.responseData.global;
 
   } else if (type === t.RESET_SESSION) {
     return initialState;

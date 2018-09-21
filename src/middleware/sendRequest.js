@@ -25,14 +25,18 @@ export default (store, client = ajax, getters = selectors) => next => async acti
     try {
       store.dispatch(actions.setLoading(true));
       const response = await client(endpoint, token, contentType)[method](requestData);
-      let data = response[0];
+      let responseData = response[0];
 
       if (dataType === 'content') {
         const fields = getters.getFields(store.getState());
-        data = transformToMarkdown(response[0], fields);
+        responseData = transformToMarkdown(response[0], fields);
       }
 
-      onSuccess.forEach(method => method(store.dispatch, data));
+      payload.responseData = responseData;
+
+      onSuccess.forEach(method => method(store.dispatch, responseData));
+
+      next(action);
 
     } catch(error) {
       const errorCode = error[0] ? error[0].status : 500;
@@ -54,9 +58,11 @@ export default (store, client = ajax, getters = selectors) => next => async acti
         default:
           store.dispatch(actions.setAlert(tr.ERROR_SERVER, tr.ERROR));
       }
+
     } finally {
       store.dispatch(actions.setLoading(false));
     }
+
   } else {
     next(action);
   }

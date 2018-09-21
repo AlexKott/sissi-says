@@ -7,9 +7,9 @@ export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   switch(type) {
-    case t.FETCH_DATA_SUCCESS:
+    case t.SEND_REQUEST:
       if (payload.dataType === 'content') {
-        return payload.data.global || initialState;
+        return payload.responseData.global || initialState;
       }
       return state;
 

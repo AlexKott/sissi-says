@@ -11,10 +11,10 @@ describe('reducers/images', () => {
 
   it('should set the given images', () => {
     const action = {
-      type: t.FETCH_DATA_SUCCESS,
+      type: t.SEND_REQUEST,
       payload: {
         dataType: 'images',
-        data: ['a', 'b', 'c'],
+        responseData: ['a', 'b', 'c'],
       },
     };
     const expectedState = ['a', 'b', 'c'];

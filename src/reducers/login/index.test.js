@@ -10,7 +10,7 @@ describe('reducers/login', () => {
   });
 
   it('should set isInitialDataFetched to true when the initial data is fetched', () => {
-    const action = { type: t.FETCH_DATA_SUCCESS, payload: { dataType: 'content' }};
+    const action = { type: t.SEND_REQUEST, payload: { dataType: 'content' }};
     const expectedState = { isInitialDataFetched: true, token: null };
     const state = reducer(undefined, action);
 

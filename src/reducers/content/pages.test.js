@@ -8,10 +8,10 @@ describe('reducers/content/pages', () => {
 
   it('should apply the fetched data', () => {
     const action = {
-      type: t.FETCH_DATA_SUCCESS,
+      type: t.SEND_REQUEST,
       payload: {
         dataType: 'content',
-        data: {
+        responseData: {
           pages: {
             page1: {},
             page2: {},

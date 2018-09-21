@@ -8,7 +8,7 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.FETCH_DATA_SUCCESS && payload.dataType === 'content') {
+  if (type === t.SEND_REQUEST && payload.dataType === 'content') {
     return Object.assign({}, state, { isInitialDataFetched: true });
 
   } else if (type === t.LOGIN_SUCCESS) {

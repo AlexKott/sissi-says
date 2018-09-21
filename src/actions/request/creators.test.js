@@ -9,17 +9,6 @@ describe('actions/request', () => {
       expect(action).toHaveProperty('type', t.SEND_REQUEST);
       expect(action.payload).toHaveProperty('method', 'get');
       expect(action.payload).toHaveProperty('dataType', 'test');
-      expect(action.payload).toHaveProperty('onSuccess');
-    });
-  });
-
-  describe('fetchDataSuccess', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.fetchDataSuccess('testType', 'testData');
-
-      expect(action).toHaveProperty('type', t.FETCH_DATA_SUCCESS);
-      expect(action.payload).toHaveProperty('dataType', 'testType');
-      expect(action.payload).toHaveProperty('data', 'testData');
     });
   });
 

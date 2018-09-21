@@ -12,10 +12,10 @@ describe('reducers/structure/sections', () => {
   it('should return the fetched state', () => {
     const expectedState = { test1: 'test1', test2: 'test2' };
     const action = {
-      type: t.FETCH_DATA_SUCCESS,
+      type: t.SEND_REQUEST,
       payload: {
         dataType: 'structure',
-        data: {
+        responseData: {
           sections: expectedState,
         },
       },
