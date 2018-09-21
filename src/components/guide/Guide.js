@@ -9,7 +9,7 @@ import GuideContent from './GuideContent';
 import Sissi from '@/components/svgs/Sissi';
 
 const mapStateToProps = (state) => ({
-  isGuideOpen: selectors.getDisplayGuidePopup(state),
+  isGuideOpen: selectors.getModalType(state) === 'guide',
 });
 
 const mapDispatchToProps = (dispatch) => ({
