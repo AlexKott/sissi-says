@@ -1,4 +1,7 @@
 export default {
+  settings: {
+    language: 'en',
+  },
   fields: {
     title: {
       label: 'Title',

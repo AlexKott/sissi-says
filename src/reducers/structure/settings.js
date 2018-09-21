@@ -15,4 +15,4 @@ export default (state = initialState, action = {}) => {
   return state;
 };
 
-export const getSettingsLanguage = state => state.settings.language;
+export const getSettingsLanguage = state => state.structure.settings.language;
