@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
 import * as actions from '@/actions';
+import { SUCCESS } from '@/constants';
 
 import ImagePopup from './ImagePopup';
 
@@ -11,7 +12,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSelectImage: (image) => {
     const markdownString = `![](/images/${image})`;
     const alertString = `Please copy this line and paste it in your content:\n${markdownString}`;
-    dispatch(actions.setAlert(alertString, 'success'));
+    dispatch(actions.setAlert(SUCCESS, alertString));
   },
 });
 
