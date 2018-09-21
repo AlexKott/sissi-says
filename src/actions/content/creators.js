@@ -12,12 +12,12 @@ export const addSection = (pageId, sectionType = STANDARD) => ({
   payload: { pageId, sectionType },
 });
 
-export const addListItem = (parentType, parentId, listName) => ({
+export const addListItem = listName => ({
   type: t.ADD_LIST_ITEM,
-  payload: { parentType, parentId, listName },
+  payload: { listName },
 });
 
-export const deletePage = (pageId) => (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
+export const deletePage = pageId => (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
   const sectionIds = selectSectionIdsForPage(getState(), pageId);
   sectionIds.forEach(sectionId => dispatch(deleteSection(pageId, sectionId)));
   dispatch({
@@ -31,9 +31,9 @@ export const deleteSection = (pageId, sectionId) => ({
   payload: { pageId, sectionId },
 });
 
-export const deleteListItem = (parentType, parentId, listName, itemIndex) => ({
+export const deleteListItem = (listName, itemIndex) => ({
   type: t.DELETE_LIST_ITEM,
-  payload: { parentType, parentId, listName, itemIndex },
+  payload: { listName, itemIndex },
 });
 
 export const dragPage = (from, to) => ({

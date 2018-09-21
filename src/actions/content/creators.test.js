@@ -23,11 +23,9 @@ describe('actions/content', () => {
 
   describe('addListItem', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.addListItem('sections', 'abc123', 'listAbc');
+      const action = actions.addListItem('listAbc');
 
       expect(action).toHaveProperty('type', t.ADD_LIST_ITEM);
-      expect(action.payload).toHaveProperty('parentType', 'sections');
-      expect(action.payload).toHaveProperty('parentId', 'abc123');
       expect(action.payload).toHaveProperty('listName', 'listAbc');
     });
   });
@@ -70,11 +68,9 @@ describe('actions/content', () => {
 
   describe('deleteListItem', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.deleteListItem('section', 'abc123', 'listAbc', 4);
+      const action = actions.deleteListItem('listAbc', 4);
 
       expect(action).toHaveProperty('type', t.DELETE_LIST_ITEM);
-      expect(action.payload).toHaveProperty('parentType', 'section');
-      expect(action.payload).toHaveProperty('parentId', 'abc123');
       expect(action.payload).toHaveProperty('listName', 'listAbc');
       expect(action.payload).toHaveProperty('itemIndex', 4);
     });

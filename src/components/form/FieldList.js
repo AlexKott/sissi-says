@@ -3,18 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actions from '@/actions';
+import * as selectors from '@/selectors';
 
 import FormFieldBuilder from './FormFieldBuilder';
 
-const mapStateToProps = state = ({
-  sectionId: 'abc',
+const mapStateToProps = (state, { name }) => ({
+  ...selectors.getFieldListProps(name)(state),
 });
 
 const mapDispatchToProps = (dispatch, { fields, name }) => ({
-  onAddItem: sectionId => {
-    dispatch(actions.addListItem(sectionId, name));
+  onAddItem: () => {
+    dispatch(actions.addListItem(name));
     fields.push({});
   },
+  onDeleteItem: index => dispatch(actions.deleteListItem(name, index)),
 });
 
 const FieldList = ({ fieldNames, fields, name }) => (
@@ -33,9 +35,13 @@ const FieldList = ({ fieldNames, fields, name }) => (
 );
 
 FieldList.propTypes = {
+  canAdd: PropTypes.bool,
+  canDelete: PropTypes.bool,
   fieldNames: PropTypes.array,
   fields: PropTypes.object,
   name: PropTypes.string,
+  onAddItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FieldList);
