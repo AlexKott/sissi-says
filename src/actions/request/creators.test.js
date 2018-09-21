@@ -9,15 +9,7 @@ describe('actions/request', () => {
       expect(action).toHaveProperty('type', t.SEND_REQUEST);
       expect(action.payload).toHaveProperty('method', 'get');
       expect(action.payload).toHaveProperty('dataType', 'test');
-      expect(action.payload).toHaveProperty('successDispatch');
-    });
-
-    it('should pass the dataType to the standard successDispatch', () => {
-      const action = actions.fetchData('test');
-      const successAction = action.payload.successDispatch[0]();
-
-      expect(action.payload.successDispatch).toHaveLength(1);
-      expect(successAction.payload).toHaveProperty('dataType', 'test');
+      expect(action.payload).toHaveProperty('onSuccess');
     });
   });
 
@@ -39,7 +31,7 @@ describe('actions/request', () => {
       expect(action.payload).toHaveProperty('method', 'post');
       expect(action.payload).toHaveProperty('dataType', 'content');
       expect(action.payload).toHaveProperty('formName', 'test');
-      expect(action.payload).toHaveProperty('successDispatch');
+      expect(action.payload).toHaveProperty('onSuccess');
     });
   });
 
@@ -52,7 +44,7 @@ describe('actions/request', () => {
       expect(action.payload).toHaveProperty('dataType', 'images');
       expect(action.payload).toHaveProperty('contentType', 'file');
       expect(action.payload).toHaveProperty('requestData', 'test');
-      expect(action.payload).toHaveProperty('successDispatch');
+      expect(action.payload).toHaveProperty('onSuccess');
     });
   });
 
@@ -80,7 +72,7 @@ describe('actions/request', () => {
       expect(action).toHaveProperty('type', t.SEND_REQUEST);
       expect(action.payload).toHaveProperty('method', 'post');
       expect(action.payload).toHaveProperty('dataType', 'login');
-      expect(action.payload).toHaveProperty('successDispatch');
+      expect(action.payload).toHaveProperty('onSuccess');
       expect(action.payload).toHaveProperty('requestData');
       expect(action.payload.requestData).toHaveProperty('username', 'testUser');
       expect(action.payload.requestData).toHaveProperty('password', 'pass_word');

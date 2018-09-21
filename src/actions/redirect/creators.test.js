@@ -1,4 +1,5 @@
 import * as routes from '@/router';
+
 import * as actions from './creators';
 
 describe('actions/redirect', () => {

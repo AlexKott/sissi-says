@@ -54,7 +54,7 @@ describe('middleware/sendRequest', () => {
       payload: {
         method: 'get',
         dataType: 'test',
-        successDispatch: []
+        onSuccess: []
       },
     };
     mockGet = jest.fn(() => new Promise(resolve => resolve([{}, { ok: true }])));
@@ -67,13 +67,13 @@ describe('middleware/sendRequest', () => {
   });
 
   it('should dispatch the specified actions on success', async () => {
-    const successAction = jest.fn(() => ({ type: 'TEST_SUCCESS' }));
+    const successAction = jest.fn(dispatch => dispatch({ type: 'TEST_SUCCESS' }));
     mockAction = {
       type: t.SEND_REQUEST,
       payload: {
         method: 'get',
         dataType: 'test',
-        successDispatch: [successAction]
+        onSuccess: [successAction]
       },
     };
 
@@ -87,13 +87,13 @@ describe('middleware/sendRequest', () => {
   });
 
   it('should dispatch an error when the request fails', async () => {
-    const successAction = jest.fn(() => ({ type: 'TEST_SUCCESS' }));
+    const successAction = jest.fn(dispatch => dispatch({ type: 'TEST_SUCCESS' }));
     mockAction = {
       type: t.SEND_REQUEST,
       payload: {
         method: 'get',
         dataType: 'test',
-        successDispatch: [successAction]
+        onSuccess: [successAction]
       },
     };
     const expectedAction = { type: t.SET_ALERT, payload: { message: tr.ERROR_SERVER, level: tr.ERROR }};

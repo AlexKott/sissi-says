@@ -16,7 +16,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       dataType,
       requestData = {},
       contentType = 'json',
-      successDispatch = [],
+      onSuccess = [],
     } = payload;
 
     const endpoint = `${API_URL}/${dataType}`;
@@ -31,19 +31,28 @@ export default (store, client = ajax, getters = selectors) => next => async acti
         const fields = getters.getFields(store.getState());
         data = transformToMarkdown(response[0], fields);
       }
-      successDispatch.forEach(action => store.dispatch(action(data)));
+
+      onSuccess.forEach(method => method(store.dispatch, data));
 
     } catch(error) {
-      if (error[0] && error[0].status === 403) {
-        store.dispatch(actions.setAlert(tr.ERROR_LOGIN, tr.ERROR));
-      } else if (error[0] && error[0].status === 401) {
-        store.dispatch(actions.resetSession());
-        store.dispatch(actions.redirectToLogin());
-        store.dispatch(actions.setAlert(tr.ERROR_AUTH, tr.ERROR));
-      } else if (error[0] && error[0].status === 422) {
-        store.dispatch(actions.setAlert(tr.ERROR_BUILD, tr.ERROR));
-      } else {
-        store.dispatch(actions.setAlert(tr.ERROR_SERVER, tr.ERROR));
+      const errorCode = error[0] ? error[0].status : 500;
+      switch(errorCode) {
+        case 401:
+          store.dispatch(actions.resetSession());
+          store.dispatch(actions.redirectToLogin());
+          store.dispatch(actions.setAlert(tr.ERROR_AUTH, tr.ERROR));
+          break;
+
+        case 403:
+          store.dispatch(actions.setAlert(tr.ERROR_LOGIN, tr.ERROR));
+          break;
+
+        case 422:
+          store.dispatch(actions.setAlert(tr.ERROR_BUILD, tr.ERROR));
+          break;
+
+        default:
+          store.dispatch(actions.setAlert(tr.ERROR_SERVER, tr.ERROR));
       }
     } finally {
       store.dispatch(actions.setLoading(false));

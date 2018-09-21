@@ -1,59 +1,63 @@
 import { getFormValues } from 'redux-form';
+
+import {
+  setAlert,
+  redirectToIndex,
+} from '@/actions';
 import * as t from '@/actions/types';
 import * as tr from '@/translations';
-import { setAlert, redirectToIndex } from '@/actions';
 
-export function fetchData(dataType) {
+export const fetchData = dataType => {
   const action = {
     type: t.SEND_REQUEST,
     payload: {
       method: 'get',
       dataType,
-      successDispatch: [fetchDataSuccess.bind({}, dataType)],
+      onSuccess: [dispatch => dispatch(fetchDataSuccess(dataType))],
     }
   };
 
   if (dataType === 'structure') {
-    action.payload.successDispatch.push(fetchData.bind({}, 'content'));
+    action.payload.onSuccess.push(dispatch => dispatch(fetchData('content')));
   }
 
   return action;
 }
 
-export function fetchDataSuccess(dataType, data) {
+export const fetchDataSuccess = (dataType, data) => {
   return {
     type: t.FETCH_DATA_SUCCESS,
     payload: { dataType, data }
   };
 }
 
-export function postContent(formName) {
+export const postContent = (formName) => {
   return {
     type: t.SEND_REQUEST,
     payload: {
       method: 'post',
       dataType: 'content',
       formName,
-      successDispatch: [
-        fetchDataSuccess.bind({}, 'content'),
-        setAlert.bind({}, tr.SUCCESS_SAVE, tr.SUCCESS),
+      onSuccess: [
+        dispatch => dispatch(fetchDataSuccess('content')),
+        dispatch => dispatch(setAlert(tr.SUCCESS_SAVE, tr.SUCCESS)),
       ],
     }
   };
 }
 
-export function buildPage() {
+export const buildPage = () => {
   return {
     type: t.SEND_REQUEST,
     payload: {
       method: 'post',
       dataType: 'build',
-      successDispatch: [setAlert.bind({}, tr.SUCCESS_PUBLISH, tr.SUCCESS)],
+      onSuccess: [dispatch => dispatch(setAlert(tr.SUCCESS_PUBLISH, tr.SUCCESS))],
     },
   };
 }
 
-export function saveImage(image) {
+export const saveImage = (image) => {
   return {
     type: t.SEND_REQUEST,
     payload: {
@@ -61,19 +65,19 @@ export function saveImage(image) {
       dataType: 'images',
       contentType: 'file',
       requestData: image,
-      successDispatch: [saveImageSuccess],
+      onSuccess: [dispatch => dispatch(saveImageSuccess)],
     },
   };
 }
 
-export function saveImageSuccess(data) {
+export const saveImageSuccess = (data) => {
   return {
     type: t.SAVE_IMAGE_SUCCESS,
     payload: data.fileName,
   };
 }
 
-export function login() {
+export const login = () => {
   return (dispatch, getState, selectFormValues = getFormValues) => {
     const values = selectFormValues('login')(getState());
     if (values) {
@@ -83,7 +87,10 @@ export function login() {
           method: 'post',
           dataType: 'login',
           requestData: { username: values.username, password: values.password },
-          successDispatch: [loginSuccess, redirectToIndex],
+          onSuccess: [
+            dispatch => dispatch(loginSuccess),
+            dispatch => dispatch(redirectToIndex),
+          ],
         },
       });
     } else {
@@ -92,14 +99,14 @@ export function login() {
   };
 }
 
-export function loginSuccess(data) {
+export const loginSuccess = (data) => {
   return {
     type: t.LOGIN_SUCCESS,
     payload: data.token,
   };
 }
 
-export function resetSession() {
+export const resetSession = () => {
   return {
     type: t.RESET_SESSION,
   };
