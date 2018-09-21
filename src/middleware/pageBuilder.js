@@ -1,13 +1,14 @@
-import * as t from '@/actions/types';
-import * as selectors from '@/selectors';
 import * as actions from '@/actions';
+import * as t from '@/actions/types';
+import * as k from '@/constants/keywords';
 import getRandomString from '@/helpers/getRandomString';
+import * as selectors from '@/selectors';
 
 export default ({ dispatch, getState }, getters = selectors) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_PAGE) {
-    const _type = payload.pageType || 'standard';
+    const _type = payload.pageType || k.STANDARD;
     const _id = getRandomString();
     const minSectionsPerPage = getters.getMinSectionsPerPage(getState());
 
@@ -21,7 +22,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     fields.forEach(fieldObj => {
       const [fieldName, field] = Object.entries(fieldObj)[0];
 
-      if (field.type === 'list') {
+      if (field.type === k.LIST) {
         const { fields: itemFieldNames, minItems } = field;
         newPage[fieldName] = [];
 

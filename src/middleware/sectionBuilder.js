@@ -1,12 +1,13 @@
 import * as t from '@/actions/types';
-import * as selectors from '@/selectors';
+import * as k from '@/constants/keywords';
 import getRandomString from '@/helpers/getRandomString';
+import * as selectors from '@/selectors';
 
 export default ({ dispatch, getState }, getters = selectors) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_SECTION) {
-    const sectionType = payload.sectionType || 'standard';
+    const sectionType = payload.sectionType || k.STANDARD;
     const fields = getters.getSectionFields(getState(), sectionType);
 
     const sectionId = getRandomString();
@@ -16,7 +17,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     fields.forEach(fieldObj => {
       const [fieldName, field] = Object.entries(fieldObj)[0];
 
-      if (field.type === 'list') {
+      if (field.type === k.LIST) {
         const { fields: itemFieldNames, minItems } = field;
         newSection[fieldName] = [];
 

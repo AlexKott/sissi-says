@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, FieldArray } from 'redux-form';
 
+import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
 
 import FieldList from './FieldList';
@@ -22,44 +23,44 @@ const FormFieldBuilder = ({ field, prefix }) => {
   let elementClassName = '';
 
   switch(field.type) {
-    case 'list':
+    case k.LIST:
       return (<FieldArray
         component={FieldList}
         fieldNames={field.fields}
         name={field.name}
       />);
 
-    case 'choice':
+    case k.CHOICE:
       component = Select;
       options = field.choices;
       break;
 
-    case 'date':
+    case k.DATE:
       component = 'input';
       type = 'date';
       break;
 
-    case 'image':
+    case k.IMAGE:
       component = ImageUploader;
       type = 'file';
       break;
 
-    case 'markdown':
+    case k.MARKDOWN:
       component = MarkdownEditor;
       elementClassName = 'form__element--markdown';
       break;
 
-    case 'password':
+    case k.PASSWORD:
       component = 'input';
       type = 'password';
       break;
 
-    case 'string':
+    case k.STRING:
       component = 'input';
       type = 'text';
       break;
 
-    case 'text':
+    case k.TEXT:
       component = 'textarea';
       fieldClassName = 'form__field--textarea';
       break;

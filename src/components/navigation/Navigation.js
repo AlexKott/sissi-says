@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
 
 import AddButton from './AddButton';
@@ -23,14 +24,14 @@ const Navigation = ({
   pageProps && <NavBar
     key='pageNav'
     level='1'
-    type='pages'
+    type={k.PAGES}
   >
     {pageProps.itemIds.map((id, index) => (
       <NavItem
         key={id}
         id={id}
         index={index}
-        type='pages'
+        type={k.PAGES}
       />
     ))}
     {pageProps.canAdd && <AddButton />}
@@ -39,14 +40,14 @@ const Navigation = ({
   sectionProps && <NavBar
     key='sectionNav'
     level={pageProps ? '2' : '1'}
-    type='sections'
+    type={k.SECTIONS}
   >
     {sectionProps.itemIds.map((id, index) => (
       <NavItem
         key={id}
         id={id}
         index={index}
-        type='sections'
+        type={k.SECTIONS}
       />
     ))}
     {sectionProps.canAdd && <AddButton />}

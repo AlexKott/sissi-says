@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import { LOADING } from '@/constants/keywords';
 import * as s from '@/reducers/selectors';
 import * as tr from '@/translations';
 
@@ -12,7 +13,7 @@ export const getPropsForAlert = createSelector(
     if (isLoading) {
       return {
         allowConfirm: false,
-        type: 'loading',
+        type: LOADING,
         message: tr.LOADING_TEXT,
         title: tr.LOADING,
       };
