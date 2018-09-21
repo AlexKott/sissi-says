@@ -1,3 +1,10 @@
+/* BASE TYPES */
+export const BUILD = 'build';
+export const CONTENT = 'content';
+export const IMAGES = 'images';
+export const LOGIN = 'login';
+export const STRUCTURE = 'structure';
+
 /* CONTENT TYPES */
 export const GLOBAL = 'global';
 export const PAGES = 'pages';
@@ -19,3 +26,7 @@ export const TEXT = 'text';
 export const ERROR = 'error';
 export const LOADING = 'loading';
 export const SUCCESS = 'success';
+
+/* REQUEST TYPES */
+export const GET = 'get';
+export const POST = 'post';

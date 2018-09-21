@@ -1,7 +1,7 @@
 import * as actions from '@/actions';
 import * as t from '@/actions/types';
 import ajax from '@/adapters/ajax';
-import { ERROR } from '@/constants';
+import * as k from '@/constants/keywords';
 import { transformToMarkdown } from '@/helpers/markdownHtmlConverter';
 import * as selectors from '@/selectors';
 import * as tr from '@/translations';
@@ -28,7 +28,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       const response = await client(endpoint, token, contentType)[method](requestData);
       let responseData = response[0];
 
-      if (dataType === 'content') {
+      if (dataType === k.CONTENT) {
         const fields = getters.getFields(store.getState());
         responseData = transformToMarkdown(response[0], fields);
       }
@@ -45,19 +45,19 @@ export default (store, client = ajax, getters = selectors) => next => async acti
         case 401:
           store.dispatch(actions.resetSession());
           store.dispatch(actions.redirectToLogin());
-          store.dispatch(actions.setAlert(ERROR, tr.ERROR_AUTH));
+          store.dispatch(actions.setAlert(k.ERROR, tr.ERROR_AUTH));
           break;
 
         case 403:
-          store.dispatch(actions.setAlert(ERROR, tr.ERROR_LOGIN));
+          store.dispatch(actions.setAlert(k.ERROR, tr.ERROR_LOGIN));
           break;
 
         case 422:
-          store.dispatch(actions.setAlert(ERROR, tr.ERROR_BUILD));
+          store.dispatch(actions.setAlert(k.ERROR, tr.ERROR_BUILD));
           break;
 
         default:
-          store.dispatch(actions.setAlert(ERROR, tr.ERROR_SERVER));
+          store.dispatch(actions.setAlert(k.ERROR, tr.ERROR_SERVER));
       }
 
     } finally {

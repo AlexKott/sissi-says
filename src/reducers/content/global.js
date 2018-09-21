@@ -1,4 +1,5 @@
 import * as t from '@/actions/types';
+import * as k from '@/constants/keywords';
 import reorderArray from '@/helpers/reorderArray';
 
 const initialState = {};
@@ -8,7 +9,7 @@ export default (state = initialState, action = {}) => {
 
   switch(type) {
     case t.SEND_REQUEST:
-      if (payload.dataType === 'content') {
+      if (payload.dataType === k.CONTENT) {
         return payload.responseData.global || initialState;
       }
       return state;

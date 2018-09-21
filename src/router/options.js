@@ -1,4 +1,5 @@
 import * as actions from '@/actions';
+import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
 
 import * as routes from './index';
@@ -18,8 +19,8 @@ export default {
     }
 
     if (isLoggedIn && !isInitialDataFetched) {
-      dispatch(actions.fetchData('structure'));
-      dispatch(actions.fetchData('images'));
+      dispatch(actions.fetchData(k.STRUCTURE));
+      dispatch(actions.fetchData(k.IMAGES));
     }
 
     if (isSinglePage && isNavigatingToPage) {

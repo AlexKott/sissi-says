@@ -5,24 +5,21 @@ import {
   redirectToIndex,
 } from '@/actions';
 import * as t from '@/actions/types';
-import {
-  ERROR,
-  SUCCESS,
-} from '@/constants';
+import * as k from '@/constants';
 import * as tr from '@/translations';
 
 export const fetchData = dataType => {
   const action = {
     type: t.SEND_REQUEST,
     payload: {
-      method: 'get',
+      method: k.GET,
       dataType,
       onSuccess: [],
     },
   };
 
-  if (dataType === 'structure') {
-    action.payload.onSuccess.push(dispatch => dispatch(fetchData('content')));
+  if (dataType === k.STRUCTURE) {
+    action.payload.onSuccess.push(dispatch => dispatch(fetchData(k.CONTENT)));
   }
 
   return action;
@@ -31,27 +28,27 @@ export const fetchData = dataType => {
 export const postContent = formName => ({
   type: t.SEND_REQUEST,
   payload: {
-    method: 'post',
-    dataType: 'content',
+    method: k.POST,
+    dataType: k.CONTENT,
     formName,
-    onSuccess: [dispatch => dispatch(setAlert(SUCCESS, tr.SUCCESS_SAVE))],
+    onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_SAVE))],
   },
 });
 
 export const buildPage = () => ({
   type: t.SEND_REQUEST,
   payload: {
-    method: 'post',
-    dataType: 'build',
-    onSuccess: [dispatch => dispatch(setAlert(SUCCESS, tr.SUCCESS_PUBLISH))],
+    method: k.POST,
+    dataType: k.BUILD,
+    onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_PUBLISH))],
   },
 });
 
 export const saveImage = image => ({
   type: t.SEND_REQUEST,
   payload: {
-    method: 'post',
-    dataType: 'images',
+    method: k.POST,
+    dataType: k.IMAGES,
     contentType: 'file',
     requestData: image,
     onSuccess: [(dispatch, data) => dispatch(saveImageSuccess(data))],
@@ -64,13 +61,13 @@ export const saveImageSuccess = data => ({
 });
 
 export const login = () => (dispatch, getState, selectFormValues = getFormValues) => {
-  const values = selectFormValues('login')(getState());
+  const values = selectFormValues(k.LOGIN)(getState());
   if (values) {
     dispatch({
       type: t.SEND_REQUEST,
       payload: {
-        method: 'post',
-        dataType: 'login',
+        method: k.POST,
+        dataType: k.LOGIN,
         requestData: { username: values.username, password: values.password },
         onSuccess: [
           (dispatch, data) => dispatch(loginSuccess(data)),
@@ -79,7 +76,7 @@ export const login = () => (dispatch, getState, selectFormValues = getFormValues
       },
     });
   } else {
-    dispatch(setAlert(ERROR, tr.ERROR_AUTH));
+    dispatch(setAlert(k.ERROR, tr.ERROR_AUTH));
   }
 };
 

@@ -1,4 +1,5 @@
 import * as t from '@/actions/types';
+import * as k from '@/constants/keywords';
 
 const initialState = [];
 
@@ -7,7 +8,7 @@ export default (state = initialState, action = {}) => {
 
   switch (type) {
     case t.SEND_REQUEST:
-      if (payload.dataType === 'images' && payload.method === 'get') {
+      if (payload.dataType === k.IMAGES && payload.method === k.GET) {
         return payload.responseData;
       }
       return state;

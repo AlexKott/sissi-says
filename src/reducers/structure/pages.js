@@ -1,4 +1,6 @@
 import * as t from '@/actions/types';
+import * as k from '@/constants/keywords';
+
 import { getFieldByName } from './fields';
 
 const initialState = {};
@@ -6,7 +8,7 @@ const initialState = {};
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.SEND_REQUEST && payload.dataType === 'structure') {
+  if (type === t.SEND_REQUEST && payload.dataType === k.STRUCTURE) {
     return payload.responseData.pages || initialState;
 
   } else if (type === t.RESET_SESSION) {
