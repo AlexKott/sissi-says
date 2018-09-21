@@ -1,25 +1,18 @@
-import middleware from './sectionBuilder';
-
+import _testState from '@/reducers/_testState';
 import * as t from '@/actions/types';
 
+import middleware from './sectionBuilder';
+
 describe('middleware/sectionBuilder', () => {
-  let mockAction, mockNext, mockGetState, mockDispatch, mockStore, mockSelectors;
+  let mockAction, mockNext, mockStore, mockSelectors;
 
   beforeEach(() => {
     mockNext = jest.fn();
-    mockGetState = jest.fn();
-    mockDispatch = jest.fn();
     mockStore = {
-      getState: mockGetState,
-      dispatch: mockDispatch,
+      getState: jest.fn(() => _testState),
+      dispatch: jest.fn(),
     };
-    mockSelectors = {
-      getSectionFields: jest.fn(() => [
-        { 'field1': { type: 'standard' }},
-        { 'field2': { type: 'standard' }},
-      ]),
-    };
-    mockAction = { type: t.ADD_SECTION, payload: { pageId: 'mockPage', sectionType: 'testType' }};
+    mockAction = { type: t.ADD_SECTION, payload: { pageId: 'abc123', sectionType: 'photo' }};
   });
 
   it('should forward the action if the type is not ADD_SECTION', () => {
@@ -39,34 +32,7 @@ describe('middleware/sectionBuilder', () => {
     expect(testedAction).toHaveProperty('payload');
     expect(testedAction.payload).toHaveProperty('sectionId');
     expect(testedAction.payload).toHaveProperty('section');
-    expect(testedAction.payload.section).toHaveProperty('sectionType', 'testType');
-    expect(testedAction.payload.section).toHaveProperty('field1', '');
-    expect(testedAction.payload.section).toHaveProperty('field2', '');
-  });
-
-  it('should add the minimum list items for each field of type "list"', () => {
-    mockSelectors.getSectionFields = jest.fn(() => [{
-      'listField1': {
-        type: 'list',
-        minItems: 3,
-        fields: ['fieldA', 'fieldB']
-      },
-    }]);
-
-    middleware(mockStore, mockSelectors)(mockNext)(mockAction);
-
-    const testedAction = mockNext.mock.calls[0][0];
-    expect(mockNext.mock.calls).toHaveLength(1);
-    expect(testedAction).toHaveProperty('type', t.ADD_SECTION);
-    expect(testedAction).toHaveProperty('payload');
-    expect(testedAction.payload).toHaveProperty('sectionId');
-    expect(testedAction.payload).toHaveProperty('section');
-    expect(testedAction.payload.section).toHaveProperty('sectionType', 'testType');
-    expect(testedAction.payload.section).toHaveProperty('listField1');
-    expect(testedAction.payload.section.listField1).toEqual([
-      { 'fieldA': '', 'fieldB': '' },
-      { 'fieldA': '', 'fieldB': '' },
-      { 'fieldA': '', 'fieldB': '' },
-    ]);
+    expect(testedAction.payload.section).toHaveProperty('sectionType', 'photo');
+    expect(testedAction.payload.section).toHaveProperty('image', '');
   });
 });

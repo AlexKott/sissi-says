@@ -3,32 +3,30 @@ import * as k from '@/constants/keywords';
 import getRandomString from '@/helpers/getRandomString';
 import * as selectors from '@/selectors';
 
-export default ({ dispatch, getState }, getters = selectors) => next => action => {
+export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_SECTION) {
     const sectionType = payload.sectionType || k.STANDARD;
-    const fields = getters.getSectionFields(getState(), sectionType);
+    const fields = selectors.getFieldsForSectionType(sectionType)(getState());
 
     const sectionId = getRandomString();
     const newSection = {};
     newSection.sectionType = sectionType;
 
-    fields.forEach(fieldObj => {
-      const [fieldName, field] = Object.entries(fieldObj)[0];
-
+    fields.forEach(field => {
       if (field.type === k.LIST) {
         const { fields: itemFieldNames, minItems } = field;
-        newSection[fieldName] = [];
+        newSection[field._name] = [];
 
         for (let i = 0; i < minItems; i++) {
           const newItem = {};
           itemFieldNames.forEach(fieldName => newItem[fieldName] = '');
-          newSection[fieldName].push(newItem);
+          newSection[field._name].push(newItem);
         }
 
       } else {
-        newSection[fieldName] = '';
+        newSection[field._name] = '';
       }
     })
 
@@ -37,7 +35,7 @@ export default ({ dispatch, getState }, getters = selectors) => next => action =
     next(action);
 
   } else if (type === t.ADD_LIST_ITEM) {
-      const fields = getters.getListFieldNames(getState(), payload.listName);
+      const fields = selectors.getListFieldNames(getState(), payload.listName);
       const newItem = {};
       fields.forEach(fieldName => newItem[fieldName] = '');
       payload.listItem = newItem;

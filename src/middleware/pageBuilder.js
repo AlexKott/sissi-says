@@ -20,14 +20,13 @@ export default ({ dispatch, getState }) => next => action => {
 
     const fields = selectors.getFieldsForPageType(_type)(getState());
     fields.forEach(field => {
-
       if (field.type === k.LIST) {
         const { fields: itemFieldNames, minItems } = field;
         newPage[field._name] = [];
 
         for (let i = 0; i < minItems; i++) {
           const newItem = {};
-          itemFieldNames.forEach(fieldName => newItem[field._name] = '');
+          itemFieldNames.forEach(fieldName => newItem[fieldName] = '');
           newPage[field._name].push(newItem);
         }
 
