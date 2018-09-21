@@ -5,3 +5,4 @@ export { default as login } from './login';
 export { default as popup } from './popup';
 export { default as structure } from './structure';
 export { default as settings } from './settings';
+export { default as ui } from './ui';

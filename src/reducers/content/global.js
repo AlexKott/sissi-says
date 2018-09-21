@@ -29,7 +29,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         _items: reorderArray(state._items, payload.from, payload.to),
-      }
+      };
 
     case t.RESET_SESSION:
       return initialState;

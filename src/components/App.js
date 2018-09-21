@@ -8,10 +8,10 @@ import * as selectors from '@/selectors';
 import { ROUTE_LOGIN } from '@/router/routes';
 
 import ActionBar from './actionBar/ActionBar';
+import Alert from './Alert';
 import Editor from './editor/Editor';
 import Guide from './guide/Guide';
 import Login from './login/Login';
-import Modal from './modal/Modal';
 import Navigation from '@/components/navigation/Navigation';
 
 const mapStateToProps = (state, { setActiveLanguage }) => {
@@ -37,7 +37,7 @@ const App = ({ route }) => (
           <Guide key='guide' />,
         ]
     }
-    <Modal />
+    <Alert />
   </div>
 );
 
