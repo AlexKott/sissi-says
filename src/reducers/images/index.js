@@ -5,19 +5,22 @@ const initialState = [];
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  if (type === t.SEND_REQUEST && payload.dataType === 'images') {
-    return payload.responseData;
+  switch (type) {
+    case t.FETCH_DATA_SUCCESS:
+      if (payload.dataType === 'images') {
+        return payload.responseData;
+      }
+      return state;
 
-  } else if (type === t.SAVE_IMAGE_SUCCESS) {
-    return [...state, payload];
+    case t.SAVE_IMAGE_SUCCESS:
+      return [...state, payload];
 
-  } else if (type === t.RESET_SESSION) {
-    return initialState;
+    case t.RESET_SESSION:
+      return initialState;
+
+    default:
+      return state;
   }
-
-  return state;
 };
 
-export function getAllImages(state) {
-  return state.images;
-}
+export const getAllImages = state => state.images;

@@ -2,14 +2,7 @@ import reducer, * as selectors from './index';
 import * as t from '@/actions/types';
 
 describe('reducers/images', () => {
-  it('should return the initial state', () => {
-    const expectedState = [];
-    const state = reducer();
-
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should set the given images', () => {
+  it('should apply the fetched data', () => {
     const action = {
       type: t.SEND_REQUEST,
       payload: {
@@ -17,10 +10,9 @@ describe('reducers/images', () => {
         responseData: ['a', 'b', 'c'],
       },
     };
-    const expectedState = ['a', 'b', 'c'];
-    const state = reducer(undefined, action);
+    const state = reducer([], action);
 
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(['a', 'b', 'c']);
   });
 
   it('should reset the state', () => {
@@ -33,7 +25,7 @@ describe('reducers/images', () => {
   });
 });
 
-describe('selectors/content&/global', () => {
+describe('selectors/images', () => {
   describe('getAllImages', () => {
     it('should return the stored images', () => {
       const mockState = {
