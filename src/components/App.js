@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withLocalize, getActiveLanguage } from 'react-localize-redux';
 
 import * as selectors from '@/selectors';
-import { ROUTE_LOGIN } from '@/router/routes';
+import { ROUTE_LOGIN } from '@/router';
 
 import ActionBar from './actionBar/ActionBar';
 import Alert from './Alert';

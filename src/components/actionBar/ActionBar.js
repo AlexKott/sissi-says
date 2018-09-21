@@ -3,7 +3,7 @@ import { NavLink } from 'redux-first-router-link';
 import { Translate } from 'react-localize-redux';
 
 import * as tr from '@/translations';
-import { ROUTE_INDEX } from '@/router/routes';
+import { ROUTE_INDEX } from '@/router';
 
 import GuideButton from './GuideButton';
 import LogoutButton from './LogoutButton';

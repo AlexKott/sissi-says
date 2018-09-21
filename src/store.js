@@ -12,7 +12,7 @@ import gatherRequestDataMiddleware from '@/middleware/gatherRequestData';
 
 import * as reducers from '@/reducers';
 import routerOptions from '@/router/options';
-import routes from '@/router/routes';
+import routes from '@/router';
 import translations from '@/translations';
 
 // Setup Redux Devtools

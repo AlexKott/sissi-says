@@ -1,6 +1,7 @@
 import * as actions from '@/actions';
 import * as selectors from '@/selectors';
-import * as routes from './routes';
+
+import * as routes from './index';
 
 export default {
   onBeforeChange(dispatch, getState, bag) {
