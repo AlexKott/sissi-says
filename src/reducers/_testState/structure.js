@@ -46,6 +46,12 @@ export default {
       allowedItems: ['photo'],
       isProtected: true,
     },
+    team: {
+      maxItems: 0,
+      minItems: 0,
+      label: 'Team page',
+      fields: ['title', 'people', 'path'],
+    },
   },
   sections: {
     standard: {

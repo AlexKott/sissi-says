@@ -19,6 +19,17 @@ export default {
       path: 'photos',
       title: 'My Album',
     },
+    'qwe567': {
+      _id: 'qwe567',
+      _type: 'team',
+      path: 'about-us',
+      title: 'This is us',
+      people: [
+        { title: 'Papa', image: 'paps.jpeg' },
+        { title: 'Mama', image: 'mom.jpeg' },
+        { title: 'Kid', image: 'kiddo.jpeg' },
+      ],
+    },
   },
   sections: {
     '123abc': {

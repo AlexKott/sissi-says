@@ -1,9 +1,15 @@
+import _cloneDeep from 'lodash.clonedeep';
+
 import _testState from '@/reducers/_testState';
 
 import * as selectors from './fields';
 
 describe('selectors/form', () => {
-  const mockState = _testState;
+  let mockState;
+  
+  beforeEach(() => {
+    mockState = _cloneDeep(_testState);
+  });
 
   describe('getFieldWithName', () => {
     it('should return the field with an added "name" parameter', () => {
@@ -30,6 +36,62 @@ describe('selectors/form', () => {
 
       expect(value.length).toBe(1);
       expect(value[0]).toHaveProperty('_name', 'image');
+    });
+  });
+
+  describe('getFieldListProps', () => {
+    beforeEach(() => {
+      mockState.location = {
+        payload: {
+          pageId: 'qwe567',
+        },
+        routesMap: {
+          pagesRoute: {
+            itemType: 'pages',
+          },
+        },
+        type: 'pagesRoute',
+      };
+    });
+
+    describe('canAdd', () => {
+      it('should be true when more items can be added', () => {
+        const value = selectors.getFieldListProps('people')(mockState);
+
+        expect(value).toHaveProperty('canAdd');
+        expect(value.canAdd).toBe(true);
+      });
+
+      it('should be false when items are at maximum', () => {
+        mockState.structure.fields.people.maxItems = 3;
+        const value = selectors.getFieldListProps('people')(mockState);
+
+        expect(value).toHaveProperty('canAdd');
+        expect(value.canAdd).toBe(false);
+      });
+    });
+
+    describe('canDelete', () => {
+      it('should be true when items can be deleted', () => {
+        const value = selectors.getFieldListProps('people')(mockState);
+
+        expect(value).toHaveProperty('canDelete');
+        expect(value.canDelete).toBe(true);
+      });
+
+      it('should be false when items are at minimum', () => {
+        mockState.structure.fields.people.minItems = 3;
+        const value = selectors.getFieldListProps('people')(mockState);
+
+        expect(value).toHaveProperty('canDelete');
+        expect(value.canDelete).toBe(false);
+      });
+    });
+
+    it('should return the item label', () => {
+      const value = selectors.getFieldListProps('people')(mockState);
+
+      expect(value).toHaveProperty('itemLabel', 'Person');
     });
   });
 });

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import * as s from '@/reducers/selectors';
+import { getCurrentItemWithParent } from './item';
 
 export const getFieldWithName = fieldName => createSelector(
   [
@@ -29,4 +30,22 @@ export const getFieldsForSectionType = sectionType => createSelector(
     ...fields[fieldName],
     _name: fieldName,
   }))
+);
+
+export const getFieldListProps = listName => createSelector(
+  [
+    s.getFieldList(listName),
+    getCurrentItemWithParent,
+  ],
+  (fieldList, { item: listParent }) => {
+    if (listName) {
+      const listLength = listParent.content[listName].length;
+      return {
+        canAdd: listLength < fieldList.maxItems,
+        canDelete: listLength > fieldList.minItems,
+        itemLabel: fieldList.itemLabel,
+      };
+    }
+    return {};
+  }
 );
