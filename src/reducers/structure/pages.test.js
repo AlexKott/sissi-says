@@ -42,4 +42,12 @@ describe('selectors/structure/pages', () => {
       expect(value.standard).toHaveProperty('maxItems', 6);
     });
   });
+
+  describe('getMinAmountOfSectionsForPageType', () => {
+    it('should return the minimum amount of sections for the given page type', () => {
+      const value = selectors.getMinAmountOfSectionsForPageType('standard')(mockState);
+
+      expect(value).toBe(1);
+    });
+  });
 });

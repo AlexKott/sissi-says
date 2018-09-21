@@ -1,8 +1,6 @@
 import * as t from '@/actions/types';
 import * as k from '@/constants/keywords';
 
-import { getFieldByName } from './fields';
-
 const initialState = {};
 
 export default (state = initialState, action = {}) => {
@@ -18,26 +16,4 @@ export default (state = initialState, action = {}) => {
   return state;
 }
 
-export function getSectionByType(state, sectionType) {
-  return state.structure.sections[sectionType] || {};
-}
-
-export function getProtectedSections(state) {
-  return Object.entries(state.structure.sections)
-  .filter(entry => entry[1].isProtected)
-  .map(entry => entry[0]);
-}
-
-export function getIsProtectedSection(state, sectionType) {
-  return getSectionByType(state, sectionType).isProtected;
-}
-
-export function getSectionFieldNames(state, sectionType) {
-  const section = getSectionByType(state, sectionType);
-  return section.fields || [];
-}
-
-export function getSectionFields(state, sectionType, selectFieldByName = getFieldByName) {
-  const fieldNames = getSectionFieldNames(state, sectionType);
-  return fieldNames.map(fieldName => selectFieldByName(state, fieldName));
-}
+export const getStructureSections = state => state.structure.sections;
