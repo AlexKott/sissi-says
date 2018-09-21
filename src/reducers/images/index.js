@@ -7,7 +7,7 @@ export default (state = initialState, action = {}) => {
 
   switch (type) {
     case t.SEND_REQUEST:
-      if (payload.dataType === 'images') {
+      if (payload.dataType === 'images' && payload.method === 'get') {
         return payload.responseData;
       }
       return state;

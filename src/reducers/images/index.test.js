@@ -7,6 +7,7 @@ describe('reducers/images', () => {
       type: t.SEND_REQUEST,
       payload: {
         dataType: 'images',
+        method: 'get',
         responseData: ['a', 'b', 'c'],
       },
     };
