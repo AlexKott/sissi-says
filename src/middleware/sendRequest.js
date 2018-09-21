@@ -1,7 +1,8 @@
-import ajax from '@/adapters/ajax';
-import { transformToMarkdown } from '@/helpers/markdownHtmlConverter';
-import * as t from '@/actions/types';
 import * as actions from '@/actions';
+import * as t from '@/actions/types';
+import ajax from '@/adapters/ajax';
+import { ERROR } from '@/constants';
+import { transformToMarkdown } from '@/helpers/markdownHtmlConverter';
 import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 
@@ -44,19 +45,19 @@ export default (store, client = ajax, getters = selectors) => next => async acti
         case 401:
           store.dispatch(actions.resetSession());
           store.dispatch(actions.redirectToLogin());
-          store.dispatch(actions.setAlert(tr.ERROR_AUTH, tr.ERROR));
+          store.dispatch(actions.setAlert(ERROR, tr.ERROR_AUTH));
           break;
 
         case 403:
-          store.dispatch(actions.setAlert(tr.ERROR_LOGIN, tr.ERROR));
+          store.dispatch(actions.setAlert(ERROR, tr.ERROR_LOGIN));
           break;
 
         case 422:
-          store.dispatch(actions.setAlert(tr.ERROR_BUILD, tr.ERROR));
+          store.dispatch(actions.setAlert(ERROR, tr.ERROR_BUILD));
           break;
 
         default:
-          store.dispatch(actions.setAlert(tr.ERROR_SERVER, tr.ERROR));
+          store.dispatch(actions.setAlert(ERROR, tr.ERROR_SERVER));
       }
 
     } finally {

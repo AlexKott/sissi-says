@@ -12,3 +12,6 @@ export const validImageTypes = [
 ];
 
 export const maxImageSize = 500000;
+
+export const ERROR = 'error';
+export const SUCCESS = 'success';

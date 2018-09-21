@@ -5,6 +5,10 @@ import {
   redirectToIndex,
 } from '@/actions';
 import * as t from '@/actions/types';
+import {
+  ERROR,
+  SUCCESS,
+} from '@/constants';
 import * as tr from '@/translations';
 
 export const fetchData = dataType => {
@@ -30,7 +34,7 @@ export const postContent = formName => ({
     method: 'post',
     dataType: 'content',
     formName,
-    onSuccess: [dispatch => dispatch(setAlert(tr.SUCCESS_SAVE, tr.SUCCESS))],
+    onSuccess: [dispatch => dispatch(setAlert(SUCCESS, tr.SUCCESS_SAVE))],
   },
 });
 
@@ -39,7 +43,7 @@ export const buildPage = () => ({
   payload: {
     method: 'post',
     dataType: 'build',
-    onSuccess: [dispatch => dispatch(setAlert(tr.SUCCESS_PUBLISH, tr.SUCCESS))],
+    onSuccess: [dispatch => dispatch(setAlert(SUCCESS, tr.SUCCESS_PUBLISH))],
   },
 });
 
@@ -75,7 +79,7 @@ export const login = () => (dispatch, getState, selectFormValues = getFormValues
       },
     });
   } else {
-    dispatch(setAlert(tr.ERROR_AUTH, tr.ERROR));
+    dispatch(setAlert(ERROR, tr.ERROR_AUTH));
   }
 };
 

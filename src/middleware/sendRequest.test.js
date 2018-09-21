@@ -1,8 +1,7 @@
 import middleware from './sendRequest';
 
-import * as actions from '@/actions';
 import * as t from '@/actions/types';
-import * as tr from '@/translations';
+import { ERROR } from '@/constants';
 
 describe('middleware/sendRequest', () => {
   let mockAction, mockClient, mockDispatch, mockGet, mockNext, mockSelectors, mockStore;
@@ -96,7 +95,6 @@ describe('middleware/sendRequest', () => {
         onSuccess: [successAction]
       },
     };
-    const expectedAction = { type: t.SET_ALERT, payload: { message: tr.ERROR_SERVER, level: tr.ERROR }};
 
     mockGet = jest.fn(() => new Promise((resolve, reject) => reject([{}, { ok: false }])));
 
@@ -104,6 +102,6 @@ describe('middleware/sendRequest', () => {
 
     // call 0 and 2 are start loading and end loading
     expect(mockDispatch.mock.calls).toHaveLength(3);
-    expect(mockDispatch.mock.calls[1][0]).toEqual(expectedAction);
+    expect(mockDispatch.mock.calls[1][0].payload).toHaveProperty('type', ERROR);
   });
 });

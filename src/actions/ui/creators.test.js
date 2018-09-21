@@ -1,4 +1,6 @@
 import * as t from '@/actions/types';
+import { ERROR } from '@/constants';
+import { ERROR as trERROR } from '@/translations';
 
 import * as actions from './creators';
 
@@ -13,11 +15,12 @@ describe('actions/ui', () => {
 
   describe('setAlert', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.setAlert('Test alert message.', 'info');
+      const action = actions.setAlert('error', 'Test alert message.');
 
       expect(action).toHaveProperty('type', t.SET_ALERT);
       expect(action.payload).toHaveProperty('message', 'Test alert message.');
-      expect(action.payload).toHaveProperty('level', 'info');
+      expect(action.payload).toHaveProperty('type', ERROR);
+      expect(action.payload).toHaveProperty('title', trERROR);
     });
   });
 

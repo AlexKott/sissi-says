@@ -17,9 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const image = e.target.files[0];
 
     if (c.validImageTypes.indexOf(image.type) === -1) {
-      return dispatch(actions.setAlert(tr.ERROR_IMAGE_TYPE, 'error'));
+      return dispatch(actions.setAlert(c.ERROR, tr.ERROR_IMAGE_TYPE));
     } else if (image.size > c.maxImageSize) {
-      return dispatch(actions.setAlert(tr.ERROR_IMAGE_SIZE, 'error'));
+      return dispatch(actions.setAlert(c.ERROR, tr.ERROR_IMAGE_SIZE));
     }
     dispatch(actions.saveImage(image));
   },
