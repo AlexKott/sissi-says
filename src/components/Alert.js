@@ -21,7 +21,7 @@ const Alert = ({
   title,
   type,
   onConfirm,
-}) => type && (
+}) => !!type && (
   <aside className='modal'>
     <article className={`modal__box modal__box--${type}`}>
       <h2 className='modal__title'><Translate id={title} /></h2>
