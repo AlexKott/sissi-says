@@ -1,7 +1,7 @@
 export * from '@/reducers/selectors';
 
 export * from './editor';
-export * from './form';
+export * from './fields';
 export * from './item';
 export * from './location';
 export * from './navigation';
