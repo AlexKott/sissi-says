@@ -12,9 +12,9 @@ export const addSection = (pageId, sectionType = STANDARD) => ({
   payload: { pageId, sectionType },
 });
 
-export const addListItem = (sectionId, listName) => ({
+export const addListItem = (parentType, parentId, listName) => ({
   type: t.ADD_LIST_ITEM,
-  payload: { sectionId, listName },
+  payload: { parentType, parentId, listName },
 });
 
 export const deletePage = (pageId) => (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {

@@ -51,6 +51,36 @@ describe('reducers/content/global', () => {
     expect(state._items).toEqual(['def345', 'abc123']);
   });
 
+  it('should add a list item', () => {
+    mockState.testList = [];
+    const action = {
+      type: t.ADD_LIST_ITEM,
+      payload: {
+        parentType: 'global',
+        listName: 'testList',
+        listItem: 'testItem',
+      },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state.testList).toContain('testItem');
+  });
+
+  it('should delete a list item', () => {
+    mockState.testList = ['item1', 'item2'];
+    const action = {
+      type: t.DELETE_LIST_ITEM,
+      payload: {
+        parentType: 'global',
+        listName: 'testList',
+        itemIndex: 0,
+      },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state.testList).not.toContain('item1');
+  });
+
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,

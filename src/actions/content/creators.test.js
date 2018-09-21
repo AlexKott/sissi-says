@@ -23,10 +23,11 @@ describe('actions/content', () => {
 
   describe('addListItem', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.addListItem('section123', 'listAbc');
+      const action = actions.addListItem('sections', 'abc123', 'listAbc');
 
       expect(action).toHaveProperty('type', t.ADD_LIST_ITEM);
-      expect(action.payload).toHaveProperty('sectionId', 'section123');
+      expect(action.payload).toHaveProperty('parentType', 'sections');
+      expect(action.payload).toHaveProperty('parentId', 'abc123');
       expect(action.payload).toHaveProperty('listName', 'listAbc');
     });
   });

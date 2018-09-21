@@ -74,6 +74,38 @@ describe('reducers/content/pages', () => {
     expect(state.abc123._items).toEqual(['123abc', '345def']);
   });
 
+  it('should add a list item', () => {
+    mockState['abc123'].testList = [];
+    const action = {
+      type: t.ADD_LIST_ITEM,
+      payload: {
+        parentType: 'pages',
+        parentId: 'abc123',
+        listName: 'testList',
+        listItem: 'testItem',
+      },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state['abc123'].testList).toContain('testItem');
+  });
+
+  it('should delete a list item', () => {
+    mockState['abc123'].testList = ['item1', 'item2'];
+    const action = {
+      type: t.DELETE_LIST_ITEM,
+      payload: {
+        parentType: 'pages',
+        parentId: 'abc123',
+        listName: 'testList',
+        itemIndex: 0,
+      },
+    };
+    const state = reducer(mockState, action);
+
+    expect(state['abc123'].testList).not.toContain('item1');
+  });
+
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,

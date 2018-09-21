@@ -49,7 +49,8 @@ describe('reducers/content/sections', () => {
     const action = {
       type: t.ADD_LIST_ITEM,
       payload: {
-        sectionId: '123abc',
+        parentType: 'sections',
+        parentId: '123abc',
         listName: 'testList',
         listItem: 'testItem',
       },
@@ -63,7 +64,12 @@ describe('reducers/content/sections', () => {
     mockState['123abc'].testList = ['item1', 'item2'];
     const action = {
       type: t.DELETE_LIST_ITEM,
-      payload: { sectionId: '123abc', listName: 'testList', itemIndex: 0 },
+      payload: {
+        parentType: 'sections',
+        parentId: '123abc',
+        listName: 'testList',
+        itemIndex: 0,
+      },
     };
     const state = reducer(mockState, action);
 

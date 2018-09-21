@@ -1,3 +1,5 @@
+import _merge from 'lodash.merge';
+
 import * as t from '@/actions/types';
 import * as k from '@/constants/keywords';
 import reorderArray from '@/helpers/reorderArray';
@@ -31,6 +33,24 @@ export default (state = initialState, action = {}) => {
         ...state,
         _items: reorderArray(state._items, payload.from, payload.to),
       };
+
+    case t.ADD_LIST_ITEM:
+      if (payload.parentType === k.GLOBAL) {
+        return _merge({}, state, {
+          [payload.listName]: [payload.listItem],
+        });
+      }
+      return state;
+
+    case t.DELETE_LIST_ITEM:
+      if (payload.parentType === k.GLOBAL) {
+        return {
+          ...state,
+          [payload.listName]: state[payload.listName]
+            .filter((i, index) => index !== payload.itemIndex),
+        };
+      }
+      return state;
 
     case t.RESET_SESSION:
       return initialState;

@@ -26,21 +26,27 @@ export default (state = initialState, action = {}) => {
       return newState;
 
     case t.ADD_LIST_ITEM:
-      return _merge({}, state, {
-        [payload.sectionId]: {
-          [payload.listName]: [payload.listItem],
-        },
-      });
+      if (payload.parentType === k.SECTIONS) {
+        return _merge({}, state, {
+          [payload.parentId]: {
+            [payload.listName]: [payload.listItem],
+          },
+        });
+      }
+      return state;
 
     case t.DELETE_LIST_ITEM:
-      return {
-        ...state,
-        [payload.sectionId]: {
-          ...state[payload.sectionId],
-          [payload.listName]: state[payload.sectionId][payload.listName]
-            .filter((i, index) => index !== payload.itemIndex),
-        },
-      };
+      if (payload.parentType === k.SECTIONS) {
+        return {
+          ...state,
+          [payload.parentId]: {
+            ...state[payload.parentId],
+            [payload.listName]: state[payload.parentId][payload.listName]
+              .filter((i, index) => index !== payload.itemIndex),
+          },
+        };
+      }
+      return state;
 
     case t.RESET_SESSION:
       return initialState;

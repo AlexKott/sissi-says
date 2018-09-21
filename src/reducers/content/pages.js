@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import _merge from 'lodash.merge';
 
 import * as t from '@/actions/types';
 import * as k from '@/constants/keywords';
@@ -52,6 +53,29 @@ export default (state = initialState, action = {}) => {
           _items: reorderArray(state[payload.pageId]._items, payload.from, payload.to),
         },
       };
+
+    case t.ADD_LIST_ITEM:
+      if (payload.parentType === k.PAGES) {
+        return _merge({}, state, {
+          [payload.parentId]: {
+            [payload.listName]: [payload.listItem],
+          },
+        });
+      }
+      return state;
+
+    case t.DELETE_LIST_ITEM:
+      if (payload.parentType === k.PAGES) {
+        return {
+          ...state,
+          [payload.parentId]: {
+            ...state[payload.parentId],
+            [payload.listName]: state[payload.parentId][payload.listName]
+              .filter((i, index) => index !== payload.itemIndex),
+          },
+        };
+      }
+      return state;
 
     case t.RESET_SESSION:
       return initialState;
