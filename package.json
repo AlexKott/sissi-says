@@ -97,9 +97,6 @@
       "react-app"
     ]
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "nodemonConfig": {
     "delay": 2000,
     "runOnChangeOnly": true,

@@ -1,6 +1,6 @@
 import * as t from '@/actions/types';
 import * as selectors from '@/selectors';
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 import getRandomString from '@/helpers/getRandomString';
 
 export default ({ dispatch, getState }, getters = selectors) => next => action => {

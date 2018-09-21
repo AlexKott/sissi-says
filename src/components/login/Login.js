@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Translate, getTranslate } from 'react-localize-redux';
 
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 import * as tr from '@/translations';
 
 import Form from '@/components/form/Form';

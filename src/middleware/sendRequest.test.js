@@ -1,6 +1,6 @@
 import middleware from './sendRequest';
 
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 import * as t from '@/actions/types';
 import * as tr from '@/translations';
 

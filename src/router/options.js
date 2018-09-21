@@ -1,4 +1,4 @@
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 import * as selectors from '@/selectors';
 import * as routes from './routes';
 

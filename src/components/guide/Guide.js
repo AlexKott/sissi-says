@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as selectors from '@/selectors';
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 
 import GuideContent from './GuideContent';
 import Sissi from '@/components/svgs/Sissi';

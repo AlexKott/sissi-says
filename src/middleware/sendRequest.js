@@ -1,7 +1,7 @@
 import ajax from '@/adapters/ajax';
 import { transformToMarkdown } from '@/helpers/markdownHtmlConverter';
 import * as t from '@/actions/types';
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 

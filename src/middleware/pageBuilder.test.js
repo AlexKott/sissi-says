@@ -1,7 +1,7 @@
 import middleware from './pageBuilder';
 
 import * as t from '@/actions/types';
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 
 describe('middleware/pageBuilder', () => {
   let mockAction, mockNext, mockGetState, mockDispatch, mockStore, mockSelectors;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 
 import ImagePopup from './ImagePopup';
 

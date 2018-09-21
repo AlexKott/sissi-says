@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
 import * as tr from '@/translations';
 
 import FormFieldBuilder from './FormFieldBuilder';
