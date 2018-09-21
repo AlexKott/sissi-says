@@ -23,7 +23,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
     const token = getters.getAuthToken(store.getState());
 
     try {
-      store.dispatch(actions.setLoading(true));
+      store.dispatch(actions.activateLoading());
       const response = await client(endpoint, token, contentType)[method](requestData);
       let responseData = response[0];
 
@@ -60,7 +60,7 @@ export default (store, client = ajax, getters = selectors) => next => async acti
       }
 
     } finally {
-      store.dispatch(actions.setLoading(false));
+      store.dispatch(actions.deactivateLoading());
     }
 
   } else {

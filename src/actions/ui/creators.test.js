@@ -21,12 +21,21 @@ describe('actions/ui', () => {
     });
   });
 
-  describe('setLoading', () => {
+  describe('activateLoading', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.setLoading(true);
+      const action = actions.activateLoading();
 
       expect(action).toHaveProperty('type', t.SET_LOADING);
-      expect(action).toHaveProperty('payload', true);
+      expect(action).toHaveProperty('payload', { diff: 1 });
+    });
+  });
+
+  describe('deactivateLoading', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.deactivateLoading();
+
+      expect(action).toHaveProperty('type', t.SET_LOADING);
+      expect(action).toHaveProperty('payload', { diff: -1 });
     });
   });
 

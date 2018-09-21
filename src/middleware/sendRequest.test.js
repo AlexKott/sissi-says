@@ -62,8 +62,8 @@ describe('middleware/sendRequest', () => {
     await middleware(mockStore, mockClient, mockSelectors)(mockNext)(mockAction);
 
     expect(mockDispatch.mock.calls).toHaveLength(2);
-    expect(mockDispatch.mock.calls[0][0]).toEqual({ type: t.SET_LOADING, payload: true });
-    expect(mockDispatch.mock.calls[1][0]).toEqual({ type: t.SET_LOADING, payload: false });
+    expect(mockDispatch.mock.calls[0][0]).toEqual({ type: t.SET_LOADING, payload: { diff: 1 }});
+    expect(mockDispatch.mock.calls[1][0]).toEqual({ type: t.SET_LOADING, payload: { diff: -1 }});
   });
 
   it('should dispatch the specified actions on success', async () => {

@@ -9,9 +9,14 @@ export const setAlert = (message, level) => ({
   payload: { message, level },
 });
 
-export const setLoading = isLoading => ({
+export const activateLoading = () => ({
   type: t.SET_LOADING,
-  payload: isLoading,
+  payload: { diff: 1 },
+});
+
+export const deactivateLoading = () => ({
+  type: t.SET_LOADING,
+  payload: { diff: -1 },
 });
 
 export const togglePopup = (type, isVisible) => ({
