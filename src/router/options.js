@@ -9,7 +9,7 @@ export default {
     const isLoggedIn = selectors.getAuthToken(getState()) !== null;
     const isNavigatingToLogin = bag.action.type === routes.ROUTE_LOGIN;
     const isInitialDataFetched = selectors.getIsInitialDataFetched(getState());
-    const isSinglePage = selectors.getIsSinglePage(getState());
+    const isSinglePage = selectors.getSinglePageId(getState()) !== null;
     const isNavigatingToPage = bag.action.type === routes.ROUTE_PAGE;
 
     if (isNavigatingToLogin && isLoggedIn) {

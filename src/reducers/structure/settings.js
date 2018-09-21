@@ -7,7 +7,7 @@ export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.SEND_REQUEST && payload.dataType === k.STRUCTURE) {
-    return payload.responseData.settings;
+    return payload.responseData.settings || initialState;
 
   } else if (type === t.RESET_SESSION) {
     return initialState;

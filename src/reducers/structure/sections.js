@@ -1,7 +1,6 @@
 import * as t from '@/actions/types';
 import * as k from '@/constants/keywords';
 
-import { getRequiredSections } from './pages';
 import { getFieldByName } from './fields';
 
 const initialState = {};
@@ -10,7 +9,7 @@ export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   if (type === t.SEND_REQUEST && payload.dataType === k.STRUCTURE) {
-    return payload.responseData.sections;
+    return payload.responseData.sections || initialState;
 
   } else if (type === t.RESET_SESSION) {
     return initialState;
@@ -31,12 +30,6 @@ export function getProtectedSections(state) {
 
 export function getIsProtectedSection(state, sectionType) {
   return getSectionByType(state, sectionType).isProtected;
-}
-
-export function getProtectedSectionsForPage(state, pageType, selectRequiredSections = getRequiredSections) {
-  const requiredSections = selectRequiredSections(state, pageType);
-  const protectedSections = getProtectedSections(state);
-  return requiredSections.filter(entry => protectedSections.indexOf(entry) !== -1);
 }
 
 export function getSectionFieldNames(state, sectionType) {
