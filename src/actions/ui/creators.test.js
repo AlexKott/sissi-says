@@ -3,12 +3,11 @@ import * as t from '@/actions/types';
 import * as actions from './creators';
 
 describe('actions/ui', () => {
-  describe('setLoading', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.setLoading(true);
+  describe('clearAlerts', () => {
+    it('should dispatch an action with the correct type', () => {
+      const action = actions.clearAlerts();
 
-      expect(action).toHaveProperty('type', t.SET_LOADING);
-      expect(action).toHaveProperty('payload', true);
+      expect(action).toHaveProperty('type', t.CLEAR_ALERTS);
     });
   });
 
@@ -22,11 +21,12 @@ describe('actions/ui', () => {
     });
   });
 
-  describe('clearAlerts', () => {
-    it('should dispatch an action with the correct type', () => {
-      const action = actions.clearAlerts();
+  describe('setLoading', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.setLoading(true);
 
-      expect(action).toHaveProperty('type', t.CLEAR_ALERTS);
+      expect(action).toHaveProperty('type', t.SET_LOADING);
+      expect(action).toHaveProperty('payload', true);
     });
   });
 

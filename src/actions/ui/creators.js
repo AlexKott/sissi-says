@@ -1,8 +1,7 @@
 import * as t from '@/actions/types';
 
-export const setLoading = isLoading => ({
-  type: t.SET_LOADING,
-  payload: isLoading,
+export const clearAlerts = () => ({
+  type: t.CLEAR_ALERTS,
 });
 
 export const setAlert = (message, level) => ({
@@ -10,8 +9,9 @@ export const setAlert = (message, level) => ({
   payload: { message, level },
 });
 
-export const clearAlerts = () => ({
-  type: t.CLEAR_ALERTS,
+export const setLoading = isLoading => ({
+  type: t.SET_LOADING,
+  payload: isLoading,
 });
 
 export const togglePopup = (type, isVisible) => ({

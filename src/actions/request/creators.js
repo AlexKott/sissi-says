@@ -50,7 +50,7 @@ export const saveImage = image => ({
     dataType: 'images',
     contentType: 'file',
     requestData: image,
-    onSuccess: [dispatch => dispatch(saveImageSuccess)],
+    onSuccess: [(dispatch, data) => dispatch(saveImageSuccess(data))],
   },
 });
 
@@ -69,8 +69,8 @@ export const login = () => (dispatch, getState, selectFormValues = getFormValues
         dataType: 'login',
         requestData: { username: values.username, password: values.password },
         onSuccess: [
-          dispatch => dispatch(loginSuccess),
-          dispatch => dispatch(redirectToIndex),
+          (dispatch, data) => dispatch(loginSuccess(data)),
+          dispatch => dispatch(redirectToIndex()),
         ],
       },
     });
