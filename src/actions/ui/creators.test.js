@@ -42,13 +42,21 @@ describe('actions/ui', () => {
     });
   });
 
-  describe('togglePopup', () => {
+  describe('setModalType', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.togglePopup('image', true);
+      const action = actions.setModalType('image');
 
-      expect(action).toHaveProperty('type', t.TOGGLE_POPUP);
+      expect(action).toHaveProperty('type', t.SET_MODAL_TYPE);
       expect(action.payload).toHaveProperty('type', 'image');
-      expect(action.payload).toHaveProperty('isVisible', true);
+    });
+  });
+
+  describe('closeModal', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.closeModal();
+
+      expect(action).toHaveProperty('type', t.SET_MODAL_TYPE);
+      expect(action.payload).toHaveProperty('type', null);
     });
   });
 });

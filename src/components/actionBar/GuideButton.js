@@ -7,7 +7,7 @@ import * as actions from '@/actions';
 import Sissi from '@/components/svgs/Sissi';
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenGuide: () => dispatch(actions.togglePopup('guide', true)),
+  onOpenGuide: () => dispatch(actions.setModalType('guide')),
 });
 
 const GuideButton = ({ onOpenGuide }) => (

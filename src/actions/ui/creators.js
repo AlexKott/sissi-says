@@ -25,7 +25,12 @@ export const deactivateLoading = () => ({
   payload: { diff: -1 },
 });
 
-export const togglePopup = (type, isVisible) => ({
-  type: t.TOGGLE_POPUP,
-  payload: { type, isVisible },
+export const setModalType = type => ({
+  type: t.SET_MODAL_TYPE,
+  payload: { type },
+});
+
+export const closeModal = () => ({
+  type: t.SET_MODAL_TYPE,
+  payload: { type: null },
 });
