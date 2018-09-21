@@ -1,7 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import * as actions from '@/actions';
 
 import FormFieldBuilder from './FormFieldBuilder';
+
+const mapStateToProps = state = ({
+  sectionId: 'abc',
+});
+
+const mapDispatchToProps = (dispatch, { fields, name }) => ({
+  onAddItem: sectionId => {
+    dispatch(actions.addListItem(sectionId, name));
+    fields.push({});
+  },
+});
 
 const FieldList = ({ fieldNames, fields, name }) => (
   <section className='form__list'>
@@ -24,4 +38,4 @@ FieldList.propTypes = {
   name: PropTypes.string,
 };
 
-export default FieldList;
+export default connect(mapStateToProps, mapDispatchToProps)(FieldList);

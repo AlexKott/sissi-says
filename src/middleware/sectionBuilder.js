@@ -28,21 +28,11 @@ export default ({ dispatch, getState }) => next => action => {
       } else {
         newSection[field._name] = '';
       }
-    })
+    });
 
     payload.sectionId = sectionId;
     payload.section = newSection;
-    next(action);
-
-  } else if (type === t.ADD_LIST_ITEM) {
-      const fields = selectors.getListFieldNames(getState(), payload.listName);
-      const newItem = {};
-      fields.forEach(fieldName => newItem[fieldName] = '');
-      payload.listItem = newItem;
-      next(action);
-
-  } else {
-    next(action);
   }
 
+  next(action);
 }

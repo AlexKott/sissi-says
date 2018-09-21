@@ -17,6 +17,14 @@ export default {
       label: 'Image',
       type: 'image',
     },
+    people: {
+      label: 'People',
+      itemLabel: 'Person',
+      maxItems: 4,
+      minItems: 2,
+      fields: ['title', 'image'],
+      type: 'list',
+    },
   },
   global: {
     maxItems: 5,

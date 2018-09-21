@@ -24,11 +24,13 @@ const FormFieldBuilder = ({ field, prefix }) => {
 
   switch(field.type) {
     case k.LIST:
-      return (<FieldArray
-        component={FieldList}
-        fieldNames={field.fields}
-        name={field.name}
-      />);
+      return (
+        <FieldArray
+          component={FieldList}
+          fieldNames={field.fields}
+          name={field.name}
+        />
+      );
 
     case k.CHOICE:
       component = Select;
