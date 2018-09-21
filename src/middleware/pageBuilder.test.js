@@ -62,8 +62,8 @@ describe('middleware/pageBuilder', () => {
     const testedAction = mockDispatch.mock.calls;
     expect(testedAction).toHaveLength(2);
     expect(testedAction[0][0].payload).toHaveProperty('pageId');
-    expect(testedAction[0][0].payload).toHaveProperty('sectionType', undefined);
+    expect(testedAction[0][0].payload).toHaveProperty('sectionType', 'standard');
     expect(testedAction[1][0].payload).toHaveProperty('pageId');
-    expect(testedAction[1][0].payload).toHaveProperty('sectionType', undefined);
+    expect(testedAction[1][0].payload).toHaveProperty('sectionType', 'standard');
   });
 });

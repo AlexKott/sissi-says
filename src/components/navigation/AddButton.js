@@ -4,9 +4,9 @@ import { Translate } from 'react-localize-redux';
 
 import * as tr from '@/translations';
 
-const AddButton = ({ onAdd }) => (
+const AddButton = ({ onClick }) => (
   <button
-    onClick={onAdd}
+    onClick={onClick}
     className='button button--nav'
   >
     <Translate id={tr.ADD} />
@@ -14,7 +14,7 @@ const AddButton = ({ onAdd }) => (
 );
 
 AddButton.propTypes = {
-  onAdd: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default AddButton;

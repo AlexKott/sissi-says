@@ -322,6 +322,12 @@ describe('selectors/navigation', () => {
         });
       });
 
+      it('should return the pageId', () => {
+        const result = selectors.getPropsForSectionNav('abc123')(mockState);
+
+        expect(result).toHaveProperty('pageId', 'abc123');
+      });
+
       it('should return null if the page with the given id can not have sections', () => {
         mockState.structure.pages.standard.maxItems = 0;
         const result = selectors.getPropsForSectionNav('abc123')(mockState);

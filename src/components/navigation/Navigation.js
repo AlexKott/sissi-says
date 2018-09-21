@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as actions from '@/actions';
 import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
 
@@ -14,12 +15,19 @@ const mapStateToProps = state => {
   return {
     pageProps: selectors.getPropsForPageNav(state),
     sectionProps: selectors.getPropsForSectionNav(pageId)(state),
-  }
+  };
 };
+
+const mapDispatchToProps = dispatch => ({
+  onAddPage: () => dispatch(actions.addPage()),
+  onAddSection: pageId => dispatch(actions.addSection(pageId)),
+});
 
 const Navigation = ({
   pageProps,
   sectionProps,
+  onAddPage,
+  onAddSection,
 }) => [
   pageProps && <NavBar
     key='pageNav'
@@ -34,7 +42,7 @@ const Navigation = ({
         type={k.PAGES}
       />
     ))}
-    {pageProps.canAdd && <AddButton />}
+    {pageProps.canAdd && <AddButton onClick={onAddPage} />}
   </NavBar>
   ,
   sectionProps && <NavBar
@@ -50,13 +58,15 @@ const Navigation = ({
         type={k.SECTIONS}
       />
     ))}
-    {sectionProps.canAdd && <AddButton />}
+    {sectionProps.canAdd && <AddButton onClick={() => onAddSection(sectionProps.pageId)} />}
   </NavBar>
 ];
 
 Navigation.propTypes = {
   pageProps: PropTypes.object,
   sectionProps: PropTypes.object,
+  onAddPage: PropTypes.func,
+  onAddSection: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

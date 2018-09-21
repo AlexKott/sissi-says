@@ -1,12 +1,13 @@
 import * as t from '@/actions/types';
+import { STANDARD } from '@/constants/keywords';
 import { getSectionIdsForPage } from '@/selectors';
 
-export const addPage = (pageType) => ({
+export const addPage = (pageType = STANDARD) => ({
   type: t.ADD_PAGE,
   payload: { pageType },
 });
 
-export const addSection = (pageId, sectionType) => ({
+export const addSection = (pageId, sectionType = STANDARD) => ({
   type: t.ADD_SECTION,
   payload: { pageId, sectionType },
 });

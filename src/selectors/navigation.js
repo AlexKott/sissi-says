@@ -63,6 +63,7 @@ export const getPropsForSectionNav = pageId => createSelector(
       return {
         canAdd: maxSections > sectionIds.length,
         itemIds: sectionIds,
+        pageId,
       };
     }
     return null;
