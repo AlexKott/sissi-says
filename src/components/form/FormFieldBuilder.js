@@ -29,6 +29,9 @@ const FormFieldBuilder = ({ field, prefix }) => {
           component={FieldList}
           fieldNames={field.fields}
           name={field.name}
+          props={{
+            name: field.name,
+          }}
         />
       );
 
