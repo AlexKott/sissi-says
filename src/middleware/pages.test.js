@@ -1,9 +1,9 @@
 import _testState from '@/reducers/_testState';
-import middleware from './pageBuilder';
+import middleware from './pages';
 
 import * as t from '@/actions/types';
 
-describe('middleware/pageBuilder', () => {
+describe('middleware/pages', () => {
   let mockAction, mockNext, mockStore, mockSelectors;
 
   beforeEach(() => {

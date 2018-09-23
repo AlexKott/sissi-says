@@ -1,6 +1,5 @@
 import * as t from '@/actions/types';
 import { STANDARD } from '@/constants/keywords';
-import { getSectionIdsForPage } from '@/selectors';
 
 export const addPage = (pageType = STANDARD) => ({
   type: t.ADD_PAGE,
@@ -17,14 +16,10 @@ export const addListItem = listName => ({
   payload: { listName },
 });
 
-export const deletePage = pageId => (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
-  const sectionIds = selectSectionIdsForPage(getState(), pageId);
-  sectionIds.forEach(sectionId => dispatch(deleteSection(pageId, sectionId)));
-  dispatch({
-    type: t.DELETE_PAGE,
-    payload: { pageId },
-  });
-};
+export const deletePage = pageId => ({
+  type: t.DELETE_PAGE,
+  payload: { pageId },
+});
 
 export const deleteSection = (pageId, sectionId) => ({
   type: t.DELETE_SECTION,

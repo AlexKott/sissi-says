@@ -45,6 +45,12 @@ export default ({ dispatch, getState }) => next => action => {
       currentAmountOfSections += 1;
     }
 
+  } else if (type === t.DELETE_PAGE) {
+    const { pageId } = payload;
+    const sectionIds = selectors.selectSectionIdsForPage(getState(), pageId);
+    sectionIds.forEach(sectionId => dispatch(actions.deleteSection(pageId, sectionId)));
+    next(action);
+
   } else {
     next(action);
   }

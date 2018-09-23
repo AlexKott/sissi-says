@@ -1,9 +1,9 @@
 import _testState from '@/reducers/_testState';
 import * as t from '@/actions/types';
 
-import middleware from './sectionBuilder';
+import middleware from './sections';
 
-describe('middleware/sectionBuilder', () => {
+describe('middleware/sections', () => {
   let mockAction, mockNext, mockStore, mockSelectors;
 
   beforeEach(() => {
