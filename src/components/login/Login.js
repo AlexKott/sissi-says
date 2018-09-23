@@ -1,34 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Translate, getTranslate } from 'react-localize-redux';
+import { compose } from 'redux';
+import {
+  Field,
+  reduxForm,
+} from 'redux-form';
+import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions';
 import * as tr from '@/translations';
-
-import Form from '@/components/form/Form';
-
-const mapStateToProps = (state) => {
-  const translate = getTranslate(state.localize);
-  const loginFields = [
-    {
-      username: {
-        label: translate(tr.USERNAME),
-        type: 'string',
-      },
-    },
-    {
-      password: {
-        label: translate(tr.PASSWORD),
-        type: 'password',
-      },
-    },
-  ];
-
-  return {
-    loginFields,
-  };
-}
 
 const mapDispatchToProps = (dispatch) => ({
   onLogin: (e) => {
@@ -41,12 +22,35 @@ const Login = ({ loginFields, onLogin }) => (
   <div className='login'>
     <h1><Translate id={tr.WELCOME} /></h1>
     <p><Translate id={tr.LOGIN_PROMPT} /></p>
-    <Form
-      form='login'
-      fields={loginFields}
-      submitText={tr.LOGIN}
-      onSubmit={onLogin}
-    />
+    <form className='form' onSubmit={onLogin}>
+      <label className='form__element'>
+        <span className='form__label'>
+          <Translate id={tr.USERNAME} />:
+        </span>
+        <Field
+          className='form__field'
+          component='input'
+          name='username'
+          type='text'
+        />
+      </label>
+      <label className='form__element'>
+        <span className='form__label'>
+          <Translate id={tr.PASSWORD} />:
+        </span>
+        <Field
+          className='form__field'
+          component='input'
+          name='password'
+          type='password'
+        />
+      </label>
+      <div className='form__buttons'>
+        <button type='submit' className='button button--cta'>
+          <Translate id={tr.LOGIN} />
+        </button>
+      </div>
+    </form>
   </div>
 );
 
@@ -55,4 +59,9 @@ Login.propTypes = {
   onLogin: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default compose(
+  connect(null, mapDispatchToProps),
+  reduxForm({
+    form: 'login',
+  })
+)(Login);
