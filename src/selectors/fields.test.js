@@ -6,7 +6,7 @@ import * as selectors from './fields';
 
 describe('selectors/form', () => {
   let mockState;
-  
+
   beforeEach(() => {
     mockState = _cloneDeep(_testState);
   });
@@ -39,7 +39,7 @@ describe('selectors/form', () => {
     });
   });
 
-  describe('getFieldListProps', () => {
+  describe('getPropsForFieldList', () => {
     beforeEach(() => {
       mockState.location = {
         payload: {
@@ -56,7 +56,7 @@ describe('selectors/form', () => {
 
     describe('canAdd', () => {
       it('should be true when more items can be added', () => {
-        const value = selectors.getFieldListProps('people')(mockState);
+        const value = selectors.getPropsForFieldList('people')(mockState);
 
         expect(value).toHaveProperty('canAdd');
         expect(value.canAdd).toBe(true);
@@ -64,7 +64,7 @@ describe('selectors/form', () => {
 
       it('should be false when items are at maximum', () => {
         mockState.structure.fields.people.maxItems = 3;
-        const value = selectors.getFieldListProps('people')(mockState);
+        const value = selectors.getPropsForFieldList('people')(mockState);
 
         expect(value).toHaveProperty('canAdd');
         expect(value.canAdd).toBe(false);
@@ -73,7 +73,7 @@ describe('selectors/form', () => {
 
     describe('canDelete', () => {
       it('should be true when items can be deleted', () => {
-        const value = selectors.getFieldListProps('people')(mockState);
+        const value = selectors.getPropsForFieldList('people')(mockState);
 
         expect(value).toHaveProperty('canDelete');
         expect(value.canDelete).toBe(true);
@@ -81,7 +81,7 @@ describe('selectors/form', () => {
 
       it('should be false when items are at minimum', () => {
         mockState.structure.fields.people.minItems = 3;
-        const value = selectors.getFieldListProps('people')(mockState);
+        const value = selectors.getPropsForFieldList('people')(mockState);
 
         expect(value).toHaveProperty('canDelete');
         expect(value.canDelete).toBe(false);
@@ -89,9 +89,15 @@ describe('selectors/form', () => {
     });
 
     it('should return the item label', () => {
-      const value = selectors.getFieldListProps('people')(mockState);
+      const value = selectors.getPropsForFieldList('people')(mockState);
 
       expect(value).toHaveProperty('itemLabel', 'Person');
+    });
+
+    it('should return the list label', () => {
+      const value = selectors.getPropsForFieldList('people')(mockState);
+
+      expect(value).toHaveProperty('listLabel', 'People'); 
     });
   });
 });

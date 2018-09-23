@@ -32,7 +32,7 @@ export const getFieldsForSectionType = sectionType => createSelector(
   }))
 );
 
-export const getFieldListProps = listName => createSelector(
+export const getPropsForFieldList = listName => createSelector(
   [
     s.getFieldList(listName),
     getCurrentItemWithParent,
@@ -44,6 +44,7 @@ export const getFieldListProps = listName => createSelector(
         canAdd: listLength < fieldList.maxItems,
         canDelete: listLength > fieldList.minItems,
         itemLabel: fieldList.itemLabel,
+        listLabel: fieldList.label,
       };
     }
     return {};

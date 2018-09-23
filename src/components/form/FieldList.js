@@ -10,7 +10,7 @@ import * as tr from '@/translations';
 import FormFieldBuilder from './FormFieldBuilder';
 
 const mapStateToProps = (state, { name }) => ({
-  ...selectors.getFieldListProps(name)(state),
+  ...selectors.getPropsForFieldList(name)(state),
 });
 
 const mapDispatchToProps = (dispatch, { fields, name }) => ({
@@ -27,12 +27,13 @@ const FieldList = ({
   fieldNames,
   fields,
   itemLabel,
+  listLabel,
   name,
   onAdd,
   onDelete,
 }) => (
   <section className='form__list'>
-    <label className='form__label'>{name}</label>
+    <label className='form__label'>{listLabel}</label>
     {fields.map((f, index) => (
       <article key={index} className='list-item'>
         {fieldNames.map(fieldName =>
@@ -74,6 +75,7 @@ FieldList.propTypes = {
   fieldNames: PropTypes.array,
   fields: PropTypes.object,
   itemLabel: PropTypes.string,
+  listLabel: PropTypes.string,
   name: PropTypes.string,
   onAdd: PropTypes.func,
   onDelete: PropTypes.func,
