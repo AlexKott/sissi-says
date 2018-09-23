@@ -45,14 +45,18 @@ export default (state = initialState, action = {}) => {
         },
       };
 
-    case t.DRAG_SECTION:
-      return {
-        ...state,
-        [payload.pageId]: {
-          ...state[payload.pageId],
-          _items: reorderArray(state[payload.pageId]._items, payload.from, payload.to),
-        },
-      };
+    case t.DRAG_ITEM:
+      if (payload.itemType === k.SECTIONS) {
+        return {
+          ...state,
+          [payload.pageId]: {
+            ...state[payload.pageId],
+            _items: reorderArray(state[payload.pageId]._items, payload.from, payload.to),
+          },
+        };
+      }
+      return state;
+
 
     case t.ADD_LIST_ITEM:
       if (payload.parentType === k.PAGES) {

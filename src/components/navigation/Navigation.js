@@ -21,6 +21,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   onAddPage: () => dispatch(actions.addPage()),
   onAddSection: pageId => dispatch(actions.addSection(pageId)),
+  onDragEnd: ({ type, source, destination }, a, pageId) => {
+    if (destination) {
+      dispatch(actions.dragItem(type, source.index, destination.index, pageId));
+    }
+},
 });
 
 const Navigation = ({
@@ -28,11 +33,13 @@ const Navigation = ({
   sectionProps,
   onAddPage,
   onAddSection,
+  onDragEnd,
 }) => [
   pageProps && <NavBar
     key='pageNav'
     level='1'
     type={k.PAGES}
+    onDragEnd={onDragEnd}
   >
     {pageProps.itemIds.map((id, index) => (
       <NavItem
@@ -49,6 +56,7 @@ const Navigation = ({
     key='sectionNav'
     level={pageProps ? '2' : '1'}
     type={k.SECTIONS}
+    onDragEnd={(...props) => onDragEnd(...props, sectionProps.pageId)}
   >
     {sectionProps.itemIds.map((id, index) => (
       <NavItem
@@ -67,6 +75,7 @@ Navigation.propTypes = {
   sectionProps: PropTypes.object,
   onAddPage: PropTypes.func,
   onAddSection: PropTypes.func,
+  onDragEnd: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

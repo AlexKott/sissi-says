@@ -31,12 +31,7 @@ export const deleteListItem = (listName, itemIndex) => ({
   payload: { listName, itemIndex },
 });
 
-export const dragPage = (from, to) => ({
-  type: t.DRAG_PAGE,
-  payload: { from, to },
-});
-
-export const dragSection = (pageId, from, to) => ({
-  type: t.DRAG_SECTION,
-  payload: { pageId, from, to },
+export const dragItem = (itemType, from, to, pageId) => ({
+  type: t.DRAG_ITEM,
+  payload: { itemType, from, to, pageId },
 });

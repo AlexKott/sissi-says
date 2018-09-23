@@ -1,4 +1,5 @@
 import * as t from '@/actions/types';
+import * as k from '@/constants/keywords';
 import _testState from '@/reducers/_testState';
 
 import reducer, * as selectors from './global';
@@ -43,8 +44,8 @@ describe('reducers/content/global', () => {
 
   it('should move a page', () => {
     const action = {
-      type: t.DRAG_PAGE,
-      payload: { from: 1, to: 0 },
+      type: t.DRAG_ITEM,
+      payload: { itemType: k.PAGES, from: 1, to: 0 },
     };
     const state = reducer(mockState, action);
 

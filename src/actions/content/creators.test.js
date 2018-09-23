@@ -1,4 +1,5 @@
 import * as t from './types';
+import * as k from '@/constants/keywords';
 import * as actions from './creators';
 
 describe('actions/content', () => {
@@ -59,24 +60,15 @@ describe('actions/content', () => {
     });
   });
 
-  describe('dragPage', () => {
-    it('should return an action with the correct type and payload', () => {
-      const action = actions.dragPage(3, 2);
+  describe('dragItem', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.dragItem(k.SECTIONS, 3, 2, 'abc123');
 
-      expect(action).toHaveProperty('type', t.DRAG_PAGE);
+      expect(action).toHaveProperty('type', t.DRAG_ITEM);
+      expect(action.payload).toHaveProperty('itemType', k.SECTIONS);
       expect(action.payload).toHaveProperty('from', 3);
       expect(action.payload).toHaveProperty('to', 2);
-    });
-  });
-
-  describe('dragSection', () => {
-    it('should return an action with the correct type and payload', () => {
-      const action = actions.dragSection('testPage', 2, 6);
-
-      expect(action).toHaveProperty('type', t.DRAG_SECTION);
-      expect(action.payload).toHaveProperty('pageId', 'testPage');
-      expect(action.payload).toHaveProperty('from', 2);
-      expect(action.payload).toHaveProperty('to', 6);
+      expect(action.payload).toHaveProperty('pageId', 'abc123');
     });
   });
 });

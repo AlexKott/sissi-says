@@ -4,5 +4,6 @@ export const ADD_LIST_ITEM = 'content/ADD_LIST_ITEM';
 export const DELETE_PAGE = 'content/DELETE_PAGE';
 export const DELETE_SECTION = 'content/DELETE_SECTION';
 export const DELETE_LIST_ITEM = 'content/DELETE_LIST_ITEM';
+export const DRAG_ITEM = 'content/DRAG_ITEM';
 export const DRAG_PAGE = 'content/DRAG_PAGE';
 export const DRAG_SECTION = 'content/DRAG_SECTION';

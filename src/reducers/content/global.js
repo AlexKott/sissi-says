@@ -28,11 +28,15 @@ export default (state = initialState, action = {}) => {
         _items: state._items.filter(id => id !== payload.pageId),
       };
 
-    case t.DRAG_PAGE:
-      return {
-        ...state,
-        _items: reorderArray(state._items, payload.from, payload.to),
-      };
+    case t.DRAG_ITEM:
+      if (payload.itemType === k.PAGES) {
+        return {
+          ...state,
+          _items: reorderArray(state._items, payload.from, payload.to),
+        };
+      }
+      return state;
+
 
     case t.ADD_LIST_ITEM:
       if (payload.parentType === k.GLOBAL) {
