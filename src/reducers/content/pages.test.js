@@ -47,7 +47,7 @@ describe('reducers/content/pages', () => {
   it('should add a section to a page', () => {
     const action = {
       type: t.ADD_SECTION,
-      payload: { pageId: 'abc123', sectionId: 'testSection' },
+      payload: { pageId: 'abc123', section: { _id: 'testSection' }},
     };
     const state = reducer(mockState, action);
 

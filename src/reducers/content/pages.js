@@ -32,7 +32,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         [payload.pageId]: {
           ...state[payload.pageId],
-          _items: state[payload.pageId]._items.concat(payload.sectionId),
+          _items: state[payload.pageId]._items.concat(payload.section._id),
         },
       };
 
