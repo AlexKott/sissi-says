@@ -27,9 +27,10 @@ export default (state = initialState, action = {}) => {
 
     case t.ADD_LIST_ITEM:
       if (payload.parentType === k.SECTIONS) {
+        const newList = state[payload.parentId][payload.listName].concat([payload.listItem]);
         return _merge({}, state, {
           [payload.parentId]: {
-            [payload.listName]: [payload.listItem],
+            [payload.listName]: newList,
           },
         });
       }

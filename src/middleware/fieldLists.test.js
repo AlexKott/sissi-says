@@ -7,12 +7,6 @@ describe('middleware/fieldLists', () => {
   let mockAction, mockNext, mockStore;
 
   beforeEach(() => {
-    mockAction = {
-      type: t.ADD_LIST_ITEM,
-      payload: {
-        listName: 'people',
-      },
-    };
     mockNext = jest.fn();
     mockStore = {
       getState: jest.fn(() => _testState),
@@ -20,7 +14,7 @@ describe('middleware/fieldLists', () => {
     };
   });
 
-  it('should forward the action if the type is not ADD_LIST_ITEM', () => {
+  it('should forward the action', () => {
     mockAction = { type: 'TEST_ACTION' };
 
     middleware({})(mockNext)(mockAction);
@@ -28,16 +22,47 @@ describe('middleware/fieldLists', () => {
     expect(mockNext).toBeCalledWith(mockAction);
   });
 
-  it('should add the parentType and parentId to the action', () => {
-    middleware(mockStore)(mockNext)(mockAction);
+  describe('ADD_LIST_ITEM', () => {
+    beforeEach(() => {
+      mockAction = {
+        type: t.ADD_LIST_ITEM,
+        payload: {
+          listName: 'people',
+        },
+      };
+    });
 
-    expect(mockAction.payload).toHaveProperty('parentType', 'pages');
-    expect(mockAction.payload).toHaveProperty('parentId', 'abc123');
+    it('should add the parentType and parentId to the action', () => {
+      middleware(mockStore)(mockNext)(mockAction);
+
+      expect(mockAction.payload).toHaveProperty('parentType', 'pages');
+      expect(mockAction.payload).toHaveProperty('parentId', 'abc123');
+    });
+
+    it('should set the default values for a new list item', () => {
+      middleware(mockStore)(mockNext)(mockAction);
+
+      expect(mockAction.payload).toHaveProperty('listItem', { title: '', image: '' });
+    });
   });
 
-  it('should set the default values for a new list item', () => {
-    middleware(mockStore)(mockNext)(mockAction);
+  describe('DELETE_LIST_ITEM', () => {
+    beforeEach(() => {
+      mockAction = {
+        type: t.DELETE_LIST_ITEM,
+        payload: {
+          listName: 'people',
+          itemIndex: 1,
+        },
+      };
+    });
 
-    expect(mockAction.payload).toHaveProperty('listItem', { title: '', image: '' });
+    it('should add the parentType and parentId to the action', () => {
+      middleware(mockStore)(mockNext)(mockAction);
+
+      expect(mockAction.payload).toHaveProperty('parentType', 'pages');
+      expect(mockAction.payload).toHaveProperty('parentId', 'abc123');
+    });
   });
+
 });

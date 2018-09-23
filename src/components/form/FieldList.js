@@ -35,25 +35,23 @@ const FieldList = ({
     <label className='form__label'>{name}</label>
     {fields.map((f, index) => (
       <article key={index} className='list-item'>
-        {fieldNames.map(fieldName => [
+        {fieldNames.map(fieldName =>
           <FormFieldBuilder
             key={fieldName}
             fieldName={fieldName}
             prefix={`${f}.`}
           />
-          ,
-          canDelete && (
-            <button
-              key={`delete-${index}`}
-              type='button'
-              onClick={() => onDelete(index)}
-              className='button'
-            >
-              <Translate id={tr.DELETE} />
-            </button>
-          )
-          ,
-        ])}
+        )}
+        {canDelete &&
+          <button
+            key={`delete-${index}`}
+            type='button'
+            onClick={() => onDelete(index)}
+            className='button'
+          >
+            <Translate id={tr.DELETE} />
+          </button>
+        }
       </article>
     ))}
     {canAdd && (

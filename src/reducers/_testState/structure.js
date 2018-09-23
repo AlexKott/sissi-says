@@ -62,5 +62,9 @@ export default {
       label: 'Photo section',
       fields: ['image'],
     },
+    friends: {
+      label: 'Friends section',
+      fields: ['title', 'people'],
+    },
   },
 };

@@ -42,5 +42,14 @@ export default {
       _type: 'standard',
       title: 'This is awesome',
     },
+    '567qwe': {
+      _id: '567qwe',
+      _type: 'friends',
+      title: 'A list of friends',
+      people: [
+        { title: 'Harold', image: 'harold.png' },
+        { title: 'Maude', image: 'maude.png' },
+      ],
+    },
   },
 };
