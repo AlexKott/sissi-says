@@ -73,7 +73,7 @@ describe('actions/request', () => {
       const action = actions.loginSuccess({ token: '42xyz42' });
 
       expect(action).toHaveProperty('type', t.LOGIN_SUCCESS);
-      expect(action).toHaveProperty('payload', '42xyz42');
+      expect(action).toHaveProperty('payload', { token: '42xyz42' });
     });
   });
 

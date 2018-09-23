@@ -80,9 +80,9 @@ export const login = () => (dispatch, getState, selectFormValues = getFormValues
   }
 };
 
-export const loginSuccess = data => ({
+export const loginSuccess = ({ token }) => ({
   type: t.LOGIN_SUCCESS,
-  payload: data.token,
+  payload: { token: token },
 });
 
 export const resetSession = () => ({
