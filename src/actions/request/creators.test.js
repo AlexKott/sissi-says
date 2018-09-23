@@ -33,16 +33,6 @@ describe('actions/request', () => {
       expect(action.payload).toHaveProperty('dataType', 'images');
       expect(action.payload).toHaveProperty('contentType', 'file');
       expect(action.payload).toHaveProperty('requestData', 'test');
-      expect(action.payload).toHaveProperty('onSuccess');
-    });
-  });
-
-  describe('saveImageSuccess', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.saveImageSuccess({ fileName: 'test' });
-
-      expect(action).toHaveProperty('type', t.SAVE_IMAGE_SUCCESS);
-      expect(action).toHaveProperty('payload', 'test');
     });
   });
 

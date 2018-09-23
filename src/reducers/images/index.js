@@ -6,21 +6,19 @@ const initialState = [];
 export default (state = initialState, action = {}) => {
   const { type, payload } = action;
 
-  switch (type) {
-    case t.SEND_REQUEST:
-      if (payload.dataType === k.IMAGES && payload.method === k.GET) {
-        return payload.responseData;
-      }
-      return state;
+  if (type === t.SEND_REQUEST && payload.dataType === k.IMAGES) {
+    if (payload.method === k.GET) {
+      return payload.responseData;
 
-    case t.SAVE_IMAGE_SUCCESS:
-      return [...state, payload];
+    } else if (payload.method === k.POST) {
+      return [...state, payload.responseData.fileName];
+    }
 
-    case t.RESET_SESSION:
-      return initialState;
+  } else if (type === t.RESET_SESSION) {
+    return initialState;
 
-    default:
-      return state;
+  } else {
+    return state;
   }
 };
 

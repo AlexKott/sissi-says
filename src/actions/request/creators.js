@@ -51,13 +51,7 @@ export const saveImage = image => ({
     dataType: k.IMAGES,
     contentType: 'file',
     requestData: image,
-    onSuccess: [(dispatch, data) => dispatch(saveImageSuccess(data))],
   },
-});
-
-export const saveImageSuccess = data => ({
-  type: t.SAVE_IMAGE_SUCCESS,
-  payload: data.fileName,
 });
 
 export const login = () => (dispatch, getState, selectFormValues = getFormValues) => {

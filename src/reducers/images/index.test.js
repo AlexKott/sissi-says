@@ -16,6 +16,22 @@ describe('reducers/images', () => {
     expect(state).toEqual(['a', 'b', 'c']);
   });
 
+  it('should store image names', () => {
+    const action = {
+      type: t.SEND_REQUEST,
+      payload: {
+        dataType: 'images',
+        method: 'post',
+        responseData: {
+          fileName: 'testImage',
+        },
+      },
+    };
+    const state = reducer(['anotherImage'], action);
+
+    expect(state).toEqual(['anotherImage', 'testImage']);
+  });
+
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,
