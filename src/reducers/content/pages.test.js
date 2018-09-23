@@ -75,35 +75,38 @@ describe('reducers/content/pages', () => {
   });
 
   it('should add a list item', () => {
-    mockState['abc123'].testList = [];
     const action = {
       type: t.ADD_LIST_ITEM,
       payload: {
         parentType: 'pages',
-        parentId: 'abc123',
-        listName: 'testList',
-        listItem: 'testItem',
+        parentId: 'qwe567',
+        listName: 'people',
+        listItem: { title: '', image: ''},
       },
     };
     const state = reducer(mockState, action);
 
-    expect(state['abc123'].testList).toContain('testItem');
+    const list = state.qwe567.people;
+    expect(list.length).toBe(4);
+    expect(list[0]).toHaveProperty('title', 'Papa');
+    expect(list[3]).toHaveProperty('title', '');
   });
 
   it('should delete a list item', () => {
-    mockState['abc123'].testList = ['item1', 'item2'];
     const action = {
       type: t.DELETE_LIST_ITEM,
       payload: {
         parentType: 'pages',
-        parentId: 'abc123',
-        listName: 'testList',
-        itemIndex: 0,
+        parentId: 'qwe567',
+        listName: 'people',
+        itemIndex: 1,
       },
     };
     const state = reducer(mockState, action);
 
-    expect(state['abc123'].testList).not.toContain('item1');
+    const list = state.qwe567.people;
+    expect(list.length).toBe(2);
+    expect(list[1]).toHaveProperty('title', 'Kid');
   });
 
   it('should reset the state', () => {
