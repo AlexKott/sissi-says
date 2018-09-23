@@ -10,9 +10,9 @@ export default ({ dispatch, getState }) => next => action => {
     const sectionType = payload.sectionType || k.STANDARD;
     const fields = selectors.getFieldsForSectionType(sectionType)(getState());
 
-    const sectionId = getRandomString();
     const newSection = {};
-    newSection.sectionType = sectionType;
+    newSection._type = sectionType;
+    newSection._id = getRandomString();
 
     fields.forEach(field => {
       if (field.type === k.LIST) {
@@ -30,7 +30,6 @@ export default ({ dispatch, getState }) => next => action => {
       }
     });
 
-    payload.sectionId = sectionId;
     payload.section = newSection;
   }
 

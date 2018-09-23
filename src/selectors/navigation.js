@@ -32,7 +32,7 @@ export const getPropsForNavItem = (id, type) => createSelector(
       isActive: currentItem.id === id || (!!currentParent && currentParent.id === id),
       backLinkArray,
       linkArray,
-      title: item.content.title ? item.content.title : item.structure.label,
+      title: (item.content && item.content.title) ? item.content.title : item.structure.label,
     }
   }
 );

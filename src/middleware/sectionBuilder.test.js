@@ -30,9 +30,9 @@ describe('middleware/sectionBuilder', () => {
     expect(mockNext.mock.calls).toHaveLength(1);
     expect(testedAction).toHaveProperty('type', t.ADD_SECTION);
     expect(testedAction).toHaveProperty('payload');
-    expect(testedAction.payload).toHaveProperty('sectionId');
     expect(testedAction.payload).toHaveProperty('section');
-    expect(testedAction.payload.section).toHaveProperty('sectionType', 'photo');
+    expect(testedAction.payload.section).toHaveProperty('_id');
+    expect(testedAction.payload.section).toHaveProperty('_type', 'photo');
     expect(testedAction.payload.section).toHaveProperty('image', '');
   });
 });

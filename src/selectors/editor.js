@@ -10,9 +10,11 @@ export const getPropsForEditor = createSelector(
     s.getMaxAmountOfPages,
   ],
   ({ item, parent }, maxAmountOfPages) => {
+    const existingItems =
+      parent && parent.content && parent.content._items ? parent.content._items.length : 0;
     const canDelete = !item.structure.isProtected
       && parent !== null
-      && parent.structure.minItems < parent.content._items.length;
+      && parent.structure.minItems < existingItems;
 
     let viewLevel;
     if (item.type === c.SECTIONS && maxAmountOfPages > 1) {
@@ -27,7 +29,7 @@ export const getPropsForEditor = createSelector(
       canDelete,
       fieldNames: item.structure.fields,
       formName: item.id ? `${item.type}-${item.id}` : item.type,
-      initialValues: item.content,
+      initialValues: item.content || {},
       viewLevel,
     };
   }

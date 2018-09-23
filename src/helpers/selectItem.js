@@ -2,7 +2,8 @@ export default (contentState, structureState, type, id) => {
   const content = id
     ? contentState[type][id]
     : contentState[type];
-  const structure = content._type
+
+  const structure = content && content._type
     ? structureState[type][content._type]
     : structureState[type];
 

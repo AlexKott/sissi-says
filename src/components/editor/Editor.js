@@ -44,4 +44,13 @@ Editor.propTypes = {
   onDelete: PropTypes.func,
 };
 
+Editor.defaultProps = {
+  canDelete: false,
+  fieldNames: [],
+  formName: '',
+  initialValues: {},
+  level: 1,
+  onDelete: () => null,
+};
+
 export default connect(mapStateToProps)(Editor);
