@@ -78,7 +78,7 @@ const FormFieldBuilder = ({ field, prefix }) => {
       <Field
         className={`form__field ${fieldClassName}`}
         component={component}
-        name={`${prefix}${field.name}`}
+        name={`${prefix ? prefix : ''}${field.name}`}
         options={options}
         placeholder={field.placeholder}
         type={type}
