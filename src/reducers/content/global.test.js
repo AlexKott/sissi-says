@@ -52,18 +52,20 @@ describe('reducers/content/global', () => {
   });
 
   it('should add a list item', () => {
-    mockState.testList = [];
+    mockState.testList = ['item1'];
     const action = {
       type: t.ADD_LIST_ITEM,
       payload: {
         parentType: 'global',
         listName: 'testList',
-        listItem: 'testItem',
+        listItem: 'item2',
       },
     };
     const state = reducer(mockState, action);
 
-    expect(state.testList).toContain('testItem');
+    expect(state.testList.length).toBe(2);
+    expect(state.testList).toContain('item1');
+    expect(state.testList).toContain('item2');
   });
 
   it('should delete a list item', () => {
@@ -78,6 +80,7 @@ describe('reducers/content/global', () => {
     };
     const state = reducer(mockState, action);
 
+    expect(state.testList.length).toBe(1);
     expect(state.testList).not.toContain('item1');
   });
 

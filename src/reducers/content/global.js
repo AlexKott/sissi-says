@@ -36,8 +36,9 @@ export default (state = initialState, action = {}) => {
 
     case t.ADD_LIST_ITEM:
       if (payload.parentType === k.GLOBAL) {
+        const newList = state[payload.listName].concat([payload.listItem]);
         return _merge({}, state, {
-          [payload.listName]: [payload.listItem],
+          [payload.listName]: newList,
         });
       }
       return state;
