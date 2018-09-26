@@ -8,8 +8,8 @@ export default (contentState, structureState, type, id) => {
     : structureState[type];
 
   return {
-    content,
-    structure,
+    content: content || {},
+    structure: structure || {},
     type,
     id,
   };

@@ -44,7 +44,9 @@ describe('selectors/editor', () => {
       it('should return initialValues', () => {
         const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('initialValues', mockState.content.global);
+        expect(result).toHaveProperty('initialValues');
+        expect(result.initialValues).toHaveProperty('title');
+        expect(result.initialValues).not.toHaveProperty('_items');
       });
 
       it('should return 1 as viewLevel', () => {
@@ -108,7 +110,9 @@ describe('selectors/editor', () => {
       it('should return initialValues', () => {
         const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('initialValues', mockState.content.pages.abc123);
+        expect(result).toHaveProperty('initialValues');
+        expect(result.initialValues).toHaveProperty('title', 'Welcome');
+        expect(result.initialValues).not.toHaveProperty('_id');
       });
 
       it('should return 2 as viewLevel', () => {
@@ -165,7 +169,9 @@ describe('selectors/editor', () => {
       it('should return initialValues', () => {
         const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('initialValues', mockState.content.sections['345def']);
+        expect(result).toHaveProperty('initialValues');
+        expect(result.initialValues).toHaveProperty('title', 'This is awesome');
+        expect(result.initialValues).not.toHaveProperty('_id');
       });
 
       describe('viewLevel', () => {

@@ -1,4 +1,3 @@
-export const EDITOR_TITLE = 'translations/editor/title';
 export const IMAGE_SELECT = 'translations/editor/selectImage';
 export const IMAGE_PASTE_IN_EDITOR = 'translations/editor/pasteImage';
 export const IMAGE_UPLOAD = 'translations/editor/uploadImage';
@@ -8,10 +7,6 @@ export const SECTION = 'translations/editor/section';
 export const SECTION_NEW = 'translations/editor/newSection';
 
 export default {
-  [EDITOR_TITLE]: [
-    "Editor",
-    "Editor",
-  ],
   [IMAGE_SELECT]: [
     "Choose an image",
     "Bild auswählen",

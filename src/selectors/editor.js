@@ -25,11 +25,20 @@ export const getPropsForEditor = createSelector(
       viewLevel = 2;
     }
 
+    const initialValues = Object.entries(item.content)
+      .reduce((acc, [key, value]) => {
+        if (!key.startsWith('_')) {
+          acc[key] = value;
+        }
+
+        return acc;
+      }, {});
+
     return {
       canDelete,
       fieldNames: item.structure.fields,
       formName: item.id ? `${item.type}-${item.id}` : item.type,
-      initialValues: item.content || {},
+      initialValues,
       viewLevel,
     };
   }
