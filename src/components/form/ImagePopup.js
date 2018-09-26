@@ -31,7 +31,8 @@ class ImagePopup extends React.Component {
     this.openFileBrowser = this.openFileBrowser.bind(this);
   }
 
-  openFileBrowser() {
+  openFileBrowser(e) {
+    e.stopPropagation();
     if (!this.fileBrowser) {
       this.fileBrowser = document.createElement('input');
       this.fileBrowser.type = 'file';
@@ -68,7 +69,7 @@ class ImagePopup extends React.Component {
               key={image}
               style={{ backgroundImage: `url('/images/${image}')` }}
               className='image-popup__image'
-              onClick={() => onSelectImage(image)}
+              onClick={(e) => onSelectImage(e, image)}
             />
           ))}
           <div

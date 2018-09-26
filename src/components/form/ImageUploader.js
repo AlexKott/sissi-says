@@ -25,7 +25,8 @@ class ImageUploader extends React.Component {
     });
   }
 
-  onSelectImage(image) {
+  onSelectImage(e, image) {
+    e.stopPropagation();
     this.props.input.onChange(image);
     this.onToggleImagePopup();
   }
