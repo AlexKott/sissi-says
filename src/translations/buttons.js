@@ -1,6 +1,5 @@
 export const ADD = 'translations/buttons/add';
 export const DELETE = 'translations/buttons/delete';
-export const INDEX = 'translations/buttons/index';
 export const LOGIN = 'translations/buttons/login';
 export const LOGOUT = 'translations/buttons/logout';
 export const OK = 'translations/buttons/ok';
@@ -15,10 +14,6 @@ export default {
   [DELETE]: [
     "Delete",
     "Löschen"
-  ],
-  [INDEX]: [
-    "Index",
-    "Startseite"
   ],
   [LOGIN]: [
     "Login",
