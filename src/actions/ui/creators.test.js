@@ -42,9 +42,9 @@ describe('actions/ui', () => {
     });
   });
 
-  describe('setModalType', () => {
+  describe('openModal', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.setModalType('image');
+      const action = actions.openModal('image');
 
       expect(action).toHaveProperty('type', t.SET_MODAL_TYPE);
       expect(action.payload).toHaveProperty('type', 'image');

@@ -17,7 +17,10 @@ const mapDispatchToProps = (dispatch, { fields, name }) => ({
     dispatch(actions.addListItem(name));
     fields.push({});
   },
-  onDelete: index => dispatch(actions.deleteListItem(name, index)),
+  onDelete: index => {
+    dispatch(actions.deleteListItem(name, index));
+    fields.remove(index);
+  },
 });
 
 const FieldList = ({

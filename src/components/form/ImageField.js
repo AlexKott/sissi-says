@@ -10,47 +10,44 @@ class ImageField extends React.Component {
     super(props);
 
     this.state = {
-      isImagePopupActive: false,
+      isImagePickerActive: false,
     };
 
     this.onSelectImage = this.onSelectImage.bind(this);
-    this.onToggleImagePopup = this.onToggleImagePopup.bind(this);
+    this.onToggleImagePicker = this.onToggleImagePicker.bind(this);
   }
 
-  onToggleImagePopup() {
+  onToggleImagePicker() {
     this.setState({
-      isImagePopupActive: !this.state.isImagePopupActive,
+      isImagePickerActive: !this.state.isImagePickerActive,
     });
   }
 
   onSelectImage(image) {
     this.props.input.onChange(image);
-    this.onToggleImagePopup();
+    this.onToggleImagePicker();
   }
 
   render() {
-    const {
-      input,
-    } = this.props;
+    const { input } = this.props;
 
     return ([
-      this.state.isImagePopupActive && <C.ImagePopup
-        key='image-popup'
-        onSelectImage={this.onSelectImage}
-        onClosePopup={this.onToggleImagePopup}
-      />
+      this.state.isImagePickerActive &&
+      <C.Modal key='image-popup' onClose={this.onToggleImagePicker}>
+        <C.ImagePicker onSelectImage={this.onSelectImage} />
+      </C.Modal>
       ,
       input.value
         ? <div
             key='image'
             style={{ backgroundImage: `url('/images/${input.value}')` }}
             className='form__field form__field--image'
-            onClick={this.onToggleImagePopup}
+            onClick={this.onToggleImagePicker}
           />
         : <div
             key='placeholder'
             className='form__field form__field--image placeholder'
-            onClick={this.onToggleImagePopup}
+            onClick={this.onToggleImagePicker}
           ><Translate id={tr.IMAGE_SELECT} /></div>
     ]);
   }

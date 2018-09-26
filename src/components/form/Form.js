@@ -21,9 +21,9 @@ const Form = ({
   onSave,
 }) => (
   <form className='form'>
-    {fieldNames.map(fieldName => {
-      return <C.FormFieldBuilder key={fieldName} fieldName={fieldName} />;
-    })}
+    {fieldNames.map(fieldName => (
+      <C.FormFieldBuilder key={fieldName} fieldName={fieldName} />
+    ))}
     <div className='form__buttons'>
       {canDelete && (
         <C.Button onClick={onDelete}>

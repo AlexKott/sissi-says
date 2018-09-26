@@ -8,8 +8,6 @@ import * as actions from '@/actions';
 import * as c from '@/constants';
 import * as tr from '@/translations';
 
-const WRAPPER_ID = 'image-popup';
-
 const mapStateToProps = (state) => ({
   images: selectors.getAllImages(state),
 });
@@ -27,11 +25,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
 });
 
-class ImagePopup extends React.Component {
+class ImagePicker extends React.Component {
   constructor(props) {
     super(props);
     this.openFileBrowser = this.openFileBrowser.bind(this);
-    this.onClickPopup = this.onClickPopup.bind(this);
   }
 
   openFileBrowser() {
@@ -46,12 +43,6 @@ class ImagePopup extends React.Component {
     this.fileBrowser.click();
   }
 
-  onClickPopup(e) {
-    if (e.target.id === WRAPPER_ID) {
-      this.props.onClosePopup();
-    }
-  }
-
   componentWillUnmount() {
     if (this.fileBrowser) {
       document.querySelector('body').removeChild(this.fileBrowser);
@@ -64,36 +55,31 @@ class ImagePopup extends React.Component {
       onSelectImage,
     } = this.props;
 
-    return (
+    return [
+      images.map(image => (
+        <div
+          key={image}
+          style={{ backgroundImage: `url('/images/${image}')` }}
+          className='image-popup__image'
+          onClick={() => onSelectImage(image)}
+        />
+      ))
+      ,
       <div
-        id={WRAPPER_ID}
-        className='popup__wrapper'
-        onClick={this.onClickPopup}
+        key='file-browser'
+        id='file-browser-button'
+        className='image-popup__image placeholder'
+        onClick={this.openFileBrowser}
       >
-        <div className='popup__box'>
-          {images.map(image => (
-            <div
-              key={image}
-              style={{ backgroundImage: `url('/images/${image}')` }}
-              className='image-popup__image'
-              onClick={() => onSelectImage(image)}
-            />
-          ))}
-          <div
-            id='file-browser-button'
-            className='image-popup__image placeholder'
-            onClick={this.openFileBrowser}
-          ><Translate id={tr.IMAGE_UPLOAD} /></div>
-        </div>
+        <Translate id={tr.IMAGE_UPLOAD} />
       </div>
-    );
+    ];
   }
 }
 
-ImagePopup.propTypes = {
+ImagePicker.propTypes = {
   images: PropTypes.array,
-  onClosePopup: PropTypes.func,
   onSelectImage: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImagePopup);
+export default connect(mapStateToProps, mapDispatchToProps)(ImagePicker);

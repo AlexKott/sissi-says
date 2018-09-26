@@ -26,7 +26,7 @@ export const deactivateLoading = () => ({
   payload: { diff: -1 },
 });
 
-export const setModalType = type => ({
+export const openModal = type => ({
   type: t.SET_MODAL_TYPE,
   payload: { type },
 });

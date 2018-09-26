@@ -6,7 +6,7 @@ import * as actions from '@/actions';
 import * as C from '@/components';
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenGuide: () => dispatch(actions.setModalType('guide')),
+  onOpenGuide: () => dispatch(actions.openModal('guide')),
 });
 
 const GuideButton = ({ onOpenGuide }) => (
