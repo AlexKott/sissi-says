@@ -18,7 +18,6 @@ export const CHOICE = 'choice';
 export const DATE = 'date';
 export const IMAGE = 'image';
 export const MARKDOWN = 'markdown';
-export const PASSWORD = 'password';
 export const STRING = 'string';
 export const TEXT = 'text';
 

@@ -55,11 +55,6 @@ const FormFieldBuilder = ({ field, prefix }) => {
       elementClassName = 'form__element--markdown';
       break;
 
-    case k.PASSWORD:
-      component = 'input';
-      type = 'password';
-      break;
-
     case k.STRING:
       component = 'input';
       type = 'text';
