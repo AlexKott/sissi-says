@@ -8,6 +8,8 @@ import * as actions from '@/actions';
 import * as c from '@/constants';
 import * as tr from '@/translations';
 
+const WRAPPER_ID = 'image-popup';
+
 const mapStateToProps = (state) => ({
   images: selectors.getAllImages(state),
 });
@@ -29,10 +31,10 @@ class ImagePopup extends React.Component {
   constructor(props) {
     super(props);
     this.openFileBrowser = this.openFileBrowser.bind(this);
+    this.onClickPopup = this.onClickPopup.bind(this);
   }
 
-  openFileBrowser(e) {
-    e.stopPropagation();
+  openFileBrowser() {
     if (!this.fileBrowser) {
       this.fileBrowser = document.createElement('input');
       this.fileBrowser.type = 'file';
@@ -44,6 +46,12 @@ class ImagePopup extends React.Component {
     this.fileBrowser.click();
   }
 
+  onClickPopup(e) {
+    if (e.target.id === WRAPPER_ID) {
+      this.props.onClosePopup();
+    }
+  }
+
   componentWillUnmount() {
     if (this.fileBrowser) {
       document.querySelector('body').removeChild(this.fileBrowser);
@@ -53,15 +61,14 @@ class ImagePopup extends React.Component {
   render() {
     const {
       images = [],
-      onClosePopup,
       onSelectImage,
     } = this.props;
 
     return (
       <div
-        id='image-popup'
+        id={WRAPPER_ID}
         className='popup__wrapper'
-        onClick={onClosePopup}
+        onClick={this.onClickPopup}
       >
         <div className='popup__box'>
           {images.map(image => (
@@ -69,7 +76,7 @@ class ImagePopup extends React.Component {
               key={image}
               style={{ backgroundImage: `url('/images/${image}')` }}
               className='image-popup__image'
-              onClick={(e) => onSelectImage(e, image)}
+              onClick={() => onSelectImage(image)}
             />
           ))}
           <div

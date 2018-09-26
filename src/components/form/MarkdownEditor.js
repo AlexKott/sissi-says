@@ -70,8 +70,7 @@ class MarkdownEditor extends React.Component {
     });
   }
 
-  onSelectImage(e, image) {
-    e.stopPropagation();
+  onSelectImage(image) {
     this.props.onSelectImage(image);
     this.onToggleImagePopup();
   }
