@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions';
+import * as C from '@/components';
 import * as selectors from '@/selectors';
 import * as tr from '@/translations';
-
-import FormFieldBuilder from './FormFieldBuilder';
 
 const mapStateToProps = (state, { name }) => ({
   ...selectors.getPropsForFieldList(name)(state),
@@ -37,33 +36,22 @@ const FieldList = ({
     {fields.map((f, index) => (
       <article key={index} className='list-item'>
         {fieldNames.map(fieldName =>
-          <FormFieldBuilder
+          <C.FormFieldBuilder
             key={fieldName}
             fieldName={fieldName}
             prefix={`${f}.`}
           />
         )}
         {canDelete &&
-          <button
-            key={`delete-${index}`}
-            type='button'
-            onClick={() => onDelete(index)}
-            className='button'
-          >
+          <C.Button onClick={() => onDelete(index)}>
             <Translate id={tr.DELETE} />
-          </button>
+          </C.Button>
         }
       </article>
     ))}
     {canAdd && (
       <article className='list-item'>
-        <button
-          type='button'
-          onClick={onAdd}
-          className='button'
-        >
-          + {itemLabel}
-        </button>
+        <C.Button onClick={onAdd}>+ {itemLabel}</C.Button>
       </article>
     )}
   </section>

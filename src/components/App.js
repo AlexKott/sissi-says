@@ -4,15 +4,9 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withLocalize, getActiveLanguage } from 'react-localize-redux';
 
+import * as C from '@/components';
 import * as selectors from '@/selectors';
 import { ROUTE_LOGIN } from '@/router';
-
-import ActionBar from './actionBar/ActionBar';
-import Alert from './Alert';
-import Editor from './editor/Editor';
-import Guide from './guide/Guide';
-import Login from './login/Login';
-import Navigation from '@/components/navigation/Navigation';
 
 const mapStateToProps = (state, { setActiveLanguage }) => {
   const settingsLanguage = selectors.getSettingsLanguage(state);
@@ -29,15 +23,15 @@ const mapStateToProps = (state, { setActiveLanguage }) => {
 const App = ({ route }) => (
   <div className='app'>
     {route === ROUTE_LOGIN
-      ? <Login />
+      ? <C.Login />
       : [
-          <Navigation key='navigation' />,
-          <Editor key='editor' />,
-          <ActionBar key='actionbar' />,
-          <Guide key='guide' />,
+          <C.Navigation key='navigation' />,
+          <C.Editor key='editor' />,
+          <C.ActionBar key='actionbar' />,
+          <C.Guide key='guide' />,
         ]
     }
-    <Alert />
+    <C.Alert />
   </div>
 );
 

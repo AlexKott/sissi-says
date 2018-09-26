@@ -6,34 +6,33 @@ import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions';
+import * as C from '@/components';
 import * as tr from '@/translations';
-
-import FormFieldBuilder from './FormFieldBuilder';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onDelete: () => dispatch(actions.deleteItem()),
-  onSubmit: (e) => {
-    e.preventDefault();
-    dispatch(actions.postContent(ownProps.form));
-  },
+  onSave: () => dispatch(actions.postContent(ownProps.form)),
 });
 
 const Form = ({
   canDelete,
   fieldNames = [],
-  submitText = tr.SAVE,
   onDelete,
-  onSubmit,
+  onSave,
 }) => (
-  <form className='form' onSubmit={onSubmit}>
+  <form className='form'>
     {fieldNames.map(fieldName => {
-      return <FormFieldBuilder key={fieldName} fieldName={fieldName} />;
+      return <C.FormFieldBuilder key={fieldName} fieldName={fieldName} />;
     })}
     <div className='form__buttons'>
-      {canDelete && <button type='button' onClick={onDelete} className='button'>
-        <Translate id={tr.DELETE} />
-      </button>}
-      <button type='submit' className='button button--cta'><Translate id={submitText} /></button>
+      {canDelete && (
+        <C.Button onClick={onDelete}>
+          <Translate id={tr.DELETE} />
+        </C.Button>
+      )}
+      <C.Button onClick={onSave} classes='button--cta'>
+        <Translate id={tr.SAVE} />
+      </C.Button>
     </div>
   </form>
 );
@@ -41,10 +40,9 @@ const Form = ({
 Form.propTypes = {
   canDelete: PropTypes.bool,
   fields: PropTypes.array,
-  submitText: PropTypes.string,
   onDelete: PropTypes.func,
-  onSubmit: PropTypes.func,
-}
+  onSave: PropTypes.func,
+};
 
 export default compose(
   connect(null, mapDispatchToProps),

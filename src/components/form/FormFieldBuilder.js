@@ -4,12 +4,8 @@ import { connect } from 'react-redux';
 import { Field, FieldArray } from 'redux-form';
 
 import * as k from '@/constants/keywords';
+import * as C from '@/components';
 import * as selectors from '@/selectors';
-
-import FieldList from './FieldList';
-import ImageUploader from './ImageUploader';
-import MarkdownEditor from './MarkdownEditor';
-import Select from './Select';
 
 const mapStateToProps = (state, { fieldName }) => ({
   field: selectors.getFieldWithName(fieldName)(state),
@@ -26,7 +22,7 @@ const FormFieldBuilder = ({ field, prefix }) => {
     case k.LIST:
       return (
         <FieldArray
-          component={FieldList}
+          component={C.FieldList}
           fieldNames={field.fields}
           name={field.name}
           props={{
@@ -36,7 +32,7 @@ const FormFieldBuilder = ({ field, prefix }) => {
       );
 
     case k.CHOICE:
-      component = Select;
+      component = C.Select;
       options = field.choices;
       break;
 
@@ -46,12 +42,12 @@ const FormFieldBuilder = ({ field, prefix }) => {
       break;
 
     case k.IMAGE:
-      component = ImageUploader;
+      component = C.ImageField;
       type = 'file';
       break;
 
     case k.MARKDOWN:
-      component = MarkdownEditor;
+      component = C.MarkdownEditor;
       elementClassName = 'form__element--markdown';
       break;
 

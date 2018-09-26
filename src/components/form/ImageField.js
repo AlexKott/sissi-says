@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Translate } from 'react-localize-redux';
 
+import * as C from '@/components';
 import * as tr from '@/translations';
 
-import ImagePopup from './ImagePopup';
-
-class ImageUploader extends React.Component {
-
+class ImageField extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +34,7 @@ class ImageUploader extends React.Component {
     } = this.props;
 
     return ([
-      this.state.isImagePopupActive && <ImagePopup
+      this.state.isImagePopupActive && <C.ImagePopup
         key='image-popup'
         onSelectImage={this.onSelectImage}
         onClosePopup={this.onToggleImagePopup}
@@ -58,8 +56,8 @@ class ImageUploader extends React.Component {
   }
 }
 
-ImageUploader.propTypes = {
+ImageField.propTypes = {
   input: PropTypes.object,
 };
 
-export default ImageUploader;
+export default ImageField;

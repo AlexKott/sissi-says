@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
 import * as actions from '@/actions';
+import * as C from '@/components';
 import * as tr from '@/translations';
 import { SUCCESS } from '@/constants';
-
-import ImagePopup from './ImagePopup';
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectImage: (image) => {
@@ -82,7 +81,7 @@ class MarkdownEditor extends React.Component {
 
     return ([
       this.state.isImagePopupActive &&
-        <ImagePopup
+        <C.ImagePopup
           key={`image-popup-${count}`}
           onSelectImage={this.onSelectImage}
           onClosePopup={this.onToggleImagePopup}

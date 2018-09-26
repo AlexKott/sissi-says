@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
-import * as selectors from '@/selectors';
 import * as actions from '@/actions';
+import * as C from '@/components';
+import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 
 const mapStateToProps = state => ({
@@ -27,9 +28,11 @@ const Alert = ({
     <article className={`modal__box modal__box--${type}`}>
       <h2 className='modal__title'><Translate id={title} /></h2>
       <p className='modal__message'><Translate id={message} data={trData} /></p>
-      {allowConfirm && <button className={`modal__button modal__button--${type}`} onClick={onConfirm}>
-        <Translate id={tr.OK} />
-      </button>}
+      {allowConfirm && (
+        <C.Button onClick={onConfirm} classes={`modal__button modal__button--${type}`}>
+          <Translate id={tr.OK} />
+        </C.Button>
+      )}
     </article>
   </aside>
 );

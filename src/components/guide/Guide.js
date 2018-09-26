@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as selectors from '@/selectors';
 import * as actions from '@/actions';
-
-import GuideContent from './GuideContent';
-import Sissi from '@/components/svgs/Sissi';
+import * as C from '@/components';
+import * as selectors from '@/selectors';
 
 const mapStateToProps = (state) => ({
   isGuideOpen: selectors.getModalType(state) === 'guide',
@@ -27,8 +25,8 @@ const Guide = ({ isGuideOpen, onCloseGuide }) => (
     onClick={onCloseGuide}
   >
     <article className='popup__box popup__box--guide'>
-      <Sissi className='guide__sissi' />
-      <GuideContent />
+      <C.SissiSvg className='guide__sissi' />
+      <C.GuideContent />
     </article>
   </aside>
 );

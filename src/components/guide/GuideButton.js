@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actions from '@/actions';
-
-import Sissi from '@/components/svgs/Sissi';
+import * as C from '@/components';
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenGuide: () => dispatch(actions.setModalType('guide')),
@@ -12,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const GuideButton = ({ onOpenGuide }) => (
   <button key='guide-button' type='button' className='guide-button' onClick={onOpenGuide}>
-    <Sissi />
+    <C.SissiSvg />
   </button>
 );
 

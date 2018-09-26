@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as C from '@/components';
 import * as selectors from '@/selectors';
-
-import Form from '@/components/form/Form';
 
 const mapStateToProps = state => ({
   ...selectors.getPropsForEditor(state),
@@ -20,7 +19,7 @@ const Editor = ({
 }) => (
   <section className={`editor editor--level-${viewLevel}`}>
     {/* Do not remove the form key! */}
-    <Form
+    <C.Form
       key={formName}
       canDelete={canDelete}
       fieldNames={fieldNames}

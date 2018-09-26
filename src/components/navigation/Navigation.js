@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions';
+import * as C from '@/components';
 import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
-
-import AddButton from './AddButton';
-import NavBar from './NavBar';
-import NavItem from './NavItem';
+import * as tr from '@/translations';
 
 const mapStateToProps = state => {
   const pageId = selectors.getActivePageId(state);
@@ -35,39 +34,47 @@ const Navigation = ({
   onAddSection,
   onDragEnd,
 }) => [
-  pageProps && <NavBar
+  pageProps && <C.NavBar
     key='pageNav'
     level='1'
     type={k.PAGES}
     onDragEnd={onDragEnd}
   >
     {pageProps.itemIds.map((id, index) => (
-      <NavItem
+      <C.NavItem
         key={id}
         id={id}
         index={index}
         type={k.PAGES}
       />
     ))}
-    {pageProps.canAdd && <AddButton onClick={onAddPage} />}
-  </NavBar>
+    {pageProps.canAdd && (
+      <C.Button onClick={onAddPage} classes='button--nav'>
+        <Translate id={tr.ADD} />
+      </C.Button>
+    )}
+  </C.NavBar>
   ,
-  sectionProps && <NavBar
+  sectionProps && <C.NavBar
     key='sectionNav'
     level={pageProps ? '2' : '1'}
     type={k.SECTIONS}
     onDragEnd={(...props) => onDragEnd(...props, sectionProps.pageId)}
   >
     {sectionProps.itemIds.map((id, index) => (
-      <NavItem
+      <C.NavItem
         key={id}
         id={id}
         index={index}
         type={k.SECTIONS}
       />
     ))}
-    {sectionProps.canAdd && <AddButton onClick={() => onAddSection(sectionProps.pageId)} />}
-  </NavBar>
+    {sectionProps.canAdd && (
+      <C.Button onClick={() => onAddSection(sectionProps.pageId)} classes='button--nav'>
+        <Translate id={tr.ADD} />
+      </C.Button>
+    )}
+  </C.NavBar>
 ];
 
 Navigation.propTypes = {
