@@ -6,12 +6,13 @@ export const clearAlerts = () => ({
   type: t.CLEAR_ALERTS,
 });
 
-export const setAlert = (type, message) => ({
+export const setAlert = (type, message, trData) => ({
   type: t.SET_ALERT,
   payload: {
     message,
     title: type === ERROR ? tr.ERROR : tr.SUCCESS,
     type,
+    trData,
   },
 });
 

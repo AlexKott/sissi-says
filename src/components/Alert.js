@@ -19,13 +19,14 @@ const Alert = ({
   allowConfirm,
   message,
   title,
+  trData,
   type,
   onConfirm,
 }) => !!type && (
   <aside className='modal'>
     <article className={`modal__box modal__box--${type}`}>
       <h2 className='modal__title'><Translate id={title} /></h2>
-      <p className='modal__message'><Translate id={message} /></p>
+      <p className='modal__message'><Translate id={message} data={trData} /></p>
       {allowConfirm && <button className={`modal__button modal__button--${type}`} onClick={onConfirm}>
         <Translate id={tr.OK} />
       </button>}
@@ -37,6 +38,7 @@ Alert.propTypes = {
   allowConfirm: PropTypes.bool,
   message: PropTypes.string,
   title: PropTypes.string,
+  trData: PropTypes.object,
   type: PropTypes.string,
   onConfirm: PropTypes.func,
 };

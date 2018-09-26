@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
 import * as actions from '@/actions';
+import * as tr from '@/translations';
 import { SUCCESS } from '@/constants';
 
 import ImagePopup from './ImagePopup';
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectImage: (image) => {
-    const markdownString = `![](/images/${image})`;
-    const alertString = `Please copy this line and paste it in your content:\n${markdownString}`;
-    dispatch(actions.setAlert(SUCCESS, alertString));
+    dispatch(actions.setAlert(SUCCESS, tr.IMAGE_PASTE_IN_EDITOR, { image }));
   },
 });
 
@@ -71,7 +70,8 @@ class MarkdownEditor extends React.Component {
     });
   }
 
-  onSelectImage(image) {
+  onSelectImage(e, image) {
+    e.stopPropagation();
     this.props.onSelectImage(image);
     this.onToggleImagePopup();
   }
@@ -86,6 +86,7 @@ class MarkdownEditor extends React.Component {
         <ImagePopup
           key={`image-popup-${count}`}
           onSelectImage={this.onSelectImage}
+          onClosePopup={this.onToggleImagePopup}
         />
       ,
       <div key='markdown-editor' className='markdown-editor__wrapper'>

@@ -4,6 +4,7 @@ const initialState = {
   type: '',
   message: '',
   title: '',
+  trData: {},
 };
 
 export default (state = initialState, action = {}) => {
