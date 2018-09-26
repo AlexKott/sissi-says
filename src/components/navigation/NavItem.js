@@ -20,7 +20,7 @@ const NavItem = ({
   type,
 }) => (
   <Draggable draggableId={id} type={type} index={index}>
-    {(provided) => (
+    {provided => (
       <div>
         <div
           ref={provided.innerRef}

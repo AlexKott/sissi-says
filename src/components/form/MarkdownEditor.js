@@ -75,9 +75,7 @@ class MarkdownEditor extends React.Component {
   }
 
   render() {
-    const {
-      input,
-    } = this.props;
+    const { input } = this.props;
 
     return ([
       this.state.isImagePickerActive &&

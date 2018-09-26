@@ -24,7 +24,6 @@ const mapDispatchToProps = dispatch => ({
 const ActionBar = ({
   isIndex,
   onLogout,
-  onOpenGuide,
   onPublish,
 }) => (
   <aside className='action-bar'>
