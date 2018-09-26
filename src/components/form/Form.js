@@ -11,16 +11,18 @@ import * as tr from '@/translations';
 import FormFieldBuilder from './FormFieldBuilder';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: ownProps.onSubmit ? ownProps.onSubmit : (e) => {
+  onDelete: () => dispatch(actions.deleteItem()),
+  onSubmit: (e) => {
     e.preventDefault();
     dispatch(actions.postContent(ownProps.form));
   },
 });
 
 const Form = ({
-  children,
+  canDelete,
   fieldNames = [],
   submitText = tr.SAVE,
+  onDelete,
   onSubmit,
 }) => (
   <form className='form' onSubmit={onSubmit}>
@@ -28,16 +30,19 @@ const Form = ({
       return <FormFieldBuilder key={fieldName} fieldName={fieldName} />;
     })}
     <div className='form__buttons'>
-      {children}
+      {canDelete && <button type='button' onClick={onDelete} className='button'>
+        <Translate id={tr.DELETE} />
+      </button>}
       <button type='submit' className='button button--cta'><Translate id={submitText} /></button>
     </div>
   </form>
 );
 
 Form.propTypes = {
-  children: PropTypes.node,
+  canDelete: PropTypes.bool,
   fields: PropTypes.array,
   submitText: PropTypes.string,
+  onDelete: PropTypes.func,
   onSubmit: PropTypes.func,
 }
 

@@ -1,12 +1,14 @@
+import * as k from '@/constants/keywords';
 import * as t from '@/actions/types';
-import { STANDARD } from '@/constants/keywords';
+import * as s from '@/selectors';
+import { redirectToPage, redirectToIndex } from '@/actions/redirect/creators';
 
-export const addPage = (pageType = STANDARD) => ({
+export const addPage = (pageType = k.STANDARD) => ({
   type: t.ADD_PAGE,
   payload: { pageType },
 });
 
-export const addSection = (pageId, sectionType = STANDARD) => ({
+export const addSection = (pageId, sectionType = k.STANDARD) => ({
   type: t.ADD_SECTION,
   payload: { pageId, sectionType },
 });
@@ -15,6 +17,17 @@ export const addListItem = listName => ({
   type: t.ADD_LIST_ITEM,
   payload: { listName },
 });
+
+export const deleteItem = () => (dispatch, getState) => {
+  const { item, parent } = s.getCurrentItemBlueprintWithParent(getState());
+  if (item.type === k.SECTIONS) {
+    dispatch(deleteSection(parent.id, item.id));
+    dispatch(redirectToPage(parent.id));
+  } else {
+    dispatch(deletePage(item.id));
+    dispatch(redirectToIndex());
+  }
+}
 
 export const deletePage = pageId => ({
   type: t.DELETE_PAGE,

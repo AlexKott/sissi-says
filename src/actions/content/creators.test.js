@@ -1,6 +1,10 @@
+import _cloneDeep from 'lodash.clonedeep';
+
+import _testState from '@/reducers/_testState';
 import * as t from './types';
 import * as k from '@/constants/keywords';
 import * as actions from './creators';
+import * as routes from '@/router';
 
 describe('actions/content', () => {
   describe('addPage', () => {
@@ -28,6 +32,75 @@ describe('actions/content', () => {
 
       expect(action).toHaveProperty('type', t.ADD_LIST_ITEM);
       expect(action.payload).toHaveProperty('listName', 'listAbc');
+    });
+  });
+
+  describe('deleteItem', () => {
+    let mockDispatch, mockGetState;
+
+    it('should return a thunk', () => {
+      const thunk = actions.deleteItem();
+
+      expect(typeof thunk).toBe('function');
+    });
+
+    describe('current item type is section', () => {
+      beforeEach(() => {
+        const mockState = _cloneDeep(_testState);
+        mockState.location = {
+          payload: {
+            pageId: 'abc123',
+            sectionId: '345def',
+          },
+          routesMap: {
+            sectionsRoute: {
+              itemType: 'sections',
+            },
+          },
+          type: 'sectionsRoute',
+        };
+        mockDispatch = jest.fn();
+        mockGetState = jest.fn(() => mockState);
+      })
+
+      it('should dispatch deleteSection', () => {
+        actions.deleteItem()(mockDispatch, mockGetState);
+
+        const action = mockDispatch.mock.calls[0][0];
+        expect(action).toHaveProperty('type', t.DELETE_SECTION);
+        expect(action.payload).toHaveProperty('pageId', 'abc123');
+        expect(action.payload).toHaveProperty('sectionId', '345def');
+      });
+
+      it('should dispatch redirectToPage', () => {
+        actions.deleteItem()(mockDispatch, mockGetState);
+
+        const action = mockDispatch.mock.calls[1][0];
+        expect(action).toHaveProperty('type', routes.ROUTE_PAGE);
+        expect(action.payload).toHaveProperty('pageId', 'abc123');
+      });
+    });
+
+    describe('current item type is page', () => {
+      beforeEach(() => {
+        mockDispatch = jest.fn();
+        mockGetState = jest.fn(() => _testState);
+      })
+
+      it('should dispatch deletePage', () => {
+        actions.deleteItem()(mockDispatch, mockGetState);
+
+        const action = mockDispatch.mock.calls[0][0];
+        expect(action).toHaveProperty('type', t.DELETE_PAGE);
+        expect(action.payload).toHaveProperty('pageId', 'abc123');
+      });
+
+      it('should dispatch redirectToIndex', () => {
+        actions.deleteItem()(mockDispatch, mockGetState);
+
+        const action = mockDispatch.mock.calls[1][0];
+        expect(action).toHaveProperty('type', routes.ROUTE_INDEX);
+      });
     });
   });
 

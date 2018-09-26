@@ -25,13 +25,11 @@ const Editor = ({
     {/* Do not remove the form key! */}
     <Form
       key={formName}
+      canDelete={canDelete}
       fieldNames={fieldNames}
       form={formName}
       initialValues={initialValues}
     />
-    {canDelete && <button type='button' onClick={onDelete} className='button'>
-      <Translate id={tr.DELETE} />
-    </button>}
   </section>
 );
 

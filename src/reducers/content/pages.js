@@ -57,7 +57,6 @@ export default (state = initialState, action = {}) => {
       }
       return state;
 
-
     case t.ADD_LIST_ITEM:
       if (payload.parentType === k.PAGES) {
         const newList = state[payload.parentId][payload.listName].concat([payload.listItem]);
