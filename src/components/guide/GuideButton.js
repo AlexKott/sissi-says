@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 
 import * as actions from '@/actions';
 import * as C from '@/components';
+import * as k from '@/constants/keywords';
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenGuide: () => dispatch(actions.openModal('guide')),
+  onOpenGuide: () => dispatch(actions.openModal(k.GUIDE)),
 });
 
 const GuideButton = ({ onOpenGuide }) => (

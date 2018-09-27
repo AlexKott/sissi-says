@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 import * as actions from '@/actions';
 import * as C from '@/components';
+import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
 
 const mapStateToProps = (state) => ({
-  isGuideOpen: selectors.getModalType(state) === 'guide',
+  isGuideOpen: selectors.getModalType(state) === k.GUIDE,
 });
 
 const mapDispatchToProps = (dispatch) => ({

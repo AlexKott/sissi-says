@@ -1,4 +1,5 @@
 import * as t from '@/actions/types';
+import * as k from '@/constants/keywords';
 import _testState from '@/reducers/_testState';
 
 import reducer, * as selectors from './modal';
@@ -10,12 +11,12 @@ describe('reducers/ui/modal', () => {
     const action = {
       type: t.SET_MODAL_TYPE,
       payload: {
-        type: 'guide',
+        type: k.GUIDE,
       },
     };
     const state = reducer(mockState, action);
 
-    expect(state).toBe('guide');
+    expect(state).toBe(k.GUIDE);
   });
 });
 
