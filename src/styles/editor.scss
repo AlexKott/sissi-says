@@ -12,9 +12,14 @@
 
 .editor--level-2 {
   border-color: $color-main-medium;
+  border-left: $gap-normal solid $color-main-medium;
 }
 
 .editor--level-3 {
+  border-color: $color-main-medium;
+}
+
+.editor--level-4 {
   border-color: $color-main-light;
   border-left: $gap-normal solid $color-main-light;
 }

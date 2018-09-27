@@ -115,10 +115,10 @@ describe('selectors/editor', () => {
         expect(result.initialValues).not.toHaveProperty('_id');
       });
 
-      it('should return 2 as viewLevel', () => {
+      it('should return 3 as viewLevel', () => {
         const result = selectors.getPropsForEditor(mockState);
 
-        expect(result).toHaveProperty('viewLevel', 2);
+        expect(result).toHaveProperty('viewLevel', 3);
       });
     });
 
@@ -182,10 +182,10 @@ describe('selectors/editor', () => {
           expect(result).toHaveProperty('viewLevel', 2);
         });
 
-        it('should be 3 when multiple pages are allowed', () => {
+        it('should be 4 when multiple pages are allowed', () => {
           const result = selectors.getPropsForEditor(mockState);
 
-          expect(result).toHaveProperty('viewLevel', 3);
+          expect(result).toHaveProperty('viewLevel', 4);
         });
       });
     });

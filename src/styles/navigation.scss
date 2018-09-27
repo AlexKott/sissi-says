@@ -3,6 +3,10 @@
   width: 20%;
   min-width: 200px;
   overflow-x: hidden;
+
+  & :first-child {
+    margin-top: $gap-normal;
+  }
 }
 
 .nav--level-1 {
@@ -68,10 +72,6 @@
 
   transition: color .1s, background-color .1s, margin-right .2s;
   cursor: pointer;
-
-  &:first-child {
-    margin-top: $gap-normal;
-  }
 }
 
 .nav__element--selected {

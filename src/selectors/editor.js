@@ -17,12 +17,16 @@ export const getPropsForEditor = createSelector(
       && parent.structure.minItems < existingItems;
 
     let viewLevel;
-    if (item.type === c.SECTIONS && maxAmountOfPages > 1) {
-      viewLevel = 3;
-    } else if (item.type === c.GLOBAL) {
+    if (item.type === c.GLOBAL) {
       viewLevel = 1;
-    } else {
+    } else if (item.type === c.PAGES && item.structure.maxItems === 0) {
       viewLevel = 2;
+    } else if (item.type === c.SECTIONS && maxAmountOfPages <= 1) {
+      viewLevel = 2;
+    } else if (item.type === c.PAGES && item.structure.maxItems > 0) {
+      viewLevel = 3;
+    } else if (item.type === c.SECTIONS && maxAmountOfPages > 1) {
+      viewLevel = 4;
     }
 
     const initialValues = Object.entries(item.content)
