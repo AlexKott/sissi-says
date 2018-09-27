@@ -37,7 +37,8 @@
   margin: 0 $gap-normal $gap-normal $gap-normal;
 
   &:hover {
-    background-color: $color-background-light;
+    color: $color-main-dark !important;
+    background-color: $color-background-light !important;
   }
 }
 
