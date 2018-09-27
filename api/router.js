@@ -1,9 +1,10 @@
 import { spawn } from 'child_process';
 import express from 'express';
 
-import { readJson, writeJson } from './jsonController';
-import { getAllImages, saveImage } from './imageController';
 import { authenticate, login } from './authService';
+import { getAllImages, saveImage } from './imageController';
+import { readJson, writeJson } from './jsonController';
+import { migrateContentMiddleware } from './migrateContent';
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.route('/structure')
 router.route('/content')
   .get(
     authenticate(),
+    migrateContentMiddleware,
     readJson('content')
   )
   .post(
