@@ -16,7 +16,7 @@ export default ({ dispatch, getState }) => next => action => {
       if (allowedTypes.length > 1) {
         return dispatch(actions.openModal(k.TYPE_PICKER));
       } else {
-        _type = allowedTypes[0];
+        _type = allowedTypes[0].name;
       }
     }
 

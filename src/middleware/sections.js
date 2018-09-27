@@ -16,7 +16,7 @@ export default ({ dispatch, getState }) => next => action => {
       if (allowedSectionTypes.length > 1) {
         return dispatch(actions.openModal(k.TYPE_PICKER));
       } else {
-        _type = allowedSectionTypes[0];
+        _type = allowedSectionTypes[0].name;
       }
     }
 

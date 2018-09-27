@@ -42,8 +42,8 @@ const TypePicker = ({
   <C.Modal onClose={onCloseTypePicker} boxClasses='popup__box--guide'>
     <h2><Translate id={tr.TYPE_PICKER_TITLE} /></h2>
     {allowedTypes.map(type => (
-      <C.Button key={type} onClick={() => onSelectType(pageId, type)}>
-        <p>{type}</p>
+      <C.Button key={type.name} onClick={() => onSelectType(pageId, type.name)}>
+        <p>{type.label}</p>
       </C.Button>
     ))}
   </C.Modal>

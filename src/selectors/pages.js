@@ -36,7 +36,7 @@ export const getAllowedPageTypes = createSelector(
   ],
   structurePages => Object.entries(structurePages).reduce((acc, [pageType, page]) => {
     if (!page.isProtected) {
-      acc.push(pageType);
+      acc.push({ name: pageType, label: page.label });
     }
     return acc;
   }, [])
@@ -49,11 +49,15 @@ export const getAllowedSectionTypesForPageId = pageId => createSelector(
     s.getStructureSections,
   ],
   ({ _type: pageType }, structurePages, structureSections) => {
+    let allowedTypes;
+
     if (structurePages) {
-      return structurePages[pageType] && structurePages[pageType].allowedItems
+      allowedTypes = structurePages[pageType] && structurePages[pageType].allowedItems
         ? structurePages[pageType].allowedItems
-        : [k.STANDARD]
+        : [k.STANDARD];
+    } else {
+      allowedTypes = Object.keys(structureSections);
     }
-    return Object.keys(structureSections);
+    return allowedTypes.map(type =>  ({ name: type, label: structureSections[type].label }));
   }
 );
