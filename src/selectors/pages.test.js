@@ -66,4 +66,14 @@ describe('selectors/pages', () => {
       });
     });
   });
+
+  describe('getAllowedPageTypes', () => {
+    it('should return an array with allowed page types', () => {
+      const result = selectors.getAllowedPageTypes(mockState);
+
+      expect(result).toContain('standard');
+      expect(result).toContain('team');
+      expect(result).not.toContain('gallery');
+    });
+  });
 });

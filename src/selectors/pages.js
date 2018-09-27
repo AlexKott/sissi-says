@@ -28,3 +28,15 @@ export const getActivePageId = createSelector(
   ],
   (locationPageId, singlePageId) => singlePageId ? singlePageId : locationPageId
 );
+
+export const getAllowedPageTypes = createSelector(
+  [
+    s.getStructurePages,
+  ],
+  structurePages => Object.entries(structurePages).reduce((acc, [pageType, page]) => {
+    if (!page.isProtected) {
+      acc.push(pageType);
+    }
+    return acc;
+  }, [])
+);
