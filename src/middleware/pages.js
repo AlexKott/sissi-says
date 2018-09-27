@@ -21,8 +21,6 @@ export default ({ dispatch, getState }) => next => action => {
     }
 
     const _id = getRandomString();
-    const minSectionsPerPage = selectors.getMinAmountOfSectionsForPageType(_type)(getState());
-
     const newPage = {
       _id,
       _items: [],
@@ -49,6 +47,7 @@ export default ({ dispatch, getState }) => next => action => {
     payload.page = newPage;
     next(action);
 
+    const minSectionsPerPage = selectors.getMinAmountOfSectionsForPageType(_type)(getState());
     let currentAmountOfSections = selectors.getSectionIdsForPage(_id)(getState()).length;
 
     while (currentAmountOfSections < minSectionsPerPage) {
