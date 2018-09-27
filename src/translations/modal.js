@@ -22,7 +22,7 @@ export default {
   ],
   [ERROR_BUILD]: [
     "Something went wrong while publishing your page. Please try again! If this keeps happening contact your developer",
-    "Beim Veröffentlichen der Seite ist etwas schiefgelaufen. Bitte versuch es nochmal! Falls das nicht funktioniert, kontaktiere  deinen Website-Entwickler."
+    "Beim Veröffentlichen der Seite ist etwas schiefgelaufen. Bitte versuch es nochmal! Falls das nicht funktioniert, kontaktiere deinen Website-Entwickler."
   ],
   [ERROR_IMAGE_SIZE]: [
     "The maximum file size is 500 KB. Please select a smaller image.",

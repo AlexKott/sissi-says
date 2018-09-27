@@ -32,7 +32,6 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "raf": "3.4.0",
-    "react-localize-redux": "^3.0.2",
     "sissi-moves": "^0.6.0",
     "shorthash": "^0.0.2"
   },
@@ -64,6 +63,7 @@
     "inscrybmde": "^1.11.3",
     "jest": "20.0.4",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.merge": "^4.6.1",
     "marked": "^0.3.16",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.11",
@@ -72,15 +72,17 @@
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
     "react": "^16.1.1",
-    "react-beautiful-dnd": "^5.0.0",
+    "react-beautiful-dnd": "^9.0.2",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.1.1",
+    "react-localize-redux": "^3.0.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-first-router": "^0.0.16-next",
     "redux-first-router-link": "^1.4.2",
     "redux-form": "^7.2.0",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "sass-loader": "^6.0.6",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
@@ -95,9 +97,6 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "nodemonConfig": {
     "delay": 2000,

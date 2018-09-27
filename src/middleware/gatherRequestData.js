@@ -1,48 +1,36 @@
 import { getFormValues } from 'redux-form';
+import _merge from 'lodash.merge';
 
-import { transformToHtml } from '@/helpers/markdownHtmlConverter';
 import * as t from '@/actions/types';
-import * as selectors from '@/reducers/selectors';
+import * as k from '@/constants/keywords';
+import * as selectors from '@/selectors';
+import { transformToHtml } from '@/helpers/markdownHtmlConverter';
 
-export default (
-  { dispatch, getState },
-  methods = { ...selectors, getFormValues, transformToHtml }
-) => next => action => {
+export default ({ dispatch, getState }, selectFormValues = getFormValues) => next => action => {
   const { type, payload } = action;
-  const isPostRequest = type === t.SEND_REQUEST && payload.method === 'post';
+  const isPostRequest = type === t.SEND_REQUEST && payload.method === k.POST;
 
-  if (isPostRequest && payload.dataType === 'content') {
-    const { formName } = payload;
+  if (isPostRequest && payload.dataType === k.CONTENT) {
     const state = getState();
-    const metaData = methods.getMetaData(state);
-    const pageData = methods.getAllPages(state);
-    const sectionData = methods.getAllSections(state);
-    const formInput = methods.getFormValues(formName)(state);
-    const fields = methods.getFields(state);
+    const { formName } = payload;
+    const [itemType, itemId] = formName.split('-');
+    const formValues = selectFormValues(formName)(state);
+    let contentUpdate;
 
-    let meta = metaData;
-    let pages = pageData;
-    let sections = sectionData;
-
-    if (formName === 'meta') {
-      meta = Object.assign({}, metaData, formInput);
+    if (itemId) {
+      contentUpdate = {
+        [itemType]: {
+          [itemId]: formValues,
+        },
+      };
     } else {
-      const formNameArray = formName.split('-');
-      const formType = formNameArray[1];
-      const formId = formNameArray[2];
-
-      if (formType === 'page') {
-        const newPageIndex = pageData.findIndex(page => page.id === formId);
-        const newPage = Object.assign({}, pageData[newPageIndex], formInput);
-        pageData.splice(newPageIndex, 1, newPage);
-        pages = pageData;
-      } else if (formType === 'section') {
-        const newSection = Object.assign({}, sectionData[formId], formInput);
-        sections = Object.assign({}, sectionData, { [formId]: newSection });
-      }
+      contentUpdate = {
+        [itemType]: formValues,
+      };
     }
 
-    const transformedData = methods.transformToHtml({ meta, pages, sections }, fields);
+    const newContent = _merge({}, selectors.getContent(state), contentUpdate);
+    const transformedData = transformToHtml(newContent, selectors.getFields(state));
 
     action.payload.requestData = transformedData;
   }

@@ -1,18 +1,23 @@
 import { combineReducers } from 'redux';
 
 import fields from './fields';
-import meta from './meta';
+import global from './global';
 import pages from './pages';
 import sections from './sections';
+import settings from './settings';
 
 export default combineReducers({
   fields,
-  meta,
+  global,
   pages,
   sections,
+  settings,
 });
 
 export * from './fields';
-export * from './meta';
+export * from './global';
 export * from './pages';
 export * from './sections';
+export * from './settings';
+
+export const getStructure = state => state.structure;

@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InscrybMDE from 'inscrybmde';
 
-import * as actions from '@/actions/creators';
-
-import ImagePopup from './ImagePopup';
+import * as actions from '@/actions';
+import * as C from '@/components';
+import * as tr from '@/translations';
+import { SUCCESS } from '@/constants';
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectImage: (image) => {
-    const markdownString = `![](/images/${image})`;
-    const alertString = `Please copy this line and paste it in your content:\n${markdownString}`;
-    dispatch(actions.setAlert(alertString, 'success'));
+    dispatch(actions.setAlert(SUCCESS, tr.IMAGE_PASTE_IN_EDITOR, { image }));
   },
 });
 
@@ -23,11 +22,11 @@ class MarkdownEditor extends React.Component {
     super(props);
 
     this.state = {
-      isImagePopupActive: false,
+      isImagePickerActive: false,
     };
 
     this.onSelectImage = this.onSelectImage.bind(this);
-    this.onToggleImagePopup = this.onToggleImagePopup.bind(this);
+    this.onToggleImagePicker = this.onToggleImagePicker.bind(this);
   }
 
   componentDidMount() {
@@ -52,7 +51,7 @@ class MarkdownEditor extends React.Component {
           className: 'fa fa-picture-o',
           title: 'Insert Image',
           action: function selectImage(editor) {
-            this.onToggleImagePopup();
+            this.onToggleImagePicker();
           }.bind(this),
         },
       ],
@@ -64,28 +63,25 @@ class MarkdownEditor extends React.Component {
     count--;
   }
 
-  onToggleImagePopup() {
+  onToggleImagePicker() {
     this.setState({
-      isImagePopupActive: !this.state.isImagePopupActive,
+      isImagePickerActive: !this.state.isImagePickerActive,
     });
   }
 
   onSelectImage(image) {
     this.props.onSelectImage(image);
-    this.onToggleImagePopup();
+    this.onToggleImagePicker();
   }
 
   render() {
-    const {
-      input,
-    } = this.props;
+    const { input } = this.props;
 
     return ([
-      this.state.isImagePopupActive &&
-        <ImagePopup
-          key={`image-popup-${count}`}
-          onSelectImage={this.onSelectImage}
-        />
+      this.state.isImagePickerActive &&
+        <C.Modal key={`image-picker-${count}`} onClose={this.onToggleImagePicker}>
+          <C.ImagePicker onSelectImage={this.onSelectImage} />
+        </C.Modal>
       ,
       <div key='markdown-editor' className='markdown-editor__wrapper'>
         <textarea className='markdown-editor' {...input} />

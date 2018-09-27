@@ -1,107 +1,84 @@
 import { getFormValues } from 'redux-form';
-import * as t from './types';
-import * as tr from '@/translations';
-import { setAlert } from '@/actions/alerts/creators';
-import { redirectToIndex } from '@/actions/redirect/creators';
 
-export function fetchData(dataType) {
+import {
+  setAlert,
+  redirectToIndex,
+} from '@/actions';
+import * as t from '@/actions/types';
+import * as k from '@/constants';
+import * as tr from '@/translations';
+
+export const fetchData = dataType => {
   const action = {
     type: t.SEND_REQUEST,
     payload: {
-      method: 'get',
+      method: k.GET,
       dataType,
-      successDispatch: [fetchDataSuccess.bind({}, dataType)],
-    }
+      onSuccess: [],
+    },
   };
 
-  if (dataType === 'structure') {
-    action.payload.successDispatch.push(fetchData.bind({}, 'content'));
+  if (dataType === k.STRUCTURE) {
+    action.payload.onSuccess.push(dispatch => dispatch(fetchData(k.CONTENT)));
   }
 
   return action;
 }
 
-export function fetchDataSuccess(dataType, data) {
-  return {
-    type: t.FETCH_DATA_SUCCESS,
-    payload: { dataType, data }
-  };
-}
+export const postContent = formName => ({
+  type: t.SEND_REQUEST,
+  payload: {
+    method: k.POST,
+    dataType: k.CONTENT,
+    formName,
+    onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_SAVE))],
+  },
+});
 
-export function postContent(formName) {
-  return {
-    type: t.SEND_REQUEST,
-    payload: {
-      method: 'post',
-      dataType: 'content',
-      formName,
-      successDispatch: [
-        fetchDataSuccess.bind({}, 'content'),
-        setAlert.bind({}, tr.SUCCESS_SAVE, tr.SUCCESS),
-      ],
-    }
-  };
-}
+export const buildPage = () => ({
+  type: t.SEND_REQUEST,
+  payload: {
+    method: k.POST,
+    dataType: k.BUILD,
+    onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_PUBLISH))],
+  },
+});
 
-export function buildPage() {
-  return {
-    type: t.SEND_REQUEST,
-    payload: {
-      method: 'post',
-      dataType: 'build',
-      successDispatch: [setAlert.bind({}, tr.SUCCESS_PUBLISH, tr.SUCCESS)],
-    },
-  };
-}
+export const saveImage = image => ({
+  type: t.SEND_REQUEST,
+  payload: {
+    method: k.POST,
+    dataType: k.IMAGES,
+    contentType: 'file',
+    requestData: image,
+  },
+});
 
-export function saveImage(image) {
-  return {
-    type: t.SEND_REQUEST,
-    payload: {
-      method: 'post',
-      dataType: 'images',
-      contentType: 'file',
-      requestData: image,
-      successDispatch: [saveImageSuccess],
-    },
-  };
-}
+export const login = () => (dispatch, getState, selectFormValues = getFormValues) => {
+  const values = selectFormValues(k.LOGIN)(getState());
+  if (values) {
+    dispatch({
+      type: t.SEND_REQUEST,
+      payload: {
+        method: k.POST,
+        dataType: k.LOGIN,
+        requestData: { username: values.username, password: values.password },
+        onSuccess: [
+          (dispatch, data) => dispatch(loginSuccess(data)),
+          dispatch => dispatch(redirectToIndex()),
+        ],
+      },
+    });
+  } else {
+    dispatch(setAlert(k.ERROR, tr.ERROR_AUTH));
+  }
+};
 
-export function saveImageSuccess(data) {
-  return {
-    type: t.SAVE_IMAGE_SUCCESS,
-    payload: data.fileName,
-  };
-}
+export const loginSuccess = ({ token }) => ({
+  type: t.LOGIN_SUCCESS,
+  payload: { token: token },
+});
 
-export function login() {
-  return (dispatch, getState, selectFormValues = getFormValues) => {
-    const values = selectFormValues('login')(getState());
-    if (values) {
-      dispatch({
-        type: t.SEND_REQUEST,
-        payload: {
-          method: 'post',
-          dataType: 'login',
-          requestData: { username: values.username, password: values.password },
-          successDispatch: [loginSuccess, redirectToIndex],
-        },
-      });
-    } else {
-      dispatch(setAlert(tr.ERROR_AUTH, tr.ERROR));
-    }
-  };
-}
-
-export function loginSuccess(data) {
-  return {
-    type: t.LOGIN_SUCCESS,
-    payload: data.token,
-  };
-}
-
-export function resetSession() {
-  return {
-    type: t.RESET_SESSION,
-  };
-}
+export const resetSession = () => ({
+  type: t.RESET_SESSION,
+});

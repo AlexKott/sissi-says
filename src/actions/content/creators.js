@@ -1,68 +1,50 @@
-import * as t from './types';
-import { getSectionIdsForPage } from '@/reducers/content/pages';
+import * as k from '@/constants/keywords';
+import * as t from '@/actions/types';
+import * as s from '@/selectors';
+import { redirectToPage, redirectToIndex } from '@/actions/redirect/creators';
 
-export function setInitialContent() {
-  return {
-    type: t.SET_INITIAL_CONTENT,
-  };
+export const addPage = (pageType = k.STANDARD) => ({
+  type: t.ADD_PAGE,
+  payload: { pageType },
+});
+
+export const addSection = (pageId, sectionType = k.STANDARD) => ({
+  type: t.ADD_SECTION,
+  payload: { pageId, sectionType },
+});
+
+export const addListItem = listName => ({
+  type: t.ADD_LIST_ITEM,
+  payload: { listName },
+});
+
+export const deleteItem = () => (dispatch, getState) => {
+  const { item, parent } = s.getCurrentItemBlueprintWithParent(getState());
+  if (item.type === k.SECTIONS) {
+    dispatch(deleteSection(parent.id, item.id));
+    dispatch(redirectToPage(parent.id));
+  } else {
+    dispatch(deletePage(item.id));
+    dispatch(redirectToIndex());
+  }
 }
 
-export function addPage(pageType) {
-  return {
-    type: t.ADD_PAGE,
-    payload: { pageType },
-  };
-}
+export const deletePage = pageId => ({
+  type: t.DELETE_PAGE,
+  payload: { pageId },
+});
 
-export function addSection(pageId, sectionType) {
-  return {
-    type: t.ADD_SECTION,
-    payload: { pageId, sectionType },
-  };
-}
+export const deleteSection = (pageId, sectionId) => ({
+  type: t.DELETE_SECTION,
+  payload: { pageId, sectionId },
+});
 
-export function addListItem(sectionId, listName) {
-  return {
-    type: t.ADD_LIST_ITEM,
-    payload: { sectionId, listName },
-  };
-}
+export const deleteListItem = (listName, itemIndex) => ({
+  type: t.DELETE_LIST_ITEM,
+  payload: { listName, itemIndex },
+});
 
-export function deletePage(pageId) {
-  return (dispatch, getState, selectSectionIdsForPage = getSectionIdsForPage) => {
-    const sectionIds = selectSectionIdsForPage(getState(), pageId);
-    sectionIds.forEach(sectionId => dispatch(deleteSection(pageId, sectionId)));
-    dispatch({
-      type: t.DELETE_PAGE,
-      payload: { pageId },
-    });
-  };
-}
-
-export function deleteSection(pageId, sectionId) {
-  return {
-    type: t.DELETE_SECTION,
-    payload: { pageId, sectionId },
-  };
-}
-
-export function deleteListItem(sectionId, listName, itemIndex) {
-  return {
-    type: t.DELETE_LIST_ITEM,
-    payload: { sectionId, listName, itemIndex },
-  };
-}
-
-export function dragPage(from, to) {
-  return {
-    type: t.DRAG_PAGE,
-    payload: { from, to },
-  };
-}
-
-export function dragSection(pageId, from, to) {
-  return {
-    type: t.DRAG_SECTION,
-    payload: { pageId, from, to },
-  };
-}
+export const dragItem = (itemType, from, to, pageId) => ({
+  type: t.DRAG_ITEM,
+  payload: { itemType, from, to, pageId },
+});

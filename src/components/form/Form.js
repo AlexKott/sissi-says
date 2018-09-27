@@ -1,59 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, FieldArray } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Translate } from 'react-localize-redux';
 
-import * as actions from '@/actions/creators';
+import * as actions from '@/actions';
+import * as C from '@/components';
 import * as tr from '@/translations';
 
-import FlexList from './FlexList';
-import FormFieldBuilder from './FormFieldBuilder';
-
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: ownProps.onSubmit ? ownProps.onSubmit : (e) => {
-    e.preventDefault();
-    dispatch(actions.postContent(ownProps.form));
-  },
+  onDelete: () => dispatch(actions.deleteItem()),
+  onSave: () => dispatch(actions.postContent(ownProps.form)),
 });
 
 const Form = ({
-  children,
-  fields = [],
-  submitText = tr.SAVE,
-  onSubmit,
+  canDelete,
+  fieldNames = [],
+  onDelete,
+  onSave,
 }) => (
-  <form className='form' onSubmit={onSubmit}>
-    {fields.map(field => {
-      const fieldName = Object.keys(field)[0];
-      const fieldStructure = field[fieldName];
-      if (fieldStructure.type === 'list') {
-        return (<FieldArray
-          key={fieldName}
-          name={fieldName}
-          component={FlexList}
-          listName={fieldName}
-          fieldStructure={fieldStructure}
-        />);
-
-      } else {
-        return <FormFieldBuilder key={fieldName} fieldName={fieldName} fieldStructure={fieldStructure} />;
-      }
-    })}
+  <form className='form'>
+    {fieldNames.map(fieldName => (
+      <C.FormFieldBuilder key={fieldName} fieldName={fieldName} />
+    ))}
     <div className='form__buttons'>
-      {children}
-      <button type='submit' className='button button--cta'><Translate id={submitText} /></button>
+      {canDelete && (
+        <C.Button onClick={onDelete}>
+          <Translate id={tr.DELETE} />
+        </C.Button>
+      )}
+      <C.Button onClick={onSave} classes='button--cta'>
+        <Translate id={tr.SAVE} />
+      </C.Button>
     </div>
   </form>
 );
 
 Form.propTypes = {
-  children: PropTypes.node,
+  canDelete: PropTypes.bool,
   fields: PropTypes.array,
-  submitText: PropTypes.string,
-  onSubmit: PropTypes.func,
-}
+  onDelete: PropTypes.func,
+  onSave: PropTypes.func,
+};
 
 export default compose(
   connect(null, mapDispatchToProps),

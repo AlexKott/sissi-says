@@ -2,35 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as selectors from '@/reducers/selectors';
-import * as actions from '@/actions/creators';
-
-import GuideContent from './GuideContent';
-import Sissi from '@/components/svgs/Sissi';
+import * as actions from '@/actions';
+import * as C from '@/components';
+import * as selectors from '@/selectors';
 
 const mapStateToProps = (state) => ({
-  isGuideOpen: selectors.getDisplayGuidePopup(state),
+  isGuideOpen: selectors.getModalType(state) === 'guide',
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCloseGuide: (e) => {
-    if (e.target.id === 'guide-popup') {
-      dispatch(actions.togglePopup('guide', false));
-    }
-  },
+  onCloseGuide: () => dispatch(actions.closeModal()),
 });
 
-const Guide = ({ isGuideOpen, onCloseGuide }) => (
-  isGuideOpen && <aside
-    id='guide-popup'
-    className='popup__wrapper'
-    onClick={onCloseGuide}
-  >
-    <article className='popup__box popup__box--guide'>
-      <Sissi className='guide__sissi' />
-      <GuideContent />
-    </article>
-  </aside>
+const Guide = ({ isGuideOpen, onCloseGuide }) => isGuideOpen && (
+  <C.Modal onClose={onCloseGuide} boxClasses='popup__box--guide'>
+    <C.SissiSvg className='guide__sissi' />
+    <C.GuideContent />
+  </C.Modal>
 );
 
 Guide.propTypes = {

@@ -1,4 +1,5 @@
-import * as routes from '@/router/routes';
+import * as routes from '@/router';
+
 import * as actions from './creators';
 
 describe('actions/redirect', () => {
@@ -7,6 +8,14 @@ describe('actions/redirect', () => {
       const action = actions.redirectToIndex();
 
       expect(action).toHaveProperty('type', routes.ROUTE_INDEX);
+    });
+  })
+
+  describe('redirectToLogin', () => {
+    it('should dispatch an action with the correct type and payload', () => {
+      const action = actions.redirectToLogin();
+
+      expect(action).toHaveProperty('type', routes.ROUTE_LOGIN);
     });
   });
 

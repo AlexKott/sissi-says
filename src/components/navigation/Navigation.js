@@ -1,45 +1,88 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Translate } from 'react-localize-redux';
 
-import * as selectors from '@/reducers/selectors';
+import * as actions from '@/actions';
+import * as C from '@/components';
+import * as k from '@/constants/keywords';
+import * as selectors from '@/selectors';
+import * as tr from '@/translations';
 
-import PageNav from './PageNav';
-import SectionNav from './SectionNav';
+const mapStateToProps = state => {
+  const pageId = selectors.getActivePageId(state);
+  return {
+    pageProps: selectors.getPropsForPageNav(state),
+    sectionProps: selectors.getPropsForSectionNav(pageId)(state),
+  };
+};
 
-const mapStateToProps = (state) => ({
-  isSinglePage: selectors.getIsSinglePage(state),
-  selectedPage: selectors.getSelectedPageId(state),
+const mapDispatchToProps = dispatch => ({
+  onAddPage: () => dispatch(actions.addPage()),
+  onAddSection: pageId => dispatch(actions.addSection(pageId)),
+  onDragEnd: ({ type, source, destination }, a, pageId) => {
+    if (destination) {
+      dispatch(actions.dragItem(type, source.index, destination.index, pageId));
+    }
+},
 });
 
 const Navigation = ({
-  isSinglePage = false,
-  selectedPage = '',
-}) => {
-  if (isSinglePage) {
-    return (selectedPage && <SectionNav selectedPage={selectedPage} className={'nav nav--dark'} />);
-  } else {
-    return ([
-      <PageNav
-        id='page-nav'
-        key='page-nav'
-        selectedPage={selectedPage}
-        className={'nav nav--dark'}
+  pageProps,
+  sectionProps,
+  onAddPage,
+  onAddSection,
+  onDragEnd,
+}) => [
+  pageProps && <C.NavBar
+    key='pageNav'
+    level='1'
+    type={k.PAGES}
+    onDragEnd={onDragEnd}
+  >
+    {pageProps.itemIds.map((id, index) => (
+      <C.NavItem
+        key={id}
+        id={id}
+        index={index}
+        type={k.PAGES}
       />
-      ,
-      selectedPage && <SectionNav
-        id='section-nav'
-        key='section-nav'
-        selectedPage={selectedPage}
-        className={'nav nav--light'}
+    ))}
+    {pageProps.canAdd && (
+      <C.Button onClick={onAddPage} classes='button--nav'>
+        <Translate id={tr.ADD} />
+      </C.Button>
+    )}
+  </C.NavBar>
+  ,
+  sectionProps && <C.NavBar
+    key='sectionNav'
+    level={pageProps ? '2' : '1'}
+    type={k.SECTIONS}
+    onDragEnd={(...props) => onDragEnd(...props, sectionProps.pageId)}
+  >
+    {sectionProps.itemIds.map((id, index) => (
+      <C.NavItem
+        key={id}
+        id={id}
+        index={index}
+        type={k.SECTIONS}
       />
-    ]);
-  }
-}
+    ))}
+    {sectionProps.canAdd && (
+      <C.Button onClick={() => onAddSection(sectionProps.pageId)} classes='button--nav'>
+        <Translate id={tr.ADD} />
+      </C.Button>
+    )}
+  </C.NavBar>
+];
 
 Navigation.propTypes = {
-  isSinglePage: PropTypes.bool,
-  selectedPage: PropTypes.string,
+  pageProps: PropTypes.object,
+  sectionProps: PropTypes.object,
+  onAddPage: PropTypes.func,
+  onAddSection: PropTypes.func,
+  onDragEnd: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

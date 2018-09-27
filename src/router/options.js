@@ -1,28 +1,29 @@
-import * as actions from '@/actions/creators';
-import * as selectors from '@/reducers/selectors';
-import * as routes from './routes';
+import * as actions from '@/actions';
+import * as k from '@/constants/keywords';
+import * as selectors from '@/selectors';
+
+import * as routes from './index';
 
 export default {
-  onBeforeChange(dispatch, getState, bag) {
+  onBeforeChange(dispatch, getState, { action }) {
     const isLoggedIn = selectors.getAuthToken(getState()) !== null;
-    const isNavigatingToLogin = bag.action.type === routes.ROUTE_LOGIN;
+    const isNavigatingToLogin = action.type === routes.ROUTE_LOGIN;
     const isInitialDataFetched = selectors.getIsInitialDataFetched(getState());
-    const isSinglePage = selectors.getIsSinglePage(getState());
-    const isNavigatingToPage = bag.action.type === routes.ROUTE_PAGE;
 
-    if (isNavigatingToLogin && isLoggedIn) {
-      return dispatch(actions.redirectToIndex());
-    } else if (!isNavigatingToLogin && !isLoggedIn) {
-      return dispatch(actions.redirectToLogin());
-    }
+    if (!isLoggedIn) {
+      if (!isNavigatingToLogin) {
+        return dispatch(actions.redirectToLogin());
+      }
 
-    if (isLoggedIn && !isInitialDataFetched) {
-      dispatch(actions.fetchData('structure'));
-      dispatch(actions.fetchData('images'));
-    }
+    } else {
+      if (isNavigatingToLogin) {
+        return dispatch(actions.redirectToIndex());
+      }
 
-    if (isSinglePage && isNavigatingToPage) {
-      return dispatch(actions.redirectToIndex());
+      if (!isInitialDataFetched) {
+        dispatch(actions.fetchData(k.STRUCTURE));
+        dispatch(actions.fetchData(k.IMAGES));
+      }
     }
   }
 }

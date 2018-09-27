@@ -1,139 +1,63 @@
-import reducer, * as selectors from './fields';
+import _testState from '@/reducers/_testState';
 import * as t from '@/actions/types';
 
+import reducer, * as selectors from './fields';
+
 describe('reducers/structure/fields', () => {
-  it('should return the initial state', () => {
-    const expectedState = {};
-    const state = reducer();
+  const mockState = _testState.structure.fields;
 
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should return the fetched state', () => {
-    const expectedState = { test1: 'test1', test2: 'test2' };
+  it('should apply the fetched data', () => {
     const action = {
-      type: t.FETCH_DATA_SUCCESS,
+      type: t.SEND_REQUEST,
       payload: {
         dataType: 'structure',
-        data: {
-          fields: expectedState,
+        responseData: {
+          fields: { testField: 'test' },
         },
       },
     };
-    const state = reducer(undefined, action);
+    const state = reducer(mockState, action);
 
-    expect(state).toEqual(expectedState);
+    expect(state).toHaveProperty('testField', 'test');
   });
 
   it('should reset the state', () => {
     const action = {
       type: t.RESET_SESSION,
     };
-    const state = reducer({ fieldsData: 'test' }, action);
+    const state = reducer(mockState, action);
 
     expect(state).toEqual({});
   });
 });
 
 describe('selectors/structure/fields', () => {
+  const mockState = _testState;
+
   describe('getFields', () => {
-    it('should return all fields', () => {
-      const mockState = {
-        structure: {
-          fields: {
-            field1: {
-              label: 'testLabel',
-              type: 'test',
-            },
-            field2: {
-              label: 'testLabel',
-              type: 'test',
-            },
-          },
-        },
-      };
-      const expectedValue = {
-        field1: {
-          label: 'testLabel',
-          type: 'test',
-        },
-        field2: {
-          label: 'testLabel',
-          type: 'test',
-        },
-      };
+    it('should return the fields structure object', () => {
       const value = selectors.getFields(mockState);
 
-      expect(value).toEqual(expectedValue);
+      expect(value).toHaveProperty('title')
+      expect(value).toHaveProperty('people')
     });
   });
 
-  describe('getFieldByName', () => {
-    it('should return a field, given the field name', () => {
-      const mockState = {
-        structure: {
-          fields: {
-            field1: {
-              label: 'testLabel',
-              type: 'test',
-            },
-          },
-        },
-      };
-      const value = selectors.getFieldByName(mockState, 'field1');
+  describe('getFieldList', () => {
+    it('should return the field list object for the given name', () => {
+      const value = selectors.getFieldList('people')(mockState);
 
-      expect(value).toEqual({ field1: { label: 'testLabel', type: 'test' }});
+      expect(value).toHaveProperty('label', 'People');
+      expect(value).toHaveProperty('type', 'list');
     });
   });
 
-  describe('getListFieldNames', () => {
-    it('should return a list of field names for a given listName', () => {
-      const mockState = {
-        structure: {
-          fields: {
-            field1: {
-              fields: ['abc', 'def'],
-            },
-          },
-        },
-      };
-      const value = selectors.getListFieldNames(mockState, 'field1');
+  describe('getFieldListFields', () => {
+    it('should return an array of field names for the given field list name', () => {
+      const value = selectors.getFieldListFields('people')(mockState);
 
-      expect(value).toEqual(['abc', 'def']);
-    });
-  });
-
-  describe('getMaxListItems', () => {
-    it('should return the maxItems for a given listName', () => {
-      const mockState = {
-        structure: {
-          fields: {
-            field1: {
-              maxItems: 19,
-            },
-          },
-        },
-      };
-      const value = selectors.getMaxListItems(mockState, 'field1');
-
-      expect(value).toEqual(19);
-    });
-  });
-
-  describe('getMinListItems', () => {
-    it('should return the minItems for a given listName', () => {
-      const mockState = {
-        structure: {
-          fields: {
-            field1: {
-              minItems: 4,
-            },
-          },
-        },
-      };
-      const value = selectors.getMinListItems(mockState, 'field1');
-
-      expect(value).toEqual(4);
+      expect(value.length).toBe(2);
+      expect(value).toContain('image');
     });
   });
 });

@@ -3,9 +3,13 @@
   width: 20%;
   min-width: 200px;
   overflow-x: hidden;
+
+  & :first-child {
+    margin-top: $gap-normal;
+  }
 }
 
-.nav--dark {
+.nav--level-1 {
   background-color: $color-main-dark;
 
   .nav__element:hover {
@@ -23,7 +27,7 @@
   }
 }
 
-.nav--light {
+.nav--level-2 {
   background-color: $color-main-medium;
 
   .nav__element:hover {
@@ -68,10 +72,6 @@
 
   transition: color .1s, background-color .1s, margin-right .2s;
   cursor: pointer;
-
-  &:first-child {
-    margin-top: $gap-normal;
-  }
 }
 
 .nav__element--selected {

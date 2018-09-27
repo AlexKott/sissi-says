@@ -4,42 +4,38 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withLocalize, getActiveLanguage } from 'react-localize-redux';
 
-import { ROUTE_LOGIN } from '@/router/routes';
-
-import * as selectors from '@/reducers/selectors';
-
-import Modal from './modal/Modal';
-import Navigation from '@/components/navigation/Navigation';
-import ActionBar from './actionBar/ActionBar';
-import Guide from './guide/Guide';
+import * as C from '@/components';
+import * as selectors from '@/selectors';
+import { ROUTE_LOGIN } from '@/router';
 
 const mapStateToProps = (state, { setActiveLanguage }) => {
-  const appLanguage = selectors.getLanguage(state);
+  const settingsLanguage = selectors.getSettingsLanguage(state);
   const activeLanguage = getActiveLanguage(state.localize);
-  if (appLanguage && activeLanguage && activeLanguage.code !== appLanguage) {
-    setActiveLanguage(appLanguage);
+  if (settingsLanguage && activeLanguage && activeLanguage.code !== settingsLanguage) {
+    setActiveLanguage(settingsLanguage);
   }
 
-  const route = state.location.type;
-  const Component = state.location.routesMap[route].component;
   return {
-    Component,
-    route,
+    route: selectors.getCurrentRoute(state),
   };
 };
 
-const App = ({ Component, route }) => (
+const App = ({ route }) => (
   <div className='app'>
-    <Navigation />
-    <Component />
-    {route !== ROUTE_LOGIN && <ActionBar />}
-    <Guide />
-    <Modal />
+    {route === ROUTE_LOGIN
+      ? <C.Login />
+      : [
+          <C.Navigation key='navigation' />,
+          <C.Editor key='editor' />,
+          <C.ActionBar key='actionbar' />,
+          <C.Guide key='guide' />,
+        ]
+    }
+    <C.Alert />
   </div>
 );
 
 App.propTypes = {
-  Component: PropTypes.func,
   route: PropTypes.string,
 };
 

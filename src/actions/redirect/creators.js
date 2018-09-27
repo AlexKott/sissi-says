@@ -1,21 +1,16 @@
-import * as routes from '@/router/routes';
 import { redirect } from 'redux-first-router';
 
-export function redirectToIndex() {
-  return redirect({
-    type: routes.ROUTE_INDEX,
-  });
-}
+import * as routes from '@/router';
 
-export function redirectToLogin() {
-  return redirect({
-    type: routes.ROUTE_LOGIN,
-  });
-}
+export const redirectToIndex = () => redirect({
+  type: routes.ROUTE_INDEX,
+});
 
-export function redirectToPage(pageId) {
-  return redirect({
-    type: routes.ROUTE_PAGE,
-    payload: { pageId },
-  });
-}
+export const redirectToLogin = () => redirect({
+  type: routes.ROUTE_LOGIN,
+});
+
+export const redirectToPage = pageId => redirect({
+  type: routes.ROUTE_PAGE,
+  payload: { pageId },
+});
