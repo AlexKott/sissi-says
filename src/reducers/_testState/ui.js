@@ -5,5 +5,8 @@ export default {
     type: 'success',
   },
   loading: 0,
-  modal: '',
+  modal: {
+    type: '',
+    data: {},
+  },
 };

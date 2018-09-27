@@ -8,7 +8,7 @@ import * as k from '@/constants/keywords';
 import * as selectors from '@/selectors';
 
 const mapStateToProps = (state) => ({
-  isGuideOpen: selectors.getModalType(state) === k.GUIDE,
+  isGuideOpen: selectors.getModalState(state).type === k.GUIDE,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -9,25 +9,25 @@ describe('reducers/ui/modal', () => {
 
   it('should set the given modal type', () => {
     const action = {
-      type: t.SET_MODAL_TYPE,
+      type: t.SET_MODAL,
       payload: {
         type: k.GUIDE,
       },
     };
     const state = reducer(mockState, action);
 
-    expect(state).toBe(k.GUIDE);
+    expect(state).toHaveProperty('type', k.GUIDE);
   });
 });
 
 describe('selectors/ui/modal', () => {
   const mockState = _testState;
 
-  describe('getModalType', () => {
+  describe('getModalState', () => {
     it('should return the modal type', () => {
-      const value = selectors.getModalType(mockState);
+      const value = selectors.getModalState(mockState);
 
-      expect(value).toBe('');
+      expect(value).toHaveProperty('type', '');
     });
   });
 });

@@ -10,13 +10,13 @@ import * as k from '@/constants/keywords';
 import * as tr from '@/translations';
 
 const mapStateToProps = (state) => {
-  const pageId = selectors.getActivePageId(state);
+  const { type, data } = selectors.getModalState(state);
   return {
-    isTypePickerOpen: selectors.getModalType(state) === k.TYPE_PICKER,
-    allowedTypes: pageId
-      ? selectors.getAllowedSectionTypesForPageId(pageId)(state)
+    isTypePickerOpen: type === k.TYPE_PICKER,
+    allowedTypes: (data && data.pageId)
+      ? selectors.getAllowedSectionTypesForPageId(data.pageId)(state)
       : selectors.getAllowedPageTypes(state),
-    pageId,
+    pageId: data.pageId,
   };
 };
 

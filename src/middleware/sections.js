@@ -14,7 +14,7 @@ export default ({ dispatch, getState }) => next => action => {
       const allowedSectionTypes = selectors.getAllowedSectionTypesForPageId(payload.pageId)(getState());
 
       if (allowedSectionTypes.length > 1) {
-        return dispatch(actions.openModal(k.TYPE_PICKER));
+        return dispatch(actions.openModal(k.TYPE_PICKER, { pageId: payload.pageId }));
       } else {
         _type = allowedSectionTypes[0].name;
       }

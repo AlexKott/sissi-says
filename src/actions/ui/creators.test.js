@@ -44,10 +44,12 @@ describe('actions/ui', () => {
 
   describe('openModal', () => {
     it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.openModal('image');
+      const action = actions.openModal('image', { label: 'photo' });
 
-      expect(action).toHaveProperty('type', t.SET_MODAL_TYPE);
+      expect(action).toHaveProperty('type', t.SET_MODAL);
       expect(action.payload).toHaveProperty('type', 'image');
+      expect(action.payload).toHaveProperty('data');
+      expect(action.payload.data).toHaveProperty('label', 'photo');
     });
   });
 
@@ -55,7 +57,7 @@ describe('actions/ui', () => {
     it('should dispatch an action with the correct type and payload', () => {
       const action = actions.closeModal();
 
-      expect(action).toHaveProperty('type', t.SET_MODAL_TYPE);
+      expect(action).toHaveProperty('type', t.SET_MODAL);
       expect(action.payload).toHaveProperty('type', null);
     });
   });
