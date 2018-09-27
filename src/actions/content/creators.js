@@ -3,12 +3,12 @@ import * as t from '@/actions/types';
 import * as s from '@/selectors';
 import { redirectToPage, redirectToIndex } from '@/actions/redirect/creators';
 
-export const addPage = (pageType = k.STANDARD) => ({
+export const addPage = pageType => ({
   type: t.ADD_PAGE,
   payload: { pageType },
 });
 
-export const addSection = (pageId, sectionType = k.STANDARD) => ({
+export const addSection = (pageId, sectionType) => ({
   type: t.ADD_SECTION,
   payload: { pageId, sectionType },
 });

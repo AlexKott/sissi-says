@@ -8,7 +8,18 @@ export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_PAGE) {
-    const _type = payload.pageType || k.STANDARD;
+    let _type = payload.pageType;
+
+    if (!payload.pageType) {
+      const allowedTypes = selectors.getAllowedPageTypes(getState());
+
+      if (allowedTypes.length > 1) {
+        return dispatch(actions.openModal(k.TYPE_PICKER));
+      } else {
+        _type = allowedTypes[0];
+      }
+    }
+
     const _id = getRandomString();
     const minSectionsPerPage = selectors.getMinAmountOfSectionsForPageType(_type)(getState());
 
