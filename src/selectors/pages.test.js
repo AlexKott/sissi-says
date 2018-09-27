@@ -76,4 +76,30 @@ describe('selectors/pages', () => {
       expect(result).not.toContain('gallery');
     });
   });
+
+  describe('getAllowedSectionTypesForPageId', () => {
+    it('should return an array with allowed section types', () => {
+      const result = selectors.getAllowedSectionTypesForPageId('def345')(mockState);
+
+      expect(result.length).toBe(1);
+      expect(result).toContain('photo');
+    });
+
+    it('should return an array with "standard" if no allowed types are specified', () => {
+      const result = selectors.getAllowedSectionTypesForPageId('abc123')(mockState);
+
+      expect(result.length).toBe(1);
+      expect(result).toContain('standard');
+    });
+
+    it('should return an array with all section types for single pages', () => {
+      mockState.structure.pages = undefined;
+      const result = selectors.getAllowedSectionTypesForPageId('abc123')(mockState);
+
+      expect(result.length).toBe(3);
+      expect(result).toContain('standard');
+      expect(result).toContain('photo');
+      expect(result).toContain('friends');
+    });
+  });
 });

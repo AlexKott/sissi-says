@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import * as k from '@/constants/keywords';
 import * as s from '@/reducers/selectors';
 import { getLocationPageId } from './location';
 
@@ -39,4 +40,20 @@ export const getAllowedPageTypes = createSelector(
     }
     return acc;
   }, [])
+);
+
+export const getAllowedSectionTypesForPageId = pageId => createSelector(
+  [
+    s.getPageById(pageId),
+    s.getStructurePages,
+    s.getStructureSections,
+  ],
+  ({ _type: pageType }, structurePages, structureSections) => {
+    if (structurePages) {
+      return structurePages[pageType] && structurePages[pageType].allowedItems
+        ? structurePages[pageType].allowedItems
+        : [k.STANDARD]
+    }
+    return Object.keys(structureSections);
+  }
 );
