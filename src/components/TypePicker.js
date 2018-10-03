@@ -5,8 +5,8 @@ import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions';
 import * as C from '@/components';
-import * as selectors from '@/selectors';
 import * as k from '@/constants/keywords';
+import * as selectors from '@/selectors';
 import * as tr from '@/translations';
 
 const mapStateToProps = (state) => {
@@ -26,10 +26,10 @@ const mapDispatchToProps = (dispatch) => ({
     if (pageId) {
       dispatch(actions.addSection(pageId, type));
     } else {
-      dispatch(actions.addPage(type))
+      dispatch(actions.addPage(type));
     }
     dispatch(actions.closeModal());
-  }
+  },
 });
 
 const TypePicker = ({
