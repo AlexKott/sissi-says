@@ -8,10 +8,19 @@ export default ({ dispatch, getState }) => next => action => {
   const { type, payload } = action;
 
   if (type === t.ADD_PAGE) {
-    const _type = payload.pageType || k.STANDARD;
-    const _id = getRandomString();
-    const minSectionsPerPage = selectors.getMinAmountOfSectionsForPageType(_type)(getState());
+    let _type = payload.pageType;
 
+    if (!payload.pageType) {
+      const allowedTypes = selectors.getAllowedPageTypes(getState());
+
+      if (allowedTypes.length > 1) {
+        return dispatch(actions.openModal(k.TYPE_PICKER));
+      } else {
+        _type = allowedTypes[0].name;
+      }
+    }
+
+    const _id = getRandomString();
     const newPage = {
       _id,
       _items: [],
@@ -38,6 +47,7 @@ export default ({ dispatch, getState }) => next => action => {
     payload.page = newPage;
     next(action);
 
+    const minSectionsPerPage = selectors.getMinAmountOfSectionsForPageType(_type)(getState());
     let currentAmountOfSections = selectors.getSectionIdsForPage(_id)(getState()).length;
 
     while (currentAmountOfSections < minSectionsPerPage) {

@@ -12,7 +12,7 @@ describe('middleware/pages', () => {
       dispatch: jest.fn(),
     };
     mockNext = jest.fn();
-    mockAction = { type: t.ADD_PAGE, payload: { pageType: null }};
+    mockAction = { type: t.ADD_PAGE, payload: { pageType: 'standard' }};
   });
 
   it('should forward the action if the type is not ADD_PAGE', () => {
@@ -44,6 +44,5 @@ describe('middleware/pages', () => {
     const testedAction = mockStore.dispatch.mock.calls;
     expect(testedAction).toHaveLength(1);
     expect(testedAction[0][0].payload).toHaveProperty('pageId');
-    expect(testedAction[0][0].payload).toHaveProperty('sectionType', 'standard');
   });
 });

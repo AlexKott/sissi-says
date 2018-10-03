@@ -66,4 +66,40 @@ describe('selectors/pages', () => {
       });
     });
   });
+
+  describe('getAllowedPageTypes', () => {
+    it('should return an array with allowed page types', () => {
+      const result = selectors.getAllowedPageTypes(mockState);
+
+      expect(result).toHaveLength(2);
+      expect(result[0]).toHaveProperty('name', 'standard');
+      expect(result[1]).toHaveProperty('name', 'team');
+    });
+  });
+
+  describe('getAllowedSectionTypesForPageId', () => {
+    it('should return an array with allowed section types', () => {
+      const result = selectors.getAllowedSectionTypesForPageId('def345')(mockState);
+
+      expect(result).toHaveLength(1);
+      expect(result[0]).toHaveProperty('name', 'photo');
+    });
+
+    it('should return an array with "standard" if no allowed types are specified', () => {
+      const result = selectors.getAllowedSectionTypesForPageId('abc123')(mockState);
+
+      expect(result).toHaveLength(1);
+      expect(result[0]).toHaveProperty('name', 'standard');
+    });
+
+    it('should return an array with all section types for single pages', () => {
+      mockState.structure.pages = undefined;
+      const result = selectors.getAllowedSectionTypesForPageId('abc123')(mockState);
+
+      expect(result).toHaveLength(3);
+      expect(result[0]).toHaveProperty('name', 'standard');
+      expect(result[1]).toHaveProperty('name', 'photo');
+      expect(result[2]).toHaveProperty('name', 'friends');
+    });
+  });
 });

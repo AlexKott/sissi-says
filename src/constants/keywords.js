@@ -26,6 +26,10 @@ export const ERROR = 'error';
 export const LOADING = 'loading';
 export const SUCCESS = 'success';
 
+/* MODAL TYPES */
+export const GUIDE = 'guide';
+export const TYPE_PICKER = 'typePicker';
+
 /* REQUEST TYPES */
 export const GET = 'get';
 export const POST = 'post';

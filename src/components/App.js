@@ -29,6 +29,7 @@ const App = ({ route }) => (
           <C.Editor key='editor' />,
           <C.ActionBar key='actionbar' />,
           <C.Guide key='guide' />,
+          <C.TypePicker key='typePicker' />,
         ]
     }
     <C.Alert />
