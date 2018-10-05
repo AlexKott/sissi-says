@@ -1,7 +1,7 @@
 {
   "name": "sissi-says",
   "description": "The CMS for sissi (simple static sites)",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "license": "GPL-3.0-or-later",
   "repository": "square-a/sissi-says",
   "author": "A Square",

@@ -1,6 +1,11 @@
-/src
 /api
 /config
+/lib/cms/images
+/src
 /scripts
 /public
-/lib/cms/images
+/.eslintrc
+/config.json
+/content.json
+/jest.config.js
+/structure.json
