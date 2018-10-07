@@ -5,6 +5,16 @@ import { execFile } from 'child_process';
 const HASH_FILE_NAME = '.sthash';
 const hashPath = path.join(process.cwd(), HASH_FILE_NAME);
 
+let movesBinPath;
+const pkgPath = path.join(__dirname, '..');
+const movesModule = 'node_modules/.bin/sissi-moves';
+
+if (fs.existsSync(path.join(pkgPath, movesModule))) {
+  movesBinPath = path.join(pkgPath, movesModule);
+} else {
+  movesBinPath = path.join(pkgPath, '..', movesModule);
+}
+
 export default function migrateContent() {
   return new Promise((resolve, reject) => {
     let prevHash = '';
@@ -12,7 +22,7 @@ export default function migrateContent() {
       prevHash = fs.readFileSync(hashPath, 'utf-8').trim();
     } catch(e) {}
 
-    execFile(path.join(__dirname, '../node_modules/.bin/sissi-moves'), [
+    execFile(movesBinPath, [
       'hash',
     ], (error, stdout, stderr) => {
       if (error || stderr) {
@@ -24,7 +34,7 @@ export default function migrateContent() {
         return resolve();
       }
 
-      execFile(path.join(__dirname, '../node_modules/.bin/sissi-moves'), [
+      execFile(movesBinPath, [
         'migrate',
       ], (error, stdout, stderr) => {
         if (error || stderr) {
