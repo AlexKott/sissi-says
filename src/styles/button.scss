@@ -1,34 +1,36 @@
 .button {
   display: flex;
-  align-items: center;
   justify-content: center;
 
-  height: $button-height;
-  width: $button-width;
-  padding: 0;
-  border-radius: 12px;
-
-  background-color: $color-background-light;
-  color: $color-main-dark;
+  min-height: $button-height;
+  min-width: $button-width;
+  border-radius: $border-radius;
+  border: 1.5px solid;
 
   font-size: $font-size-button;
-  text-decoration: none;
-  text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
   hyphens: auto;
 
   cursor: pointer;
+  transition: border-color .1s;
+
+  @include invert-on-hover($color-main-medium, $color-background-light);
 
   &:hover {
-    color: $color-main-dark;
-    background-color: $color-main-light;
+    border-color: $color-main-medium;
   }
 }
 
 .button--cta {
+  border: none;
   color: $color-background-light;
-  background-color: $color-main-dark;
+  background-color: $color-main-medium;
+  transition: color .1s, background-color .1s;
+
+  &:hover {
+    background-color: $color-main-dark;
+  }
 }
 
 .guide-button {
