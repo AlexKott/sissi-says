@@ -29,8 +29,8 @@ const NavItem = ({
         >
           <NavLink
             to={isActive ? backLinkArray : linkArray}
-            className='nav__element'
-            activeClassName='nav__element--selected'
+            className='navbar__item'
+            activeClassName='navbar__item--selected'
           >{title}</NavLink>
         </div>
         {provided.placeholder}

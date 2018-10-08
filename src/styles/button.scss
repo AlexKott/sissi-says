@@ -1,6 +1,4 @@
 .button {
-  @include box-shadow;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,6 +6,7 @@
   height: $button-height;
   width: $button-width;
   padding: 0;
+  border-radius: 12px;
 
   background-color: $color-background-light;
   color: $color-main-dark;
@@ -30,16 +29,6 @@
 .button--cta {
   color: $color-background-light;
   background-color: $color-main-dark;
-}
-
-.button--nav {
-  width: calc(100% - #{$gap-double});
-  margin: 0 $gap-normal $gap-normal $gap-normal;
-
-  &:hover {
-    color: $color-main-dark !important;
-    background-color: $color-background-light !important;
-  }
 }
 
 .guide-button {

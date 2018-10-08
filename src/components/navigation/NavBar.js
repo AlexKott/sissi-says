@@ -11,7 +11,11 @@ const NavBar = ({
   <DragDropContext onDragEnd={onDragEnd}>
     <Droppable droppableId={type} type={type}>
       {(provided) => (
-        <nav className={`nav nav--level-${level}`} ref={provided.innerRef} {...provided.droppableProps}>
+        <nav
+          className={`navbar navbar--level-${level}`}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
           {children}
         </nav>
       )}

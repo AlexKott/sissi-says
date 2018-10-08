@@ -14,3 +14,14 @@
   animation-duration: .4s;
   animation-name: wipe#{$width};
 }
+
+@mixin invert-on-hover($color-front, $color-back) {
+  color: $color-front;
+  background-color: $color-back;
+  transition: color .1s, background-color .1s;
+
+  &:hover {
+    color: $color-back;
+    background-color: $color-front;
+  }
+}
