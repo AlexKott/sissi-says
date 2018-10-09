@@ -35,23 +35,7 @@
   padding: 2px;
   cursor: pointer;
 
-  &.placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $color-field-placeholder;
-    background-color: white;
-    border: 1px dashed;
-    text-align: center;
-    font-size: $font-size-small;
-
-    &:hover {
-      color: $color-main-dark;
-      border: 1px dashed;
-    }
-  }
-
-  &:hover {
+  &:hover:not(.placeholder) {
     border: 2px solid $color-background-light;
     padding: 0;
   }

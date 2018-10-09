@@ -7,18 +7,18 @@ $color-main-light: rgb(208, 228, 151);
 $color-background-light: rgb(253, 253, 242);
 $color-background-transparent: rgba(247, 255, 221, 0.9);
 
-$color-black: rgb(127, 77, 56);
+//$color-black: rgb(127, 77, 56);
+$color-black: $color-main-dark;
 $color-white: rgb(248, 255, 248);
 $color-true-white: rgb(255, 255, 255);
-$color-light-grey: rgb(230, 230, 230);
-$color-medium-grey: rgb(180, 180, 180);
+$color-light-grey: rgb(190, 190, 190);
 
 $color-error: rgb(158, 14, 19);
 $color-success: $color-main-light;
 
 $color-field-background: $color-true-white;
 $color-field-border: $color-light-grey;
-$color-field-placeholder: $color-medium-grey;
+$color-field-placeholder: $color-light-grey;
 
 /* MEASURES */
 
@@ -42,12 +42,23 @@ $image-input-height: $element-height-double * 2;
 /* FONT SIZE */
 
 $font-size-title: 32px;
-$font-size-normal: 18px;
+$font-size-normal: 16px;
 $font-size-small: 16px;
-$font-size-button: 14px; // only used with text-transform: uppercase
+$font-size-button: 15px; // only used with text-transform: uppercase
 
 /* Z-INDEX */
 
 $z-index-alerts: 6;
 $z-index-popups: 5;
 $z-index-actionbar: 4;
+
+/* ICONS */
+
+$icon-image: "\e90d";
+$icon-back: "\e967";
+$icon-trash: "\e9ad";
+$icon-earth: "\e9ca";
+$icon-plus: "\ea0a";
+$icon-cross: "\ea0f";
+$icon-checkmark: "\ea10";
+$icon-round-arrows: "\ea2e";

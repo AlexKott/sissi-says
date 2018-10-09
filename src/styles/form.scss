@@ -1,112 +1,111 @@
 .form {
   display: flex;
   flex-direction: column;
-  min-width: 360px;
-  max-width: 600px;
+
+  height: 100%;
+  width: 100%;
+  padding: $gap-normal;
+  border-radius: $border-radius;
+  overflow-y: scroll;
+
+  background-color: $color-background-light;
 }
 
 .form__element {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: $gap-normal;
-}
-
-.form__element--markdown {
   flex-direction: column;
+  margin: 0 $button-width $gap-double 0;
 }
 
 .form__label {
-  width: 40%;
-  margin: $gap-tiny $gap-half 0 0;
+  margin-bottom: $gap-tiny;
 }
 
 .form__field {
-  width: 60%;
   height: $input-height;
-  padding: 0 $gap-tiny;
-  border: 1px solid $color-field-border;
+  width: 60%;
+  padding: 0 $gap-half;
+  border: 1px solid $color-main-light;
+  border-radius: $border-radius;
 
   background-color: $color-field-background;
   font-size: $font-size-small;
 
   &::placeholder {
+    opacity: 1;
     color: $color-field-placeholder;
-  }
-
-  &--textarea {
-    height: $element-height-double;
-    padding: $gap-tiny;
-    resize: vertical;
   }
 }
 
-.form__buttons {
-  display: flex;
-  justify-content: flex-end;
-
-  .button {
-    margin-left: $gap-half;
-  }
+.form__field--textarea {
+  height: $element-height-double;
+  padding: $gap-tiny $gap-half $gap-half;
+  resize: vertical;
 }
 
 .form__field--image {
   position: relative;
-
   height: $image-input-height;
-  min-width: 120px;
-  padding: 0;
+  width: $image-input-height;
   border: none;
-  overflow: hidden;
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  line-height: $image-input-height;
-  text-align: center;
-
   cursor: pointer;
-
-  &.placeholder {
-    color: $color-field-placeholder;
-    border: 1px dashed;
-
-    &:hover {
-      color: $color-main-dark;
-
-      &::after {
-        content: '';
-        height: 0;
-      }
-    }
-  }
 
   &::after {
     content: '';
 
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-
-    display: block;
-    height: 0;
-    width: 100%;
+    bottom: 0;
+    right: 0;
 
     background-color: $color-white;
-    opacity: 0.8;
 
-    transition: height .2s;
+    text-align: center;
+    font-family: 'Icon';
+    font-size: 60px;
+    line-height: $image-input-height;
+
+    opacity: 0;
+    transition: opacity .1s;
   }
 
-  &:hover {
-    &::after {
-      content: 'Change image';
-      height: 100%;
-    }
+  &:hover::after {
+    content: $icon-round-arrows;
+    opacity: 0.8;
   }
 }
 
-.form__list {
+.form__element--markdown {
+  .editor-toolbar {
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+
+    background-color: $color-main-light;
+
+    .fa {
+      color: $color-main-dark;
+    }
+  }
+
+  .CodeMirror {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border: 1px solid $color-main-light;
+  }
+
+  .CodeMirror-placeholder {
+    color: $color-field-placeholder;
+    opacity: 1;
+  }
+}
+
+.form__element--list {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -128,5 +127,46 @@
 
   & .button {
     align-self: flex-end;
+  }
+}
+
+.form__buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  .button {
+    margin-left: $gap-half;
+  }
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px dashed $color-main-light;
+
+  color: $color-field-placeholder;
+  background-color: $color-true-white;
+
+  text-align: center;
+
+  transition: color .1s;
+
+  &:hover {
+    color: $color-main-dark;
+    border-color: $color-main-dark;
+  }
+
+  &::before {
+    content: $icon-image;
+    font-family: 'Icon';
+    font-size: 40px;
+  }
+
+  &::after {
+    content: '' !important;
+    height: 0;
   }
 }
