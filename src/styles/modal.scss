@@ -80,16 +80,16 @@
 .modal__message {
   margin: 0;
   line-height: 1.4;
-  color: $color-black;
+  color: $color-main-dark;
 }
 
 .modal__button {
   height: 40px;
   width: 40%;
   margin: 0;
-  color: $color-background-light;
+  color: $color-background;
   background-color: $color-main-dark;
-  font-size: $font-size-small;
+  font-size: $font-size-normal;
   cursor: pointer;
 
   &--loading {

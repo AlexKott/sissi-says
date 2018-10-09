@@ -9,7 +9,7 @@
 }
 
 .navbar__button {
-  width: calc(100% - #{$gap-double});
+  width: calc(100% - (2 * #{$gap-normal}));
   margin: 0 $gap-normal $gap-normal $gap-normal;
 }
 
@@ -23,9 +23,9 @@
   overflow: hidden;
 
   color: $color-main-dark;
-  background-color: $color-background-light;
+  background-color: $color-background;
 
-  font-size: $font-size-small;
+  font-size: $font-size-normal;
   line-height: 2.5;
   text-decoration: none;
   white-space: nowrap;
@@ -39,24 +39,23 @@
   margin-right: -10px;
 
   &::after {
-    content: '\002799';
+    content: $icon-back;
 
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    transform: rotate(180deg);
 
     background-color: inherit;
 
     text-align: center;
-    font-size: 60px;
-    line-height: 0.95;
+    font-family: 'Icon';
+    font-size: 40px;
+    line-height: $nav-item-height;
 
     opacity: 0;
     transition: opacity .1s;
-    filter: blur(0); // fixes shaking issue in firefox
   }
 
   &:hover::after {
@@ -70,13 +69,13 @@
   .navbar__item {
     &:hover,
     &--selected {
-      color: $color-background-light;
+      color: $color-background;
       background-color: $color-main-medium;
     }
   }
 
   .navbar__button {
-    @include invert-on-hover($color-background-light, $color-main-dark);
+    @include invert-on-hover($color-background, $color-main-dark);
   }
 }
 
@@ -91,6 +90,6 @@
   }
 
   .navbar__button {
-    @include invert-on-hover($color-background-light, $color-main-medium);
+    @include invert-on-hover($color-background, $color-main-medium);
   }
 }

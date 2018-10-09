@@ -1,15 +1,15 @@
 .action-bar {
   position: fixed;
-  top: $gap-normal;
-  right: $gap-half;
+  top: 0;
+  right: 0;
   z-index: $z-index-actionbar;
 
   display: flex;
   flex-direction: column;
 
-  height: calc(100% - #{$gap-double});
-  width: $button-width;
-  padding: $gap-half 0;
+  height: 100%;
+  width: $button-width + $gap-normal;
+  padding: $gap-wide $gap-half;
 
   .button {
     margin-top: $gap-half;

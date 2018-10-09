@@ -39,7 +39,7 @@
 
 .guide__content {
   h3, h4 {
-    margin: $gap-double 0 0 0;
+    margin: $gap-wide 0 0 0;
     font-size: 22px;
   }
 
@@ -59,12 +59,12 @@
   }
 
   code {
-    background-color: $color-light-grey;
+    background-color: $color-grey;
   }
 
   blockquote {
     margin-left: 0;
-    border-left: $gap-half solid $color-light-grey;
+    border-left: $gap-half solid $color-grey;
     padding-left: $gap-normal;
 
     ul {
@@ -80,7 +80,6 @@
 }
 
 .guide__main-list {
-  margin: $gap-double 0;
   line-height: 1.4;
 
   ul {
@@ -98,7 +97,7 @@
 
 .guide__to-top {
   float: right;
-  margin-right: $gap-double;
+  margin-right: $gap-normal;
   color: $color-main-dark;
   text-decoration: none;
 }
@@ -106,7 +105,7 @@
 .guide__footer {
   margin: 0 (-$gap-normal) (-$gap-normal);
   padding: $gap-half $gap-normal;
-  color: $color-background-light;
+  color: $color-background;
   background-color: $color-main-dark;
   font-size: $font-size-button;
 

@@ -7,7 +7,7 @@
   padding: 4px;
   border-radius: 0;
   border: none;
-  background-color: $color-light-grey;
+  background-color: $color-grey;
 
   &::before,
   &::after {
@@ -17,7 +17,7 @@
 
 .CodeMirror {
   border-radius: 0;
-  border: 1px solid $color-light-grey;
+  border: 1px solid $color-grey;
 }
 
 .CodeMirror .CodeMirror-code {

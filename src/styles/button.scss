@@ -15,7 +15,7 @@
   cursor: pointer;
   transition: border-color .1s;
 
-  @include invert-on-hover($color-main-medium, $color-background-light);
+  @include invert-on-hover($color-main-medium, $color-background);
 
   &:hover {
     border-color: $color-main-medium;
@@ -24,7 +24,7 @@
 
 .button--cta {
   border: none;
-  color: $color-background-light;
+  color: $color-background;
   background-color: $color-main-medium;
   transition: color .1s, background-color .1s;
 

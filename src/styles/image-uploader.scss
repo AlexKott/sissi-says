@@ -19,7 +19,7 @@
   margin: auto;
   padding: 20px;
   transform: translateY(30%);
-  background-color: $color-background-light;
+  background-color: $color-background;
   border: 20px solid $color-main-dark;
 
   &.popup__box--guide {
@@ -36,7 +36,7 @@
   cursor: pointer;
 
   &:hover:not(.placeholder) {
-    border: 2px solid $color-background-light;
+    border: 2px solid $color-background;
     padding: 0;
   }
 }

@@ -8,7 +8,7 @@
   border-radius: $border-radius;
   overflow-y: scroll;
 
-  background-color: $color-background-light;
+  background-color: $color-background;
 
   // firefox fix for padding-bottom
   & > :last-child {
@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  margin: 0 $button-width $gap-double 0;
+  margin: 0 $button-width $gap-wide 0;
 }
 
 .form__label {
@@ -29,14 +29,14 @@
 }
 
 .form__field {
-  height: $input-height;
+  height: $field-height;
   width: 60%;
   padding: 0 $gap-half;
   border: 1px solid $color-main-light;
   border-radius: $border-radius;
 
   background-color: $color-field-background;
-  font-size: $font-size-small;
+  font-size: $font-size-normal;
 
   &::placeholder {
     opacity: 1;
@@ -45,15 +45,15 @@
 }
 
 .form__field--textarea {
-  height: $element-height-double;
+  height: $field-height-textarea;
   padding: $gap-tiny $gap-half $gap-half;
   resize: vertical;
 }
 
 .form__field--image {
   position: relative;
-  height: $image-input-height;
-  width: $image-input-height;
+  height: $field-height-image;
+  width: $field-height-image;
   border: none;
 
   background-size: cover;
@@ -76,7 +76,7 @@
     text-align: center;
     font-family: 'Icon';
     font-size: 60px;
-    line-height: $image-input-height;
+    line-height: $field-height-image;
 
     opacity: 0;
     transition: opacity .1s;
@@ -145,7 +145,7 @@
   border: 1px dashed $color-main-light;
 
   color: $color-field-placeholder;
-  background-color: $color-true-white;
+  background-color: $color-white;
 
   text-align: center;
 
