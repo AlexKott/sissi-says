@@ -3,3 +3,10 @@
 /config
 /scripts
 /public
+
+.sissi
+.sthash
+/config.json
+/content.json
+/content.json.backup
+/structure.json
