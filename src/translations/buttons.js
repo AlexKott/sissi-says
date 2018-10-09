@@ -1,4 +1,5 @@
 export const ADD = 'translations/buttons/add';
+export const ADD_DATA = 'translations/buttons/add_data';
 export const DELETE = 'translations/buttons/delete';
 export const LOGIN = 'translations/buttons/login';
 export const LOGOUT = 'translations/buttons/logout';
@@ -9,30 +10,36 @@ export const SAVE = 'translations/buttons/save';
 export default {
   [ADD]: [
     "Add",
-    "Hinzufügen"
+    "Hinzufügen",
+  ],
+  [ADD_DATA]: [
+    /* eslint-disable no-template-curly-in-string */
+    "Add ${data}",
+    "${data} hinzufügen",
+    /* eslint-enable no-template-curly-in-string */
   ],
   [DELETE]: [
     "Delete",
-    "Löschen"
+    "Löschen",
   ],
   [LOGIN]: [
     "Login",
-    "Anmelden"
+    "Anmelden",
   ],
   [LOGOUT]: [
     "Logout",
-    "Abmelden"
+    "Abmelden",
   ],
   [OK]: [
     "OK",
-    "OK"
+    "OK",
   ],
   [PUBLISH]: [
     "Publish",
-    "Veröffentlichen"
+    "Veröffentlichen",
   ],
   [SAVE]: [
     "Save",
-    "Speichern"
+    "Speichern",
   ],
 };

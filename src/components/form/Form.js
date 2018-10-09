@@ -24,15 +24,15 @@ const Form = ({
     {fieldNames.map(fieldName => (
       <C.FormFieldBuilder key={fieldName} fieldName={fieldName} />
     ))}
-    <div className='form__buttons'>
+    <div className='form__element form__element--buttons'>
+      <C.Button onClick={onSave} classes='button--cta'>
+        <Translate id={tr.SAVE} />
+      </C.Button>
       {canDelete && (
         <C.Button onClick={onDelete}>
           <Translate id={tr.DELETE} />
         </C.Button>
       )}
-      <C.Button onClick={onSave} classes='button--cta'>
-        <Translate id={tr.SAVE} />
-      </C.Button>
     </div>
   </form>
 );
