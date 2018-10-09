@@ -8,13 +8,10 @@
   flex-direction: column;
 
   height: calc(100% - #{$gap-double});
+  width: $button-width;
   padding: $gap-half 0;
 
   .button {
     margin-top: $gap-half;
-
-    &:first-child {
-      margin-top: 0;
-    }
   }
 }
