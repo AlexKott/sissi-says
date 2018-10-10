@@ -60,7 +60,7 @@ class ImagePicker extends React.Component {
         <div
           key={image}
           style={{ backgroundImage: `url('/images/${image}')` }}
-          className='image-popup__image'
+          className='modal__image'
           onClick={() => onSelectImage(image)}
         />
       ))
@@ -68,7 +68,7 @@ class ImagePicker extends React.Component {
       <div
         key='file-browser'
         id='file-browser-button'
-        className='image-popup__image placeholder'
+        className='modal__image placeholder'
         onClick={this.openFileBrowser}
       >
         <Translate id={tr.IMAGE_UPLOAD} />

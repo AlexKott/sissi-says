@@ -7,6 +7,7 @@ html, body {
   padding: 0;
   font-family: 'Assistant', sans-serif;
   font-size: $font-size-normal;
+  color: $color-main-dark;
 }
 
 h1,
@@ -38,8 +39,4 @@ button {
 .app {
   display: flex;
   height: 100vh;
-}
-
-.hidden {
-  display: none !important;
 }

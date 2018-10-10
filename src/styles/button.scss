@@ -1,62 +1,34 @@
 .button {
-  @include box-shadow;
-
   display: flex;
-  align-items: center;
   justify-content: center;
 
-  height: $button-height;
-  width: $button-width;
-  padding: 0;
-
-  background-color: $color-background-light;
-  color: $color-main-dark;
+  min-height: $button-height;
+  min-width: $button-width;
+  border-radius: $border-radius;
+  border: 1.5px solid;
 
   font-size: $font-size-button;
-  text-decoration: none;
-  text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
   hyphens: auto;
 
   cursor: pointer;
+  transition: border-color .1s;
+
+  @include invert-on-hover($color-main-medium, $color-background);
 
   &:hover {
-    color: $color-main-dark;
-    background-color: $color-main-light;
+    border-color: $color-main-medium;
   }
 }
 
 .button--cta {
-  color: $color-background-light;
-  background-color: $color-main-dark;
-}
-
-.button--nav {
-  width: calc(100% - #{$gap-double});
-  margin: 0 $gap-normal $gap-normal $gap-normal;
+  border: none;
+  color: $color-background;
+  background-color: $color-main-medium;
+  transition: color .1s, background-color .1s;
 
   &:hover {
-    color: $color-main-dark !important;
-    background-color: $color-background-light !important;
-  }
-}
-
-.guide-button {
-  height: $button-width;
-  width: $button-width;
-  margin-top: auto;
-  padding: $gap-tiny $gap-tiny 0 $gap-tiny;
-
-  background-color: transparent;
-  cursor: pointer;
-
-  &:hover {
-    padding: 0;
-  }
-
-  svg {
-    height: 100%;
-    width: 100%;
+    background-color: $color-main-dark;
   }
 }

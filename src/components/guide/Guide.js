@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const Guide = ({ isGuideOpen, onCloseGuide }) => isGuideOpen && (
-  <C.Modal onClose={onCloseGuide} boxClasses='popup__box--guide'>
+  <C.Modal onClose={onCloseGuide} boxClasses='modal__box modal__box--guide'>
     <C.SissiSvg className='guide__sissi' />
     <C.GuideContent />
   </C.Modal>

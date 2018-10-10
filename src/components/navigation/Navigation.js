@@ -49,7 +49,7 @@ const Navigation = ({
       />
     ))}
     {pageProps.canAdd && (
-      <C.Button onClick={onAddPage} classes='button--nav'>
+      <C.Button onClick={onAddPage} classes='navbar__button'>
         <Translate id={tr.ADD} />
       </C.Button>
     )}
@@ -70,7 +70,7 @@ const Navigation = ({
       />
     ))}
     {sectionProps.canAdd && (
-      <C.Button onClick={() => onAddSection(sectionProps.pageId)} classes='button--nav'>
+      <C.Button onClick={() => onAddSection(sectionProps.pageId)} classes='navbar__button'>
         <Translate id={tr.ADD} />
       </C.Button>
     )}

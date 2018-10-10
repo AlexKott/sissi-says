@@ -4,8 +4,12 @@
 /src
 /scripts
 /public
+
 /.eslintrc
+/.sissi
+/.sthash
 /config.json
 /content.json
+/content.json.backup
 /jest.config.js
 /structure.json

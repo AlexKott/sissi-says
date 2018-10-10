@@ -1,132 +1,113 @@
 .form {
   display: flex;
   flex-direction: column;
-  min-width: 360px;
-  max-width: 600px;
+
+  height: 100%;
+  width: 100%;
+  padding: $gap-normal $gap-normal 0;
+  border-radius: $border-radius;
+  overflow-y: auto;
+
+  background-color: $color-background;
+
+  // firefox fix for padding-bottom
+  & > :last-child {
+    margin-bottom: 0;
+    padding-bottom: $gap-normal;
+  }
 }
 
 .form__element {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: $gap-normal;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin: 0 $button-width $gap-wide 0;
 }
 
-.form__element--markdown {
-  flex-direction: column;
+.form__element--buttons {
+  flex-direction: row;
+
+  .button {
+    margin-right: $gap-half;
+  }
 }
 
 .form__label {
-  width: 40%;
-  margin: $gap-tiny $gap-half 0 0;
+  margin-bottom: $gap-tiny;
 }
 
 .form__field {
+  height: $field-height;
   width: 60%;
-  height: $input-height;
-  padding: 0 $gap-tiny;
-  border: 1px solid $color-field-border;
+  padding: 0 $gap-half;
+  border: 1px solid $color-main-light;
+  border-radius: $border-radius;
 
   background-color: $color-field-background;
-  font-size: $font-size-small;
+  font-size: $font-size-normal;
 
   &::placeholder {
+    opacity: 1;
     color: $color-field-placeholder;
-  }
-
-  &--textarea {
-    height: $element-height-double;
-    padding: $gap-tiny;
-    resize: vertical;
   }
 }
 
-.form__buttons {
-  display: flex;
-  justify-content: flex-end;
-
-  .button {
-    margin-left: $gap-half;
-  }
+.form__field--textarea {
+  height: $field-height-textarea;
+  padding: $gap-tiny $gap-half $gap-half;
+  resize: vertical;
 }
 
 .form__field--image {
   position: relative;
-
-  height: $image-input-height;
-  min-width: 120px;
-  padding: 0;
+  height: $field-height-image;
+  width: $field-height-image;
   border: none;
-  overflow: hidden;
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  line-height: $image-input-height;
-  text-align: center;
-
   cursor: pointer;
-
-  &.placeholder {
-    color: $color-field-placeholder;
-    border: 1px dashed;
-
-    &:hover {
-      color: $color-main-dark;
-
-      &::after {
-        content: '';
-        height: 0;
-      }
-    }
-  }
 
   &::after {
     content: '';
 
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-
-    display: block;
-    height: 0;
-    width: 100%;
+    bottom: 0;
+    right: 0;
 
     background-color: $color-white;
-    opacity: 0.8;
 
-    transition: height .2s;
+    text-align: center;
+    font-family: 'Icon';
+    font-size: 60px;
+    line-height: $field-height-image;
+
+    opacity: 0;
+    transition: opacity .1s;
   }
 
-  &:hover {
-    &::after {
-      content: 'Change image';
-      height: 100%;
-    }
+  &:hover:not(.placeholder)::after {
+    content: $icon-round-arrows;
+    opacity: 0.8;
   }
 }
 
-.form__list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+.form__list-item {
+  margin-bottom: $gap-normal;
+  padding: $gap-normal;
+  border: 1px dashed $color-main-light;
+  border-radius: $border-radius;
 
-  & > .form__label {
-    align-self: flex-start;
-    width: 25%;
-    margin-bottom: -$gap-normal;
+  .form__element {
+    margin-right: 0;
   }
 
-  & .list-item {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    margin-bottom: $gap-normal;
-    padding: $gap-normal;
-    border: 1px dashed $color-main-light;
-  }
-
-  & .button {
-    align-self: flex-end;
+  :last-child,
+  &:last-child {
+    margin-bottom: 0;
   }
 }

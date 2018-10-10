@@ -24,12 +24,12 @@ const Alert = ({
   type,
   onConfirm,
 }) => !!type && (
-  <aside className='modal'>
-    <article className={`modal__box modal__box--${type}`}>
+  <aside className='modal modal--alert'>
+    <article className={`modal__box modal__box--alert ${type}`}>
       <h2 className='modal__title'><Translate id={title} /></h2>
       <p className='modal__message'><Translate id={message} data={trData} /></p>
       {allowConfirm && (
-        <C.Button onClick={onConfirm} classes={`modal__button modal__button--${type}`}>
+        <C.Button onClick={onConfirm}>
           <Translate id={tr.OK} />
         </C.Button>
       )}

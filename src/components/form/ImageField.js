@@ -33,7 +33,7 @@ class ImageField extends React.Component {
 
     return ([
       this.state.isImagePickerActive &&
-      <C.Modal key='image-popup' onClose={this.onToggleImagePicker}>
+      <C.Modal key='image-popup' onClose={this.onToggleImagePicker} boxClasses='modal__box--image-picker'>
         <C.ImagePicker onSelectImage={this.onSelectImage} />
       </C.Modal>
       ,

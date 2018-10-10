@@ -16,7 +16,6 @@ const FormFieldBuilder = ({ field, prefix }) => {
   let type = '';
   let options = [];
   let fieldClassName = '';
-  let elementClassName = '';
 
   switch(field.type) {
     case k.LIST:
@@ -48,7 +47,6 @@ const FormFieldBuilder = ({ field, prefix }) => {
 
     case k.MARKDOWN:
       component = C.MarkdownEditor;
-      elementClassName = 'form__element--markdown';
       break;
 
     case k.STRING:
@@ -67,7 +65,7 @@ const FormFieldBuilder = ({ field, prefix }) => {
   }
 
   return (
-    <label className={`form__element ${elementClassName}`}>
+    <label className='form__element'>
       <span className='form__label'>{field.label}:</span>
       <Field
         className={`form__field ${fieldClassName}`}

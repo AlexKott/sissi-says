@@ -1,20 +1,43 @@
-.action-bar {
+.actionbar {
   position: fixed;
-  top: $gap-normal;
-  right: $gap-half;
+  top: 0;
+  right: 0;
   z-index: $z-index-actionbar;
 
   display: flex;
   flex-direction: column;
 
-  height: calc(100% - #{$gap-double});
-  padding: $gap-half 0;
+  height: 100%;
+  width: $button-width + $gap-normal;
+  padding: $gap-wide $gap-half;
 
   .button {
     margin-top: $gap-half;
-
-    &:first-child {
-      margin-top: 0;
-    }
   }
+}
+
+.actionbar__guide-button {
+  height: $button-width;
+  width: $button-width;
+  margin-top: auto;
+  padding: $gap-tiny $gap-tiny 0 $gap-tiny;
+
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    padding: 0;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.actionbar__guide-teaser {
+  position: fixed;
+  bottom: $button-width + $gap-normal;
+  right: $gap-normal;
+  width: $button-width;
 }

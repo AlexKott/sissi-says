@@ -34,10 +34,10 @@ const FieldList = ({
   onAdd,
   onDelete,
 }) => (
-  <section className='form__list'>
+  <section className='form__element'>
     <label className='form__label'>{listLabel}</label>
     {fields.map((f, index) => (
-      <article key={index} className='list-item'>
+      <article key={index} className='form__list-item'>
         {fieldNames.map(fieldName =>
           <C.FormFieldBuilder
             key={fieldName}
@@ -53,8 +53,8 @@ const FieldList = ({
       </article>
     ))}
     {canAdd && (
-      <article className='list-item'>
-        <C.Button onClick={onAdd}>+ {itemLabel}</C.Button>
+      <article className='form__list-item'>
+        <C.Button onClick={onAdd}><Translate id={tr.ADD_DATA} data={{ data: itemLabel }} /></C.Button>
       </article>
     )}
   </section>

@@ -26,7 +26,7 @@ const ActionBar = ({
   onLogout,
   onPublish,
 }) => (
-  <aside className='action-bar'>
+  <aside className='actionbar'>
     <C.Button classes='button--cta' onClick={onPublish} >
       <Translate id={tr.PUBLISH} />
     </C.Button>
@@ -36,8 +36,8 @@ const ActionBar = ({
     </C.Button>
 
     {isIndex && (
-      <p className='guide__teaser'>
-        <span className='guide__teaser-rotator'><Translate id={tr.GUIDE_TEASER} /></span>
+      <p className='actionbar__guide-teaser'>
+        <span className='text-rotate'><Translate id={tr.GUIDE_TEASER} /></span>
       </p>
     )}
     <C.GuideButton />

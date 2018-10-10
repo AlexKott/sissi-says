@@ -1,16 +1,10 @@
-@mixin box-shadow {
-  box-shadow: 2px 2px 10px -4px $color-black;
-}
+@mixin invert-on-hover($color-front, $color-back) {
+  color: $color-front;
+  background-color: $color-back;
+  transition: color .1s, background-color .1s;
 
-@mixin wipe-animation($color, $width) {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 0;
-  background-color: $color;
-  animation-duration: .4s;
-  animation-name: wipe#{$width};
+  &:hover {
+    color: $color-back;
+    background-color: $color-front;
+  }
 }
