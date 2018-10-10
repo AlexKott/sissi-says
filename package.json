@@ -1,7 +1,7 @@
 {
   "name": "sissi-says",
   "description": "The CMS for sissi (simple static sites)",
-  "version": "0.4.1",
+  "version": "0.5.7",
   "license": "GPL-3.0-or-later",
   "repository": "square-a/sissi-says",
   "author": "A Square",
@@ -32,7 +32,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "raf": "3.4.0",
-    "sissi-moves": "^0.6.0",
+    "sissi-moves": "^0.6.2",
     "shorthash": "^0.0.2"
   },
   "devDependencies": {

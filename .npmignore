@@ -1,12 +1,15 @@
-/src
 /api
 /config
+/lib/cms/images
+/src
 /scripts
 /public
 
-.sissi
-.sthash
+/.eslintrc
+/.sissi
+/.sthash
 /config.json
 /content.json
 /content.json.backup
+/jest.config.js
 /structure.json
