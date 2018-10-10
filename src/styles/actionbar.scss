@@ -1,4 +1,4 @@
-.action-bar {
+.actionbar {
   position: fixed;
   top: 0;
   right: 0;
@@ -14,4 +14,30 @@
   .button {
     margin-top: $gap-half;
   }
+}
+
+.actionbar__guide-button {
+  height: $button-width;
+  width: $button-width;
+  margin-top: auto;
+  padding: $gap-tiny $gap-tiny 0 $gap-tiny;
+
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    padding: 0;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.actionbar__guide-teaser {
+  position: fixed;
+  bottom: $button-width + $gap-normal;
+  right: $gap-normal;
+  width: $button-width;
 }

@@ -1,13 +1,14 @@
-.markdown-editor__wrapper {
-  margin-top: 6px;
-  background-color: $color-white;
-}
-
 .editor-toolbar {
-  padding: 4px;
-  border-radius: 0;
+  padding: $gap-tiny;
   border: none;
-  background-color: $color-grey;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+
+  background-color: $color-main-light;
+
+  .fa {
+    color: $color-main-dark;
+  }
 
   &::before,
   &::after {
@@ -16,8 +17,14 @@
 }
 
 .CodeMirror {
-  border-radius: 0;
-  border: 1px solid $color-grey;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border: 1px solid $color-main-light;
+}
+
+.CodeMirror-placeholder {
+  color: $color-field-placeholder;
+  opacity: 1;
 }
 
 .CodeMirror .CodeMirror-code {

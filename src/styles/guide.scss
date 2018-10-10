@@ -1,17 +1,3 @@
-.guide__teaser {
-  position: fixed;
-  z-index: $z-index-actionbar;
-  bottom: $button-width + $gap-normal;
-  right: $gap-normal;
-  width: $button-width;
-  color: $color-main-dark;
-}
-
-.guide__teaser-rotator {
-  display: inline-block;
-  transform: rotate(-15deg);
-}
-
 .guide__sissi {
   float: left;
   height: 160px;

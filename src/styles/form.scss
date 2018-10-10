@@ -24,6 +24,14 @@
   margin: 0 $button-width $gap-wide 0;
 }
 
+.form__element--buttons {
+  flex-direction: row;
+
+  .button {
+    margin-right: $gap-half;
+  }
+}
+
 .form__label {
   margin-bottom: $gap-tiny;
 }
@@ -88,38 +96,6 @@
   }
 }
 
-.form__element--markdown {
-  .editor-toolbar {
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-
-    background-color: $color-main-light;
-
-    .fa {
-      color: $color-main-dark;
-    }
-  }
-
-  .CodeMirror {
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-    border: 1px solid $color-main-light;
-  }
-
-  .CodeMirror-placeholder {
-    color: $color-field-placeholder;
-    opacity: 1;
-  }
-}
-
-.form__element--buttons {
-  flex-direction: row;
-
-  .button {
-    margin-right: $gap-half;
-  }
-}
-
 .form__list-item {
   margin-bottom: $gap-normal;
   padding: $gap-normal;
@@ -133,32 +109,5 @@
   :last-child,
   &:last-child {
     margin-bottom: 0;
-  }
-}
-
-.placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px dashed $color-main-light;
-
-  color: $color-field-placeholder;
-  background-color: $color-white;
-
-  text-align: center;
-
-  transition: color .1s;
-
-  &:hover {
-    color: $color-main-dark;
-    border-color: $color-main-dark;
-  }
-
-  &::before {
-    content: $icon-image;
-    font-family: 'Icon';
-    font-size: 40px;
   }
 }

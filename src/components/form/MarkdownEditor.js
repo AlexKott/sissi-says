@@ -83,9 +83,7 @@ class MarkdownEditor extends React.Component {
           <C.ImagePicker onSelectImage={this.onSelectImage} />
         </C.Modal>
       ,
-      <div key='markdown-editor' className='markdown-editor__wrapper'>
-        <textarea className='markdown-editor' {...input} />
-      </div>
+      <textarea key='markdown-editor' className='markdown-editor' {...input} />
     ]);
   }
 }
