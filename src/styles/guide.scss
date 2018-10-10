@@ -59,12 +59,12 @@
   }
 
   code {
-    background-color: $color-grey;
+    background-color: $color-main-light;
   }
 
   blockquote {
     margin-left: 0;
-    border-left: $gap-half solid $color-grey;
+    border-left: $gap-half solid $color-main-light;
     padding-left: $gap-normal;
 
     ul {

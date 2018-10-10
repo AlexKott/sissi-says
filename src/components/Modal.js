@@ -25,10 +25,10 @@ class Modal extends React.Component {
     return (
       <aside
         id={WRAPPER_ID}
-        className='popup__wrapper'
+        className='modal'
         onClick={this.onClickWrapper}
       >
-        <article className={`popup__box ${boxClasses}`}>
+        <article className={`modal__box ${boxClasses}`}>
           {children}
         </article>
       </aside>

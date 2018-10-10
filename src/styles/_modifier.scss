@@ -1,0 +1,29 @@
+.success {
+  color: $color-success;
+  border-color: $color-success;
+
+  .button {
+    color: $color-background;
+    background-color: $color-success;
+
+    &:hover {
+      border: none;
+      background-color: $color-main-dark;
+    }
+  }
+}
+
+.error {
+  color: $color-error;
+  border-color: $color-error;
+
+  .button {
+    color: $color-background;
+    background-color: $color-error;
+
+    &:hover {
+      border: none;
+      background-color: $color-main-dark;
+    }
+  }
+}
