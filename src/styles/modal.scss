@@ -24,7 +24,7 @@
   padding: $gap-normal;
   border: $gap-normal solid $color-main-dark;
   border-radius: $border-radius;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   background-color: $color-background;
 }
@@ -64,7 +64,7 @@
 
 .modal__box--type-picker {
   position: relative;
-  
+
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
