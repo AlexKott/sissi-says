@@ -39,10 +39,10 @@ const TypePicker = ({
   onCloseTypePicker,
   onSelectType,
 }) => isTypePickerOpen && (
-  <C.Modal onClose={onCloseTypePicker} boxClasses='modal__box'>
+  <C.Modal onClose={onCloseTypePicker} boxClasses='modal__box--type-picker'>
     <h2><Translate id={tr.TYPE_PICKER_TITLE} /></h2>
     {allowedTypes.map(type => (
-      <C.Button key={type.name} classes='button--nav' onClick={() => onSelectType(pageId, type.name)}>
+      <C.Button key={type.name} classes='button--cta' onClick={() => onSelectType(pageId, type.name)}>
         <p>{type.label}</p>
       </C.Button>
     ))}

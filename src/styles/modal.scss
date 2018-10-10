@@ -62,6 +62,26 @@
   }
 }
 
+.modal__box--type-picker {
+  position: relative;
+  
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+
+  padding-top: 2 * $gap-wide;
+
+  h2 {
+    position: absolute;
+    top: 0;
+  }
+
+  .button {
+    margin: $gap-half;
+  }
+}
+
 .modal__box.loading {
   border: none;
   box-shadow: 0 0 0 $gap-normal inset;
