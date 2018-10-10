@@ -18,7 +18,7 @@ export const getMaxSectionsForPage = pageId => createSelector(
     s.getStructurePages,
   ],
   ({ _type: pageType }, structurePages) => {
-    return structurePages[pageType] ? structurePages[pageType].maxItems : 0;
+    return structurePages[pageType] ? structurePages[pageType].maxItems : Infinity;
   }
 );
 
