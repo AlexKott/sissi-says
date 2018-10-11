@@ -17,7 +17,8 @@
   }
 
   .form__element {
-    width: 40%;
+    width: 25%;
+    min-width: 200px;
     margin-right: 0;
   }
 
@@ -29,4 +30,8 @@
     color: $color-main-dark;
     background-color: $color-background;
   }
+}
+
+.login__sissi {
+  height: $button-width;
 }

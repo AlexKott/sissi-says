@@ -34,7 +34,7 @@ const GuideContent = () => ([
     <p>This website manager is what’s generally called a content management system – short CMS. As such it helps you to edit, add and remove the contents of your website.</p>
     <p>The CMS needs to be connected to your website and configured by a developer (and, since you’re here, they’ve obviously done this) so there are certain things only they can help you with. But I can guide you through the general usage of this tool.</p>
     <h4 id='general-navigate'>How to navigate through the website manager? <a href='#guide-top' className='guide__to-top'>▲</a></h4>
-    <p>The first thing you see when you open the website manager is the index page. Here you can edit the global data of your website. If you ever want to get back here just find the <code>INDEX</code> button in the top right corner or close the page you are currently on.</p>
+    <p>The first thing you see when you open the website manager is the index page. Here you can edit the global data of your website. If you ever want to get back here just from elswhere in the editor just close the page you are currently on.</p>
     <p>You can open and close pages by clicking on them in the nav bar – click once: open the page, click again: close the page. The same goes for sections within the pages. Remember, though: When you close a section or page without saving first your changes will be lost!</p>
     <h4 id='general-add'>How to add pages and sections? <a href='#guide-top' className='guide__to-top'>▲</a></h4>
     <p>To add just click the <code>ADD</code> button in the corresponding nav bar – if the <code>ADD</code> button disappears you have reached the maximum page or section limit set by your developer.</p>

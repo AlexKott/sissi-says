@@ -9,6 +9,7 @@ import {
 import { Translate } from 'react-localize-redux';
 
 import * as actions from '@/actions';
+import * as C from '@/components';
 import * as tr from '@/translations';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -20,8 +21,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Login = ({ loginFields, onLogin }) => (
   <div className='login'>
+    <C.SissiSvg className='login__sissi' />
     <h1><Translate id={tr.WELCOME} /></h1>
-    <p><Translate id={tr.LOGIN_PROMPT} /></p>
     <form className='form' onSubmit={onLogin}>
       <label className='form__element'>
         <span className='form__label'>
