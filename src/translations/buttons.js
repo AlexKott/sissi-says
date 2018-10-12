@@ -3,6 +3,8 @@ export const ADD_DATA = 'translations/buttons/add_data';
 export const DELETE = 'translations/buttons/delete';
 export const LOGIN = 'translations/buttons/login';
 export const LOGOUT = 'translations/buttons/logout';
+export const MOVE_UP = 'translations/buttons/moveUp';
+export const MOVE_DOWN = 'translations/buttons/moveDown';
 export const OK = 'translations/buttons/ok';
 export const PUBLISH = 'translations/buttons/publish';
 export const SAVE = 'translations/buttons/save';
@@ -29,6 +31,14 @@ export default {
   [LOGOUT]: [
     "Logout",
     "Abmelden",
+  ],
+  [MOVE_UP]: [
+    "Move Up",
+    "Nach oben"
+  ],
+  [MOVE_DOWN]: [
+    "Move Down",
+    "Nach unten"
   ],
   [OK]: [
     "OK",

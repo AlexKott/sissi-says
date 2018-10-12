@@ -111,3 +111,17 @@
     margin-bottom: 0;
   }
 }
+
+.form__list-buttons {
+  display: flex;
+  flex-direction: row;
+
+  .button {
+    max-width: $button-width;
+    hyphens: none;
+
+    &:not(:last-child) {
+      margin-right: $gap-tiny;
+    }
+  }
+}

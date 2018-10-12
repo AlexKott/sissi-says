@@ -21,6 +21,7 @@ const mapDispatchToProps = (dispatch, { fields, name }) => ({
     dispatch(actions.deleteListItem(name, index));
     fields.remove(index);
   },
+  onMove: (from, to) => fields.move(from, to),
 });
 
 const FieldList = ({
@@ -32,6 +33,7 @@ const FieldList = ({
   listLabel,
   onAdd,
   onDelete,
+  onMove,
 }) => (
   <section className='form__element'>
     <label className='form__label'>{listLabel}</label>
@@ -41,8 +43,10 @@ const FieldList = ({
         field={field}
         fieldNames={fieldNames}
         index={index}
+        isLastItem={index === fields.length - 1}
         key={index}
         onDelete={onDelete}
+        onMove={onMove}
       />
     ))}
     {canAdd && (
@@ -62,6 +66,7 @@ FieldList.propTypes = {
   listLabel: PropTypes.string,
   onAdd: PropTypes.func,
   onDelete: PropTypes.func,
+  onMove: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FieldList);
