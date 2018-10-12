@@ -1,4 +1,7 @@
-import { getFormValues } from 'redux-form';
+import {
+  getFormNames,
+  getFormValues,
+} from 'redux-form';
 
 import {
   setAlert,
@@ -25,15 +28,20 @@ export const fetchData = dataType => {
   return action;
 }
 
-export const postContent = formName => ({
-  type: t.SEND_REQUEST,
-  payload: {
-    method: k.POST,
-    dataType: k.CONTENT,
-    formName,
-    onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_SAVE))],
-  },
-});
+export const postContent = () => (dispatch, getState, selectFormNames = getFormNames) => {
+  const allFormNames = selectFormNames()(getState()) || [];
+  const formName = allFormNames[0];
+
+  dispatch({
+    type: t.SEND_REQUEST,
+    payload: {
+      method: k.POST,
+      dataType: k.CONTENT,
+      formName,
+      onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_SAVE))],
+    },
+  });
+};
 
 export const buildPage = () => ({
   type: t.SEND_REQUEST,
