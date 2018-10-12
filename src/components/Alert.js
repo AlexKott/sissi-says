@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   ...selectors.getPropsForAlert(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onConfirm: () => dispatch(actions.clearAlerts()),
 });
 
