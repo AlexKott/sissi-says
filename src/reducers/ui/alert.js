@@ -1,6 +1,7 @@
 import * as t from '@/actions/types';
 
 const initialState = {
+  allowCancel: false,
   type: '',
   message: '',
   title: '',

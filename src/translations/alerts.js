@@ -1,3 +1,4 @@
+export const CONFIRM_DISCARD = 'translations/modal/confirmDiscard';
 export const ERROR = 'translations/modal/error';
 export const ERROR_AUTH = 'translations/modal/errorAuth';
 export const ERROR_BUILD = 'translations/modal/errorBuild';
@@ -7,11 +8,16 @@ export const ERROR_LOGIN = 'translations/modal/errorLogin';
 export const ERROR_SERVER = 'translations/modal/errorServer';
 export const LOADING = 'translations/modal/loading';
 export const LOADING_TEXT = 'translations/modal/loadingText';
+export const NEUTRAL = 'translations/modal/neutral';
 export const SUCCESS = 'translations/modal/success';
 export const SUCCESS_PUBLISH = 'translations/modal/successPublish';
 export const SUCCESS_SAVE = 'translations/modal/successSave';
 
 export default {
+  [CONFIRM_DISCARD]: [
+    "If you leave this form without saving all your changes will be discarded.",
+    "Wenn du dieses Formular verlässt, ohne zu speichern, werden deine Änderungen verworfen.",
+  ],
   [ERROR]: [
     "Error",
     "Ohje..."
@@ -47,6 +53,10 @@ export default {
   [LOADING_TEXT]: [
     "Magic is happening...",
     "Gleich ist es soweit..."
+  ],
+  [NEUTRAL]: [
+    "Please note",
+    "Achtung",
   ],
   [SUCCESS]: [
     "Success",

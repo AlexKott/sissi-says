@@ -7,9 +7,10 @@ import * as actions from './creators';
 describe('actions/ui', () => {
   describe('clearAlerts', () => {
     it('should dispatch an action with the correct type', () => {
-      const action = actions.clearAlerts();
+      const action = actions.clearAlerts(true);
 
       expect(action).toHaveProperty('type', t.CLEAR_ALERTS);
+      expect(action.payload).toHaveProperty('isConfirmed', true);
     });
   });
 

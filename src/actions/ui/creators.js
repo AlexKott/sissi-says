@@ -1,20 +1,30 @@
 import * as t from '@/actions/types';
-import { ERROR } from '@/constants';
+import * as k from '@/constants';
 import * as tr from '@/translations';
 
-export const clearAlerts = () => ({
+export const clearAlerts = (isConfirmed = false) => ({
   type: t.CLEAR_ALERTS,
+  payload: { isConfirmed },
 });
 
-export const setAlert = (type, message, trData) => ({
-  type: t.SET_ALERT,
-  payload: {
-    message,
-    title: type === ERROR ? tr.ERROR : tr.SUCCESS,
-    type,
-    trData,
-  },
-});
+export const setAlert = (type, message, trData, allowCancel) => {
+  const title = {
+    [k.ERROR]: tr.ERROR,
+    [k.SUCCESS]: tr.SUCCESS,
+    [k.NEUTRAL]: tr.NEUTRAL,
+  }[type] || tr.SUCCESS;
+
+  return {
+    type: t.SET_ALERT,
+    payload: {
+      message,
+      title,
+      type,
+      trData,
+      allowCancel,
+    },
+  };
+};
 
 export const activateLoading = () => ({
   type: t.SET_LOADING,

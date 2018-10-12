@@ -13,15 +13,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onConfirm: () => dispatch(actions.clearAlerts()),
+  onConfirm: () => dispatch(actions.clearAlerts(true)),
+  onCancel: () => dispatch(actions.clearAlerts(false)),
 });
 
 const Alert = ({
+  allowCancel,
   allowConfirm,
   message,
   title,
   trData,
   type,
+  onCancel,
   onConfirm,
 }) => !!type && (
   <aside className='modal modal--alert'>
@@ -33,16 +36,23 @@ const Alert = ({
           <Translate id={tr.OK} />
         </C.Button>
       )}
+      {allowCancel && (
+        <C.Button onClick={onCancel}>
+          <Translate id={tr.CANCEL} />
+        </C.Button>
+      )}
     </article>
   </aside>
 );
 
 Alert.propTypes = {
+  allowCancel: PropTypes.bool,
   allowConfirm: PropTypes.bool,
   message: PropTypes.string,
   title: PropTypes.string,
   trData: PropTypes.object,
   type: PropTypes.string,
+  onCancel: PropTypes.func,
   onConfirm: PropTypes.func,
 };
 
