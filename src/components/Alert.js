@@ -31,16 +31,24 @@ const Alert = ({
     <article className={`modal__box modal__box--alert ${type}`}>
       <h2 className='modal__title'><Translate id={title} /></h2>
       <p className='modal__message'><Translate id={message} data={trData} /></p>
-      {allowConfirm && (
-        <C.Button onClick={onConfirm}>
-          <Translate id={tr.OK} />
-        </C.Button>
-      )}
-      {allowCancel && (
-        <C.Button onClick={onCancel}>
-          <Translate id={tr.CANCEL} />
-        </C.Button>
-      )}
+      <div className='modal__button-row'>
+        {allowConfirm && (
+          <C.Button
+            classes={`${allowCancel ? '' : 'button--cta'} ${type}`}
+            onClick={onConfirm}
+          >
+            <Translate id={tr.OK} />
+          </C.Button>
+        )}
+        {allowCancel && (
+          <C.Button
+            classes={`button--cta ${type}`}
+            onClick={onCancel}
+          >
+            <Translate id={tr.CANCEL} />
+          </C.Button>
+        )}
+      </div>
     </article>
   </aside>
 );

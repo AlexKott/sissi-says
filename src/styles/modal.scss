@@ -36,6 +36,7 @@
   align-items: center;
 
   min-height: 30%;
+  min-width: (2 * $button-width) + (2 * $gap-wide);
   height: auto;
   width: 40%;
 
@@ -125,25 +126,19 @@
   line-height: 1.4;
 }
 
-.modal__button {
-  height: 40px;
-  width: 40%;
-  margin: 0;
-  color: $color-background;
-  background-color: $color-main-dark;
-  font-size: $font-size-normal;
-  cursor: pointer;
+.modal__button-row {
+  display: flex;
+  flex-direction: row;
 
-  &--loading {
-    display: none;
-  }
+  .button {
+    &:not(.button--cta):not(:hover) {
+      color: inherit;
+      background-color: $color-white;
+    }
 
-  &--error {
-    background-color: $color-error;
-  }
-
-  &--success {
-    background-color: $color-success;
+    &:not(:last-child) {
+      margin-right: $gap-tiny;
+    }
   }
 }
 
