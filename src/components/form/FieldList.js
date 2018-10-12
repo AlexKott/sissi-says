@@ -30,27 +30,20 @@ const FieldList = ({
   fields,
   itemLabel,
   listLabel,
-  name,
   onAdd,
   onDelete,
 }) => (
   <section className='form__element'>
     <label className='form__label'>{listLabel}</label>
-    {fields.map((f, index) => (
-      <article key={index} className='form__list-item'>
-        {fieldNames.map(fieldName =>
-          <C.FormFieldBuilder
-            key={fieldName}
-            fieldName={fieldName}
-            prefix={`${f}.`}
-          />
-        )}
-        {canDelete &&
-          <C.Button onClick={() => onDelete(index)}>
-            <Translate id={tr.DELETE} />
-          </C.Button>
-        }
-      </article>
+    {fields.map((field, index) => (
+      <C.FieldListItem
+        canDelete={canDelete}
+        field={field}
+        fieldNames={fieldNames}
+        index={index}
+        key={index}
+        onDelete={onDelete}
+      />
     ))}
     {canAdd && (
       <article className='form__list-item'>
@@ -67,7 +60,6 @@ FieldList.propTypes = {
   fields: PropTypes.object,
   itemLabel: PropTypes.string,
   listLabel: PropTypes.string,
-  name: PropTypes.string,
   onAdd: PropTypes.func,
   onDelete: PropTypes.func,
 };
