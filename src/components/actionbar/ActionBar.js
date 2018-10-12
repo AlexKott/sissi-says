@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.resetSession());
     dispatch(actions.redirectToLogin());
   },
-  onPublish: () => dispatch(actions.buildPage()),
+  onPublish: () => dispatch(actions.postContent(true)),
   onSave: () => dispatch(actions.postContent()),
 });
 

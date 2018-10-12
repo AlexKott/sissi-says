@@ -28,19 +28,26 @@ export const fetchData = dataType => {
   return action;
 }
 
-export const postContent = () => (dispatch, getState, selectFormNames = getFormNames) => {
+export const postContent = buildAfter => (dispatch, getState, selectFormNames = getFormNames) => {
   const allFormNames = selectFormNames()(getState()) || [];
   const formName = allFormNames[0];
 
-  dispatch({
+  const action = {
     type: t.SEND_REQUEST,
     payload: {
       method: k.POST,
       dataType: k.CONTENT,
       formName,
-      onSuccess: [dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_SAVE))],
+      onSuccess: [],
     },
-  });
+  };
+  if (buildAfter) {
+    action.payload.onSuccess.push(dispatch => dispatch(buildPage()));
+  } else {
+    action.payload.onSuccess.push(dispatch => dispatch(setAlert(k.SUCCESS, tr.SUCCESS_SAVE)));
+  }
+
+  dispatch(action);
 };
 
 export const buildPage = () => ({
