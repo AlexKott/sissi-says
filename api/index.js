@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
+import chalk from 'chalk';
 
 import { init } from './authService';
 import migrateContent from './migrateContent';
@@ -35,5 +36,5 @@ module.exports = async function run(args, flags = {}) {
     return;
   }
 
-  app.listen(port, () => console.log(`Visit the CMS at http://localhost:${port}`));
+  app.listen(port, () => console.log(`Visit the CMS at ${chalk.underline(`http://localhost:${port}`)}`));
 };
