@@ -34,11 +34,11 @@ export default {
   ],
   [MOVE_UP]: [
     "Move Up",
-    "Nach oben"
+    "Nach oben",
   ],
   [MOVE_DOWN]: [
     "Move Down",
-    "Nach unten"
+    "Nach unten",
   ],
   [OK]: [
     "OK",
