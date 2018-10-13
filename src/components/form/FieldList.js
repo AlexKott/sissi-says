@@ -21,6 +21,7 @@ const mapDispatchToProps = (dispatch, { fields, name }) => ({
     dispatch(actions.deleteListItem(name, index));
     fields.remove(index);
   },
+  onMove: (from, to) => fields.move(from, to),
 });
 
 const FieldList = ({
@@ -30,27 +31,23 @@ const FieldList = ({
   fields,
   itemLabel,
   listLabel,
-  name,
   onAdd,
   onDelete,
+  onMove,
 }) => (
   <section className='form__element'>
     <label className='form__label'>{listLabel}</label>
-    {fields.map((f, index) => (
-      <article key={index} className='form__list-item'>
-        {fieldNames.map(fieldName =>
-          <C.FormFieldBuilder
-            key={fieldName}
-            fieldName={fieldName}
-            prefix={`${f}.`}
-          />
-        )}
-        {canDelete &&
-          <C.Button onClick={() => onDelete(index)}>
-            <Translate id={tr.DELETE} />
-          </C.Button>
-        }
-      </article>
+    {fields.map((field, index) => (
+      <C.FieldListItem
+        canDelete={canDelete}
+        field={field}
+        fieldNames={fieldNames}
+        index={index}
+        isLastItem={index === fields.length - 1}
+        key={index}
+        onDelete={onDelete}
+        onMove={onMove}
+      />
     ))}
     {canAdd && (
       <article className='form__list-item'>
@@ -67,9 +64,9 @@ FieldList.propTypes = {
   fields: PropTypes.object,
   itemLabel: PropTypes.string,
   listLabel: PropTypes.string,
-  name: PropTypes.string,
   onAdd: PropTypes.func,
   onDelete: PropTypes.func,
+  onMove: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FieldList);
