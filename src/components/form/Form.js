@@ -9,9 +9,9 @@ import * as actions from '@/actions';
 import * as C from '@/components';
 import * as tr from '@/translations';
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   onDelete: () => dispatch(actions.deleteItem()),
-  onSave: () => dispatch(actions.postContent(ownProps.form)),
+  onSave: () => dispatch(actions.postContent()),
 });
 
 const Form = ({

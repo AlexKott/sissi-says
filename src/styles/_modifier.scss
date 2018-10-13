@@ -28,6 +28,21 @@
   }
 }
 
+.neutral {
+  color: $color-main-dark;
+  border-color: $color-main-dark;
+
+  .button {
+    color: $color-background;
+    background-color: $color-main-dark;
+
+    &:hover {
+      border: none;
+      background-color: $color-success;
+    }
+  }
+}
+
 .placeholder {
   display: flex;
   flex-direction: column;

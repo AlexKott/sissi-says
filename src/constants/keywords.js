@@ -25,6 +25,7 @@ export const TEXT = 'text';
 export const ERROR = 'error';
 export const LOADING = 'loading';
 export const SUCCESS = 'success';
+export const NEUTRAL = 'neutral';
 
 /* MODAL TYPES */
 export const GUIDE = 'guide';

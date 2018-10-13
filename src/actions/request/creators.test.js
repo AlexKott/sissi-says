@@ -13,13 +13,21 @@ describe('actions/request', () => {
   });
 
   describe('postContent', () => {
-    it('should dispatch an action with the correct type and payload', () => {
-      const action = actions.postContent('test');
+    it('should return a thunk that dispatches the correct action', () => {
+      const mockDispatch = jest.fn();
+      const mockGetState = jest.fn();
+      const mockGetFormNames = jest.fn(() => () => ['myForm']);
+      const thunk = actions.postContent();
+      thunk(mockDispatch, mockGetState, mockGetFormNames);
+
+      expect(mockDispatch.mock.calls).toHaveLength(1);
+
+      const action = mockDispatch.mock.calls[0][0]
 
       expect(action).toHaveProperty('type', t.SEND_REQUEST);
       expect(action.payload).toHaveProperty('method', 'post');
       expect(action.payload).toHaveProperty('dataType', 'content');
-      expect(action.payload).toHaveProperty('formName', 'test');
+      expect(action.payload).toHaveProperty('formName', 'myForm');
       expect(action.payload).toHaveProperty('onSuccess');
     });
   });

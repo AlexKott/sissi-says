@@ -18,17 +18,23 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.resetSession());
     dispatch(actions.redirectToLogin());
   },
-  onPublish: () => dispatch(actions.buildPage()),
+  onPublish: () => dispatch(actions.postContent(true)),
+  onSave: () => dispatch(actions.postContent()),
 });
 
 const ActionBar = ({
   isIndex,
   onLogout,
   onPublish,
+  onSave,
 }) => (
   <aside className='actionbar'>
     <C.Button classes='button--cta' onClick={onPublish} >
       <Translate id={tr.PUBLISH} />
+    </C.Button>
+
+    <C.Button onClick={onSave} >
+      <Translate id={tr.SAVE} />
     </C.Button>
 
     <C.Button onClick={onLogout}>
@@ -48,6 +54,7 @@ ActionBar.propTypes = {
   isIndex: PropTypes.bool,
   onLogout: PropTypes.func,
   onPublish: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActionBar);

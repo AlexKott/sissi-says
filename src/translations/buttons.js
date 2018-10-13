@@ -1,5 +1,6 @@
 export const ADD = 'translations/buttons/add';
 export const ADD_DATA = 'translations/buttons/add_data';
+export const CANCEL = 'translations/buttons/cancel';
 export const DELETE = 'translations/buttons/delete';
 export const LOGIN = 'translations/buttons/login';
 export const LOGOUT = 'translations/buttons/logout';
@@ -19,6 +20,10 @@ export default {
     "Add ${data}",
     "${data} hinzufügen",
     /* eslint-enable no-template-curly-in-string */
+  ],
+  [CANCEL]: [
+    "Cancel",
+    "Abbrechen",
   ],
   [DELETE]: [
     "Delete",
