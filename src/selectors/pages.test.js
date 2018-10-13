@@ -93,7 +93,7 @@ describe('selectors/pages', () => {
     });
 
     it('should return an array with all section types for single pages', () => {
-      mockState.structure.pages = undefined;
+      mockState.structure.global.maxItems = 1;
       const result = selectors.getAllowedSectionTypesForPageId('abc123')(mockState);
 
       expect(result).toHaveLength(3);

@@ -79,7 +79,10 @@ class MarkdownEditor extends React.Component {
 
     return ([
       this.state.isImagePickerActive &&
-        <C.Modal key={`image-picker-${count}`} onClose={this.onToggleImagePicker}>
+        <C.Modal
+          key={`image-picker-${count}`}
+          boxClasses='modal__box--image-picker'
+          onClose={this.onToggleImagePicker}>
           <C.ImagePicker onSelectImage={this.onSelectImage} />
         </C.Modal>
       ,

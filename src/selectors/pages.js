@@ -45,13 +45,14 @@ export const getAllowedPageTypes = createSelector(
 export const getAllowedSectionTypesForPageId = pageId => createSelector(
   [
     s.getPageById(pageId),
+    s.getMaxAmountOfPages,
     s.getStructurePages,
     s.getStructureSections,
   ],
-  ({ _type: pageType }, structurePages, structureSections) => {
+  ({ _type: pageType }, maxAmountOfPages, structurePages, structureSections) => {
     let allowedTypes;
 
-    if (structurePages) {
+    if (maxAmountOfPages > 1) {
       allowedTypes = structurePages[pageType] && structurePages[pageType].allowedItems
         ? structurePages[pageType].allowedItems
         : [k.STANDARD];
