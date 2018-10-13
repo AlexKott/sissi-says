@@ -20,23 +20,23 @@ export default {
   ],
   [ERROR]: [
     "Error",
-    "Ohje..."
+    "Ohje...",
   ],
   [ERROR_AUTH]: [
     "You have been logged out. Please login again with your username and password.",
-    "Du wurdest ausgeloggt. Bitte melde dich erneut mit Nutzername und Passwort an."
+    "Du wurdest ausgeloggt. Bitte melde dich erneut mit Nutzername und Passwort an.",
   ],
   [ERROR_BUILD]: [
     "Something went wrong while publishing your page. Please try again! If this keeps happening contact your developer",
-    "Beim Veröffentlichen der Seite ist etwas schiefgelaufen. Bitte versuch es nochmal! Falls das nicht funktioniert, kontaktiere deinen Website-Entwickler."
+    "Beim Veröffentlichen der Seite ist etwas schiefgelaufen. Bitte versuch es nochmal! Falls das nicht funktioniert, kontaktiere deinen Website-Entwickler.",
   ],
   [ERROR_IMAGE_SIZE]: [
     "The maximum file size is 500 KB. Please select a smaller image.",
-    "Die maximale Dateigröße ist 500 KB. Bitte wähle ein kleineres Bild aus"
+    "Die maximale Dateigröße ist 500 KB. Bitte wähle ein kleineres Bild aus",
   ],
   [ERROR_IMAGE_TYPE]: [
     "Sorry, this file type is not valid. Please select an image.",
-    "Dieses Format ist ungültig. Bitte wähle ein Bild aus."
+    "Dieses Format ist ungültig. Bitte wähle ein Bild aus.",
   ],
   [ERROR_LOGIN]: [
     "Sorry, the username or password you entered was not found.",
@@ -44,15 +44,15 @@ export default {
   ],
   [ERROR_SERVER]: [
     "The server is not responding. Please try to reload the page! If this keeps happening contact your developer.",
-    "Der Server ist nicht erreichbar. Bitte lade die Seite neu! Falls das nicht funktioniert, kontaktiere  deinen Website-Entwickler."
+    "Der Server ist nicht erreichbar. Bitte lade die Seite neu! Falls das nicht funktioniert, kontaktiere  deinen Website-Entwickler.",
   ],
   [LOADING]: [
     "Loading",
-    "Einen Moment"
+    "Einen Moment",
   ],
   [LOADING_TEXT]: [
     "Magic is happening...",
-    "Gleich ist es soweit..."
+    "Gleich ist es soweit...",
   ],
   [NEUTRAL]: [
     "Please note",
@@ -60,14 +60,14 @@ export default {
   ],
   [SUCCESS]: [
     "Success",
-    "Juhuu!"
+    "Juhuu!",
   ],
   [SUCCESS_PUBLISH]: [
     "All changes published!",
-    "Die neuen Inhalte sind online."
+    "Die neuen Inhalte sind online.",
   ],
   [SUCCESS_SAVE]: [
     "We saved your changes!",
-    "Alle Änderungen gespeichert."
+    "Alle Änderungen gespeichert.",
   ],
 };

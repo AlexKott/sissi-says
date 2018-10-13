@@ -8,6 +8,7 @@
 /.eslintrc
 /.sissi
 /.sthash
+/build
 /config.json
 /content.json
 /content.json.backup
